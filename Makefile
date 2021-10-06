@@ -6,9 +6,14 @@ FLAGS = -Wall -Wextra -Werror
 
 SRC = main.c \
 
-LDFLAGS=-L/Users/$(USER)/.brew/opt/readline/lib
-CPPFLAGS=-I/Users/$(USER)/.brew/opt/readline/include
+# LDFLAGS="-L/opt/homebrew/opt/readline/lib"
+# CPPFLAGS="-I/opt/homebrew/opt/readline/include"
 
+ifeq ($(MINISHELL),"YES")
+	LDFLAGS="-L/usr/local/opt/readline/lib"
+	CPPFLAGS="-I/usr/local/opt/readline/include"
+	TESTASDASD="OK"
+endif
 
 CFLAGS = -lreadline $(LDFLAGS) $(CPPFLAGS) -ltermcap
 
@@ -18,6 +23,11 @@ $(NAME): *.c
 	$(CC) $(FLAGS) -c $(SRC)
 	ar rc $(NAME) *.o
 	$(CC) $(CFLAGS) -L. -lft_minishell -o minishell
+
+dev:
+	$(CC) $(FLAGS) -c $(SRC)
+	ar rc $(NAME) *.o
+	$(CC) $(CFLAGS_DEV) -L. -lft_minishell -o minishell
 
 clean:
 	rm -f *.o
