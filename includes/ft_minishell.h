@@ -16,18 +16,6 @@
 # include <termios.h>
 # include <unistd.h>
 
-//# include <sys/file.h>
-//# include <sys/stat.h>
-//# include <sys/types.h>
-//# include <fcntl.h>
-//# include <stdio.h>
-//# include <errno.h>
-//# include <time.h>
-//# include <string.h>
-//# include <strings.h>
-//# include <readline/readline.h>
-//# include <readline/history.h>
-
 int	main(int argc, char **argv);
 
 #endif
