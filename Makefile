@@ -6,16 +6,16 @@ FLAGS = -Wall -Wextra -Werror
 
 SRC = main.c \
 
-LDFLAGS=-L/Users/$(USER)/.brew/opt/readline/lib
-CPPFLAGS=-I/Users/$(USER)/.brew/opt/readline/include
+# LDFLAGS="-L/opt/homebrew/opt/readline/lib"
+# CPPFLAGS="-I/opt/homebrew/opt/readline/include"
 
-
-LDFLAGS_DEV="-L/opt/homebrew/opt/readline/lib"
-CPPFLAGS_DEV="-I/opt/homebrew/opt/readline/include"
+ifeq ($(MINISHELL),"YES")
+	LDFLAGS="-L/usr/local/opt/readline/lib"
+	CPPFLAGS="-I/usr/local/opt/readline/include"
+	TESTASDASD="OK"
+endif
 
 CFLAGS = -lreadline $(LDFLAGS) $(CPPFLAGS) -ltermcap
-
-CFLAGS_DEV = -lreadline $(LDFLAGS_DEV) $(CPPFLAGS_DEV) -ltermcap
 
 all: $(NAME)
 
