@@ -6,7 +6,7 @@
 # include <fcntl.h>
 # include <readline/readline.h>
 # include <stdio.h>
-# include <stdlib.h>
+# include <stdlib.h>
 # include <signal.h>
 # include <stdio.h>
 # include <sys/stat.h>
