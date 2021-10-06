@@ -6,13 +6,18 @@ FLAGS = -Wall -Wextra -Werror
 
 SRC = main.c \
 
+LDFLAGS=-L/Users/$(USER)/.brew/opt/readline/lib
+CPPFLAGS=-I/Users/$(USER)/.brew/opt/readline/include
+
+
+CFLAGS = -lreadline $(LDFLAGS) $(CPPFLAGS) -ltermcap
 
 all: $(NAME)
 
 $(NAME): *.c
 	$(CC) $(FLAGS) -c $(SRC)
 	ar rc $(NAME) *.o
-	$(CC) $(FLAGS) -L. -lft_minishell -o minishell
+	$(CC) $(CFLAGS) -L. -lft_minishell -o minishell
 
 clean:
 	rm -f *.o
