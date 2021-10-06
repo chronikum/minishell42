@@ -1,6 +1,11 @@
+CC = gcc
+
 NAME = libft_minishell.a
+
 FLAGS = -Wall -Wextra -Werror
+
 SRC = main.c \
+
 
 all: $(NAME)
 
