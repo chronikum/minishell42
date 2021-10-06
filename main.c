@@ -11,7 +11,3 @@ int	main(int argc, char **argv)
 	add_history (read_line);
 	return (0);
 }
-
-//readline
-//history
-//signals
