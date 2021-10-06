@@ -4,6 +4,7 @@
 # include <curses.h>
 # include <dirent.h>
 # include <fcntl.h>
+# include <readline/history.h>
 # include <readline/readline.h>
 # include <stdio.h>
 # include <stdlib.h>
