@@ -2,13 +2,15 @@
 
 int	main(int argc, char **argv)
 {
-	char *read_line;
-
-	if (argc < 1)
+	if (argc < 1 && argv)
 		return (-1);
 	ft_setup_signals();
-	if (argv)
-		read_line = readline("Hello: ");
-	add_history (read_line);
+	signal (SIGQUIT, SIG_IGN);
+	while (1)
+	{
+		signal(SIGINT, ft_handle_sig);
+		char *readline;
+		readline = readline(">");
+	}
 	return (0);
 }
