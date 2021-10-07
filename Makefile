@@ -19,14 +19,11 @@ CFLAGS = -lreadline $(LDFLAGS) $(CPPFLAGS) -ltermcap
 all: $(NAME)
 
 $(NAME): *.c
+	make -C libft/
+	cp ./libft/libft.a ${NAME}
 	$(CC) $(FLAGS) -c $(SRC)
 	ar rc $(NAME) *.o
 	$(CC) $(CFLAGS) -L. -lft_minishell -o minishell
-
-dev:
-	$(CC) $(FLAGS) -c $(SRC)
-	ar rc $(NAME) *.o
-	$(CC) $(CFLAGS_DEV) -L. -lft_minishell -o minishell
 
 clean:
 	rm -f *.o

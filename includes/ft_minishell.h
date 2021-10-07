@@ -1,6 +1,7 @@
 #ifndef FT_MINISHELL_H
 # define FT_MINISHELL_H
 
+# include "../libft/libft.h"
 # include <curses.h>
 # include <dirent.h>
 # include <fcntl.h>
