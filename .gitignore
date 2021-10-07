@@ -3,3 +3,4 @@ minishell
 *.o
 libft_minishell.a
 .DS_Store
+libft/libft.a
