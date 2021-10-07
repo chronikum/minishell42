@@ -4,7 +4,7 @@ NAME = libft_minishell.a
 
 FLAGS = -Wall -Wextra -Werror
 
-SRC = main.c \
+SRC = main.c ./signals/ft_signals.c
 
 # LDFLAGS="-L/opt/homebrew/opt/readline/lib"
 # CPPFLAGS="-I/opt/homebrew/opt/readline/include"
@@ -12,7 +12,6 @@ SRC = main.c \
 ifeq ($(MINISHELL),"YES")
 	LDFLAGS="-L/usr/local/opt/readline/lib"
 	CPPFLAGS="-I/usr/local/opt/readline/include"
-	TESTASDASD="OK"
 endif
 
 CFLAGS = -lreadline $(LDFLAGS) $(CPPFLAGS) -ltermcap
