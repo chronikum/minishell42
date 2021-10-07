@@ -12,6 +12,5 @@ static void	ft_handle(int sig)
 int	ft_setup_signals()
 {
 	signal (SIGINT, ft_handle);
-	pause();
 	return (0);
 }

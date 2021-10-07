@@ -2,3 +2,4 @@ minishell
 .vscode/settings.json
 *.o
 libft_minishell.a
+.DS_Store
