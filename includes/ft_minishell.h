@@ -18,8 +18,6 @@
 
 
 int	main(int argc, char **argv);
-
-int		ft_setup_signals();
 void	ft_handle_sig(int sig);
 
 #endif
