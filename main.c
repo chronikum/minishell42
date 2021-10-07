@@ -1,23 +1,28 @@
 #include "./includes/ft_minishell.h"
 
-void ft_quit()
+void	sig_handler_int(int signal)
 {
-	exit(0);
+	if (signal == SIGINT)
+	{
+		printf("\n");
+		rl_on_new_line();
+		//rl_replace_line("", 1); // this needs a little love
+		rl_redisplay();
+	}
 }
 
 int	main(int argc, char **argv)
 {
-	if (argc < 1 && argv)
-		return (-1);
-	while (1)
+	while (1 && argc && argv)
 	{
-		signal(SIGINT, SIG_IGN);
-		signal(SIGQUIT, ft_quit);
-		char *read_line;
-		read_line = readline(">");
-		if (ft_strncmp(read_line, "exit", ft_strlen(read_line)) == 0)
-			exit(0);
-		add_history(read_line);
+		signal(SIGQUIT, SIG_IGN);
+		signal(SIGINT, &sig_handler_int);
+		// function read and check the input
+		char *input = readline("urgent! > ");
+		if (input == NULL)
+			ft_putstr_fd("exit\n", 1);
+		if (ft_strncmp(input, "", ft_strlen(input)))
+			add_history(input);
 	}
 	return (0);
 }
