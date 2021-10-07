@@ -9,8 +9,8 @@ int	main(int argc, char **argv)
 	while (1)
 	{
 		signal(SIGINT, ft_handle_sig);
-		char *readline;
-		readline = readline(">");
+		char *read_line;
+		read_line = readline(">");
 	}
 	return (0);
 }

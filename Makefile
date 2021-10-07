@@ -10,8 +10,8 @@ SRC = main.c ./signals/ft_signals.c ft_prompt.c
 #CPPFLAGS="-I/opt/homebrew/opt/readline/include"
 
 ifeq ($(MINISHELL),"YES")
-	LDFLAGS="-L/usr/local/opt/readline/lib"
-	CPPFLAGS="-I/usr/local/opt/readline/include"
+	LDFLAGS="-L/opt/homebrew/opt/readline/lib"
+	CPPFLAGS="-I/opt/homebrew/opt/readline/include"
 endif
 
 CFLAGS = -lreadline $(LDFLAGS) $(CPPFLAGS) -ltermcap
