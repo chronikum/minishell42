@@ -15,9 +15,8 @@ int	main(int argc, char **argv)
 		signal(SIGQUIT, ft_quit);
 		char *read_line;
 		read_line = readline(">");
-		if (ft_strncmp(read_line, "exit", ft_strlen(read_line)) > 0)
+		if (ft_strncmp(read_line, "exit", ft_strlen(read_line)) == 0)
 			exit(0);
-
 		add_history(read_line);
 	}
 	return (0);
