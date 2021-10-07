@@ -30,9 +30,11 @@ dev:
 	$(CC) $(CFLAGS_DEV) -L. -lft_minishell -o minishell
 
 clean:
+	rm -f ./libft/*.o
 	rm -f *.o
 
 fclean: clean
+	rm -f ./libft/libft.a
 	rm -f $(NAME)
 
 re: fclean $(NAME)
