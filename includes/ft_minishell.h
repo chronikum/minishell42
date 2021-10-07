@@ -16,8 +16,8 @@
 # include <termios.h>
 # include <unistd.h>
 
-int	main(int argc, char **argv);
 
-int	ft_setup_signals();
+int	main(int argc, char **argv);
+void	ft_handle_sig(int sig);
 
 #endif
