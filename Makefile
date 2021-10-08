@@ -12,7 +12,7 @@ SRC = main.c ft_prompt.c
 LDFLAGS="-L/Users/$(USER)/.brew/opt/readline/lib"
 CPPFLAGS="-I/Users/$(USER)/.brew/opt/readline/include"
 
-CFLAGS = -Wall -Wextra -Werror -lreadline $(LDFLAGS) $(CPPFLAGS) -ltermcap
+CFLAGS = -lreadline $(LDFLAGS) $(CPPFLAGS) -ltermcap -Wall -Wextra -Werror
 
 all: $(NAME)
 
@@ -29,6 +29,6 @@ clean:
 
 fclean: clean
 	rm -f ./libft/libft.a
-	rm -f $(NAME)
+	rm -f $(NAME) minishell
 
 re: fclean $(NAME)
