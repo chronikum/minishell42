@@ -21,4 +21,5 @@
 int	main(int argc, char **argv);
 void	ft_handle_sig(int sig);
 
+int		ft_pwd(void);
 #endif

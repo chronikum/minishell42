@@ -2,12 +2,14 @@
 
 int	ft_pwd(void)
 {
-	char	str[50000];
+	char	*str;
 
-	str = getwcd(str, 50000);
-	if (str == NULL)
+	str = malloc(sizeof(char) * 50000);
+	str = getcwd(str, 50000);
+	if (!str)
 		return (-1);
 	printf("%s", str);
+	free(str);
 	return (0);
 }
 

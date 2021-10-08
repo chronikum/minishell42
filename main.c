@@ -20,8 +20,17 @@ void	sig_handler_int(int signal)
 	{
 		printf("\n");
 		rl_on_new_line();
-		rl_replace_line("", 1); // this needs a little love
+		rl_replace_line("", 1);
 		rl_redisplay();
+	}
+}
+
+void	ft_check_command(char *command)
+{
+	if (ft_strncmp(command, "pwd", ft_strlen(command)) == 0)
+	{
+		ft_pwd();
+		printf("\n");
 	}
 }
 
@@ -38,7 +47,10 @@ int	main(int argc, char **argv)
 		if (cmd == NULL)
 			ft_quit();
 		if (ft_strncmp(cmd, "", ft_strlen(cmd)))
+		{
+			ft_check_command(cmd);
 			add_history(cmd);
+		}
 	}
 	return (0);
 }
