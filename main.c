@@ -1,10 +1,19 @@
 #include "./includes/ft_minishell.h"
 
+/*
+**	Quits the program
+*/
 void	ft_quit()
 {
 	exit(0);
 }
 
+/*
+**	Signal handler SIGINT
+**	Handles incoming SIGINT signal by making a new line
+**	and replacing current input on the new line with empty string.
+**	Also, redisplays when done :)
+*/
 void	sig_handler_int(int signal)
 {
 	if (signal == SIGINT)
