@@ -34,7 +34,7 @@ int	main(int argc, char **argv)
 		signal(SIGQUIT, &ft_quit);
 		signal(SIGINT, &sig_handler_int);
 		// function read and check the input
-		cmd = readline("urgent! > ");
+		cmd = readline("\033[0;31mmini\e[36mShell\033[0m $ > ");
 		if (cmd == NULL)
 			ft_quit();
 		if (ft_strncmp(cmd, "", ft_strlen(cmd)))
