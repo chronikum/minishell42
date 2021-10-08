@@ -6,7 +6,7 @@ void	sig_handler_int(int signal)
 	{
 		printf("\n");
 		rl_on_new_line();
-		//rl_replace_line("", 1); // this needs a little love
+		rl_replace_line("", 1); // this needs a little love
 		rl_redisplay();
 	}
 }

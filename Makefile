@@ -2,8 +2,6 @@ CC = gcc
 
 NAME = libft_minishell.a
 
-FLAGS = -Wall -Wextra -Werror
-
 SRC = main.c ft_prompt.c
 
 #LDFLAGS="-L/opt/homebrew/opt/readline/lib"
@@ -11,10 +9,10 @@ SRC = main.c ft_prompt.c
 
 #LDFLAGS="-L$(HOME)/.brew/opt/readline/lib"
 #CPPFLAGS="-I$(HOME)/.brew/opt/readline/include"
-LDFLAGS="-L/opt/homebrew/opt/readline/lib"
-CPPFLAGS="-I/opt/homebrew/opt/readline/include"
+LDFLAGS="-L/Users/$(USER)/.brew/opt/readline/lib"
+CPPFLAGS="-I/Users/$(USER)/.brew/opt/readline/include"
 
-CFLAGS = -lreadline $(LDFLAGS) $(CPPFLAGS) -ltermcap
+CFLAGS = -Wall -Wextra -Werror -lreadline $(LDFLAGS) $(CPPFLAGS) -ltermcap
 
 all: $(NAME)
 
