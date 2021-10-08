@@ -4,11 +4,20 @@ NAME = libft_minishell.a
 
 SRC = main.c ft_prompt.c
 
+FLAGS = -Wall -Wextra -Werror
 
-LDFLAGS="-L/Users/$(USER)/.brew/opt/readline/lib"
-CPPFLAGS="-I/Users/$(USER)/.brew/opt/readline/include"
+# from home
+ifeq ($(USER), jonathanfritz)
+	LDFLAGS="-L/opt/homebrew/opt/readline/lib"
+	CPPFLAGS="-I/opt/homebrew/opt/readline/include"
+else ifeq ($(USER), cassini)
+	LDFLAGS="-L/opt/homebrew/opt/readline/lib"
+	CPPFLAGS="-I/opt/homebrew/opt/readline/include"
+else # from cluster imacs
+	LDFLAGS="-L/Users/$(USER)/.brew/opt/readline/lib"
+	CPPFLAGS="-I/Users/$(USER)/.brew/opt/readline/include"
+endif
 
-#FLAGS = -Wall -Wextra -Werror
 CFLAGS = -g -lreadline $(LDFLAGS) $(CPPFLAGS) -ltermcap -Wall -Wextra -Werror
 
 all: $(NAME)
