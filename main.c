@@ -1,5 +1,10 @@
 #include "./includes/ft_minishell.h"
 
+void	ft_quit()
+{
+	exit(0);
+}
+
 void	sig_handler_int(int signal)
 {
 	if (signal == SIGINT)
@@ -13,16 +18,18 @@ void	sig_handler_int(int signal)
 
 int	main(int argc, char **argv)
 {
+	char *cmd;
+
 	while (1 && argc && argv)
 	{
-		signal(SIGQUIT, SIG_IGN);
+		signal(SIGQUIT, &ft_quit);
 		signal(SIGINT, &sig_handler_int);
 		// function read and check the input
-		char *input = readline("urgent! > ");
-		if (input == NULL)
-			ft_putstr_fd("exit\n", 1);
-		if (ft_strncmp(input, "", ft_strlen(input)))
-			add_history(input);
+		cmd = readline("urgent! > ");
+		if (cmd == NULL)
+			ft_quit();
+		if (ft_strncmp(cmd, "", ft_strlen(cmd)))
+			add_history(cmd);
 	}
 	return (0);
 }
