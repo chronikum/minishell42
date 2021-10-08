@@ -12,7 +12,7 @@ SRC = main.c ft_prompt.c
 LDFLAGS="-L/Users/$(USER)/.brew/opt/readline/lib"
 CPPFLAGS="-I/Users/$(USER)/.brew/opt/readline/include"
 
-CFLAGS = -lreadline $(LDFLAGS) $(CPPFLAGS) -ltermcap -Wall -Wextra -Werror
+CFLAGS = -g -lreadline $(LDFLAGS) $(CPPFLAGS) -ltermcap -Wall -Wextra -Werror
 
 all: $(NAME)
 
