@@ -32,6 +32,10 @@ void	ft_check_command(char *command)
 		ft_pwd();
 		printf("\n");
 	}
+	if (ft_strncmp(command, "exit", ft_strlen(command)) == 0)
+		exit(0);
+	if (ft_strncmp(command, "env", ft_strlen(command)) == 0)
+		ft_env();
 }
 
 int	main(int argc, char **argv)

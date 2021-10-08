@@ -2,7 +2,7 @@ CC = gcc
 
 NAME = libft_minishell.a
 
-SRC = main.c ft_prompt.c ./builtins/ft_pwd.c
+SRC = main.c ft_prompt.c ./builtins/ft_pwd.c ./builtins/ft_env.c
 
 FLAGS = -Wall -Wextra -Werror
 
