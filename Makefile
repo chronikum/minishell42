@@ -2,13 +2,11 @@ CC = gcc
 
 NAME = libft_minishell.a
 
-SRC = main.c ft_prompt.c ./builtins/ft_pwd.c ./builtins/ft_env.c
+SRC = main.c ft_prompt.c
+
+BUILTINS = ./builtins/ft_pwd.c ./builtins/ft_env.c ./builtins/ft_echo.c
 
 FLAGS = -Wall -Wextra -Werror
-
-# Sometimes it is also this lol...
-# LDFLAGS="-L/usr/local/opt/readline/lib"
-# CPPFLAGS="-I/usr/local/opt/readline/include"
 
 # from home
 ifeq ($(USER), jonathanfritz)
@@ -34,7 +32,7 @@ all: $(NAME)
 $(NAME): *.c
 	make -C libft/
 	cp ./libft/libft.a ${NAME}
-	$(CC) $(FLAGS) -c $(SRC)
+	$(CC) $(FLAGS) -c $(SRC) $(BUILTINS)
 	ar rc $(NAME) *.o
 	$(CC) $(CFLAGS) -L. -lft_minishell -o minishell
 
