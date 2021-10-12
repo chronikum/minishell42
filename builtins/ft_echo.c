@@ -6,9 +6,14 @@
  * no quotes at all
  * TODO: Check forbidden signs like double exclamation mark
  * TODO: Actual checking for quotes
+ * TODO: Check for args being nested in quotes
+ * First check checks for quotes at end and beginnging
+ * 
  */
 int	ft_check_quotes(char *text_to_echo)
 {
+	if ((text_to_echo[0] == '"') && (text_to_echo[ft_strlen(text_to_echo) - 1] == '"'))
+		return (1);
 	if (!ft_strchr(text_to_echo, '"'))
 		return (1);
 	return (0);
@@ -34,6 +39,6 @@ int	ft_echo(char *cmd, int n)
 		return (1);
 	}
 	else
-		ft_putstr_fd("Parsing error", 2);
+		ft_putstr_fd("Error\n", 2);
 	return (0);
 }
