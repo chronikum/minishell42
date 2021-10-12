@@ -6,6 +6,10 @@ SRC = main.c ft_prompt.c ./builtins/ft_pwd.c ./builtins/ft_env.c
 
 FLAGS = -Wall -Wextra -Werror
 
+# Sometimes it is also this lol...
+# LDFLAGS="-L/usr/local/opt/readline/lib"
+# CPPFLAGS="-I/usr/local/opt/readline/include"
+
 # from home
 ifeq ($(USER), jonathanfritz)
 	LDFLAGS="-L/opt/homebrew/opt/readline/lib"
@@ -16,6 +20,11 @@ else ifeq ($(USER), cassini)
 else # from cluster imacs
 	LDFLAGS="-L/Users/$(USER)/.brew/opt/readline/lib"
 	CPPFLAGS="-I/Users/$(USER)/.brew/opt/readline/include"
+endif
+
+ifeq ($(jfritzmacbookpro), YES)
+	LDFLAGS="-L/usr/local/opt/readline/lib"
+	CPPFLAGS="-I/usr/local/opt/readline/include"
 endif
 
 CFLAGS = -g -lreadline $(LDFLAGS) $(CPPFLAGS) -ltermcap -Wall -Wextra -Werror
