@@ -1,20 +1,35 @@
 #include "../includes/ft_minishell.h"
 
 /**
+ * Counts how many unescaped quotes are in a character sequence
+ */
+int	ft_count_quotes(char *characters)
+{
+	int counter;
+	int counted_characters;
+	
+	counter = 0;
+	counted_characters = 0;
+	while (characters[counter])
+	{
+		if (characters[counter] == '"' && characters[counter - 1] != '\\')
+			counted_characters++;
+		counter++;
+	}
+	return (counted_characters);
+}
+
+/**
  * Returns one if was successful.
  * Checks for escaping quotes and quotes at and or beginning or
  * no quotes at all
  * TODO: Check forbidden signs like double exclamation mark
- * TODO: Actual checking for quotes
- * TODO: Check for args being nested in quotes
- * First check checks for quotes at end and beginnging
+ * TODO: Clean the text_to_echo up so no unescaped quotes remain in output
  * 
  */
 int	ft_check_quotes(char *text_to_echo)
 {
-	if ((text_to_echo[0] == '"') && (text_to_echo[ft_strlen(text_to_echo) - 1] == '"'))
-		return (1);
-	if (!ft_strchr(text_to_echo, '"'))
+	if (ft_count_quotes(text_to_echo) % 2 == 0)
 		return (1);
 	return (0);
 }
