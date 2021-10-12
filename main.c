@@ -36,6 +36,8 @@ void	ft_check_command(char *command)
 		exit(0);
 	if (ft_strncmp(command, "env", ft_strlen(command)) == 0)
 		ft_env();
+	if (ft_strncmp(command, "echo ", ft_strlen("echo ")) == 0)
+		ft_echo(command, 0);
 }
 
 int	main(int argc, char **argv)
