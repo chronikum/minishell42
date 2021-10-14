@@ -1,6 +1,27 @@
 #include "../includes/ft_minishell.h"
 
 /**
+ * Will "echo" the string out but will remove quotes without esacping sequence (\)
+ */
+int	ft_echo_string(char *string, int n)
+{
+	int i;
+	
+	i = 0;
+	while (string[i])
+	{
+		if (string[i] != '"')
+			ft_putchar_fd(string[i], 1);
+		else if (string[i] == '"' && string[i - 1] == '\\')
+			ft_putchar_fd(string[i], 1);
+		i++;
+	}
+	if (n)
+		ft_putchar_fd('\n', 1);
+	return (1);
+}
+
+/**
  * Counts how many unescaped quotes are in a character sequence
  */
 int	ft_count_quotes(char *characters)
@@ -45,15 +66,18 @@ int	ft_echo(char *cmd, int n)
 	command_split = ft_substr(cmd, 5, ft_strlen(cmd) - 5);
 	if (ft_check_quotes(command_split) && !n)
 	{
-		ft_putendl_fd(command_split, 1);
+		ft_echo_string(command_split, 1);
+		free(command_split);
 		return (1);
 	}
 	else if (ft_check_quotes(command_split) && n)
 	{
-		ft_putstr_fd(command_split, 1);
+		ft_echo_string(command_split, 0);
+		free(command_split);
 		return (1);
 	}
 	else
 		ft_putstr_fd("Error\n", 2);
+	free(command_split);
 	return (0);
 }
