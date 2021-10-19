@@ -28,10 +28,7 @@ void	sig_handler_int(int signal)
 void	ft_check_command(char *command)
 {
 	if (ft_strncmp(command, "pwd", ft_strlen(command)) == 0)
-	{
 		ft_pwd();
-		printf("\n");
-	}
 	if (ft_strncmp(command, "exit", ft_strlen(command)) == 0)
 		exit(0);
 	if (ft_strncmp(command, "env", ft_strlen(command)) == 0)
