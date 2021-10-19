@@ -8,7 +8,7 @@ int	ft_pwd(void)
 	str = getcwd(str, 4096);
 	if (!str)
 		return (-1);
-	printf("%s", str);
+	printf("%s\n", str);
 	free(str);
 	return (0);
 }
