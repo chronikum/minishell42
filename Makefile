@@ -4,7 +4,8 @@ NAME = libft_minishell.a
 
 SRC = main.c ft_prompt.c
 
-BUILTINS = ./builtins/ft_pwd.c ./builtins/ft_env.c ./builtins/ft_echo.c
+BUILTINS = ./parsing/ft_split_machine.c \
+	./builtins/ft_pwd.c ./builtins/ft_env.c ./builtins/ft_echo.c
 
 FLAGS = -Wall -Wextra -Werror
 

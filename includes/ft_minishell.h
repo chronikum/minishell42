@@ -21,6 +21,7 @@
 int	main(int argc, char **argv);
 void	ft_handle_sig(int sig);
 
+char ***ft_split_machine(char *str, char dlmtr);
 
 int	ft_pwd(void);
 int	ft_env(void);
