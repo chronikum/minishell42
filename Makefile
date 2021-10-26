@@ -6,6 +6,8 @@ SRC = main.c
 
 BUILTINS = ./builtins/ft_pwd.c ./builtins/ft_env.c ./builtins/ft_echo.c
 
+ENV = ./envlist/ft_init_env_list.c ./envlist/ft_env_list.c
+
 FLAGS = -Wall -Wextra -Werror
 
 # from home
@@ -32,7 +34,7 @@ all: $(NAME)
 $(NAME): *.c
 	make -C libft/
 	cp ./libft/libft.a ${NAME}
-	$(CC) $(FLAGS) -c $(SRC) $(BUILTINS)
+	$(CC) $(FLAGS) -c $(SRC) $(BUILTINS) $(ENV)
 	ar rc $(NAME) *.o
 	$(CC) $(CFLAGS) -L. -lft_minishell -o minishell
 

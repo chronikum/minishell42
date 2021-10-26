@@ -17,13 +17,23 @@
 # include <termios.h>
 # include <unistd.h>
 
+typedef struct s_envlist 
+{
+	char 	*full_line;
+	char	*var_name;
+	char	*value;	
+	struct s_envlist *next; 
+} t_envlist;
 
-int	main(int argc, char **argv);
-void	ft_handle_sig(int sig);
+int			main(int argc, char **argv, char **envp);
+void		ft_handle_sig(int sig);
 
-char ***ft_split_machine(char *str, char dlmtr);
+char		***ft_split_machine(char *str, char dlmtr);
 
-int	ft_pwd(void);
-int	ft_env(void);
-int	ft_echo(char *cmd, int n);
+int			ft_pwd(void);
+int			ft_env(void);
+int			ft_echo(char *cmd, int n);
+
+t_envlist	*ft_env_list(t_envlist *env_list);
+t_envlist	*ft_create_env_list(char **envp);
 #endif

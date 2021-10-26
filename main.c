@@ -37,11 +37,12 @@ void	ft_check_command(char *command)
 		ft_echo(command, 0);
 }
 
-int	main(int argc, char **argv)
+int	main(int argc, char **argv, char **envp)
 {
 	char *cmd;
 
-	while (1 && argc && argv)
+	ft_create_env_list(envp);
+	while (1 && argc && argv && envp)
 	{
 		signal(SIGQUIT, &ft_quit);
 		signal(SIGINT, &sig_handler_int);
