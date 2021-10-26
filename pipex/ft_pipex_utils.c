@@ -74,16 +74,9 @@ void	command_not_found(char **argv, char CP)
 	}
 }
 
-void	ft_custom_free(char **str1, char **str2, char SD)
+void	ft_double_dub(t_pipes *p)
 {
-	if (SD == 'S')
-	{
-		ft_single_free(str1);
-		ft_single_free(str2);
-	}
-	if (SD == 'D')
-	{
-		ft_double_free(str1);
-		ft_double_free(str2);
-	}
+	close(p->pipe[1]);
+	dup2(p->temp_fd, 0);
+	dup2(p->out, 1);
 }

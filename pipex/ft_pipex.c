@@ -1,12 +1,5 @@
 //#include "../includes/ft_minishell.h"
 
-//void	ft_double_dub(t_pipes *p)
-//{
-//	close(p->pipe[1]);
-//	dup2(p->temp_fd, 0);
-//	dup2(p->out, 1);
-//}
-
 //void	ft_open_out(t_pipes *p, /*PATH TO OUTFILE*/)
 //{
 //	p->out = open(/*PATH TO OUTFILE*/,
