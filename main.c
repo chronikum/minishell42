@@ -27,11 +27,11 @@ void	sig_handler_int(int signal)
 
 void	ft_check_command(char *command)
 {
-	if (ft_strncmp(command, "pwd", ft_strlen(command)) == 0)
+	if (ft_strncmp(command, "pwd", ft_strlen("pwd")) == 0)
 		ft_pwd();
-	if (ft_strncmp(command, "exit", ft_strlen(command)) == 0)
+	if (ft_strncmp(command, "exit", ft_strlen("exit")) == 0)
 		exit(0);
-	if (ft_strncmp(command, "env", ft_strlen(command)) == 0)
+	if (ft_strncmp(command, "env", ft_strlen("env")) == 0)
 		ft_env();
 	if (ft_strncmp(command, "echo ", ft_strlen("echo ")) == 0)
 		ft_echo(command, 0);
