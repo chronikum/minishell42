@@ -8,6 +8,8 @@ BUILTINS = ./builtins/ft_pwd.c ./builtins/ft_env.c ./builtins/ft_echo.c
 
 ENV = ./envlist/ft_init_env_list.c ./envlist/ft_env_list.c ./path_helpers/ft_check_paths.c
 
+PIPEX = ./pipex/ft_pipex.c ./pipex/ft_pipex_utils.c
+
 HELPERS = ./free_functions/ft_free_functions.c
 
 FLAGS = -Wall -Wextra -Werror
@@ -36,7 +38,7 @@ all: $(NAME)
 $(NAME): *.c
 	make -C libft/
 	cp ./libft/libft.a ${NAME}
-	$(CC) $(FLAGS) -c $(SRC) $(BUILTINS) $(ENV) $(HELPERS)
+	$(CC) $(FLAGS) -c $(SRC) $(BUILTINS) $(ENV) $(HELPERS) $(PIPEX)
 	ar rc $(NAME) *.o
 	$(CC) $(CFLAGS) -L. -lft_minishell -o minishell
 
