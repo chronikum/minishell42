@@ -66,4 +66,5 @@ t_envlist	*ft_create_env_list(char **envp);
 int			ft_check_command(char *exec);
 
 void		ft_double_free(char	**string);
+void		ft_single_free(char **string);
 #endif

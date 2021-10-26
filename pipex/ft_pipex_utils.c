@@ -36,7 +36,7 @@ char	**path_finder(char **envp)
 	char	**paths;
 
 	i = 0;
-	while (envp[i] != '\0')
+	while (envp[i] != NULL)
 	{
 		if (envp[i][0] == 'P' && envp[i][1] == 'A'
 			&& envp[i][2] == 'T' && envp[i][3] == 'H')
