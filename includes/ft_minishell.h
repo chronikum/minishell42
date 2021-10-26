@@ -36,4 +36,8 @@ int			ft_echo(char *cmd, int n);
 
 t_envlist	*ft_env_list(t_envlist *env_list);
 t_envlist	*ft_create_env_list(char **envp);
+
+int			ft_check_command(char *exec);
+
+void		ft_double_free(char	**string);
 #endif

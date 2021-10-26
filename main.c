@@ -25,16 +25,18 @@ void	sig_handler_int(int signal)
 	}
 }
 
-void	ft_check_command(char *command)
+void	ft_execute_command(char *command)
 {
 	if (ft_strncmp(command, "pwd", ft_strlen("pwd")) == 0)
 		ft_pwd();
-	if (ft_strncmp(command, "exit", ft_strlen("exit")) == 0)
+	else if (ft_strncmp(command, "exit", ft_strlen("exit")) == 0)
 		exit(0);
-	if (ft_strncmp(command, "env", ft_strlen("env")) == 0)
+	else if (ft_strncmp(command, "env", ft_strlen("env")) == 0)
 		ft_env();
-	if (ft_strncmp(command, "echo ", ft_strlen("echo ")) == 0)
+	else if (ft_strncmp(command, "echo ", ft_strlen("echo ")) == 0)
 		ft_echo(command, 0);
+	else
+		ft_check_command(command);
 }
 
 int	main(int argc, char **argv, char **envp)
@@ -52,7 +54,7 @@ int	main(int argc, char **argv, char **envp)
 			ft_quit();
 		if (ft_strncmp(cmd, "", ft_strlen(cmd)))
 		{
-			ft_check_command(cmd);
+			ft_execute_command(cmd);
 			add_history(cmd);
 		}
 	}
