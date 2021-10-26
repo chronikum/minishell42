@@ -57,6 +57,7 @@ int	main(int argc, char **argv, char **envp)
 			ft_execute_command(cmd);
 			add_history(cmd);
 		}
+		// split commands by | < > $
 	}
 	return (0);
 }
