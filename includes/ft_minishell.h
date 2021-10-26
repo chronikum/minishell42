@@ -25,6 +25,32 @@ typedef struct s_envlist
 	struct s_envlist *next; 
 } t_envlist;
 
+
+//pipex
+typedef struct s_pipes
+{
+	int		stin;
+	int		stout;
+
+	int		in;
+	int		out;
+	int		cmnd_count;
+	int		argc_process;
+
+	int		pipe[2];
+	int		temp_fd;
+}			t_pipes;
+
+typedef struct s_child
+{
+	int		i;
+	char	*full_path;
+	char	*temp;
+	char	**cmnd;
+	char	**paths;
+}			t_child;
+
+
 int			main(int argc, char **argv, char **envp);
 void		ft_handle_sig(int sig);
 
