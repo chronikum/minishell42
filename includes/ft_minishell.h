@@ -66,16 +66,16 @@ char 		*ft_join_path(char *path, char *executable);
 
 //pipex
 int			execution(int argc, char **argv, char **envp);
-void		cutlery(t_pipes *p, char **argv, char **envp)
-void		cutlery_close(t_pipes *p, t_parent *prnt)
-int			child(t_pipes *p, char **argv, char **envp)
-void		ft_open_out(t_pipes *p, /*PATH TO OUTFILE*/)
-void		ft_double_dub(t_pipes *p)
+void		cutlery(t_pipes *p, char **argv, char **envp);
+void		cutlery_close(t_pipes *p, t_parent *prnt);
+int			child(t_pipes *p, char **argv, char **envp);
+//void		ft_open_out(t_pipes *p, /*PATH TO OUTFILE*/);
+void		ft_double_dub(t_pipes *p);
 
-void		command_not_found(char **argv, char CP)
-int			ft_array_len(char **argv)
-char		**path_finder(char **envp)
-int			check_file(char *filename, char RW)
+void		command_not_found(char **argv, char CP);
+int			ft_array_len(char **argv);
+char		**path_finder(char **envp);
+int			check_file(char *filename, char RW);
 
 //buildins
 int			ft_pwd(void);
