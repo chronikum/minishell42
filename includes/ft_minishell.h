@@ -25,12 +25,12 @@
 # define BUILT 6
 # define SYS 7
 
-typedef struct s_envlist 
+typedef struct s_envlist
 {
 	char 	*full_line;
 	char	*var_name;
-	char	*value;	
-	struct s_envlist *next; 
+	char	*value;
+	struct s_envlist *next;
 } t_envlist;
 
 typedef struct s_command
@@ -48,7 +48,7 @@ typedef struct s_command
 /*
 
 	-> char **ft_split_no_quotes() TODO
-	
+
 	void ft_parser(cmd)
 	{
 		struct t_command *command_info;
@@ -114,7 +114,7 @@ void		ft_double_dub(t_pipes *p);
 
 void		command_not_found(char **argv, char CP);
 int			ft_array_len(char **argv);
-char		**path_finder(char **envp);x
+char		**path_finder(char **envp);
 int			check_file(char *filename, char RW);
 
 //buildins
