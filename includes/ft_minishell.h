@@ -30,11 +30,14 @@
 */
 typedef struct s_envlist
 {
+	char	**envp;
 	char 	*full_line;
 	char	*var_name;
 	char	*value;
 	struct s_envlist *next;
 } t_envlist;
+
+// todo: add length of linked list
 
 typedef struct s_command
 {
@@ -109,14 +112,14 @@ int			ft_check_command(char *exec);
 char 		*ft_join_path(char *path, char *executable);
 
 //pipex
-int			execution(int argc, char **argv, char **envp);
-void		cutlery(t_pipes *p, char **argv, char **envp);
-// void		cutlery_close(t_pipes *p);
-int			child(t_pipes *p, char **argv, char **envp);
+int			execution(int argc, t_command argv, t_envlist envp);
+void		cutlery(t_pipes *p, t_command argv, t_envlist envp);
+void		cutlery_close(t_pipes *p);
+int			child(t_pipes *p, t_command argv, t_envlist envp);
 //void		ft_open_out(t_pipes *p, /*PATH TO OUTFILE*/);
-void		ft_double_dub(t_pipes *p);
+void		cutlery_dup(t_pipes *p);
 
-void		command_not_found(char **argv, char CP);
+void		command_not_found(t_command argv, char CP);
 int			ft_array_len(char **argv);
 char		**path_finder(char **envp);
 int			check_file(char *filename, char RW);

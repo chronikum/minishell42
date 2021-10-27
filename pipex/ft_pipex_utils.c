@@ -60,17 +60,17 @@ int	ft_array_len(char **argv)
 	return (i);
 }
 
-void	command_not_found(char **argv, char CP)
+void	command_not_found(t_command argv, char CP)
 {
 	if (CP == 'C')
 	{
 		ft_putstr_fd("command not found: ", 2);
-		ft_putendl_fd(argv[2], 2);
+		ft_putendl_fd(argv.args[2], 2);
 	}
 	if (CP == 'P')
 	{
 		ft_putstr_fd("command not found: ", 2);
-		ft_putendl_fd(argv[3], 2);
+		ft_putendl_fd(argv.args[3], 2);
 	}
 }
 
