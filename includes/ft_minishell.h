@@ -25,17 +25,6 @@ typedef struct s_envlist
 	struct s_envlist *next; 
 } t_envlist;
 
-typedef struct s_command
-{
-	char				*command;
-	char				*original_string;
-	char				*file;
-	char				*args;
-	int					flag;
-	int					op;
-	struct s_command	*next;
-}	t_command;
-
 //pipex
 typedef struct s_pipes
 {
@@ -44,6 +33,7 @@ typedef struct s_pipes
 
 	int		in;
 	int		out;
+
 	int		cmnd_count;
 	int		argc_process;
 
@@ -78,7 +68,7 @@ char 		*ft_join_path(char *path, char *executable);
 //pipex
 int			execution(int argc, char **argv, char **envp);
 void		cutlery(t_pipes *p, char **argv, char **envp);
-// void		cutlery_close(t_pipes *p, t_parent *prnt);
+void		cutlery_close(t_pipes *p);
 int			child(t_pipes *p, char **argv, char **envp);
 //void		ft_open_out(t_pipes *p, /*PATH TO OUTFILE*/);
 void		ft_double_dub(t_pipes *p);
