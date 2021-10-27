@@ -95,6 +95,7 @@ void		ft_handle_sig(int sig);
 
 //parsing
 char		***ft_split_machine(char *str, char dlmtr);
+t_command	*ft_parser(char *cmd);
 
 //envlist
 t_envlist	*ft_env_list(t_envlist *env_list);
@@ -121,6 +122,7 @@ int			check_file(char *filename, char RW);
 int			ft_pwd(void);
 int			ft_env(void);
 int			ft_echo(char *cmd, int n);
+t_command	*ft_parser(char *cmd);
 
 //free_functions
 void		ft_custom_free(char **str1, char **str2, char SD);

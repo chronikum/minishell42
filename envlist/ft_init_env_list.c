@@ -26,12 +26,14 @@ t_envlist *ft_new_list(char *f, char *n, char *c)
 t_envlist	*ft_create_env_list(char **envp)
 {
 	t_envlist *env_list;
+	t_envlist *start;
 	size_t i;
 	char *command;
 	char **command_split;
 
 	i = 0;
 	env_list = malloc(sizeof(t_envlist));
+	start = env_list;
 	while (ft_get_env_count(envp) > i)
 	{
 		command = envp[i];
@@ -40,11 +42,12 @@ t_envlist	*ft_create_env_list(char **envp)
 			env_list = ft_new_list(command, command_split[0], command_split[1]);
 		else
 		{
+			printf("%s\n", env_list->full_line);
 			env_list->next = ft_new_list(command, command_split[0], command_split[1]);
 			env_list = env_list->next;
 		}
 		free(command_split);
 		i++;
 	}
-	return (env_list);
+	return (start);
 }

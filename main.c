@@ -25,25 +25,30 @@ void	sig_handler_int(int signal)
 	}
 }
 
-void	ft_execute_command(char *command)
+/*
+	Runs if the command is a builtin one.
+	Returns one for builtin commands
+*/
+int	ft_run_builtin(char *command)
 {
 	if (ft_strncmp(command, "pwd", ft_strlen("pwd")) == 0)
-		ft_pwd();
+		return (ft_pwd());
 	else if (ft_strncmp(command, "exit", ft_strlen("exit")) == 0)
 		exit(0);
 	else if (ft_strncmp(command, "env", ft_strlen("env")) == 0)
-		ft_env();
+		return (ft_env());
 	else if (ft_strncmp(command, "echo ", ft_strlen("echo ")) == 0)
-		ft_echo(command, 0);
+		return (ft_echo(command, 0));
 	else
 		ft_check_command(command);
+	return (0);
 }
 
 int	main(int argc, char **argv, char **envp)
 {
 	char *cmd;
 
-	ft_create_env_list(envp);
+	ft_env_list(ft_create_env_list(envp));
 	while (1 && argc && argv && envp)
 	{
 		signal(SIGQUIT, &ft_quit);
@@ -54,7 +59,7 @@ int	main(int argc, char **argv, char **envp)
 			ft_quit();
 		if (ft_strncmp(cmd, "", ft_strlen(cmd)))
 		{
-			ft_execute_command(cmd);
+			ft_run_builtin(cmd);
 			add_history(cmd);
 		}
 		// split commands by | < > $

@@ -12,6 +12,8 @@ PIPEX = ./pipex/ft_pipex.c ./pipex/ft_pipex_utils.c
 
 HELPERS = ./free_functions/ft_free_functions.c
 
+PARSING = ./parsing/ft_parsing.c
+
 FLAGS = -Wall -Wextra -Werror
 
 # from home
@@ -38,7 +40,7 @@ all: $(NAME)
 $(NAME): *.c
 	make -C libft/
 	cp ./libft/libft.a ${NAME}
-	$(CC) $(FLAGS) -c $(SRC) $(BUILTINS) $(ENV) $(HELPERS) $(PIPEX)
+	$(CC) $(FLAGS) -c $(SRC) $(BUILTINS) $(ENV) $(HELPERS) $(PIPEX) $(PARSING)
 	ar rc $(NAME) *.o
 	$(CC) $(CFLAGS) -L. -lft_minishell -o minishell
 

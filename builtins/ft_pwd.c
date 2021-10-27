@@ -10,6 +10,6 @@ int	ft_pwd(void)
 		return (-1);
 	printf("%s\n", str);
 	free(str);
-	return (0);
+	return (1);
 }
 
