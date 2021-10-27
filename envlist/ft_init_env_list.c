@@ -10,13 +10,14 @@ size_t ft_get_env_count(char **envp)
 	return (i);
 }
 
-t_envlist *ft_new_list(char *f, char *n, char *c)
+t_envlist *ft_new_list(char *f, char *n, char *c, char **envp)
 {
 	t_envlist *new;
 	new = malloc(sizeof(t_envlist));
 	new->full_line = f;
 	new->var_name = n;
 	new->value = c;
+	new->envp = envp;
 	return (new);
 }
 
@@ -38,12 +39,12 @@ t_envlist	*ft_create_env_list(char **envp)
 		command_split = ft_split(envp[i], '=');
 		if (!env_list)
 		{
-			env_list = ft_new_list(command, command_split[0], command_split[1]);
+			env_list = ft_new_list(command, command_split[0], command_split[1], envp);
 			start = env_list;
 		}
 		else
 		{
-			env_list->next = ft_new_list(command, command_split[0], command_split[1]);
+			env_list->next = ft_new_list(command, command_split[0], command_split[1], envp);
 			env_list = env_list->next;
 		}
 		free(command_split);
