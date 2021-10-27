@@ -15,7 +15,6 @@
 int	child(t_pipes *p, t_command argv, t_envlist envp)
 {
 	t_child	var;
-
 	dup2(p->temp_fd, 0);
 	close(p->pipe[0]);
 	//if last command && outfile exists --> write into outfile
@@ -26,9 +25,11 @@ int	child(t_pipes *p, t_command argv, t_envlist envp)
 	//if last command && outfile not exists --> write to stdout
 	// dup2(stout, 1);
 	//else:
-	dup2(p->pipe[1], 1);
+
+	//dup2(p->pipe[1], 1); // random advice helps sometimes
 	//var.cmnd = ft_split(/*full cmnd name in list structname->fullpath */, ' ');
 	var.cmnd = argv.args;
+	var.paths = envp.envp;
 	var.paths = path_finder(envp.envp);
 	var.i = ft_array_len(var.paths);
 	while (var.i >= 0)

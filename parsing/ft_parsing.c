@@ -23,8 +23,8 @@ t_command	*ft_parser(char *cmd)
 		command_struct->command = main_command;
 		command_struct->args = command_parts;
 		printf("%s\n", ft_find_executable_path(main_command));
-		execve(ft_find_executable_path(main_command), command_parts, NULL);
 		execution(1, (*command_struct), (*ft_env_list(NULL)));
+		ft_arg_printer(command_struct->args);
 	}
 
 

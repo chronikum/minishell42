@@ -10,11 +10,11 @@ ENV = ./envlist/ft_init_env_list.c ./envlist/ft_env_list.c ./path_helpers/ft_che
 
 PIPEX = ./pipex/ft_pipex.c ./pipex/ft_pipex_utils.c
 
-HELPERS = ./free_functions/ft_free_functions.c
+HELPERS = ./free_functions/ft_free_functions.c ./arg_printer.c
 
 PARSING = ./parsing/ft_parsing.c
 
-FLAGS = -Wall -Wextra -Werror
+FLAGS = -Wall -Wextra -Werror -g
 
 # from home
 ifeq ($(USER), jonathanfritz)

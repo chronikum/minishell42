@@ -124,6 +124,7 @@ int			ft_array_len(char **argv);
 char		**path_finder(char **envp);
 int			check_file(char *filename, char RW);
 char		*ft_find_executable_path(char *exec);
+void		ft_arg_printer(char **args);
 
 //buildins
 int			ft_pwd(void);
