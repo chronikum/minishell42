@@ -39,3 +39,17 @@ void	ft_triple_free(char	***string)
 	free(string);
 	string = 0;
 }
+
+void	ft_custom_free(char **str1, char **str2, char SD)
+{
+	if (SD == 'S')
+	{
+		ft_single_free(str1);
+		ft_single_free(str2);
+	}
+	if (SD == 'D')
+	{
+		ft_double_free(str1);
+		ft_double_free(str2);
+	}
+}
