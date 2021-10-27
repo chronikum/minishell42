@@ -25,6 +25,9 @@
 # define BUILT 6
 # define SYS 7
 
+/*
+	Environment list
+*/
 typedef struct s_envlist
 {
 	char 	*full_line;
@@ -117,6 +120,7 @@ void		command_not_found(char **argv, char CP);
 int			ft_array_len(char **argv);
 char		**path_finder(char **envp);
 int			check_file(char *filename, char RW);
+char		*ft_find_executable_path(char *exec);
 
 //buildins
 int			ft_pwd(void);

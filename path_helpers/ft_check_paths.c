@@ -10,9 +10,34 @@ char *ft_join_path(char *path, char *executable)
 
 	pathwithslash = ft_strjoin(path, "/");
 	pathwithslashandexecutable = ft_strjoin(pathwithslash, executable);
-	
+
 	free(pathwithslash);
 	return (pathwithslashandexecutable);
+}
+
+/*
+	Gets the executable path
+*/
+char *ft_find_executable_path(char *exec)
+{
+	char	**paths;
+	int		i;
+	char	*temp_path;
+
+	i = 0;
+	paths = ft_split(getenv("PATH"), ':');
+
+	while (paths[i])
+	{
+		temp_path = ft_join_path(paths[i], exec);
+		if (access(temp_path, F_OK) != -1)
+		{
+			ft_double_free(paths);
+			return (temp_path);
+		}
+		i++;
+	}
+	return (NULL);
 }
 
 /*
@@ -34,13 +59,12 @@ int	ft_check_command(char *exec)
 		{
 			free(temp_path);
 			ft_double_free(paths);
-			printf("FOUND COMMAND %s!\n", exec);
 			return (1);
 		}
 		i++;
 	}
 	free(temp_path);
 	ft_double_free(paths);
-	printf("Command not found: %s", exec);
+	printf("urgent: command not found: %s\n", exec);
 	return (-1);
 }

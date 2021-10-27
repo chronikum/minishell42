@@ -40,7 +40,7 @@ int	ft_run_builtin(char *command)
 	else if (ft_strncmp(command, "echo ", ft_strlen("echo ")) == 0)
 		return (ft_echo(command, 0));
 	else
-		ft_check_command(command);
+		ft_parser(command);
 	return (0);
 }
 
