@@ -17,6 +17,14 @@
 # include <termios.h>
 # include <unistd.h>
 
+# define PIPE 1 // |
+# define OUT 2 // >
+# define IN 3 // <
+# define LEFT 4 // <<
+# define RIGHT 5 // >>
+# define BUILT 6
+# define SYS 7
+
 typedef struct s_envlist 
 {
 	char 	*full_line;
@@ -30,12 +38,33 @@ typedef struct s_command
 	char				*command;
 	char				*original_string;
 	char				*file;
-	char				*args;
+	char				**args;
 	int					flag;
 	int					op;
 	struct s_command	*next;
 }	t_command;
 
+
+/*
+
+	-> char **ft_split_no_quotes() TODO
+	
+	void ft_parser(cmd)
+	{
+		struct t_command *command_info;
+		if (cmd)
+		{
+
+			char **command_parts = 	ft_split_no_quotes(cmd);
+			char *command = command_parts[0];
+			command_info->command = command_parts[0];
+			command_info->original_string = cmd;
+			command_info->arg = command_parts;
+			add_to_command_history();
+		}
+	}
+
+*/
 //pipex
 typedef struct s_pipes
 {
@@ -78,14 +107,14 @@ char 		*ft_join_path(char *path, char *executable);
 //pipex
 int			execution(int argc, char **argv, char **envp);
 void		cutlery(t_pipes *p, char **argv, char **envp);
-// void		cutlery_close(t_pipes *p, t_parent *prnt);
+// void		cutlery_close(t_pipes *p);
 int			child(t_pipes *p, char **argv, char **envp);
 //void		ft_open_out(t_pipes *p, /*PATH TO OUTFILE*/);
 void		ft_double_dub(t_pipes *p);
 
 void		command_not_found(char **argv, char CP);
 int			ft_array_len(char **argv);
-char		**path_finder(char **envp);
+char		**path_finder(char **envp);x
 int			check_file(char *filename, char RW);
 
 //buildins
