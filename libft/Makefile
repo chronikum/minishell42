@@ -6,7 +6,7 @@
 #    By: jfritz <jfritz@student.42heilbronn.de>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/06/26 12:05:10 by olgerret          #+#    #+#              #
-#    Updated: 2021/10/08 08:40:59 by jfritz           ###   ########.fr        #
+#    Updated: 2021/10/28 08:42:07 by jfritz           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -29,7 +29,7 @@ BNS = ft_lstnew.c ft_lstadd_front.c ft_lstsize.c ft_lstlast.c ft_lstadd_back.c f
 all: $(NAME)
 
 $(NAME): *.c
-	$(CC) $(FLAGS) -c $(SRC)
+	$(CC) $(FLAGS) -c $(SRC) $(BNS)
 	ar rc $(NAME) *.o
 
 bonus:

@@ -102,6 +102,7 @@ void		ft_handle_sig(int sig);
 //parsing
 char		***ft_split_machine(char *str, char dlmtr);
 t_command	*ft_parser(char *cmd);
+char		**ft_split_quote(char *s, char c);
 
 //envlist
 t_envlist	*ft_env_list(t_envlist *env_list);

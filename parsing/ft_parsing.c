@@ -16,7 +16,7 @@ t_command	*ft_parser(char *cmd)
 	t_command *command_struct;
 
 	command_struct = malloc(sizeof(t_command));
-	command_parts = ft_split(cmd, ' '); // Todo only split if not surrounded by quotes
+	command_parts = ft_split_quote(cmd, ' '); // Todo only split if not surrounded by quotes
 	main_command = command_parts[0];
 	if (ft_check_command(main_command) == 1) // check if command even exists
 	{
@@ -29,7 +29,6 @@ t_command	*ft_parser(char *cmd)
 		if (pid == 0)
 			execution(1, (*command_struct), (*ft_env_list(NULL)));
 	}
-
-
+	free(command_parts);
 	return (command_struct);
 }
