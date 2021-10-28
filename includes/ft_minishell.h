@@ -24,6 +24,7 @@
 # define RIGHT 5 // >>
 # define BUILT 6
 # define SYS 7
+# define STDOUT 8 // last command in chain
 
 /*
 	Environment list
@@ -50,6 +51,20 @@ typedef struct s_command
 	struct s_command	*next;
 }	t_command;
 
+//cat hello.txt | grep -e "test asdf asdf"
+
+//first linked list
+//command = cat
+//args = (cat) (hello.txt)
+//file = fd descriptor for hello.txt
+//flag = 1
+//next -> linked list two
+
+//linked list two
+// command = grep
+// args = grep (-e) ("test asdf asdf")
+// flag = 8
+// next -> null
 
 /*
 
