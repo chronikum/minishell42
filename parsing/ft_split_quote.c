@@ -27,7 +27,7 @@ static int    word_counter(char const *s, char c)
 			while (s[i] != c && s[i])
 			{
 				i++;
-				if (s[i] == '\0')
+				if (!s[i])
 					return (++words);
 			}
 			words++;
