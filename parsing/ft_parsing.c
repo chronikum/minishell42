@@ -17,17 +17,21 @@ t_command	*ft_parser(char *cmd)
 
 	command_struct = malloc(sizeof(t_command));
 	command_parts = ft_split_quote(cmd, ' '); // Todo only split if not surrounded by quotes
+	if (!command_parts)
+		return (NULL);
 	main_command = command_parts[0];
 	if (ft_check_command(main_command) == 1) // check if command even exists
 	{
 		command_struct->command = main_command;
 		command_struct->args = command_parts;
-		printf("%s\n", ft_find_executable_path(main_command));
 		pid_t pid = fork();
 		if (pid == -1)
 			exit (0);
 		if (pid == 0)
+		{
+			printf("\n");
 			execution(1, (*command_struct), (*ft_env_list(NULL)));
+		}
 	}
 	free(command_parts);
 	return (command_struct);
