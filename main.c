@@ -48,6 +48,8 @@ int	main(int argc, char **argv, char **envp)
 {
 	char *cmd;
 
+	printf("yes\n");
+
 	ft_env_list(ft_create_env_list(envp));
 	while (1 && argc && argv && envp)
 	{

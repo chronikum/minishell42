@@ -6,7 +6,9 @@ SRC = main.c
 
 BUILTINS = ./builtins/ft_pwd.c ./builtins/ft_env.c ./builtins/ft_echo.c
 
-ENV = ./envlist/ft_init_env_list.c ./envlist/ft_env_list.c ./path_helpers/ft_check_paths.c
+ENV = ./envlist/ft_init_env_list.c ./envlist/ft_env_list.c
+
+PATHS = ./path_helpers/ft_check_paths.c ./path_helpers/ft_check_file_exists.c
 
 PIPEX = ./pipex/ft_pipex.c ./pipex/ft_pipex_utils.c
 
@@ -40,7 +42,7 @@ all: $(NAME)
 $(NAME): *.c
 	make -C libft/
 	cp ./libft/libft.a ${NAME}
-	$(CC) $(FLAGS) -c $(SRC) $(BUILTINS) $(ENV) $(HELPERS) $(PIPEX) $(PARSING)
+	$(CC) $(FLAGS) -c $(SRC) $(BUILTINS) $(ENV) $(HELPERS) $(PIPEX) $(PATHS) $(PARSING)
 	ar rc $(NAME) *.o
 	$(CC) $(CFLAGS) -L. -lft_minishell -o minishell
 

@@ -16,7 +16,6 @@ static char	*ft_get_next_word(char *s, char c, int r)
 	static unsigned int	i = 0; // current iterator
 	static unsigned int	saved = 0;
 
-	//
 	if (r)
 		ft_reset_static_vars(&i, &saved);
 

@@ -19,8 +19,8 @@
 # define PIPE 1 // |
 # define OUT 2 // >
 # define IN 3 // <
-# define LEFT 4 // <<
-# define RIGHT 5 // >>
+# define LEFT 4 // << here doc
+# define RIGHT 5 // >> append
 # define BUILT 6
 # define SYS 7
 # define STDOUT 8 // last command in chain
@@ -43,10 +43,10 @@ typedef struct s_command
 {
 	char				*command; // okeoke
 	char				*original_string; // okeoke
-	char				*file;
+	char				*file; // the path to the file
 	char				**args; // okeoke
 	int					flag;
-	int					op;
+	int					op; // ? later
 	struct s_command	*next;
 }	t_command;
 
@@ -126,6 +126,7 @@ t_envlist	*ft_create_env_list(char **envp);
 //path_helpers
 int			ft_check_command(char *exec);
 char 		*ft_join_path(char *path, char *executable);
+int			ft_check_file_exists(char *file);
 
 //pipex
 int			execution(int argc, t_command argv, t_envlist envp);
