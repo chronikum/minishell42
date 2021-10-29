@@ -12,7 +12,7 @@ PIPEX = ./pipex/ft_pipex.c ./pipex/ft_pipex_utils.c
 
 HELPERS = ./free_functions/ft_free_functions.c ./arg_printer.c
 
-PARSING = ./parsing/ft_parsing.c ./parsing/ft_split_quote.c
+PARSING = ./parsing/ft_parsing.c ./parsing/ft_split_quote.c ./parsing/ft_command_size.c
 
 FLAGS = -Wall -Wextra -Werror -g
 

@@ -4,3 +4,8 @@ minishell
 libft_minishell.a
 .DS_Store
 libft/libft.a
+a.out.dSYM/Contents/Resources/DWARF/a.out
+.gitignore
+a.out
+a.out.dSYM/Contents/Info.plist
+.gitignore

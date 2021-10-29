@@ -30,7 +30,7 @@ t_command	*ft_parser(char *cmd)
 		if (pid == 0)
 		{
 			printf("\n");
-			execution(1, (*command_struct), (*ft_env_list(NULL)));
+			execution(ft_command_size(command_struct), (*command_struct), (*ft_env_list(NULL)));
 		}
 	}
 	free(command_parts);

@@ -1,5 +1,7 @@
 #include "../includes/ft_minishell.h"
 
+// Observation: Often goes wrong if a word is a single character
+
 static int    word_counter(char const *s, char c)
 {
 	int    i;
@@ -8,6 +10,8 @@ static int    word_counter(char const *s, char c)
 
 	saw_quote = 0;
 	i = 0;
+
+	printf("%lu\n", ft_strlen(s));
 	while (s[i] == c && s[i])
 		i++;
 	words = 0;
@@ -21,7 +25,9 @@ static int    word_counter(char const *s, char c)
 			saw_quote = 1;
 			words++;
 		}
-		i++;
+		if (s[i] == '"')
+			i++;
+		//i++;
 		if (s[i] != c && s[i])
 		{
 			while (s[i] != c && s[i])
