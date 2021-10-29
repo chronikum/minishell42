@@ -26,6 +26,11 @@ static char	*ft_get_next_word(char *s, char c, int r)
 	//	i++;
 	while (s[i])
 	{
+		while (saved != 0 && (s[i] == c || s[i] == ' '))
+		{
+			saved++;
+			i++;
+		}
 		if (s[i] == '"' && s[i]) // join in when starting character is a quote
 		{
 			i++;
