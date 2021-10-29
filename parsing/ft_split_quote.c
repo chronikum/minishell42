@@ -1,10 +1,10 @@
 #include "../includes/ft_minishell.h"
 
-//void	ft_reset_static_vars(unsigned int *i, unsigned int *saved)
-//{
-//	(*saved) = 0;
-//	(*i) = 0;
-//}
+void	ft_reset_static_vars(unsigned int *i, unsigned int *saved)
+{
+	(*saved) = 0;
+	(*i) = 0;
+}
 
 /*
 	Returns the word when the function finds a seperator character, a end of char pointer or
@@ -12,30 +12,27 @@
 */
 static char	*ft_get_next_word(char *s, char c, int r)
 {
-	static unsigned int	i = 0;
+	// runtime variables
+	static unsigned int	i = 0; // current iterator
 	static unsigned int	saved = 0;
 
+	//
 	if (r)
-	{
-		i = 0;
-		saved = 0;
-	}
+		ft_reset_static_vars(&i, &saved);
 
-	i += saved;
-	saved = 0;
-	while (s[i] == c && s[i])
-		i++;
+	saved = i;
+	printf("BEING CALLED!\n");
+	//while ((s[i] == c || s[i] == '"') && s[i])
+	//	i++;
 	while (s[i])
 	{
-		if (s[i] == '"' && s[i])
+		if (s[i] == '"' && s[i]) // join in when starting character is a quote
 		{
 			i++;
 			while (s[i] != '"' && s[i])
 				i++;
-			return (ft_substr(s, saved, (i - saved)));
+			return (ft_substr(s, saved, (i - saved - 1)));
 		}
-		if (s[i] == '"')
-			i++;
 		if (s[i] != c && s[i])
 		{
 			while (s[i] != c && s[i])
@@ -44,6 +41,8 @@ static char	*ft_get_next_word(char *s, char c, int r)
 				if (!s[i])
 					return (ft_substr(s, saved, (i - saved)));
 			}
+			if (s[i] == c)
+				return (ft_substr(s, saved, (i - saved)));
 		}
 		i++;
 	}
