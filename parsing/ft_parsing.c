@@ -20,28 +20,18 @@ t_command	*ft_parser(char *cmd)
 	if (!command_parts)
 		return (NULL);
 	main_command = command_parts[0];
-	//if (ft_check_command(main_command) == 1 || ft_check_file_exists(main_command)) // check if command even exists
-	//{
-	//	command_struct->command = main_command;
-	//	command_struct->args = command_parts;
-	//	pid_t pid = fork();
-	//	if (pid == -1)
-	//		exit (0);
-	//	if (pid == 0)
-	//	{
-	//		printf("\n");
-	//		execution(ft_command_size(command_struct), (*command_struct), (*ft_env_list(NULL)));
-	//	}
-	//}
-	command_struct->command = main_command;
-	command_struct->args = command_parts;
-	pid_t pid = fork();
-	if (pid == -1)
-		exit (0);
-	if (pid == 0)
+	if (ft_check_command(main_command) == 1) // check if command even exists
 	{
-		printf("\n");
-		execution(ft_command_size(command_struct), (*command_struct), (*ft_env_list(NULL)));
+		command_struct->command = ft_find_executable_path(main_command);
+		command_struct->args = command_parts;
+		pid_t pid = fork();
+		if (pid == -1)
+			exit (0);
+		if (pid == 0)
+		{
+			printf("\n");
+			execution(ft_command_size(command_struct), (*command_struct), (*ft_env_list(NULL)));
+		}
 	}
 	free(command_parts);
 	return (command_struct);
