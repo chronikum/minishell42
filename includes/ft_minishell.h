@@ -41,10 +41,10 @@ typedef struct s_envlist
 
 typedef struct s_command
 {
-	char				*command;
-	char				*original_string;
+	char				*command; // okeoke
+	char				*original_string; // okeoke
 	char				*file;
-	char				**args;
+	char				**args; // okeoke
 	int					flag;
 	int					op;
 	struct s_command	*next;

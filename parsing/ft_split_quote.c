@@ -21,12 +21,14 @@ static char	*ft_get_next_word(char *s, char c, int r)
 		ft_reset_static_vars(&i, &saved);
 
 	saved = i;
-	printf("BEING CALLED!\n");
-	//while ((s[i] == c || s[i] == '"') && s[i])
-	//	i++;
+	while ((s[i] == c && s[i] && saved == 0))
+	{
+		i++;
+		saved++;
+	}
 	while (s[i])
 	{
-		while (saved != 0 && (s[i] == c || s[i] == ' '))
+		while (saved != 0 && (s[i] == c || s[i] == '"'))
 		{
 			saved++;
 			i++;
@@ -43,10 +45,12 @@ static char	*ft_get_next_word(char *s, char c, int r)
 			while (s[i] != c && s[i])
 			{
 				i++;
+				if (s[i] == '"')
+					return (ft_substr(s, saved, (i - saved)));
 				if (!s[i])
 					return (ft_substr(s, saved, (i - saved)));
 			}
-			if (s[i] == c)
+			if (s[i] == c || !s[i])
 				return (ft_substr(s, saved, (i - saved)));
 		}
 		i++;
