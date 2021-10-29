@@ -91,19 +91,21 @@ char	**ft_split_quote(char *s, char c)
 	char	**result;
 	char	*current;
 	int		i;
+	int		wc;
 
 	i = 0;
 	current = NULL;
-	result = malloc(sizeof(char *) * word_counter(s, c));
-	printf("GOIGN \n");
+	wc = word_counter(s, c);
+	result = malloc(sizeof(char *) * (wc + 1));
+	printf("GOIGN %d\n", wc);
 	while (current || i == 0)
 	{
 		if (!current)
 			current = ft_get_next_word(s, c, 1);
 		result[i] = current;
+		printf("CURRENT: %s\n", current);
 		current = ft_get_next_word(s, c, 0);
 		i++;
-		printf("CURRENT: %s\n", current);
 		//if (!current)
 		//	exit(0);
 	}
