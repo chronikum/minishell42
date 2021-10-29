@@ -1,17 +1,61 @@
 #include "../includes/ft_minishell.h"
 
-// Observation: Often goes wrong if a word is a single character
+//void	ft_reset_static_vars(unsigned int *i, unsigned int *saved)
+//{
+//	(*saved) = 0;
+//	(*i) = 0;
+//}
 
-static int    word_counter(char const *s, char c)
+/*
+	Returns the word when the function finds a seperator character, a end of char pointer or
+	a closing quote. The static variables need to be set to 0 after every iteration.
+*/
+static char	*ft_get_next_word(char *s, char c, int r)
 {
-	int    i;
-	int    words;
-	int saw_quote;
+	static unsigned int	i = 0;
+	static unsigned int	saved = 0;
 
-	saw_quote = 0;
+	if (r)
+	{
+		i = 0;
+		saved = 0;
+	}
+
+	i += saved;
+	saved = 0;
+	while (s[i] == c && s[i])
+		i++;
+	while (s[i])
+	{
+		if (s[i] == '"' && s[i])
+		{
+			i++;
+			while (s[i] != '"' && s[i])
+				i++;
+			return (ft_substr(s, saved, (i - saved)));
+		}
+		if (s[i] == '"')
+			i++;
+		if (s[i] != c && s[i])
+		{
+			while (s[i] != c && s[i])
+			{
+				i++;
+				if (!s[i])
+					return (ft_substr(s, saved, (i - saved)));
+			}
+		}
+		i++;
+	}
+	return (NULL);
+}
+
+static int	word_counter(char const *s, char c)
+{
+	int	i;
+	int	words;
+
 	i = 0;
-
-	printf("%lu\n", ft_strlen(s));
 	while (s[i] == c && s[i])
 		i++;
 	words = 0;
@@ -22,12 +66,10 @@ static int    word_counter(char const *s, char c)
 			i++;
 			while (s[i] != '"' && s[i])
 				i++;
-			saw_quote = 1;
 			words++;
 		}
 		if (s[i] == '"')
 			i++;
-		//i++;
 		if (s[i] != c && s[i])
 		{
 			while (s[i] != c && s[i])
@@ -46,9 +88,26 @@ static int    word_counter(char const *s, char c)
 
 char	**ft_split_quote(char *s, char c)
 {
-	if (s && c)
+	char	**result;
+	char	*current;
+	int		i;
+
+	i = 0;
+	current = NULL;
+	result = malloc(sizeof(char *) * word_counter(s, c));
+	printf("GOIGN \n");
+	while (current || i == 0)
 	{
-		printf("COUNT: %d\n", word_counter(s, c));
+		if (!current)
+			current = ft_get_next_word(s, c, 1);
+		result[i] = current;
+		current = ft_get_next_word(s, c, 0);
+		i++;
+		printf("CURRENT: %s\n", current);
+		//if (!current)
+		//	exit(0);
 	}
-	return (NULL);
+	//ft_arg_printer(result);
+	result[i] = NULL;
+	return (result);
 }
