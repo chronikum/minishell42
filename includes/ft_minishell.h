@@ -23,7 +23,7 @@
 # define RIGHT 5 // >> append
 # define BUILT 6
 # define SYS 7
-# define STDOUT 8 // last command in chain
+# define STDOUT -1 // last command in chain
 
 /*
 	Environment list
@@ -115,7 +115,7 @@ void		ft_handle_sig(int sig);
 
 //parsing
 char			***ft_split_machine(char *str, char dlmtr);
-t_command		*ft_parser(char *cmd);
+t_command		*ft_parser(char *cmd, int flag);
 int				ft_command_size(t_command *lst);
 char			**ft_split_quote(char *s, char c);
 t_command		*ft_parse_in_commands(char *cmds);
@@ -148,7 +148,6 @@ void		ft_arg_printer(char **args);
 int			ft_pwd(void);
 int			ft_env(void);
 int			ft_echo(char *cmd, int n);
-t_command	*ft_parser(char *cmd);
 
 //free_functions
 void		ft_custom_free(char **str1, char **str2, char SD);

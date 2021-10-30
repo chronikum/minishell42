@@ -3,8 +3,10 @@
 /*
 	Parses a single segment of a command into a linked list
 	and returns the parsed linked list
+	The flag is the type of redirection which should be set.
+	Those are also defined in the header file
 */
-t_command	*ft_parser(char *cmd)
+t_command	*ft_parser(char *cmd, int flag)
 {
 	char **command_parts;
 	char *main_command;
@@ -17,6 +19,7 @@ t_command	*ft_parser(char *cmd)
 	main_command = command_parts[0];
 	command_struct->command = ft_find_executable_path(main_command);
 	command_struct->args = command_parts;
+	command_struct->flag = flag;
 	free(command_parts);
 	return (command_struct);
 }
@@ -27,6 +30,9 @@ t_command	*ft_parser(char *cmd)
 	out of it.
 	
 	Returns the beginning of the command list.
+	
+	TODO: Actually send the right flag to ft_parser, currently we are only sending the
+	index which is not quite correct!
 */
 t_command		*ft_parse_in_commands(char *cmds)
 {
@@ -41,16 +47,18 @@ t_command		*ft_parse_in_commands(char *cmds)
 	{
 		if (ft_single_inset(cmds[i], "|><") != -1)
 		{
+			while (ft_single_inset(cmds[i], "|><") != -1)
+				i++;
 			if (!first)
-				first = ft_parser(ft_substr(cmds, start, (i - start)));
+				first = ft_parser(ft_substr(cmds, start, (i - start)), ft_single_inset(cmds[i - 1], "|><"));
 			else
-				ft_commandaddback(&first, ft_parser(ft_substr(cmds, start, (i - start))));
+				ft_commandaddback(&first, ft_parser(ft_substr(cmds, start, (i - start)), ft_single_inset(cmds[i - 1], "|><")));
 			start = i;
 		}
 		i++;
 	}
 	if (!first)
-		first = ft_parser(cmds);
+		first = ft_parser(cmds, -1);
 	
 	return (first);
 }
