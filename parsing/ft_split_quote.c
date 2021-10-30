@@ -29,8 +29,8 @@ static char	*ft_get_next_word(char *s, char c, int r)
 	if (r)
 		ft_reset_static_vars(&i, &saved);
 
-	saved = i;
 	ft_skip_operators(&i, s);
+	saved = i;
 	while ((s[i] == c && s[i] && saved == 0))
 	{
 		i++;
@@ -50,7 +50,7 @@ static char	*ft_get_next_word(char *s, char c, int r)
 			i++;
 			while (s[i] != '"' && s[i])
 				i++;
-			ft_skip_operators(&i, s);
+			ft_skip_operators(&saved, s);
 			return (ft_substr(s, saved, (i - saved - 1)));
 		}
 		ft_skip_operators(&i, s);
@@ -59,13 +59,13 @@ static char	*ft_get_next_word(char *s, char c, int r)
 			while (s[i] != c && s[i])
 			{
 				i++;
-				ft_skip_operators(&i, s);
+				ft_skip_operators(&saved, s);
 				if (s[i] == '"')
 					return (ft_substr(s, saved, (i - saved)));
 				if (!s[i])
 					return (ft_substr(s, saved, (i - saved)));
 			}
-			ft_skip_operators(&i, s);
+			ft_skip_operators(&saved, s);
 			if (s[i] == c || !s[i])
 				return (ft_substr(s, saved, (i - saved)));
 		}
