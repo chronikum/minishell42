@@ -1,14 +1,5 @@
 #include "../includes/ft_minishell.h"
 
-int	ft_check_is_flag(char *p_flag)
-{
-	if (p_flag[0] == '-')
-		return (1);
-	if (p_flag[0] == '-' && p_flag[1] == '-')
-		return (1);
-	return (0);
-}
-
 /*
 	Parses a single segment of a command into a linked list
 	and returns the parsed linked list
