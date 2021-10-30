@@ -39,15 +39,25 @@ endif
 
 CFLAGS = -g -lreadline $(LDFLAGS) $(CPPFLAGS) -ltermcap -Wall -Wextra -Werror
 
+ALLSRC = $(SRC) $(BUILTINS) $(ENV) $(HELPERS) $(PIPEX) $(COMMANDLIST) $(PATHS) $(PARSING)
+
+
 all: $(NAME)
 
 $(NAME): *.c
 	make -C libft/
 	cp ./libft/libft.a ${NAME}
-	$(CC) $(FLAGS) -c $(SRC) $(BUILTINS) $(ENV) $(HELPERS) $(PIPEX) $(COMMANDLIST) $(PATHS) $(PARSING)
+	$(CC) $(FLAGS) -D DEBUG=0 -c $(ALLSRC)
 	ar rc $(NAME) *.o
 	$(CC) $(CFLAGS) -L. -lft_minishell -o minishell
 
+debug: *.c
+	make -C libft/
+	cp ./libft/libft.a ${NAME}
+	$(CC) $(FLAGS) -D DEBUG=1 -c $(ALLSRC)
+	ar rc $(NAME) *.o
+	$(CC) $(CFLAGS) -L. -lft_minishell -o minishell
+	
 clean:
 	rm -f ./libft/*.o
 	rm -f *.o

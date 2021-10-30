@@ -121,13 +121,18 @@ char	**ft_split_quote(char *s, char c)
 	current = NULL;
 	wc = word_counter(s, c);
 	result = malloc(sizeof(char *) * (wc + 1));
-	printf("GOIGN %d\n", wc);
+	if (DEBUG)
+	{
+		printf("----- SECTION -----\n");
+		printf("ARGUMENTS: %d\n", wc);
+	}
 	while (current || i == 0)
 	{
 		if (!current)
 			current = ft_get_next_word(s, c, 1);
 		result[i] = current;
-		printf("CURRENT: %s\n", current);
+		if (DEBUG)
+			printf("ARG: %s\n", current);
 		current = ft_get_next_word(s, c, 0);
 		i++;
 		//if (!current)
