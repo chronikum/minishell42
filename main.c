@@ -25,6 +25,13 @@ void	sig_handler_int(int signal)
 	}
 }
 
+void	ft_get_command_list(char *command)
+{
+	t_command *list;
+	
+	list = ft_parse_in_commands(command);
+}
+
 /*
 	Runs if the command is a builtin one.
 	Returns one for builtin commands
@@ -40,7 +47,7 @@ int	ft_run_builtin(char *command)
 	else if (ft_strncmp(command, "echo ", ft_strlen("echo ")) == 0)
 		return (ft_echo(command, 0));
 	else
-		ft_parser(command);
+		ft_get_command_list(command);
 	return (0);
 }
 

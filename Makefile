@@ -18,6 +18,8 @@ PARSING = ./parsing/ft_parsing.c ./parsing/ft_split_quote.c ./parsing/ft_command
 
 FLAGS = -Wall -Wextra -Werror -g
 
+COMMANDLIST = ./parsing/ft_newcommand.c ./parsing/ft_commandaddback.c
+
 # from home
 ifeq ($(USER), jonathanfritz)
 	LDFLAGS="-L/opt/homebrew/opt/readline/lib"
@@ -42,7 +44,7 @@ all: $(NAME)
 $(NAME): *.c
 	make -C libft/
 	cp ./libft/libft.a ${NAME}
-	$(CC) $(FLAGS) -c $(SRC) $(BUILTINS) $(ENV) $(HELPERS) $(PIPEX) $(PATHS) $(PARSING)
+	$(CC) $(FLAGS) -c $(SRC) $(BUILTINS) $(ENV) $(HELPERS) $(PIPEX) $(COMMANDLIST) $(PATHS) $(PARSING)
 	ar rc $(NAME) *.o
 	$(CC) $(CFLAGS) -L. -lft_minishell -o minishell
 
