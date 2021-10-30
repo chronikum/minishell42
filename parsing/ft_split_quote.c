@@ -74,17 +74,19 @@ static char	*ft_get_next_word(char *s, char c, int r)
 	return (NULL);
 }
 
-static int	word_counter(char const *s, char c)
+static int	word_counter(char *s, char c)
 {
-	int	i;
+	unsigned int	i;
 	int	words;
 
 	i = 0;
 	while (s[i] == c && s[i])
 		i++;
 	words = 0;
+	ft_skip_operators(&i, s);
 	while (s[i])
 	{
+		ft_skip_operators(&i, s);
 		if (s[i] == '"' && s[i])
 		{
 			i++;
@@ -96,6 +98,7 @@ static int	word_counter(char const *s, char c)
 			i++;
 		if (s[i] != c && s[i])
 		{
+			ft_skip_operators(&i, s);
 			while (s[i] != c && s[i])
 			{
 				i++;
