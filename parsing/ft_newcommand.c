@@ -12,6 +12,6 @@ t_command	*ft_newcommand(char *command)
 	if (result == 0)
 		return (0);
 	result->command = command;
-	result->next = 0;
+	result->next = NULL;
 	return (result);
 }

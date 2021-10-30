@@ -13,6 +13,7 @@ t_command	*ft_parser(char *cmd, int flag)
 	t_command *command_struct;
 
 	command_struct = malloc(sizeof(t_command));
+	command_struct->next = NULL;
 	command_parts = ft_split_quote(cmd, ' '); // Todo only split if not surrounded by quotes
 	if (!command_parts)
 		return (NULL);
@@ -20,6 +21,7 @@ t_command	*ft_parser(char *cmd, int flag)
 	command_struct->command = ft_find_executable_path(main_command);
 	command_struct->args = command_parts;
 	command_struct->flag = flag;
+	printf("FLAG: %d\n", command_struct->flag);
 	free(command_parts);
 	return (command_struct);
 }
@@ -85,6 +87,8 @@ t_command		*ft_parse_in_commands(char *cmds)
 	}
 	if (!first)
 		first = ft_parser(cmds, -1);
+	else
+		ft_commandaddback(&first, ft_parser(ft_substr(cmds, start, (i - start)), ft_determine_flag(ft_substr(cmds, start, (i - start)))));
 	
 	return (first);
 }
