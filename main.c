@@ -5,6 +5,7 @@
 */
 void	ft_quit()
 {
+	ft_freeall();
 	exit(0);
 }
 
@@ -41,7 +42,7 @@ int	ft_run_builtin(char *command)
 	if (ft_strncmp(command, "pwd", ft_strlen("pwd")) == 0)
 		return (ft_pwd());
 	else if (ft_strncmp(command, "exit", ft_strlen("exit")) == 0)
-		exit(0);
+		ft_quit();
 	else if (ft_strncmp(command, "env", ft_strlen("env")) == 0)
 		return (ft_env());
 	else if (ft_strncmp(command, "echo ", ft_strlen("echo ")) == 0)

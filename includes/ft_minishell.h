@@ -15,6 +15,7 @@
 # include <sys/wait.h>
 # include <termios.h>
 # include <unistd.h>
+# include "../gc/ft_garbage_collector.h"
 
 # define PIPE 0 // |
 # define OUT 1 // >

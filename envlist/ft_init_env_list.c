@@ -13,7 +13,7 @@ size_t ft_get_env_count(char **envp)
 t_envlist *ft_new_list(char *f, char *n, char *c, char **envp)
 {
 	t_envlist *new;
-	new = malloc(sizeof(t_envlist));
+	new = ft_malloc(sizeof(t_envlist));
 	new->full_line = f;
 	new->var_name = n;
 	new->value = c;

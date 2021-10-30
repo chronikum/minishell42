@@ -18,6 +18,8 @@ PARSING = ./parsing/ft_parsing.c ./parsing/ft_split_quote.c ./parsing/ft_command
 
 FLAGS = -Wall -Wextra -Werror -g
 
+GARBAGE_COLLECTOR = ./gc/ft_free.c ./gc/ft_freeall.c ./gc/ft_gclststart.c ./gc/ft_malloc.c
+
 COMMANDLIST = ./parsing/ft_newcommand.c ./parsing/ft_commandaddback.c
 
 # from home
@@ -39,7 +41,7 @@ endif
 
 CFLAGS = -g -lreadline $(LDFLAGS) $(CPPFLAGS) -ltermcap -Wall -Wextra -Werror
 
-ALLSRC = $(SRC) $(BUILTINS) $(ENV) $(HELPERS) $(PIPEX) $(COMMANDLIST) $(PATHS) $(PARSING)
+ALLSRC = $(SRC) $(BUILTINS) $(ENV) $(HELPERS) $(PIPEX) $(COMMANDLIST) $(PATHS) $(PARSING) $(GARBAGE_COLLECTOR)
 
 
 all: $(NAME)
