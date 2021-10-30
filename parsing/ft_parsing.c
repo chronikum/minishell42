@@ -25,6 +25,32 @@ t_command	*ft_parser(char *cmd, int flag)
 }
 
 /*
+	Determines the flag which is being used at the end of the command.
+	- define PIPE 1 // |
+	- define OUT 2 // >
+	- define IN 3 // <
+	- define LEFT 4 // << here doc
+	- define RIGHT 5 // >> append
+	- define BUILT 6
+	- define SYS 7
+	- define STDOUT -1 // last command in chain
+*/
+int	ft_determine_flag(char *command)
+{
+	if (ft_single_inset(command[ft_strlen(command) - 1], "|><") != -1
+	 && (ft_single_inset(command[ft_strlen(command) - 2], "|><") == -1))
+	{
+		return (ft_single_inset(command[ft_strlen(command) - 1], "|><"));
+	}
+	if (ft_single_inset(command[ft_strlen(command) - 1], "><") != -1
+	 && (ft_single_inset(command[ft_strlen(command) - 2], "><") != -1))
+	{
+		return (ft_single_inset(command[ft_strlen(command) - 1], "|><") + 2);
+	}
+	return (-1);
+}
+
+/*
 	Parses a string of commands in multiple single segments
 	and creates a funky linked command list
 	out of it.
@@ -50,9 +76,9 @@ t_command		*ft_parse_in_commands(char *cmds)
 			while (ft_single_inset(cmds[i], "|><") != -1)
 				i++;
 			if (!first)
-				first = ft_parser(ft_substr(cmds, start, (i - start)), ft_single_inset(cmds[i - 1], "|><"));
+				first = ft_parser(ft_substr(cmds, start, (i - start)), ft_determine_flag(ft_substr(cmds, start, (i - start))));
 			else
-				ft_commandaddback(&first, ft_parser(ft_substr(cmds, start, (i - start)), ft_single_inset(cmds[i - 1], "|><")));
+				ft_commandaddback(&first, ft_parser(ft_substr(cmds, start, (i - start)), ft_determine_flag(ft_substr(cmds, start, (i - start)))));
 			start = i;
 		}
 		i++;
