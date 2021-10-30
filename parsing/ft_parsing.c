@@ -44,10 +44,10 @@ int	ft_determine_flag(char *command)
 	{
 		return (ft_single_inset(command[ft_strlen(command) - 1], "|><"));
 	}
-	if (ft_single_inset(command[ft_strlen(command) - 1], "><") != -1
-	 && (ft_single_inset(command[ft_strlen(command) - 2], "><") != -1))
+	if (ft_single_inset(command[ft_strlen(command) - 1], "<>") != -1
+	 && (ft_single_inset(command[ft_strlen(command) - 2], "<>") != -1))
 	{
-		return (ft_single_inset(command[ft_strlen(command) - 1], "|><") + 2);
+		return (ft_single_inset(command[ft_strlen(command) - 1], "<>") + 3);
 	}
 	return (-1);
 }

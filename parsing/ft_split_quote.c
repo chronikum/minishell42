@@ -1,9 +1,19 @@
 #include "../includes/ft_minishell.h"
 
-void	ft_reset_static_vars(unsigned int *i, unsigned int *saved)
+static void	ft_reset_static_vars(unsigned int *i, unsigned int *saved)
 {
 	(*saved) = 0;
 	(*i) = 0;
+}
+
+/*
+	Skips operators liek | < > << >> because
+	those should not show up in the argument list
+*/
+static void	ft_skip_operators(unsigned int *i, char *cmd)
+{
+	while (ft_single_inset(cmd[(*i)], "|><") != -1)
+		(*i)++;
 }
 
 /*
@@ -20,6 +30,7 @@ static char	*ft_get_next_word(char *s, char c, int r)
 		ft_reset_static_vars(&i, &saved);
 
 	saved = i;
+	ft_skip_operators(&i, s);
 	while ((s[i] == c && s[i] && saved == 0))
 	{
 		i++;
@@ -27,28 +38,34 @@ static char	*ft_get_next_word(char *s, char c, int r)
 	}
 	while (s[i])
 	{
+		ft_skip_operators(&i, s);
 		while (saved != 0 && (s[i] == c || s[i] == '"'))
 		{
 			saved++;
 			i++;
 		}
+		ft_skip_operators(&i, s);
 		if (s[i] == '"' && s[i]) // join in when starting character is a quote
 		{
 			i++;
 			while (s[i] != '"' && s[i])
 				i++;
+			ft_skip_operators(&i, s);
 			return (ft_substr(s, saved, (i - saved - 1)));
 		}
+		ft_skip_operators(&i, s);
 		if (s[i] != c && s[i])
 		{
 			while (s[i] != c && s[i])
 			{
 				i++;
+				ft_skip_operators(&i, s);
 				if (s[i] == '"')
 					return (ft_substr(s, saved, (i - saved)));
 				if (!s[i])
 					return (ft_substr(s, saved, (i - saved)));
 			}
+			ft_skip_operators(&i, s);
 			if (s[i] == c || !s[i])
 				return (ft_substr(s, saved, (i - saved)));
 		}

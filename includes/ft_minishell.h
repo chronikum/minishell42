@@ -16,13 +16,13 @@
 # include <termios.h>
 # include <unistd.h>
 
-# define PIPE 1 // |
-# define OUT 2 // >
-# define IN 3 // <
-# define LEFT 4 // << here doc
-# define RIGHT 5 // >> append
-# define BUILT 6
-# define SYS 7
+# define PIPE 0 // |
+# define OUT 1 // >
+# define IN 2 // <
+# define LEFT 3 // << here doc
+# define RIGHT 4 // >> append
+# define BUILT 5
+# define SYS 6
 # define STDOUT -1 // last command in chain
 
 /*
