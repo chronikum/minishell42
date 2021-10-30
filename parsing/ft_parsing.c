@@ -45,18 +45,21 @@ t_command		*ft_parse_in_commands(char *cmds)
 	
 	i = 0;
 	start = 0;
+	first = NULL;
 	while(cmds[i])
 	{
-		if (ft_single_inset(cmds[i], "|><"))
+		if (ft_single_inset(cmds[i], "|><") != -1)
 		{
-			if (!start)
-				first = ft_parser(ft_substr(cmds, start, i));
+			if (!first)
+				first = ft_parser(ft_substr(cmds, start, (i - start)));
 			else
-				ft_commandaddback(&first, ft_parser(ft_substr(cmds, start, i)));
+				ft_commandaddback(&first, ft_parser(ft_substr(cmds, start, (i - start))));
 			start = i;
 		}
 		i++;
 	}
+	if (!first)
+		first = ft_parser(cmds);
 	
 	return (first);
 }
