@@ -34,7 +34,7 @@ char	**path_finder(char **envp)
 	int		i;
 	char	*temp;
 	char	**paths;
-
+	ft_putendl_fd("debug2\n", 2);
 	i = 0;
 	while (envp[i] != NULL)
 	{
@@ -47,6 +47,7 @@ char	**path_finder(char **envp)
 		}
 		i++;
 	}
+
 	return (paths);
 }
 

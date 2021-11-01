@@ -34,7 +34,14 @@ void	ft_pipe_pre_dup(t_pipes *p)
 int ft_execute(t_command *commands, t_envlist *envp)
 {
     t_child	c;
-
+	//if (!envp)
+	//	write(2, "fuck\n", 5);
+	//while (envp != NULL)
+	//{
+	//	printf("flag = %s\n", envp->full_line);
+	//	envp = envp->next;
+	//}
+	
     c.cmnd = commands->args;
 	c.paths = envp->envp;
 	c.paths = path_finder(envp->envp);
@@ -57,13 +64,13 @@ int ft_execute(t_command *commands, t_envlist *envp)
 void    ft_system_command(t_command *commands, t_envlist *envp)
 {
 	pid_t	pid;
-
     pid = fork();
     if (pid == -1)
 	    exit(0);
 	if (pid == 0)
 	    ft_execute(commands, envp);
-	wait(0);
+	if (pid != 0)
+		wait(0);
 }
 
 //void	ft_open_outfile(t_pipes *p, t_command *commands)
@@ -115,6 +122,8 @@ void	ft_pipex(t_pipes p, t_command *commands, t_envlist *envp)
     //    ft_open_outfile(&p, commands);
     if (commands->flag == PIPE)
         ft_pipe_pre_dup(&p); 
+	//if (commands->flag == STDOUT)
+    //    dup2(1, STDOUT);
     //if (commands->flag == OUT || commands->flag == RIGHT)
     //    ft_outfile_dup(&p);
     //if (commands->op == BUILT)
