@@ -26,11 +26,22 @@ void	sig_handler_int(int signal)
 	}
 }
 
+/**
+ * Gets the command list for the give char array
+ */
 void	ft_get_command_list(char *command)
 {
-	t_command *list;
+	t_command	*list;
+	pid_t		pid;
 	
 	list = ft_parse_in_commands(command);
+	
+	pid = fork();
+	
+	if (pid == -1)
+		exit(0);
+	if (pid == 0)
+		ft_pipex(list, ft_env_list(NULL));
 }
 
 /*
