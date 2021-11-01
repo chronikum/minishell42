@@ -10,7 +10,7 @@ ENV = ./envlist/ft_init_env_list.c ./envlist/ft_env_list.c
 
 PATHS = ./path_helpers/ft_check_paths.c ./path_helpers/ft_check_file_exists.c
 
-PIPEX = ./pipex/ft_pipex.c ./pipex/ft_pipex_utils.c
+PIPEX = ./pipex/ft_minishell_pipex.c ./pipex/ft_pipex_utils.c
 
 HELPERS = ./free_functions/ft_free_functions.c ./arg_printer.c
 

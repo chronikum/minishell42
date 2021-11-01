@@ -89,13 +89,8 @@ typedef struct s_command
 //pipex
 typedef struct s_pipes
 {
-	int		stin;
-	int		stout;
-
 	int		in;
 	int		out;
-	int		cmnd_count;
-	int		argc_process;
 
 	int		pipe[2];
 	int		temp_fd;
@@ -131,17 +126,25 @@ char 		*ft_join_path(char *path, char *executable);
 int			ft_check_file_exists(char *file);
 
 //pipex
-int			execution(int argc, t_command argv, t_envlist envp);
-void		cutlery(t_pipes *p, t_command argv, t_envlist envp);
-void		cutlery_close(t_pipes *p);
-int			child(t_pipes *p, t_command argv, t_envlist envp);
-//void		ft_open_out(t_pipes *p, /*PATH TO OUTFILE*/);
-void		cutlery_dup(t_pipes *p);
+void		ft_pipex(t_command *commands, t_envlist *envp);
+void    	ft_pipe(t_pipes *p);
+void    	ft_init_dup(t_pipes *p);
+void   		ft_open_infile(t_pipes *p, t_command *commands);
+void		ft_open_outfile(t_pipes *p, t_command *commands);
 
-void		command_not_found(t_command argv, char CP);
+void   		ft_system_command(t_command *commands, t_envlist *envp);
+int			ft_execute(t_command *commands, t_envlist *envp);
+void		ft_outfile_dup(t_pipes *p);
+void		ft_pipe_pre_dup(t_pipes *p);
+void		ft_pipe_after_dup(t_pipes *p);
+
+void		ft_close(t_pipes *p);
+void		command_not_found(char *command);
 int			ft_array_len(char **argv);
 char		**path_finder(char **envp);
 int			check_file(char *filename, char RW);
+
+//????
 char		*ft_find_executable_path(char *exec);
 void		ft_arg_printer(char **args);
 
