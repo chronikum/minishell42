@@ -35,13 +35,26 @@ void	ft_get_command_list(char *command)
 	pid_t		pid;
 	
 	list = ft_parse_in_commands(command);
+	//printf("comm = %s\n", list->args[0]);
 	
 	pid = fork();
 	
 	if (pid == -1)
 		exit(0);
 	if (pid == 0)
-		ft_pipex(list, ft_env_list(NULL));
+	{
+		t_envlist *envp = ft_env_list(NULL);
+		ft_pipex(list, envp); //remove this for builtins, 
+	}
+	//while (list != NULL)
+	//{
+	//	ft_pipex();
+	//	list = list->next;
+	//}
+	//printf("test\n");
+	//printf("envp = %s\n", envp->value);
+	
+		//single builtin dont fork builtin with pipes then you need to fork
 }
 
 /*
@@ -66,10 +79,14 @@ int	ft_run_builtin(char *command)
 int	main(int argc, char **argv, char **envp)
 {
 	char *cmd;
+	//int	oldstdin = dup(0);
+	//int	oldstdout = dup(1);
 
 	ft_env_list(ft_create_env_list(envp));
 	while (1 && argc && argv && envp)
 	{
+		//dup2(oldstdin, 0);
+		//dup2(oldstdout, 1);
 		signal(SIGQUIT, &ft_quit);
 		signal(SIGINT, &sig_handler_int);
 		// function read and check the input
