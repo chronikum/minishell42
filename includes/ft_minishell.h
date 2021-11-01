@@ -51,6 +51,27 @@ typedef struct s_command
 	struct s_command	*next;
 }	t_command;
 
+//pipex
+typedef struct s_pipes
+{
+	int		in;
+	int		out;
+
+	int		pipe[2];
+	int		temp_fd;
+}			t_pipes;
+
+typedef struct s_child
+{
+	int		i;
+	char	*full_path;
+	char	*temp;
+	char	**cmnd;
+	char	**paths;
+}			t_child;
+
+
+//trash?
 //cat hello.txt | grep -e "test asdf asdf"
 
 //first linked list
@@ -86,24 +107,6 @@ typedef struct s_command
 	}
 
 */
-//pipex
-typedef struct s_pipes
-{
-	int		in;
-	int		out;
-
-	int		pipe[2];
-	int		temp_fd;
-}			t_pipes;
-
-typedef struct s_child
-{
-	int		i;
-	char	*full_path;
-	char	*temp;
-	char	**cmnd;
-	char	**paths;
-}			t_child;
 
 
 int			main(int argc, char **argv, char **envp);
@@ -126,7 +129,7 @@ char 		*ft_join_path(char *path, char *executable);
 int			ft_check_file_exists(char *file);
 
 //pipex
-void		ft_pipex(t_command *commands, t_envlist *envp);
+void		ft_pipex(t_pipes p, t_command *commands, t_envlist *envp);
 void    	ft_pipe(t_pipes *p);
 void    	ft_init_dup(t_pipes *p);
 void   		ft_open_infile(t_pipes *p, t_command *commands);

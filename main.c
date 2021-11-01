@@ -32,29 +32,19 @@ void	sig_handler_int(int signal)
 void	ft_get_command_list(char *command)
 {
 	t_command	*list;
-	pid_t		pid;
+	t_pipes		p;
 	
 	list = ft_parse_in_commands(command);
-	//printf("comm = %s\n", list->args[0]);
-	
-	pid = fork();
-	
-	if (pid == -1)
-		exit(0);
-	if (pid == 0)
+	t_envlist *envp = ft_env_list(NULL);
+	p.temp_fd = dup(STDIN_FILENO);
+	while (list != NULL)
 	{
-		t_envlist *envp = ft_env_list(NULL);
-		ft_pipex(list, envp); //remove this for builtins, 
+		//printf("flag = %d\n", list->flag);
+		ft_pipex(p, list, envp);
+		//if (envp)
+		list = list->next;
 	}
-	//while (list != NULL)
-	//{
-	//	ft_pipex();
-	//	list = list->next;
-	//}
-	//printf("test\n");
-	//printf("envp = %s\n", envp->value);
-	
-		//single builtin dont fork builtin with pipes then you need to fork
+	//single builtin dont fork builtin with pipes then you need to fork
 }
 
 /*
