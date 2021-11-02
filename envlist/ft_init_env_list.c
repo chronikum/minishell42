@@ -18,6 +18,7 @@ t_envlist *ft_new_list(char *f, char *n, char *c, char **envp)
 	new->var_name = n;
 	new->value = c;
 	new->envp = envp;
+	new->next = NULL;
 	return (new);
 }
 
@@ -32,6 +33,8 @@ t_envlist	*ft_create_env_list(char **envp)
 	char *command;
 	char **command_split;
 
+	env_list = NULL;
+	start = NULL;
 	i = 0;
 	while (ft_get_env_count(envp) > i)
 	{

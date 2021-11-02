@@ -33,7 +33,7 @@ void	ft_get_command_list(char *command)
 {
 	t_command	*list;
 	t_pipes		p;
-	
+
 	list = ft_parse_in_commands(command);
 	t_envlist *envp = ft_env_list(NULL);
 	p.temp_fd = dup(STDIN_FILENO);
@@ -69,14 +69,14 @@ int	ft_run_builtin(char *command)
 int	main(int argc, char **argv, char **envp)
 {
 	char *cmd;
-	//int	oldstdin = dup(0);
-	//int	oldstdout = dup(1);
+	int	oldstdin = dup(0);
+	int	oldstdout = dup(1);
 
 	ft_env_list(ft_create_env_list(envp));
 	while (1 && argc && argv && envp)
 	{
-		//dup2(oldstdin, 0);
-		//dup2(oldstdout, 1);
+		dup2(oldstdin, 0);
+		dup2(oldstdout, 1);
 		signal(SIGQUIT, &ft_quit);
 		signal(SIGINT, &sig_handler_int);
 		// function read and check the input
