@@ -1,4 +1,4 @@
-CC = gcc
+CC = clang
 
 NAME = libft_minishell.a
 

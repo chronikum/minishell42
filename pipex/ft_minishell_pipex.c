@@ -31,27 +31,17 @@ void	ft_stdout_dup(t_pipes *p)
 
 int ft_execute(t_command *commands, t_envlist *envp)
 {
-    t_child	c;
-	
-    c.cmnd = commands->args;
-	c.paths = path_finder(envp->envp);
-	//c.paths = path_finder(envp);
-	c.i = ft_array_len(c.paths);
-	while (c.i >= 0)
+	t_child	*c;
+
+	c = malloc(sizeof(t_child));
+	c->cmnd = commands->args;
+	c->full_path = ft_find_executable_path(c->cmnd[0]);
+	if (access(c->full_path, F_OK) != -1)
 	{
-		c.temp = ft_strjoin(c.paths[c.i], "/");
-		c.full_path = ft_strjoin(c.temp, c.cmnd[0]);
-		if (access(c.full_path, F_OK) != -1)
-		{
-			execve(c.full_path, c.cmnd, envp->envp);
-			//execve(c.full_path, c.cmnd, envp);
-		}
-		if (access(c.full_path, F_OK) == -1 && c.i == 0)
-			command_not_found(commands->command);
-		ft_custom_free(&c.full_path, &c.temp, 'S');
-		c.i--;
+		execve(c->full_path, c->cmnd, envp->envp);
 	}
-	ft_custom_free(c.cmnd, c.paths, 'D');
+	if (access(c->full_path, F_OK) == -1 && c->i == 0)
+		command_not_found(commands->command);
 	exit(0);
 }
 
@@ -59,13 +49,13 @@ void    ft_system_command(t_pipes *p, t_command *commands, t_envlist *envp)
 {
 	pid_t	pid;
 
-    pid = fork();
-    if (pid == -1)
-	    exit(0);
+	pid = fork();
+	if (pid == -1)
+		exit(0);
 	if (pid == 0)
 	{
 		close(p->pipe[0]);
-	    ft_execute(commands, envp);
+		ft_execute(commands, envp);
 	}
 	if (pid != 0)
 	{
@@ -76,31 +66,31 @@ void    ft_system_command(t_pipes *p, t_command *commands, t_envlist *envp)
 
 void    ft_init_dup(t_pipes *p)
 {
-    dup2(p->temp_fd, 0);
+	dup2(p->temp_fd, 0);
 }
 
 void    ft_pipe(t_pipes *p)
 {
-    if (pipe(p->pipe) == -1)
+	if (pipe(p->pipe) == -1)
 	{
-        perror("Error");
-	    exit(0);
+		perror("Error");
+		exit(0);
 	}
 }
 
 void	ft_pipex(t_pipes *p, t_command *commands, t_envlist *envp)
 {
-    ft_pipe(p);
+	ft_pipe(p);
 	ft_init_dup(p);
 	if (commands->flag == STDOUT)
-        ft_stdout_dup(p); 
+		ft_stdout_dup(p); 
 	if (commands->flag == PIPE)
-        ft_pipe_pre_dup(p); 
-    ft_system_command(p, commands, envp);
-    if (commands->flag == PIPE)
-        ft_pipe_after_dup(p);
+		ft_pipe_pre_dup(p); 
+	ft_system_command(p, commands, envp);
+	if (commands->flag == PIPE)
+		ft_pipe_after_dup(p);
 	if (commands->flag == STDOUT)
-    	ft_close(p);
+		ft_close(p);
 }
 
 
