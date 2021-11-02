@@ -32,11 +32,15 @@ void	sig_handler_int(int signal)
 void	ft_get_command_list(char *command)
 {
 	t_command	*list;
-	t_pipes		p;
+	t_pipes		*p;
 
+	p = malloc(sizeof(t_pipes));
 	list = ft_parse_in_commands(command);
 	t_envlist *envp = ft_env_list(NULL);
-	p.temp_fd = dup(STDIN_FILENO);
+
+	//Do this before entering PIPEX
+	p->temp_fd = dup(STDIN_FILENO);
+	p->stout = dup(1);
 	while (list != NULL)
 	{
 		//printf("flag = %d\n", list->flag);
@@ -92,3 +96,59 @@ int	main(int argc, char **argv, char **envp)
 	}
 	return (0);
 }
+
+//int	main(int argc, char **argv, char **envp)
+//{
+//	t_command	*command;
+//	t_command	*command2;
+//	t_command	*tmp;
+//	t_pipes		*p;
+
+//	command = malloc(sizeof(t_command));
+//	command2 = malloc(sizeof(t_command));
+//	tmp = malloc(sizeof(t_command));
+//	p = malloc(sizeof(t_pipes));
+//	ft_env_list(ft_create_env_list(envp));
+
+//	char *commmad_args2[3];
+//	commmad_args2[0] = "grep";
+//	commmad_args2[1] = "ft_";
+//	commmad_args2[2] = NULL;
+
+//	char *commmad_args[3];
+//	commmad_args[0] = "ls";
+//	commmad_args[1] = "-a";
+//	commmad_args[2] = NULL;
+
+//	(void)argv;
+//	(void)argc;
+
+//	// second command
+//	command2 = malloc(sizeof(t_command));
+//	command2->args = commmad_args2;
+//	command2->command = "grep ft_";
+//	command2->flag = STDOUT;
+//	command2->next = NULL;
+
+//	// first commands
+//	command = malloc(sizeof(t_command));
+//	command->args = commmad_args;
+//	command->command = "ls -a";
+//	command->flag = PIPE;
+//	//command->next = NULL;
+//	command->next = command2;
+
+
+//	//Do this before entering PIPEX
+//	p->temp_fd = dup(STDIN_FILENO);
+//	p->stout = dup(1);
+
+//	tmp = command;
+//	while (tmp)
+//	{
+//		ft_pipex(p, tmp, ft_env_list(NULL));
+//		//ft_pipex(p, tmp, ft_env_list(NULL)->envp);
+//		tmp = tmp->next;
+//	}
+//	return (0);
+//}

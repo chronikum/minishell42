@@ -17,11 +17,14 @@
 # include <unistd.h>
 # include "../gc/ft_garbage_collector.h"
 
+//op
 # define PIPE 0 // |
 # define OUT 1 // >
 # define IN 2 // <
 # define LEFT 3 // << here doc
 # define RIGHT 4 // >> append
+
+//flag
 # define BUILT 5
 # define SYS 6
 # define STDOUT -1 // last command in chain
@@ -31,43 +34,45 @@
 */
 typedef struct s_envlist
 {
-	char	**envp;
-	char 	*full_line;
-	char	*var_name;
-	char	*value;
+	char				**envp;
+	char 				*full_line;
+	char				*var_name;
+	char				*value;
 	struct s_envlist *next;
-} t_envlist;
+} 			t_envlist;
 
 // todo: add length of linked list
 
 typedef struct s_command
 {
-	char				*command; // okeoke
-	char				*original_string; // okeoke
+	char				*command;
+	char				*original_string;
 	char				*file; // the path to the file
-	char				**args; // okeoke
+	char				**args;
 	int					flag;
 	int					op; // ? later
 	struct s_command	*next;
-}	t_command;
+}			t_command;
 
 //pipex
 typedef struct s_pipes
 {
-	int		in;
-	int		out;
+	int					in;
+	int					out;
 
-	int		pipe[2];
-	int		temp_fd;
+	int					stout;
+ 
+	int					pipe[2];
+	int					temp_fd;
 }			t_pipes;
 
 typedef struct s_child
 {
-	int		i;
-	char	*full_path;
-	char	*temp;
-	char	**cmnd;
-	char	**paths;
+	int					i;
+	char				*full_path;
+	char				*temp;
+	char				**cmnd;
+	char				**paths;
 }			t_child;
 
 
@@ -129,17 +134,21 @@ char 		*ft_join_path(char *path, char *executable);
 int			ft_check_file_exists(char *file);
 
 //pipex
-void		ft_pipex(t_pipes p, t_command *commands, t_envlist *envp);
+void		ft_pipex(t_pipes *p, t_command *commands, t_envlist *envp);
+//void		ft_pipex(t_pipes *p, t_command *commands, char **envp);
 void    	ft_pipe(t_pipes *p);
 void    	ft_init_dup(t_pipes *p);
 void   		ft_open_infile(t_pipes *p, t_command *commands);
 void		ft_open_outfile(t_pipes *p, t_command *commands);
 
-void   		ft_system_command(t_command *commands, t_envlist *envp);
-int			ft_execute(t_command *commands, t_envlist *envp);
+void   	ft_system_command(t_pipes *p, t_command *commands, t_envlist *envp);
+//void   		ft_system_command(t_pipes *p, t_command *commands, char **envp);
+int		ft_execute(t_command *commands, t_envlist *envp);
+//int			ft_execute(t_command *commands, char **envp);
 void		ft_outfile_dup(t_pipes *p);
 void		ft_pipe_pre_dup(t_pipes *p);
 void		ft_pipe_after_dup(t_pipes *p);
+void		ft_stdout_dup(t_pipes *p);
 
 void		ft_close(t_pipes *p);
 void		command_not_found(char *command);
