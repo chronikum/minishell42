@@ -36,8 +36,10 @@ int ft_execute(t_command *commands, t_envlist *envp)
 	c = malloc(sizeof(t_child));
 	c->cmnd = commands->args;
 	c->full_path = ft_find_executable_path(c->cmnd[0]);
+	printf("FULL ACCESS IS: %s \n", c->full_path);
 	if (access(c->full_path, F_OK) != -1)
 	{
+		printf("FOUND FILE! EXECUTING NOW! \n");
 		execve(c->full_path, c->cmnd, envp->envp);
 	}
 	if (access(c->full_path, F_OK) == -1 && c->i == 0)
@@ -54,8 +56,10 @@ void    ft_system_command(t_pipes *p, t_command *commands, t_envlist *envp)
 		exit(0);
 	if (pid == 0)
 	{
-		close(p->pipe[0]);
+		printf("BEFORE EXECUTE! \n");
 		ft_execute(commands, envp);
+		printf("AFTER EXECUTE! \n");
+		close(p->pipe[0]);
 	}
 	if (pid != 0)
 	{
