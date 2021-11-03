@@ -17,6 +17,7 @@ t_command	*ft_newcommand(char *command)
 	result->file = NULL;
 	result->original_string = NULL;
 	result->op = -1;
-	result->flag = -1;
+	result->in_flag = -1;
+	result->out_flag = -1;
 	return (result);
 }

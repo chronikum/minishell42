@@ -20,9 +20,10 @@ t_command	*ft_parser(char *cmd, int flag)
 	main_command = command_parts[0];
 	command_struct->command = ft_find_executable_path(main_command);
 	command_struct->args = command_parts;
-	command_struct->flag = flag;
+	command_struct->in_flag = flag;
+	command_struct->out_flag = flag;
 	if (DEBUG)
-		printf("FLAG: %d\n", command_struct->flag);
+		printf("FLAG: %d\n", command_struct->in_flag);
 	return (command_struct);
 }
 
