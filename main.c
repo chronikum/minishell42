@@ -74,7 +74,7 @@ int	main(int argc, char **argv, char **envp)
 	int	oldstdout = dup(1);
 
 	ft_env_list(ft_create_env_list(envp));
-	ft_run_builtin("say -v Good Welcome to mini shell!");
+	//ft_run_builtin("say -v Good Welcome to mini shell!");
 	while (1 && argc && argv && envp)
 	{
 		dup2(oldstdin, 0);

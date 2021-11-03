@@ -14,6 +14,7 @@ t_command	*ft_parser(char *cmd, int in_flag, int out_flag)
 
 	command_struct = ft_malloc(sizeof(t_command));
 	command_struct->next = NULL;
+	printf("CURRENT CMD: %s \n", cmd);
 	command_parts = ft_split_quote(cmd, ' '); // Todo only split if not surrounded by quotes
 	if (!command_parts)
 		return (NULL);
@@ -92,6 +93,18 @@ t_command		*ft_parse_in_commands(char *cmds)
 	i = 0;
 	start = 0;
 	first = NULL;
+	printf("WHOLE COMMAND: %s \n", cmds);
+	if (cmds[0] == '<')
+	{
+		while (cmds[i] != ' ')
+			i++;
+		first = ft_parser(
+					ft_substr(cmds, start, (i - start)),
+					2,
+					7
+				);
+		start = i;
+	}
 	while(cmds[i])
 	{
 		if (ft_single_inset(cmds[i], "|><") != -1) // <
