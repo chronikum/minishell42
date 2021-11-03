@@ -1,4 +1,4 @@
-CC = gcc
+CC = clang
 
 NAME = libft_minishell.a
 
@@ -6,15 +6,21 @@ SRC = main.c
 
 BUILTINS = ./builtins/ft_pwd.c ./builtins/ft_env.c ./builtins/ft_echo.c
 
-ENV = ./envlist/ft_init_env_list.c ./envlist/ft_env_list.c ./path_helpers/ft_check_paths.c
+ENV = ./envlist/ft_init_env_list.c ./envlist/ft_env_list.c
 
-PIPEX = ./pipex/ft_pipex.c ./pipex/ft_pipex_utils.c
+PATHS = ./path_helpers/ft_check_paths.c ./path_helpers/ft_check_file_exists.c
+
+PIPEX = ./pipex/ft_minishell_pipex.c ./pipex/ft_pipex_utils.c
 
 HELPERS = ./free_functions/ft_free_functions.c ./arg_printer.c
 
-PARSING = ./parsing/ft_parsing.c
+PARSING = ./parsing/ft_parsing.c ./parsing/ft_split_quote.c ./parsing/ft_command_size.c
 
 FLAGS = -Wall -Wextra -Werror -g
+
+GARBAGE_COLLECTOR = ./gc/ft_free.c ./gc/ft_freeall.c ./gc/ft_gclststart.c ./gc/ft_malloc.c
+
+COMMANDLIST = ./parsing/ft_newcommand.c ./parsing/ft_commandaddback.c
 
 # from home
 ifeq ($(USER), jonathanfritz)
@@ -35,15 +41,25 @@ endif
 
 CFLAGS = -g -lreadline $(LDFLAGS) $(CPPFLAGS) -ltermcap -Wall -Wextra -Werror
 
+ALLSRC = $(SRC) $(BUILTINS) $(ENV) $(HELPERS) $(PIPEX) $(COMMANDLIST) $(PATHS) $(PARSING) $(GARBAGE_COLLECTOR)
+
+
 all: $(NAME)
 
 $(NAME): *.c
 	make -C libft/
 	cp ./libft/libft.a ${NAME}
-	$(CC) $(FLAGS) -c $(SRC) $(BUILTINS) $(ENV) $(HELPERS) $(PIPEX) $(PARSING)
+	$(CC) $(FLAGS) -D DEBUG=0 -c $(ALLSRC)
 	ar rc $(NAME) *.o
 	$(CC) $(CFLAGS) -L. -lft_minishell -o minishell
 
+debug: *.c
+	make -C libft/
+	cp ./libft/libft.a ${NAME}
+	$(CC) $(FLAGS) -D DEBUG=1 -c $(ALLSRC)
+	ar rc $(NAME) *.o
+	$(CC) $(CFLAGS) -L. -lft_minishell -o minishell
+	
 clean:
 	rm -f ./libft/*.o
 	rm -f *.o

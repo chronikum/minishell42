@@ -47,6 +47,7 @@ char	**path_finder(char **envp)
 		}
 		i++;
 	}
+
 	return (paths);
 }
 
@@ -60,23 +61,8 @@ int	ft_array_len(char **argv)
 	return (i);
 }
 
-void	command_not_found(t_command argv, char CP)
+void	command_not_found(char *command)
 {
-	if (CP == 'C')
-	{
 		ft_putstr_fd("command not found: ", 2);
-		ft_putendl_fd(argv.args[2], 2);
-	}
-	if (CP == 'P')
-	{
-		ft_putstr_fd("command not found: ", 2);
-		ft_putendl_fd(argv.args[3], 2);
-	}
-}
-
-void	ft_double_dub(t_pipes *p)
-{
-	close(p->pipe[1]);
-	dup2(p->temp_fd, 0);
-	dup2(p->out, 1);
+		ft_putendl_fd(command, 2);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: olgerret <olgerret@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jfritz <jfritz@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/18 09:28:15 by olgerret          #+#    #+#             */
-/*   Updated: 2021/06/29 15:29:41 by olgerret         ###   ########.fr       */
+/*   Updated: 2021/10/30 18:22:12 by jfritz           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,6 +101,6 @@ char	**ft_split(char const *s, char c)
 			return (0);
 		result[i++] = string;
 	}
-	result[i] = 0;
+	result[i] = NULL;
 	return (result);
 }

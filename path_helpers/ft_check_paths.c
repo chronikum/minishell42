@@ -18,7 +18,7 @@ char *ft_join_path(char *path, char *executable)
 /*
 	Gets the executable path
 */
-char *ft_find_executable_path(char *exec)
+char *ft_find_executable_path(char *exec) // as soon as exec is being accessed the program will stop.
 {
 	char	**paths;
 	int		i;
@@ -26,13 +26,13 @@ char *ft_find_executable_path(char *exec)
 
 	i = 0;
 	paths = ft_split(getenv("PATH"), ':');
-
 	while (paths[i])
 	{
 		temp_path = ft_join_path(paths[i], exec);
 		if (access(temp_path, F_OK) != -1)
 		{
 			ft_double_free(paths);
+			paths = NULL;
 			return (temp_path);
 		}
 		i++;
