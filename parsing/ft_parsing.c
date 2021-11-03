@@ -2,7 +2,6 @@
 
 void	ft_assign_file_name_to_path(t_command *command, char *file_name)
 {
-	char *str;
 
 	if (file_name)
 	{
