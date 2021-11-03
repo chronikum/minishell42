@@ -36,8 +36,6 @@ void	ft_get_command_list(char *command)
 
 	p = malloc(sizeof(t_pipes));
 	list = ft_parse_in_commands(command);
-	printf("COMMAND LIST %s \n", list->args[0]);
-	printf("COMMAND LIST %s \n", list->args[1]);
 	t_envlist *envp = ft_env_list(NULL);
 	//Do this before entering PIPEX
 	p->temp_fd = dup(STDIN_FILENO);
@@ -76,6 +74,7 @@ int	main(int argc, char **argv, char **envp)
 	int	oldstdout = dup(1);
 
 	ft_env_list(ft_create_env_list(envp));
+	ft_run_builtin("say -v Good Welcome to mini shell!");
 	while (1 && argc && argv && envp)
 	{
 		dup2(oldstdin, 0);

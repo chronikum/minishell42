@@ -123,7 +123,7 @@ void		ft_handle_sig(int sig);
 
 //parsing
 char			***ft_split_machine(char *str, char dlmtr);
-t_command		*ft_parser(char *cmd, int flag);
+t_command		*ft_parser(char *cmd, int out_flag, int in_flag);
 int				ft_command_size(t_command *lst);
 char			**ft_split_quote(char *s, char c);
 t_command		*ft_parse_in_commands(char *cmds);
