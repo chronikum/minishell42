@@ -55,7 +55,7 @@ int	ft_determine_out_flag(char *command)
 	{
 		return (ft_single_inset(command[1], "<>") + 3);
 	}
-	return (7);
+	return (-1);
 }
 
 int	ft_determine_in_flag(char *command)
@@ -101,14 +101,14 @@ t_command		*ft_parse_in_commands(char *cmds)
 			if (!first)
 				first = ft_parser(
 					ft_substr(cmds, start, (i - start)),
-					ft_determine_in_flag(ft_substr(cmds, start, (i - start))),
-					ft_determine_out_flag(ft_substr(cmds, start, (i - start)))
+					ft_determine_out_flag(ft_substr(cmds, start, (i - start))),
+					ft_determine_in_flag(ft_substr(cmds, start, (i - start)))
 				);
 			else
 				ft_commandaddback(&first, ft_parser(
 					ft_substr(cmds, start, (i - start)),
-					ft_determine_in_flag(ft_substr(cmds, start, (i - start))),
-					ft_determine_out_flag(ft_substr(cmds, start, (i - start)))
+					ft_determine_out_flag(ft_substr(cmds, start, (i - start))),
+					ft_determine_in_flag(ft_substr(cmds, start, (i - start)))
 				));
 			start = i;
 		}
