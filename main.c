@@ -36,8 +36,6 @@ void	ft_get_command_list(char *command)
 
 	p = malloc(sizeof(t_pipes));
 	list = ft_parse_in_commands(command);
-	printf("COMMAND LIST %s \n", list->args[0]);
-	printf("COMMAND LIST %s \n", list->args[1]);
 	t_envlist *envp = ft_env_list(NULL);
 	//Do this before entering PIPEX
 	p->temp_fd = dup(STDIN_FILENO);

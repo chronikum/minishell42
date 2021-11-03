@@ -3,7 +3,7 @@
 /*
 	Checks if a character is in a set
 	If no character is hit it will return -1
-	
+
 	First argument is the current indexated char
 	and the second argument is the set which
 	it is being checked against
@@ -26,7 +26,7 @@ int	ft_single_inset(char c, char const *set)
 	Checks if a character array is in a set
 	Will return the index of the character which was being
 	hit
-	
+
 	First argument is the string to being scanned.
 	Second argument is the set to check against.
 	IMPORTANT: If no character is hit it will return -1
@@ -34,7 +34,7 @@ int	ft_single_inset(char c, char const *set)
 int	ft_inset(char *str, char const *set)
 {
 	int	count;
-	
+
 	count = 0;
 	while (str[count])
 	{

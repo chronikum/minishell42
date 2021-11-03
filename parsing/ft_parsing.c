@@ -6,13 +6,13 @@
 	The flag is the type of redirection which should be set.
 	Those are also defined in the header file
 */
-t_command	*ft_parser(char *cmd, int flag)
+t_command	*ft_parser(char *cmd, int out_flag, int in_flag)
 {
 	char **command_parts;
 	char *main_command;
 	t_command *command_struct;
 
-	command_struct = malloc(sizeof(t_command));
+	command_struct = ft_malloc(sizeof(t_command));
 	command_struct->next = NULL;
 	command_parts = ft_split_quote(cmd, ' '); // Todo only split if not surrounded by quotes
 	if (!command_parts)
@@ -20,10 +20,13 @@ t_command	*ft_parser(char *cmd, int flag)
 	main_command = command_parts[0];
 	command_struct->command = ft_find_executable_path(main_command);
 	command_struct->args = command_parts;
-	command_struct->in_flag = flag;
-	command_struct->out_flag = flag;
+	command_struct->in_flag = in_flag;
+	command_struct->out_flag = out_flag;
 	if (DEBUG)
-		printf("FLAG: %d\n", command_struct->in_flag);
+	{
+		printf("IN FLAG: %d\n", command_struct->in_flag);
+		printf("OUT FLAG: %d\n", command_struct->out_flag);
+	}
 	return (command_struct);
 }
 
@@ -38,7 +41,24 @@ t_command	*ft_parser(char *cmd, int flag)
 	- define SYS 	6
 	- define STDOUT -1 last command in chain
 */
-int	ft_determine_flag(char *command)
+
+// todo: do something which makes sense
+int	ft_determine_out_flag(char *command)
+{
+	if (ft_single_inset(command[0], "|><") != -1
+	 && (ft_single_inset(command[1], "|><") == -1))
+	{
+		return (ft_single_inset(command[0], "|><"));
+	}
+	if (ft_single_inset(command[0], "<>") != -1
+	 && (ft_single_inset(command[1], "<>") != -1))
+	{
+		return (ft_single_inset(command[1], "<>") + 3);
+	}
+	return (7);
+}
+
+int	ft_determine_in_flag(char *command)
 {
 	if (ft_single_inset(command[ft_strlen(command) - 1], "|><") != -1
 	 && (ft_single_inset(command[ft_strlen(command) - 2], "|><") == -1))
@@ -79,17 +99,25 @@ t_command		*ft_parse_in_commands(char *cmds)
 			while (ft_single_inset(cmds[i], "|><") != -1)
 				i++;
 			if (!first)
-				first = ft_parser(ft_substr(cmds, start, (i - start)), ft_determine_flag(ft_substr(cmds, start, (i - start))));
+				first = ft_parser(
+					ft_substr(cmds, start, (i - start)),
+					ft_determine_in_flag(ft_substr(cmds, start, (i - start))),
+					ft_determine_out_flag(ft_substr(cmds, start, (i - start)))
+				);
 			else
-				ft_commandaddback(&first, ft_parser(ft_substr(cmds, start, (i - start)), ft_determine_flag(ft_substr(cmds, start, (i - start)))));
+				ft_commandaddback(&first, ft_parser(
+					ft_substr(cmds, start, (i - start)),
+					ft_determine_in_flag(ft_substr(cmds, start, (i - start))),
+					ft_determine_out_flag(ft_substr(cmds, start, (i - start)))
+				));
 			start = i;
 		}
 		i++;
 	}
 	if (!first)
-		first = ft_parser(cmds, -1);
+		first = ft_parser(cmds, -1, -1);
 	else
-		ft_commandaddback(&first, ft_parser(ft_substr(cmds, start, (i - start)), ft_determine_flag(ft_substr(cmds, start, (i - start)))));
+		ft_commandaddback(&first, ft_parser(ft_substr(cmds, start, (i - start)), ft_determine_in_flag(ft_substr(cmds, start, (i - start))), ft_determine_out_flag(ft_substr(cmds, start, (i - start)))));
 
 	return (first);
 }
