@@ -6,9 +6,7 @@ void	ft_assign_file_name_to_path(t_command *command, char *file_name)
 
 	if (file_name)
 	{
-		str = malloc(sizeof(char) * 4096);
-		str = getcwd(str, 4096);
-		command->file = ft_strjoin(ft_strjoin(str, "/"), file_name);
+		command->file = ft_strjoin("./", file_name);
 	}
 }
 
