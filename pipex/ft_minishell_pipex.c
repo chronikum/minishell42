@@ -46,28 +46,34 @@ int ft_execute(t_command *commands, t_envlist *envp) // the mistake is in t_comm
 	}
 	if (access(c->full_path, F_OK) == -1 && c->i == 0)
 		command_not_found(commands->command);
-	exit(0);
+	//exit(0);
+	return (0);
 }
 
 void    ft_system_command(t_pipes *p, t_command *commands, t_envlist *envp)
 {
-	pid_t	pid;
+	//pid_t	pid;
 
-	pid = fork();
-	if (pid == -1)
-		exit(0);
-	if (pid == 0)
-	{
-		printf("BEFORE EXECUTE! \n");
-		ft_execute(commands, envp);
-		printf("AFTER EXECUTE! \n");
-		close(p->pipe[0]);
-	}
-	if (pid != 0)
-	{
-		close(p->pipe[1]);
-		wait(0);
-	}
+	(void) p;
+
+	printf("FIRST COMMAND: %s \n", commands->args[0]);
+	printf("SECOND COMMAND: %s \n", commands->args[1]);
+	//pid = fork(); // maybe something goes wrong with the fork?
+	ft_execute(commands, envp);
+	//if (pid == -1)
+	//	exit(0);
+	//if (pid == 0)
+	//{
+	//	printf("BEFORE EXECUTE! \n");
+	//	ft_execute(commands, envp);
+	//	printf("AFTER EXECUTE! \n");
+	//	close(p->pipe[0]);
+	//}
+	//if (pid != 0)
+	//{
+	//	close(p->pipe[1]);
+	//	wait(0);
+	//}
 }
 
 void    ft_init_dup(t_pipes *p)
