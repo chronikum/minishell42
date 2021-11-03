@@ -28,7 +28,7 @@
 # define APPEND 4 // >> append
 
 // built_sys
-# define BUILT 5
+# define BUILT_IN 5
 # define SYS 6
 
 /*
