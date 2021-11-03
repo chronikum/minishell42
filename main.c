@@ -42,6 +42,8 @@ void	ft_get_command_list(char *command)
 	p->stout = dup(1);
 	while (list != NULL)
 	{
+		if (DEBUG)
+			printf("COMMAND BEING EXECUTED : %s\n", list->command);
 		ft_pipex(p, list, envp);
 		list = list->next;
 	}

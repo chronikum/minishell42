@@ -74,9 +74,9 @@ void    ft_init_dup(t_pipes *p)
 void    ft_open_infile(t_pipes *p, t_command *commands)
 {
 	(void) commands;
-	//check_file(commands->file, 'R');
-	//p->temp_fd = open(commands->file, O_RDONLY);
-	p->temp_fd = open("./in", O_RDONLY);
+	check_file(commands->file, 'R');
+	p->temp_fd = open(commands->file, O_RDONLY);
+	//p->temp_fd = open("./in", O_RDONLY);
 	printf("%d\n", p->temp_fd);
 	//printf("%s\n", commands->file);
     if (p->temp_fd == -1)
@@ -94,6 +94,7 @@ void    ft_pipe(t_pipes *p)
 
 void	ft_pipex(t_pipes *p, t_command *commands, t_envlist *envp)
 {
+	printf("Hi!\n");
 	ft_pipe(p);
 	if (commands->in_flag == IN)
     	ft_open_infile(p, commands);
@@ -102,7 +103,7 @@ void	ft_pipex(t_pipes *p, t_command *commands, t_envlist *envp)
 		ft_stdout_dup(p);
 	if (commands->out_flag == PIPE)
 		ft_pipe_pre_dup(p);
-	if (commands->builtin_sys_flag != 7)
+	if (commands->builtin_sys_flag != 7) //change the 7 for SYS
 		ft_system_command(p, commands, envp);
 	if (commands->out_flag == PIPE)
 		ft_pipe_after_dup(p);

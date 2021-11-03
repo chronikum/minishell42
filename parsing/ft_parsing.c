@@ -5,7 +5,7 @@ void	ft_assign_file_name_to_path(t_command *command, char *file_name)
 
 	if (file_name)
 	{
-		command->file = ft_strjoin("./", file_name);
+		command->file = ft_strjoin("./", ft_strtrim(file_name, " "));
 	}
 }
 
@@ -36,10 +36,14 @@ t_command	*ft_parser(char *cmd, int in_flag, int out_flag, char *file_name)
 	command_struct->out_flag = out_flag;
 	if (DEBUG)
 	{
-		printf("IN FLAG: %d\n", command_struct->in_flag);
-		printf("OUT FLAG: %d\n", command_struct->out_flag);
-		printf("FILE: %s\n", command_struct->file);
-		printf("BUILT_SYS: %d\n", command_struct->builtin_sys_flag);
+		printf("Command: 			%s\n", command_struct->command);
+		printf("Original String:	%s\n", command_struct->original_string);
+		printf("args[0]:			%s\n", command_struct->args[0]);
+		printf("FILE: 				%s|\n", command_struct->file);
+		printf("FILE NAME LENGTH: 	%lu\n", ft_strlen(command_struct->file)); /// as we know the file name changes in length occassionally
+		printf("IN FLAG: 			%d\n", command_struct->in_flag);
+		printf("OUT FLAG: 			%d\n", command_struct->out_flag);
+		printf("BUILT_SYS:			%d\n", command_struct->builtin_sys_flag);
 	}
 	return (command_struct);
 }
@@ -144,10 +148,10 @@ t_command		*ft_parse_in_commands(char *cmds)
 		}
 		i++;
 	}
-	if (!first)
-		first = ft_parser(cmds, -1, -1, NULL);
-	else
-		ft_commandaddback(&first, ft_parser(ft_substr(cmds, start, (i - start)), ft_determine_in_flag(ft_substr(cmds, start, (i - start))), ft_determine_out_flag(ft_substr(cmds, start, (i - start))), NULL));
+	//if (!first)
+	//	first = ft_parser(cmds, -1, -1, NULL);
+	//else
+	//	ft_commandaddback(&first, ft_parser(ft_substr(cmds, start, (i - start)), ft_determine_in_flag(ft_substr(cmds, start, (i - start))), ft_determine_out_flag(ft_substr(cmds, start, (i - start))), NULL));
 
 	return (first);
 }
