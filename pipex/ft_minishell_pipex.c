@@ -70,6 +70,14 @@ void    ft_init_dup(t_pipes *p)
 	dup2(p->temp_fd, 0);
 }
 
+void    ft_open_infile(t_pipes *p, t_command *commands)
+{
+	check_file(commands->file, 'R');
+    p->temp_fd = open(commands->file, O_RDONLY);
+    if (p->temp_fd == -1)
+        p->temp_fd = 5;
+}
+
 void    ft_pipe(t_pipes *p)
 {
 	if (pipe(p->pipe) == -1)
@@ -82,16 +90,20 @@ void    ft_pipe(t_pipes *p)
 void	ft_pipex(t_pipes *p, t_command *commands, t_envlist *envp)
 {
 	ft_pipe(p);
+	if (commands->in_flag == IN)
+    	ft_open_infile(p, commands);
 	ft_init_dup(p);
 	if (commands->out_flag == STDOUT)
 		ft_stdout_dup(p);
 	if (commands->out_flag == PIPE)
 		ft_pipe_pre_dup(p);
-	ft_system_command(p, commands, envp);
+	if (commands->builtin_sys_flag != 7)
+		ft_system_command(p, commands, envp);
 	if (commands->out_flag == PIPE)
 		ft_pipe_after_dup(p);
-	if (commands->out_flag == STDOUT)
-		ft_close(p);
+	//if (commands->out_flag == STDOUT || commands->out_flag == OUT
+	//	|| commands->out_flag == APPEND)
+	//	ft_close(p);
 }
 
 
