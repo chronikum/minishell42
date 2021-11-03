@@ -41,6 +41,7 @@ t_command	*ft_parser(char *cmd, int in_flag, int out_flag, char *file_name)
 	{
 		printf("IN FLAG: %d\n", command_struct->in_flag);
 		printf("OUT FLAG: %d\n", command_struct->out_flag);
+		printf("FILE: %d\n", command_struct->file);
 	}
 	return (command_struct);
 }
