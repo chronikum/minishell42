@@ -123,7 +123,7 @@ char	**ft_split_quote(char *s, char c)
 	i = 0;
 	current = NULL;
 	wc = word_counter(s, c);
-	result = malloc(sizeof(char *) * (wc + 1));
+	result = ft_malloc(sizeof(char *) * (wc + 1));
 	if (DEBUG)
 	{
 		printf("----- SECTION -----\n");
