@@ -98,7 +98,7 @@ t_command		*ft_parse_in_commands(char *cmds)
 	printf("WHOLE COMMAND: %s \n", cmds);
 	if (cmds[0] == '<')
 	{
-		while (cmds[i] != ' ')
+		while (cmds[i] != ' ' && cmds[i])
 			i++;
 		first = ft_parser(
 					ft_substr(cmds, start, (i - start)),
