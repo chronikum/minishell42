@@ -6,7 +6,7 @@
 	The flag is the type of redirection which should be set.
 	Those are also defined in the header file
 */
-t_command	*ft_parser(char *cmd, int out_flag, int in_flag)
+t_command	*ft_parser(char *cmd, int in_flag, int out_flag)
 {
 	char **command_parts;
 	char *main_command;
@@ -94,9 +94,9 @@ t_command		*ft_parse_in_commands(char *cmds)
 	first = NULL;
 	while(cmds[i])
 	{
-		if (ft_single_inset(cmds[i], "|><") != -1)
+		if (ft_single_inset(cmds[i], "|><") != -1) // <
 		{
-			while (ft_single_inset(cmds[i], "|><") != -1)
+			while (ft_single_inset(cmds[i], "|><") != -1) // >>
 				i++;
 			if (!first)
 				first = ft_parser(
