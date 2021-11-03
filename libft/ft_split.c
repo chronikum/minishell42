@@ -101,6 +101,6 @@ char	**ft_split(char const *s, char c)
 			return (0);
 		result[i++] = string;
 	}
-	result[i] = 0;
+	result[i] = NULL;
 	return (result);
 }

@@ -18,7 +18,7 @@ char *ft_join_path(char *path, char *executable)
 /*
 	Gets the executable path
 */
-char *ft_find_executable_path(char *exec)
+char *ft_find_executable_path(char *exec) // as soon as exec is being accessed the program will stop.
 {
 	char	**paths;
 	int		i;
@@ -26,17 +26,27 @@ char *ft_find_executable_path(char *exec)
 
 	i = 0;
 	paths = ft_split(getenv("PATH"), ':');
-
+	printf("GOING IN!!\n");
+	ft_arg_printer(paths);
+	printf("FINISHED PRINTING PATHS\n");
 	while (paths[i])
 	{
+		printf("ABOVE! \n");
+		printf("LENGTH: %lu \n", ft_strlen(exec));
+		printf("TRYING TO JOIN %s with PATH %s \n", exec, paths[i]); // as soon as you try to printf exec it will just not show up
+		ft_putstr_fd("SECOND TEST! \n", 1);
 		temp_path = ft_join_path(paths[i], exec);
+		printf("JOINED PATH: %s \n", temp_path);
 		if (access(temp_path, F_OK) != -1)
 		{
 			ft_double_free(paths);
+			paths = NULL;
+			printf("RETURNING HERE\n");
 			return (temp_path);
 		}
 		i++;
 	}
+	printf("MOVING ON!\n");
 	return (NULL);
 }
 

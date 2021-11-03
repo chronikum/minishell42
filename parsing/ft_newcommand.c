@@ -13,5 +13,10 @@ t_command	*ft_newcommand(char *command)
 		return (0);
 	result->command = command;
 	result->next = NULL;
+	result->args = NULL;
+	result->file = NULL;
+	result->original_string = NULL;
+	result->op = -1;
+	result->flag = -1;
 	return (result);
 }

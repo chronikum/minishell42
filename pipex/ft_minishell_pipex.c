@@ -29,18 +29,20 @@ void	ft_stdout_dup(t_pipes *p)
 	dup2(p->stout, 1);
 }
 
-int ft_execute(t_command *commands, t_envlist *envp)
+int ft_execute(t_command *commands, t_envlist *envp) // the mistake is in t_command probably! 
 {
 	t_child	*c;
 
 	c = malloc(sizeof(t_child));
-	c->cmnd = commands->args;
-	c->full_path = ft_find_executable_path(c->cmnd[0]);
+	c->cmnd = commands->args; // it seems that this does not have the content required
+	printf("STARTING HERE \n");
+	c->full_path = ft_find_executable_path(commands->args[0]); // when going in here it fails
+	printf("STOPPING HERE \n");
 	printf("FULL ACCESS IS: %s \n", c->full_path);
 	if (access(c->full_path, F_OK) != -1)
 	{
 		printf("FOUND FILE! EXECUTING NOW! \n");
-		execve(c->full_path, c->cmnd, envp->envp);
+		execve(c->full_path, commands->args, envp->envp);
 	}
 	if (access(c->full_path, F_OK) == -1 && c->i == 0)
 		command_not_found(commands->command);
