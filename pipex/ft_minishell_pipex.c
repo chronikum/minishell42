@@ -39,16 +39,9 @@ int ft_execute(t_command *commands, t_envlist *envp) // the mistake is in t_comm
 
 	c = malloc(sizeof(t_child));
 	c->cmnd = commands->args; // it seems that this does not have the content required
-	printf("STARTING HERE \n");
-	//c->full_path = ft_find_executable_path(commands->args[0]); // when going in here it fails
-	c->full_path = "/bin/ls";
-	printf("STOPPING HERE \n");
-	printf("FULL ACCESS IS: %s \n", c->full_path);
+	c->full_path = ft_find_executable_path(commands->args[0]); // when going in here it fails
 	if (access(c->full_path, F_OK) != -1)
-	{
-		printf("FOUND FILE! EXECUTING NOW! \n");
 		execve(c->full_path, commandargs, envp->envp);
-	}
 	if (access(c->full_path, F_OK) == -1 && c->i == 0)
 		command_not_found(commands->command);
 	exit(0);
