@@ -21,6 +21,8 @@ t_command	*ft_parser(char *cmd, int in_flag, int out_flag)
 	main_command = command_parts[0];
 	command_struct->command = ft_find_executable_path(main_command);
 	command_struct->args = command_parts;
+	if (in_flag == 2) // super important to remove this later @DEBUG
+		command_struct->builtin_sys_flag = 7;
 	command_struct->in_flag = in_flag;
 	command_struct->out_flag = out_flag;
 	if (DEBUG)
