@@ -32,16 +32,12 @@ void	ft_stdout_dup(t_pipes *p)
 int ft_execute(t_command *commands, t_envlist *envp) // the mistake is in t_command probably!
 {
 	t_child	*c;
-	char *commandargs[2];
-
-	commandargs[0] = "ls";
-	commandargs[1] = NULL;
 
 	c = malloc(sizeof(t_child));
 	c->cmnd = commands->args; // it seems that this does not have the content required
 	c->full_path = ft_find_executable_path(commands->args[0]); // when going in here it fails
 	if (access(c->full_path, F_OK) != -1)
-		execve(c->full_path, commandargs, envp->envp);
+		execve(c->full_path, commands->args, envp->envp);
 	if (access(c->full_path, F_OK) == -1 && c->i == 0)
 		command_not_found(commands->command);
 	exit(0);
