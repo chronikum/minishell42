@@ -17,18 +17,20 @@
 # include <unistd.h>
 # include "../gc/ft_garbage_collector.h"
 
-//op
+//IN
+# define IN 2 // <
+# define HERE_DOC 3 // << here doc
+​
+//OUT
+# define STDOUT -1 // last command in chain
 # define PIPE 0 // |
 # define OUT 1 // >
-# define IN 2 // <
-# define LEFT 3 // << here doc
-# define RIGHT 4 // >> append
-
-//flag
+# define APPEND 4 // >> append
+​
+//built_sys
 # define BUILT 5
 # define SYS 6
-# define STDOUT -1 // last command in chain
-
+​
 /*
 	Environment list
 */
@@ -40,19 +42,21 @@ typedef struct s_envlist
 	char				*value;
 	struct s_envlist *next;
 } 			t_envlist;
-
+​
 // todo: add length of linked list
-
+​
 typedef struct s_command
 {
 	char				*command;
 	char				*original_string;
 	char				*file; // the path to the file
 	char				**args;
-	int					flag;
-	int					op; // ? later
+	int					in_flag;
+	int					out_flag;
+	int					built_sys_flag; // ? later
 	struct s_command	*next;
 }			t_command;
+
 
 //pipex
 typedef struct s_pipes
@@ -61,7 +65,7 @@ typedef struct s_pipes
 	int					out;
 
 	int					stout;
- 
+
 	int					pipe[2];
 	int					temp_fd;
 }			t_pipes;
