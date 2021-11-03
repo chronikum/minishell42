@@ -1,12 +1,24 @@
 #include "../includes/ft_minishell.h"
 
+void	ft_assign_file_name_to_path(t_command *command, char *file_name)
+{
+	char *str;
+
+	if (file_name)
+	{
+		str = malloc(sizeof(char) * 4096);
+		str = getcwd(str, 4096);
+		command->file = ft_strjoin(ft_strjoin(str, "/"), file_name);
+	}
+}
+
 /*
 	Parses a single segment of a command into a linked list
 	and returns the parsed linked list
 	The flag is the type of redirection which should be set.
 	Those are also defined in the header file
 */
-t_command	*ft_parser(char *cmd, int in_flag, int out_flag)
+t_command	*ft_parser(char *cmd, int in_flag, int out_flag, char *file_name)
 {
 	char **command_parts;
 	char *main_command;
@@ -14,8 +26,8 @@ t_command	*ft_parser(char *cmd, int in_flag, int out_flag)
 
 	command_struct = ft_malloc(sizeof(t_command));
 	command_struct->next = NULL;
-	printf("CURRENT CMD: %s \n", cmd);
 	command_parts = ft_split_quote(cmd, ' '); // Todo only split if not surrounded by quotes
+	ft_assign_file_name_to_path(command_struct, file_name);
 	if (!command_parts)
 		return (NULL);
 	main_command = command_parts[0];
@@ -91,19 +103,21 @@ t_command		*ft_parse_in_commands(char *cmds)
 	int		i;
 	int		start;
 	t_command	*first;
+	char *file_name;
 
 	i = 0;
 	start = 0;
 	first = NULL;
-	printf("WHOLE COMMAND: %s \n", cmds);
 	if (cmds[0] == '<')
 	{
 		while (cmds[i] != ' ' && cmds[i])
 			i++;
+		file_name = ft_substr(cmds, (start + 1), i);
 		first = ft_parser(
 					ft_substr(cmds, start, (i - start)),
 					2,
-					7
+					7,
+					file_name
 				);
 		start = i;
 	}
@@ -117,22 +131,24 @@ t_command		*ft_parse_in_commands(char *cmds)
 				first = ft_parser(
 					ft_substr(cmds, start, (i - start)),
 					ft_determine_out_flag(ft_substr(cmds, start, (i - start))),
-					ft_determine_in_flag(ft_substr(cmds, start, (i - start)))
+					ft_determine_in_flag(ft_substr(cmds, start, (i - start))),
+					NULL
 				);
 			else
 				ft_commandaddback(&first, ft_parser(
 					ft_substr(cmds, start, (i - start)),
 					ft_determine_out_flag(ft_substr(cmds, start, (i - start))),
-					ft_determine_in_flag(ft_substr(cmds, start, (i - start)))
+					ft_determine_in_flag(ft_substr(cmds, start, (i - start))),
+					NULL
 				));
 			start = i;
 		}
 		i++;
 	}
 	if (!first)
-		first = ft_parser(cmds, -1, -1);
+		first = ft_parser(cmds, -1, -1, NULL);
 	else
-		ft_commandaddback(&first, ft_parser(ft_substr(cmds, start, (i - start)), ft_determine_in_flag(ft_substr(cmds, start, (i - start))), ft_determine_out_flag(ft_substr(cmds, start, (i - start)))));
+		ft_commandaddback(&first, ft_parser(ft_substr(cmds, start, (i - start)), ft_determine_in_flag(ft_substr(cmds, start, (i - start))), ft_determine_out_flag(ft_substr(cmds, start, (i - start))), NULL));
 
 	return (first);
 }
