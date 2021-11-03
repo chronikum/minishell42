@@ -53,20 +53,14 @@ void    ft_system_command(t_pipes *p, t_command *commands, t_envlist *envp)
 
 	(void) p;
 	(void) envp;
-
-	printf("FIRST COMMAND: %s \n", commands->args[0]);
-	printf("SECOND COMMAND: %s \n", commands->args[1]);
 	pid = fork(); // maybe something goes wrong with the fork?
 	// ft_execute(commands, envp);
 	if (pid == -1)
 		exit(0);
 	if (pid == 0)
 	{
-		//close(p->pipe[0]);
-		printf("BEFORE EXECUTE! \n");
+		close(p->pipe[0]);
 		ft_execute(commands, envp);
-		printf("AFTER EXECUTE! \n");
-		exit(0);
 	}
 	if (pid != 0)
 	{
@@ -103,21 +97,6 @@ void	ft_pipex(t_pipes *p, t_command *commands, t_envlist *envp)
 	if (commands->flag == STDOUT)
 		ft_close(p);
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
