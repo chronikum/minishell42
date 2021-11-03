@@ -29,51 +29,57 @@ void	ft_stdout_dup(t_pipes *p)
 	dup2(p->stout, 1);
 }
 
-int ft_execute(t_command *commands, t_envlist *envp) // the mistake is in t_command probably! 
+int ft_execute(t_command *commands, t_envlist *envp) // the mistake is in t_command probably!
 {
 	t_child	*c;
+	char *commandargs[2];
+
+	commandargs[0] = "ls";
+	commandargs[1] = NULL;
 
 	c = malloc(sizeof(t_child));
 	c->cmnd = commands->args; // it seems that this does not have the content required
 	printf("STARTING HERE \n");
-	c->full_path = ft_find_executable_path(commands->args[0]); // when going in here it fails
+	//c->full_path = ft_find_executable_path(commands->args[0]); // when going in here it fails
+	c->full_path = "/bin/ls";
 	printf("STOPPING HERE \n");
 	printf("FULL ACCESS IS: %s \n", c->full_path);
 	if (access(c->full_path, F_OK) != -1)
 	{
 		printf("FOUND FILE! EXECUTING NOW! \n");
-		execve(c->full_path, commands->args, envp->envp);
+		execve(c->full_path, commandargs, envp->envp);
 	}
 	if (access(c->full_path, F_OK) == -1 && c->i == 0)
 		command_not_found(commands->command);
-	//exit(0);
-	return (0);
+	exit(0);
 }
 
 void    ft_system_command(t_pipes *p, t_command *commands, t_envlist *envp)
 {
-	//pid_t	pid;
+	pid_t	pid;
 
 	(void) p;
+	(void) envp;
 
 	printf("FIRST COMMAND: %s \n", commands->args[0]);
 	printf("SECOND COMMAND: %s \n", commands->args[1]);
-	//pid = fork(); // maybe something goes wrong with the fork?
-	ft_execute(commands, envp);
-	//if (pid == -1)
-	//	exit(0);
-	//if (pid == 0)
-	//{
-	//	printf("BEFORE EXECUTE! \n");
-	//	ft_execute(commands, envp);
-	//	printf("AFTER EXECUTE! \n");
-	//	close(p->pipe[0]);
-	//}
-	//if (pid != 0)
-	//{
-	//	close(p->pipe[1]);
-	//	wait(0);
-	//}
+	pid = fork(); // maybe something goes wrong with the fork?
+	// ft_execute(commands, envp);
+	if (pid == -1)
+		exit(0);
+	if (pid == 0)
+	{
+		//close(p->pipe[0]);
+		printf("BEFORE EXECUTE! \n");
+		ft_execute(commands, envp);
+		printf("AFTER EXECUTE! \n");
+		exit(0);
+	}
+	if (pid != 0)
+	{
+		close(p->pipe[1]);
+		wait(0);
+	}
 }
 
 void    ft_init_dup(t_pipes *p)
@@ -95,9 +101,9 @@ void	ft_pipex(t_pipes *p, t_command *commands, t_envlist *envp)
 	ft_pipe(p);
 	ft_init_dup(p);
 	if (commands->flag == STDOUT)
-		ft_stdout_dup(p); 
+		ft_stdout_dup(p);
 	if (commands->flag == PIPE)
-		ft_pipe_pre_dup(p); 
+		ft_pipe_pre_dup(p);
 	ft_system_command(p, commands, envp);
 	if (commands->flag == PIPE)
 		ft_pipe_after_dup(p);

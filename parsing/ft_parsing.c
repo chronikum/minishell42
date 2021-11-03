@@ -19,7 +19,7 @@ t_command	*ft_parser(char *cmd, int flag)
 		return (NULL);
 	main_command = command_parts[0];
 	command_struct->command = ft_find_executable_path(main_command);
-	command_struct->args = command_parts;
+	command_struct->args = ft_memdup(command_parts, sizeof(char **));
 	command_struct->flag = flag;
 	if (DEBUG)
 		printf("FLAG: %d\n", command_struct->flag);
@@ -57,9 +57,9 @@ int	ft_determine_flag(char *command)
 	Parses a string of commands in multiple single segments
 	and creates a funky linked command list
 	out of it.
-	
+
 	Returns the beginning of the command list.
-	
+
 	TODO: Actually send the right flag to ft_parser, currently we are only sending the
 	index which is not quite correct!
 */
@@ -68,7 +68,7 @@ t_command		*ft_parse_in_commands(char *cmds)
 	int		i;
 	int		start;
 	t_command	*first;
-	
+
 	i = 0;
 	start = 0;
 	first = NULL;
@@ -90,6 +90,6 @@ t_command		*ft_parse_in_commands(char *cmds)
 		first = ft_parser(cmds, -1);
 	else
 		ft_commandaddback(&first, ft_parser(ft_substr(cmds, start, (i - start)), ft_determine_flag(ft_substr(cmds, start, (i - start)))));
-	
+
 	return (first);
 }

@@ -6,7 +6,7 @@
 #    By: jfritz <jfritz@student.42heilbronn.de>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/06/26 12:05:10 by olgerret          #+#    #+#              #
-#    Updated: 2021/10/30 13:18:11 by jfritz           ###   ########.fr        #
+#    Updated: 2021/11/03 09:22:17 by jfritz           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,7 +25,7 @@ SRC = ft_memset.c ft_bzero.c ft_memcpy.c ft_memccpy.c ft_memmove.c ft_memchr.c f
 BNS = ft_lstnew.c ft_lstadd_front.c ft_lstsize.c ft_lstlast.c ft_lstadd_back.c ft_lstdelone.c \
 	ft_lstclear.c ft_lstiter.c ft_lstmap.c
 
-CUSTOM = ft_inset.c
+CUSTOM = ft_inset.c ft_memdup.c
 
 all: $(NAME)
 
