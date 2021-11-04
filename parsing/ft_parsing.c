@@ -1,5 +1,8 @@
 #include "../includes/ft_minishell.h"
 
+
+// > >> after that comes a filename which is being supplied to the struct BEFORE the sep
+
 void	ft_assign_file_name_to_path(t_command *command, char *file_name)
 {
 	command->file = NULL;
@@ -26,6 +29,7 @@ int	ft_check_builtin(char *command)
 		return (1);
 	return (0);
 }
+
 
 /*
 	Sets the buildin sys flag to 5 or 6
@@ -58,7 +62,6 @@ t_command	*ft_parser(char *cmd, int in_flag, int out_flag, char *file_name)
 	command_struct = ft_malloc(sizeof(t_command));
 	command_struct->next = NULL;
 	command_parts = ft_split_quote(cmd, ' '); // Todo only split if not surrounded by quotes
-	ft_assign_file_name_to_path(command_struct, file_name);
 	if (!command_parts)
 		return (NULL);
 	main_command = command_parts[0];
@@ -70,6 +73,7 @@ t_command	*ft_parser(char *cmd, int in_flag, int out_flag, char *file_name)
 		ft_set_builtin_flag(command_struct); // TODO: this needs to be adjusted: this set determined by being a system or a built_in function
 	command_struct->in_flag = in_flag;
 	command_struct->out_flag = out_flag;
+	ft_assign_file_name_to_path(command_struct, file_name);
 	if (DEBUG)
 	{
 		printf("----- SECTION -----\n");
@@ -130,6 +134,25 @@ int	ft_determine_in_flag(char *command)
 	return (-1);
 }
 
+
+/*
+	Adds an outfile to the given command linked list.
+	Will use the next argument in the list instead.
+	Will look for the filename after the > or >> indicator
+	and trim the string fromm whitespaces.
+	Then it will set the result as the command->file.
+*/
+void	ft_add_outfile_to_commabeur(t_command *first, char *cmds, int start, int i)
+{
+	char *file_name = ft_substr(cmds, i, ft_strlen(cmds));
+	ft_commandaddback(&first, ft_parser(
+			ft_substr(cmds, start, (i - start)),
+			ft_determine_out_flag(ft_substr(cmds, start, (i - start))),
+			ft_determine_in_flag(ft_substr(cmds, start, (i - start))),
+			ft_strtrim(file_name, " ")
+	));
+}
+
 /*
 	Parses a string of commands in multiple single segments
 	and creates a funky linked command list
@@ -169,29 +192,34 @@ t_command		*ft_parse_in_commands(char *cmds)
 		{
 			while (ft_single_inset(cmds[i], "|><") != -1) // >>
 				i++;
-			if (!first)
+			if (!first && ft_determine_in_flag(ft_substr(cmds, start, (i - start))) != 1)
 				first = ft_parser(
 					ft_substr(cmds, start, (i - start)),
 					ft_determine_out_flag(ft_substr(cmds, start, (i - start))),
 					ft_determine_in_flag(ft_substr(cmds, start, (i - start))),
 					NULL
 				);
+			// check if is output file
+			else if (ft_determine_in_flag(ft_substr(cmds, start, (i - start))) == 1
+				|| ft_determine_in_flag(ft_substr(cmds, start, (i - start))) == 4)
+			{
+				ft_add_outfile_to_commabeur(first, cmds, start, i);
+				return (first); // TODO: we currently just return if we find an outfile
+			}
 			else
+			{
 				ft_commandaddback(&first, ft_parser(
 					ft_substr(cmds, start, (i - start)),
 					ft_determine_out_flag(ft_substr(cmds, start, (i - start))),
 					ft_determine_in_flag(ft_substr(cmds, start, (i - start))),
 					NULL
 				));
+			}
 			start = i;
 		}
 		i++;
 	}
-	// good morning!
-	// this needs to be fixed. it should only run when it is not being
-	// handled in a file or here doc.
-	// if you remove this nothing will work lol
-	// see you
+
 	if (!first)
 		first = ft_parser(cmds, -1, -1, NULL);
 	else

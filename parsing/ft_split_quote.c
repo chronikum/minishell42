@@ -125,7 +125,6 @@ char	**ft_split_quote(char *s, char c)
 	i = 0;
 	current = NULL;
 	wc = word_counter(s, c);
-	printf("ARG COUNT: %d \n", wc);
 	result = ft_malloc(sizeof(char *) * (wc + 1));
 	while (current || i == 0)
 	{
