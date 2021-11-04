@@ -10,6 +10,40 @@ void	ft_assign_file_name_to_path(t_command *command, char *file_name)
 }
 
 /*
+	Checks if the command is a builtin command
+*/
+int	ft_check_builtin(char *command)
+{
+	if (ft_strncmp(command, "pwd", ft_strlen("pwd")) == 0)
+		return (1);
+	else if (ft_strncmp(command, "exit", ft_strlen("exit")) == 0)
+		return (1);
+	else if (ft_strncmp(command, "env", ft_strlen("env")) == 0)
+		return (1);
+	else if (ft_strncmp(command, "echo", ft_strlen("echo")) == 0)
+		return (1);
+	else if (ft_strncmp(command, "cd", ft_strlen("cd")) == 0)
+		return (1);
+	return (0);
+}
+
+/*
+	Sets the buildin sys flag to 5 or 6
+*/
+void	ft_set_builtin_flag(t_command *command)
+{
+	char *main_command;
+
+	main_command = command->args[0];
+	if (ft_find_executable_path(main_command))
+		command->builtin_sys_flag = 6;
+	else  if (ft_check_builtin(main_command))
+		command->builtin_sys_flag = 5;
+	else
+		command->builtin_sys_flag = 7;
+}
+
+/*
 	Parses a single segment of a command into a linked list
 	and returns the parsed linked list
 	The flag is the type of redirection which should be set.
@@ -33,14 +67,17 @@ t_command	*ft_parser(char *cmd, int in_flag, int out_flag, char *file_name)
 	if (in_flag == 2) // super important to remove this later @DEBUG
 		command_struct->builtin_sys_flag = 7;
 	else
-		command_struct->builtin_sys_flag = 6; // TODO: this needs to be adjusted: this set determined by being a system or a built_in function
+		ft_set_builtin_flag(command_struct); // TODO: this needs to be adjusted: this set determined by being a system or a built_in function
 	command_struct->in_flag = in_flag;
 	command_struct->out_flag = out_flag;
 	if (DEBUG)
 	{
 		printf("----- SECTION -----\n");
 		printf("Command: 			%s\n", command_struct->command);
-		printf("args[0]:			%s\n", command_struct->args[0]);
+		//printf("args[0]:			%s\n", command_struct->args[0]);
+		//printf("args[1]:			%s\n", command_struct->args[1]);
+		//printf("args[2]:			%s\n", command_struct->args[2]);
+		ft_arg_printer(command_struct->args);
 		if (command_struct->file)
 		{
 			printf("FILE: 				%s|\n", command_struct->file);

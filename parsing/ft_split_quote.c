@@ -102,6 +102,8 @@ static int	word_counter(char *s, char c)
 			while (s[i] != c && s[i])
 			{
 				i++;
+				while (s[i] != c && s[i])
+					i++;
 				if (!s[i])
 					return (++words);
 			}
