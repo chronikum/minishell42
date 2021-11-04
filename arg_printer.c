@@ -7,7 +7,7 @@ void	ft_arg_printer(char **args)
 	i = 0;
 	while (args[i])
 	{
-		printf("%s\n", args[i]);
+		printf("COMMAND ARG PART: |%s|\n", args[i]);
 		i++;
 	}
 }

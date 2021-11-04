@@ -11,7 +11,6 @@ char *ft_join_path(char *path, char *executable)
 	pathwithslash = ft_strjoin(path, "/");
 	pathwithslashandexecutable = ft_strjoin(pathwithslash, executable);
 
-	free(pathwithslash);
 	return (pathwithslashandexecutable);
 }
 

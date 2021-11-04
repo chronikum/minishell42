@@ -86,6 +86,8 @@ static int	word_counter(char *s, char c)
 	ft_skip_operators(&i, s);
 	while (s[i])
 	{
+		while (s[i] == ' ' && s[i])
+			i++;
 		ft_skip_operators(&i, s);
 		if (s[i] == '"' && s[i])
 		{
@@ -123,6 +125,7 @@ char	**ft_split_quote(char *s, char c)
 	i = 0;
 	current = NULL;
 	wc = word_counter(s, c);
+	printf("ARG COUNT: %d \n", wc);
 	result = ft_malloc(sizeof(char *) * (wc + 1));
 	while (current || i == 0)
 	{
@@ -130,9 +133,12 @@ char	**ft_split_quote(char *s, char c)
 			current = ft_get_next_word(s, c, 1);
 		if (!current)
 			return (NULL);
-		result[i] = current;
+		if (ft_strlen(current) != 0)
+		{
+			result[i] = current;
+			i++;
+		}
 		current = ft_get_next_word(s, c, 0);
-		i++;
 		//if (!current)
 		//	exit(0);
 	}
