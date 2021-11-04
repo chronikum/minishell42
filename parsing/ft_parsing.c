@@ -91,18 +91,6 @@ t_command	*ft_parser(char *cmd, int in_flag, int out_flag, char *file_name)
 	return (command_struct);
 }
 
-/*
-	Determines the flag which is being used at the end of the command.
-	- define PIPE	0  |
-	- define OUT	1  >
-	- define IN 	2  <
-	- define LEFT	3  << here doc
-	- define RIGHT	4  >> append
-	- define BUILT	5
-	- define SYS 	6
-	- define STDOUT -1 last command in chain
-*/
-
 // todo: do something which makes sense
 int	ft_determine_out_flag(char *command)
 {
@@ -134,6 +122,71 @@ int	ft_determine_in_flag(char *command)
 	return (-1);
 }
 
+/*
+	Skips white spaces
+*/
+void	ft_skip_whitespaces(char *cmd, int *i)
+{
+	while (cmd[(*i)] == ' ')
+		(*i)++;
+}
+
+/*
+	Gets called when a quote is being seen. Toggles a int (pointer) 
+*/
+void	ft_toggle_quote(int *quote_toggle)
+{
+	if ((*quote_toggle))
+		(*quote_toggle) = 0;
+	else
+		(*quote_toggle) = 1;
+}
+
+///*
+//	Parses a string of commands in multiple single segments
+//	and creates a funky linked command list
+//	out of it.
+
+//	Returns the beginning of the command list.
+
+//	TODO: Actually send the right flag to ft_parser, currently we are only sending the
+//	index which is not quite correct!
+//*/
+//t_command		*ft_parse_in_commands(char *cmds)
+//{
+//	int	i;
+//	int	start;
+//	t_command	*first;
+//	int quotes_closed;
+
+//	i = 0;
+//	start = 0;
+//	quotes_closed = 1;
+//	first = NULL;
+//	while (cmds[i]) // go through all characters of the command
+//	{
+//		if (cmds[i] == '"')
+//			ft_toggle_quote(&quotes_closed);
+//		ft_skip_whitespaces(&cmds[i], &i);
+//		printf("CURRENT; %c \n", cmds[i]);
+//		if (cmds[i] == '>' && (quotes_closed == 1))
+//		{
+//			//printf("FILE NAME: %s \n", ft_substr(cmds, i, ft_strlenc(&cmds[i], ' ')));
+//			printf("Length: %d \n", ft_strlenc(&cmds[i], ' '));
+//			ft_commandaddback(&first,
+//				ft_parser(
+//				cmds,
+//				ft_determine_out_flag(ft_substr(cmds, start, (i - start))),
+//				ft_determine_in_flag(ft_substr(cmds, start, (i - start))),
+//				ft_substr(cmds, (i), ft_strlenc(&cmds[start], ' '))
+//			));
+//		}
+//		start = i;
+//		i++;
+//	}
+
+//	return (first);
+//}
 
 /*
 	Adds an outfile to the given command linked list.
@@ -141,14 +194,18 @@ int	ft_determine_in_flag(char *command)
 	Will look for the filename after the > or >> indicator
 	and trim the string fromm whitespaces.
 	Then it will set the result as the command->file.
+	It will take the iterator i to jump to the end of the filename to
+	not print out too many arguments later on
 */
-void	ft_add_outfile_to_commabeur(t_command *first, char *cmds, int start, int i)
+void	ft_add_outfile_to_commabeur(t_command *first, char *cmds, int start, int *i)
 {
-	char *file_name = ft_substr(cmds, i, ft_strlen(cmds));
+	char *file_name = ft_substr(cmds, (*i), ft_strlen(cmds));
+	while (cmds[(*i)] != ' ' && cmds[(*i)])
+		(*i)++;
 	ft_commandaddback(&first, ft_parser(
-			ft_substr(cmds, start, (i - start)),
-			ft_determine_out_flag(ft_substr(cmds, start, (i - start))),
-			ft_determine_in_flag(ft_substr(cmds, start, (i - start))),
+			ft_substr(cmds, start, ((*i) - start)),
+			ft_determine_out_flag(ft_substr(cmds, start, ((*i) - start))),
+			ft_determine_in_flag(ft_substr(cmds, start, ((*i) - start))),
 			ft_strtrim(file_name, " ")
 	));
 }
@@ -203,8 +260,7 @@ t_command		*ft_parse_in_commands(char *cmds)
 			else if (ft_determine_in_flag(ft_substr(cmds, start, (i - start))) == 1
 				|| ft_determine_in_flag(ft_substr(cmds, start, (i - start))) == 4)
 			{
-				ft_add_outfile_to_commabeur(first, cmds, start, i);
-				return (first); // TODO: we currently just return if we find an outfile
+				ft_add_outfile_to_commabeur(first, cmds, start, &i);
 			}
 			else
 			{
@@ -220,10 +276,10 @@ t_command		*ft_parse_in_commands(char *cmds)
 		i++;
 	}
 
-	if (!first)
-		first = ft_parser(cmds, -1, -1, NULL);
-	else
-		ft_commandaddback(&first, ft_parser(ft_substr(cmds, start, (i - start)), ft_determine_in_flag(ft_substr(cmds, start, (i - start))), ft_determine_out_flag(ft_substr(cmds, start, (i - start))), NULL));
+	//if (!first)
+	//	first = ft_parser(cmds, -1, -1, NULL);
+	//else
+	//	ft_commandaddback(&first, ft_parser(ft_substr(cmds, start, (i - start)), ft_determine_in_flag(ft_substr(cmds, start, (i - start))), ft_determine_out_flag(ft_substr(cmds, start, (i - start))), NULL));
 
 	return (first);
 }
