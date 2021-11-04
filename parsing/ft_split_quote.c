@@ -112,7 +112,7 @@ static int	word_counter(char *s, char c)
 	return (words);
 }
 
-
+/// TODO: sometimes hebaves weirdly with word count!
 char	**ft_split_quote(char *s, char c)
 {
 	char	**result;
@@ -124,18 +124,13 @@ char	**ft_split_quote(char *s, char c)
 	current = NULL;
 	wc = word_counter(s, c);
 	result = ft_malloc(sizeof(char *) * (wc + 1));
-	if (DEBUG)
-	{
-		printf("----- SECTION -----\n");
-		printf("ARGUMENTS: %d\n", wc);
-	}
 	while (current || i == 0)
 	{
 		if (!current)
 			current = ft_get_next_word(s, c, 1);
+		if (!current)
+			return (NULL);
 		result[i] = current;
-		if (DEBUG)
-			printf("ARG: %s\n", current);
 		current = ft_get_next_word(s, c, 0);
 		i++;
 		//if (!current)
