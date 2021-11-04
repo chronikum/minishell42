@@ -110,33 +110,64 @@ int	main(int argc, char **argv, char **envp)
 //	p = malloc(sizeof(t_pipes));
 //	ft_env_list(ft_create_env_list(envp));
 
-//	char *commmad_args2[3];
-//	commmad_args2[0] = "grep";
-//	commmad_args2[1] = "ft_";
-//	commmad_args2[2] = NULL;
+//	//char *commmand_args2[3];
+//	//commmand_args2[0] = "grep";
+//	//commmand_args2[1] = "ft_";
+//	//commmand_args2[2] = NULL;
 
-//	char *commmad_args[3];
-//	commmad_args[0] = "ls";
-//	commmad_args[1] = "-a";
-//	commmad_args[2] = NULL;
+//	//char *commmand_args[3];
+//	//commmand_args[0] = "ls";
+//	//commmand_args[1] = "-a";
+//	//commmand_args[2] = NULL;
+
+//	char *commmand_args2[2];
+//	commmand_args2[0] = "cat";
+//	commmand_args2[1] = NULL;
+
+//	char *commmand_args[2];
+//	commmand_args[0] = "<in";
+//	commmand_args[1] = NULL;
 
 //	(void)argv;
 //	(void)argc;
 
+//	//// second command
+//	//command2 = malloc(sizeof(t_command));
+//	//command2->args = commmand_args2;
+//	//command2->command = "grep ft_";
+//	//command2->in_flag = 7;
+//	//command2->out_flag = STDOUT;
+//	//command2->next = NULL;
+
+//	//// first commands
+//	//command = malloc(sizeof(t_command));
+//	//command->args = commmand_args;
+//	//command->command = "ls -a";
+//	//command->in_flag = 7;
+//	//command->out_flag = PIPE;
+//	////command->next = NULL;
+//	//command->next = command2;
+
 //	// second command
 //	command2 = malloc(sizeof(t_command));
-//	command2->args = commmad_args2;
-//	command2->command = "grep ft_";
-//	command2->flag = STDOUT;
+//	command2->args = commmand_args2;
+//	command2->command = "cat";
+//	command2->in_flag = 7;
+//	command2->out_flag = STDOUT;
+//	command->builtin_sys_flag = BUILT_IN;
 //	command2->next = NULL;
 
 //	// first commands
 //	command = malloc(sizeof(t_command));
-//	command->args = commmad_args;
-//	command->command = "ls -a";
-//	command->flag = PIPE;
+//	command->args = commmand_args;
+//	command->command = "<in";
+//	command->file = "./in";
+//	command->in_flag = IN;
+//	command->out_flag = 7;
+//	command->builtin_sys_flag = 7;
 //	//command->next = NULL;
 //	command->next = command2;
+
 
 
 //	//Do this before entering PIPEX
