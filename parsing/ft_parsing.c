@@ -74,9 +74,6 @@ t_command	*ft_parser(char *cmd, int in_flag, int out_flag, char *file_name)
 	{
 		printf("----- SECTION -----\n");
 		printf("Command: 			%s\n", command_struct->command);
-		//printf("args[0]:			%s\n", command_struct->args[0]);
-		//printf("args[1]:			%s\n", command_struct->args[1]);
-		//printf("args[2]:			%s\n", command_struct->args[2]);
 		ft_arg_printer(command_struct->args);
 		if (command_struct->file)
 		{
