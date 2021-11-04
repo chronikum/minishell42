@@ -108,6 +108,9 @@ int	main(int argc, char **argv, char **envp)
 //	p = malloc(sizeof(t_pipes));
 //	ft_env_list(ft_create_env_list(envp));
 
+
+
+//	////REGULAR TEST
 //	//char *commmand_args2[3];
 //	//commmand_args2[0] = "grep";
 //	//commmand_args2[1] = "ft_";
@@ -118,17 +121,30 @@ int	main(int argc, char **argv, char **envp)
 //	//commmand_args[1] = "-a";
 //	//commmand_args[2] = NULL;
 
-//	char *commmand_args2[2];
-//	commmand_args2[0] = "cat";
-//	commmand_args2[1] = NULL;
 
+
+
+//	////INFILE TEST
+//	//char *commmand_args2[2];
+//	//commmand_args2[0] = "cat";
+//	//commmand_args2[1] = NULL;
+
+//	//char *commmand_args[2];
+//	//commmand_args[0] = "<in";
+//	//commmand_args[1] = NULL;
+
+
+
+
+//	////OUTFILE TEST
 //	char *commmand_args[2];
-//	commmand_args[0] = "<in";
+//	commmand_args[0] = "ls";
 //	commmand_args[1] = NULL;
 
-//	(void)argv;
-//	(void)argc;
 
+
+
+//	////REGULAR TEST
 //	//// second command
 //	//command2 = malloc(sizeof(t_command));
 //	//command2->args = commmand_args2;
@@ -146,27 +162,54 @@ int	main(int argc, char **argv, char **envp)
 //	////command->next = NULL;
 //	//command->next = command2;
 
-//	// second command
-//	command2 = malloc(sizeof(t_command));
-//	command2->args = commmand_args2;
-//	command2->command = "cat";
-//	command2->in_flag = 7;
-//	command2->out_flag = STDOUT;
-//	command->builtin_sys_flag = BUILT_IN;
-//	command2->next = NULL;
 
+
+
+
+
+//	////INFILE TEST
+//	//// second command
+//	//command2 = malloc(sizeof(t_command));
+//	//command2->args = commmand_args2;
+//	//command2->command = "cat";
+//	//command2->in_flag = 7;
+//	//command2->out_flag = STDOUT;
+//	//command->builtin_sys_flag = BUILT_IN;
+//	//command2->next = NULL;
+
+//	//// first commands
+//	//command = malloc(sizeof(t_command));
+//	//command->args = commmand_args;
+//	//command->command = "<in";
+//	//command->file = "./in";
+//	//command->in_flag = IN;
+//	//command->out_flag = 7;
+//	//command->builtin_sys_flag = 7;
+//	////command->next = NULL;
+//	//command->next = command2;
+
+
+
+
+
+
+//	////OUTFILE TEST
 //	// first commands
 //	command = malloc(sizeof(t_command));
 //	command->args = commmand_args;
-//	command->command = "<in";
-//	command->file = "./in";
-//	command->in_flag = IN;
-//	command->out_flag = 7;
-//	command->builtin_sys_flag = 7;
-//	//command->next = NULL;
-//	command->next = command2;
+//	command->command = "ls >out";
+//	command->file = "./out";
+//	command->in_flag = 7;
+//	command->out_flag = OUT;
+//	command->builtin_sys_flag = BUILT_IN;
+//	command->next = NULL;
 
 
+
+
+
+//	(void)argv;
+//	(void)argc;
 
 //	//Do this before entering PIPEX
 //	p->temp_fd = dup(STDIN_FILENO);
