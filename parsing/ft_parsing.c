@@ -197,17 +197,17 @@ void	ft_toggle_quote(int *quote_toggle)
 	It will take the iterator i to jump to the end of the filename to
 	not print out too many arguments later on
 */
-void	ft_add_outfile_to_commabeur(t_command *first, char *cmds, int start, int *i)
+t_command	*ft_add_outfile_to_commabeur(t_command *first, char *cmds, int start, int *i)
 {
 	char *file_name = ft_substr(cmds, (*i), ft_strlen(cmds));
 	while (cmds[(*i)] != ' ' && cmds[(*i)])
 		(*i)++;
-	ft_commandaddback(&first, ft_parser(
+	return (ft_commandaddback(&first, ft_parser(
 			ft_substr(cmds, start, ((*i) - start)),
 			ft_determine_out_flag(ft_substr(cmds, start, ((*i) - start))),
 			ft_determine_in_flag(ft_substr(cmds, start, ((*i) - start))),
 			ft_strtrim(file_name, " ")
-	));
+	)));
 }
 
 /*
@@ -260,7 +260,7 @@ t_command		*ft_parse_in_commands(char *cmds)
 			else if (ft_determine_in_flag(ft_substr(cmds, start, (i - start))) == 1
 				|| ft_determine_in_flag(ft_substr(cmds, start, (i - start))) == 4)
 			{
-				ft_add_outfile_to_commabeur(first, cmds, start, &i);
+				first = ft_add_outfile_to_commabeur(first, cmds, start, &i);
 			}
 			else
 			{
@@ -276,10 +276,10 @@ t_command		*ft_parse_in_commands(char *cmds)
 		i++;
 	}
 
-	//if (!first)
-	//	first = ft_parser(cmds, -1, -1, NULL);
-	//else
-	//	ft_commandaddback(&first, ft_parser(ft_substr(cmds, start, (i - start)), ft_determine_in_flag(ft_substr(cmds, start, (i - start))), ft_determine_out_flag(ft_substr(cmds, start, (i - start))), NULL));
+	if (!first)
+		first = ft_parser(cmds, -1, -1, NULL);
+	else
+		ft_commandaddback(&first, ft_parser(ft_substr(cmds, start, (i - start)), ft_determine_in_flag(ft_substr(cmds, start, (i - start))), ft_determine_out_flag(ft_substr(cmds, start, (i - start))), NULL));
 
 	return (first);
 }

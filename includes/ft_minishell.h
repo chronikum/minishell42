@@ -173,7 +173,7 @@ void		ft_double_free(char	**string);
 void		ft_triple_free(char	***string);
 
 // Command list handling
-void		ft_commandaddback(t_command **lst, t_command *new);
+t_command	*ft_commandaddback(t_command **lst, t_command *new);
 t_command	*ft_newcommand(char *command);
 
 #endif

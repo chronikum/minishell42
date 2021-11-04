@@ -5,19 +5,20 @@
 	list or handles input null by setting the command list
 	correctly
 */
-void	ft_commandaddback(t_command **lst, t_command *new)
+t_command	*ft_commandaddback(t_command **lst, t_command *new)
 {
 	t_command	*temp;
 
 	temp = *lst;
 	if (!new)
-		return ;
+		return (NULL);
 	if (!temp)
 	{
 		*lst = new;
-		return ;
+		return ((*lst));
 	}
 	while (temp->next != 0)
 		temp = temp->next;
 	temp->next = new;
+	return ((*lst));
 }
