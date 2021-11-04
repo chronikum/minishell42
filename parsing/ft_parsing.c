@@ -210,12 +210,25 @@ t_command	*ft_add_outfile_to_commabeur(t_command *first, char *cmds, int start, 
 	)));
 }
 
+
+/*
+	Increases counter by one and toggles quote counter if it encounters one
+*/
+void	ft_increase_i_quote_handler(char *cmd, int *i, int *quote)
+{
+	if (cmd[(*i)] == '"')
+		ft_toggle_quote(quote);
+	(*i)++;
+}
+
 /*
 	Parses a string of commands in multiple single segments
 	and creates a funky linked command list
 	out of it.
 
 	Returns the beginning of the command list.
+	Also handles quotes in general by toggling a int value.
+	The function 
 
 	TODO: Actually send the right flag to ft_parser, currently we are only sending the
 	index which is not quite correct!
@@ -226,14 +239,16 @@ t_command		*ft_parse_in_commands(char *cmds)
 	int		start;
 	t_command	*first;
 	char *file_name;
+	int	quotes_closed;
 
 	i = 0;
 	start = 0;
 	first = NULL;
+	quotes_closed = 1;
 	if (cmds[0] == '<')
 	{
-		while (cmds[i] != ' ' && cmds[i])
-			i++;
+		while (cmds[i] != ' ' && cmds[i] && quotes_closed)
+			ft_increase_i_quote_handler(cmds, &i, &quotes_closed);
 		file_name = ft_substr(cmds, (start + 1), i);
 		first = ft_parser(
 					ft_substr(cmds, start, (i - start)),
@@ -245,11 +260,11 @@ t_command		*ft_parse_in_commands(char *cmds)
 	}
 	while(cmds[i])
 	{
-		if (ft_single_inset(cmds[i], "|><") != -1) // <
+		if (ft_single_inset(cmds[i], "|><") != -1 && quotes_closed) // <
 		{
-			while (ft_single_inset(cmds[i], "|><") != -1) // >>
-				i++;
-			if (!first && ft_determine_in_flag(ft_substr(cmds, start, (i - start))) != 1)
+			while (ft_single_inset(cmds[i], "|><") != -1 && quotes_closed) // >>
+				ft_increase_i_quote_handler(cmds, &i, &quotes_closed);
+			if (!first && ft_determine_in_flag(ft_substr(cmds, start, (i - start))) != 1 && quotes_closed)
 				first = ft_parser(
 					ft_substr(cmds, start, (i - start)),
 					ft_determine_out_flag(ft_substr(cmds, start, (i - start))),
@@ -257,8 +272,8 @@ t_command		*ft_parse_in_commands(char *cmds)
 					NULL
 				);
 			// check if is output file
-			else if (ft_determine_in_flag(ft_substr(cmds, start, (i - start))) == 1
-				|| ft_determine_in_flag(ft_substr(cmds, start, (i - start))) == 4)
+			else if ((ft_determine_in_flag(ft_substr(cmds, start, (i - start))) == 1
+				|| ft_determine_in_flag(ft_substr(cmds, start, (i - start))) == 4) && quotes_closed)
 			{
 				first = ft_add_outfile_to_commabeur(first, cmds, start, &i);
 			}
@@ -273,7 +288,7 @@ t_command		*ft_parse_in_commands(char *cmds)
 			}
 			start = i;
 		}
-		i++;
+		ft_increase_i_quote_handler(cmds, &i, &quotes_closed);
 	}
 
 	if (!first)
