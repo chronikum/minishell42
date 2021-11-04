@@ -32,6 +32,8 @@ t_command	*ft_parser(char *cmd, int in_flag, int out_flag, char *file_name)
 	command_struct->args = command_parts;
 	if (in_flag == 2) // super important to remove this later @DEBUG
 		command_struct->builtin_sys_flag = 7;
+	else
+		command_struct->builtin_sys_flag = 6; // TODO: this needs to be adjusted: this set determined by being a system or a built_in function
 	command_struct->in_flag = in_flag;
 	command_struct->out_flag = out_flag;
 	if (DEBUG)
