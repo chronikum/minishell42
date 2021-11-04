@@ -154,7 +154,6 @@ void		ft_stdout_dup(t_pipes *p);
 void		ft_close(t_pipes *p);
 void		command_not_found(char *command);
 int			ft_array_len(char **argv);
-char		**path_finder(char **envp);
 int			check_file(char *filename, char RW);
 
 //????

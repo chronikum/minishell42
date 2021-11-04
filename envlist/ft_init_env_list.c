@@ -50,7 +50,7 @@ t_envlist	*ft_create_env_list(char **envp)
 			env_list->next = ft_new_list(command, command_split[0], command_split[1], envp);
 			env_list = env_list->next;
 		}
-		free(command_split);
+		free(command_split); // fix this later
 		i++;
 	}
 	return (start);
