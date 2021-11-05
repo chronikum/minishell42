@@ -52,20 +52,20 @@ void	ft_get_command_list(char *command)
 	Runs if the command is a builtin one.
 	Returns one for builtin commands
 */
-int	ft_run_builtin(char *command)
-{
-	if (ft_strncmp(command, "pwd", ft_strlen("pwd")) == 0)
-		return (ft_pwd());
-	else if (ft_strncmp(command, "exit", ft_strlen("exit")) == 0)
-		ft_quit();
-	else if (ft_strncmp(command, "env", ft_strlen("env")) == 0)
-		return (ft_env());
-	else if (ft_strncmp(command, "echo ", ft_strlen("echo ")) == 0)
-		return (ft_echo(command, 0));
-	else
-		ft_get_command_list(command);
-	return (0);
-}
+//int	ft_run_builtin(char *command)
+//{
+//	if (ft_strncmp(command, "pwd", ft_strlen("pwd")) == 0)
+//		return (ft_pwd());
+//	else if (ft_strncmp(command, "exit", ft_strlen("exit")) == 0)
+//		ft_quit();
+//	else if (ft_strncmp(command, "env", ft_strlen("env")) == 0)
+//		return (ft_env());
+//	else if (ft_strncmp(command, "echo ", ft_strlen("echo ")) == 0)
+//		return (ft_echo(command, 0));
+//	else
+//		ft_get_command_list(command);
+//	return (0);
+//}
 
 int	main(int argc, char **argv, char **envp)
 {
@@ -87,13 +87,16 @@ int	main(int argc, char **argv, char **envp)
 			ft_quit();
 		if (ft_strncmp(cmd, "", ft_strlen(cmd)))
 		{
-			ft_run_builtin(cmd);
+			//ft_run_builtin(cmd);
+			ft_get_command_list(cmd);
 			add_history(cmd);
 		}
 		// split commands by | < > $
 	}
 	return (0);
 }
+
+
 
 //int	main(int argc, char **argv, char **envp)
 //{
@@ -124,6 +127,8 @@ int	main(int argc, char **argv, char **envp)
 
 
 
+
+
 //	////INFILE TEST
 //	//char *commmand_args2[2];
 //	//commmand_args2[0] = "cat";
@@ -136,10 +141,12 @@ int	main(int argc, char **argv, char **envp)
 
 
 
-//	////OUTFILE TEST
-//	char *commmand_args[2];
-//	commmand_args[0] = "ls";
-//	commmand_args[1] = NULL;
+
+
+//	//////OUTFILE TEST
+//	//char *commmand_args[2];
+//	//commmand_args[0] = "ls";
+//	//commmand_args[1] = NULL;
 
 
 
@@ -193,16 +200,16 @@ int	main(int argc, char **argv, char **envp)
 
 
 
-//	////OUTFILE TEST
-//	// first commands
-//	command = malloc(sizeof(t_command));
-//	command->args = commmand_args;
-//	command->command = "ls >out";
-//	command->file = "./out";
-//	command->in_flag = 7;
-//	command->out_flag = OUT;
-//	command->builtin_sys_flag = BUILT_IN;
-//	command->next = NULL;
+//	//////OUTFILE TEST
+//	//// first commands
+//	//command = malloc(sizeof(t_command));
+//	//command->args = commmand_args;
+//	//command->command = "ls >out";
+//	//command->file = "./out";
+//	//command->in_flag = 7; // -1
+//	//command->out_flag = OUT;
+//	//command->builtin_sys_flag = BUILT_IN; //6
+//	//command->next = NULL;
 
 
 
