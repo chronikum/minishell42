@@ -199,7 +199,7 @@ void	ft_toggle_quote(int *quote_toggle)
 */
 t_command	*ft_add_outfile_to_commabeur(t_command *first, char *cmds, int start, int *i)
 {
-	char *file_name = ft_substr(cmds, (*i), ft_strlen(cmds));
+	char *file_name = ft_substr(cmds, (*i), ft_strlenc(&cmds[(*i)], ' '));
 	while (cmds[(*i)] != ' ' && cmds[(*i)])
 		(*i)++;
 	return (ft_commandaddback(&first, ft_parser(
@@ -249,7 +249,7 @@ t_command		*ft_parse_in_commands(char *cmds)
 	{
 		while (cmds[i] != ' ' && cmds[i] && quotes_closed)
 			ft_increase_i_quote_handler(cmds, &i, &quotes_closed);
-		file_name = ft_substr(cmds, (start + 1), i);
+		file_name = ft_substr(cmds, (start + 1), ft_strlenc(&cmds[i], ' '));
 		first = ft_parser(
 					ft_substr(cmds, start, (i - start)),
 					2,
