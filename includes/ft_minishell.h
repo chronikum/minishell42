@@ -172,6 +172,9 @@ void		ft_single_free(char **string);
 void		ft_double_free(char	**string);
 void		ft_triple_free(char	***string);
 
+// libft functions which use ft_malloc instead
+char		**ft_gc_split(char const *s, char c);
+
 // Command list handling
 t_command	*ft_commandaddback(t_command **lst, t_command *new);
 t_command	*ft_newcommand(char *command);
