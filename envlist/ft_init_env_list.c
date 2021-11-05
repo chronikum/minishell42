@@ -39,7 +39,7 @@ t_envlist	*ft_create_env_list(char **envp)
 	while (ft_get_env_count(envp) > i)
 	{
 		command = envp[i];
-		command_split = ft_split(envp[i], '=');
+		command_split = ft_gc_split(envp[i], '=');
 		if (!env_list)
 		{
 			env_list = ft_new_list(command, command_split[0], command_split[1], envp);
@@ -50,7 +50,6 @@ t_envlist	*ft_create_env_list(char **envp)
 			env_list->next = ft_new_list(command, command_split[0], command_split[1], envp);
 			env_list = env_list->next;
 		}
-		free(command_split); // fix this later
 		i++;
 	}
 	return (start);

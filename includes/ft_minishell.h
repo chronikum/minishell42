@@ -122,12 +122,12 @@ int			main(int argc, char **argv, char **envp);
 void		ft_handle_sig(int sig);
 void		ft_quit();
 
-//parsing
-char		***ft_split_machine(char *str, char dlmtr);
-t_command	*ft_parser(char *cmd, int in_flag, int out_flag, char *file_name);
-int			ft_command_size(t_command *lst);
-char		**ft_split_quote(char *s, char c);
-t_command	*ft_parse_in_commands(char *cmds);
+char			***ft_split_machine(char *str, char dlmtr);
+t_command		*ft_parser(char *cmd, int in_flag, int out_flag, char *file_name);
+int				ft_command_size(t_command *lst);
+char			**ft_split_quote(char *s, char c);
+t_command		*ft_parse_in_commands(char *cmds);
+int				ft_strlenc(char *cmd, char c);
 
 //envlist
 t_envlist	*ft_env_list(t_envlist *env_list);
@@ -172,8 +172,11 @@ void		ft_single_free(char **string);
 void		ft_double_free(char	**string);
 void		ft_triple_free(char	***string);
 
+// libft functions which use ft_malloc instead
+char		**ft_gc_split(char const *s, char c);
+
 // Command list handling
-void		ft_commandaddback(t_command **lst, t_command *new);
+t_command	*ft_commandaddback(t_command **lst, t_command *new);
 t_command	*ft_newcommand(char *command);
 
 #endif

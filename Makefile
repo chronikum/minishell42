@@ -14,11 +14,13 @@ PIPEX = ./pipex/ft_minishell_pipex.c ./pipex/ft_pipex_utils.c
 
 HELPERS = ./free_functions/ft_free_functions.c ./arg_printer.c
 
-PARSING = ./parsing/ft_parsing.c ./parsing/ft_split_quote.c ./parsing/ft_command_size.c
+PARSING = ./parsing/ft_parsing.c ./parsing/ft_split_quote.c ./parsing/ft_command_size.c ./parsing/ft_parsing_aux.c
 
 FLAGS = -Wall -Wextra -Werror -g
 
 GARBAGE_COLLECTOR = ./gc/ft_free.c ./gc/ft_freeall.c ./gc/ft_gclststart.c ./gc/ft_malloc.c
+
+GC_LIBFT_VARIATIONS = ./helper/ft_gc_split.c
 
 COMMANDLIST = ./parsing/ft_newcommand.c ./parsing/ft_commandaddback.c
 
@@ -41,7 +43,7 @@ endif
 
 CFLAGS = -g -lreadline $(LDFLAGS) $(CPPFLAGS) -ltermcap -Wall -Wextra -Werror
 
-ALLSRC = $(SRC) $(BUILTINS) $(ENV) $(HELPERS) $(PIPEX) $(COMMANDLIST) $(PATHS) $(PARSING) $(GARBAGE_COLLECTOR)
+ALLSRC = $(SRC) $(BUILTINS) $(ENV) $(HELPERS) $(PIPEX) $(COMMANDLIST) $(PATHS) $(PARSING) $(GARBAGE_COLLECTOR) $(GC_LIBFT_VARIATIONS)
 
 
 all: $(NAME)
@@ -59,7 +61,7 @@ debug: *.c
 	$(CC) $(FLAGS) -D DEBUG=1 -c $(ALLSRC)
 	ar rc $(NAME) *.o
 	$(CC) $(CFLAGS) -L. -lft_minishell -o minishell
-	
+
 clean:
 	rm -f ./libft/*.o
 	rm -f *.o
