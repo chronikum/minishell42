@@ -119,23 +119,31 @@ int	ft_run_builtin(char *command)
 	return (0);
 }
 
+void	ft_outfile_remover(t_command *commands)
+{
+	commands->args[ft_array_len(commands->args) - 1] = NULL;
+}
+
+
 void	ft_pipex(t_pipes *p, t_command *commands, t_envlist *envp)
 {
 	ft_pipe(p);
 	if (commands->in_flag == IN)
 		ft_open_infile(p, commands);
 	if (commands->out_flag == OUT || commands->out_flag == APPEND)
+	{
+		ft_outfile_remover(commands);
 		ft_open_outfile(p, commands);
+		ft_outfile_dup(p);
+	}
 	ft_init_dup(p);
 	if (commands->out_flag == STDOUT)
 		ft_stdout_dup(p);
-	if (commands->out_flag == OUT || commands->out_flag == APPEND)
-		ft_outfile_dup(p);
 	if (commands->out_flag == PIPE)
 		ft_pipe_pre_dup(p);
 	if (commands->builtin_sys_flag == BUILT_IN)
 		ft_run_builtin(commands->args[0]);
-	if (commands->builtin_sys_flag == SYS) //!= 7 for test purposes
+	if (commands->builtin_sys_flag == SYS) //!= 7 for test purposes == SYS
 		ft_system_command(p, commands, envp);
 	if (commands->out_flag == PIPE)
 		ft_pipe_after_dup(p);

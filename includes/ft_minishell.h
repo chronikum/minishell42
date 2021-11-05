@@ -30,6 +30,7 @@
 // built_sys
 # define BUILT_IN 5
 # define SYS 6
+# define SKIP 8 
 
 /*
 	Environment list
@@ -151,6 +152,7 @@ void		ft_outfile_dup(t_pipes *p);
 void		ft_pipe_pre_dup(t_pipes *p);
 void		ft_pipe_after_dup(t_pipes *p);
 void		ft_stdout_dup(t_pipes *p);
+void		ft_outfile_remover(t_command *commands);
 
 void		ft_close(t_pipes *p);
 void		command_not_found(char *command);
