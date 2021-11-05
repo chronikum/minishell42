@@ -54,7 +54,7 @@ typedef struct s_command
 	int					in_flag;  // flag at the beginning
 	int					out_flag; // flag at the end
 	int					builtin_sys_flag; // determines if builtin or ssy command
-	int					op; // ? later
+	int					op; // ? later //remove this one?
 	struct s_command	*next;
 }			t_command;
 
@@ -120,8 +120,8 @@ typedef struct s_child
 
 int			main(int argc, char **argv, char **envp);
 void		ft_handle_sig(int sig);
+void		ft_quit();
 
-//parsing
 char			***ft_split_machine(char *str, char dlmtr);
 t_command		*ft_parser(char *cmd, int in_flag, int out_flag, char *file_name);
 int				ft_command_size(t_command *lst);
