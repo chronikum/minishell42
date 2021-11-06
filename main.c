@@ -45,7 +45,6 @@ void	ft_get_command_list(char *command)
 		ft_pipex(p, list, envp);
 		list = list->next;
 	}
-	//single builtin dont fork builtin with pipes then you need to fork
 }
 
 /*
@@ -174,26 +173,26 @@ int	main(int argc, char **argv, char **envp)
 
 
 
-//	////INFILE TEST
-//	//// second command
-//	//command2 = malloc(sizeof(t_command));
-//	//command2->args = commmand_args2;
-//	//command2->command = "cat";
-//	//command2->in_flag = 7;
-//	//command2->out_flag = STDOUT;
-//	//command->builtin_sys_flag = BUILT_IN;
-//	//command2->next = NULL;
+	////INFILE TEST
+	//// second command
+	//command2 = malloc(sizeof(t_command));
+	//command2->args = commmand_args2;
+	//command2->command = "cat";
+	//command2->in_flag = 7;
+	//command2->out_flag = STDOUT;
+	//command->builtin_sys_flag = BUILT_IN;
+	//command2->next = NULL;
 
-//	//// first commands
-//	//command = malloc(sizeof(t_command));
-//	//command->args = commmand_args;
-//	//command->command = "<in";
-//	//command->file = "./in";
-//	//command->in_flag = IN;
-//	//command->out_flag = 7;
-//	//command->builtin_sys_flag = 7;
-//	////command->next = NULL;
-//	//command->next = command2;
+	//// first commands
+	//command = malloc(sizeof(t_command));
+	//command->args = commmand_args;
+	//command->command = "<in";
+	//command->file = "./in";
+	//command->in_flag = IN;
+	//command->out_flag = 7;
+	//command->builtin_sys_flag = 7;
+	////command->next = NULL;
+	//command->next = command2;
 
 
 

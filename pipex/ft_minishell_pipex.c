@@ -34,6 +34,28 @@ void	ft_stdout_dup(t_pipes *p)
 	dup2(p->stout, 1);
 }
 
+//int ft_execute(t_command *commands, t_envlist *envp)
+//{
+//    t_child	*c;
+
+//	c = malloc(sizeof(t_child));
+//	c->paths = ft_split(getenv("PATH"), ':');
+//	c->cmnd = commands->args;
+//	c->i = ft_array_len(c->paths);
+//	while (c->i >= 0)
+//	{
+//		c->temp = ft_strjoin(c->paths[c->i], "/");
+//		c->full_path = ft_strjoin(c->temp, c->cmnd[0]);
+//		if (access(c->full_path, F_OK) != -1)
+//			execve(c->full_path, commands->args, envp->envp);
+//		if (access(c->full_path, F_OK) == -1 && c->i == 0)
+//			command_not_found(commands->command);
+//		ft_custom_free(&c->full_path, &c->temp, 'S');
+//		c->i--;
+//	}
+//	exit(0);
+//}
+
 int	ft_execute(t_command *commands, t_envlist *envp)
 {
 	t_child	*c;
