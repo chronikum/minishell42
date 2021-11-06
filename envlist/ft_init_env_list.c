@@ -30,7 +30,7 @@ t_envlist	*ft_create_env_list(char **envp)
 {
 	t_envlist	*env_list;
 	t_envlist	*start;
-	size_		i;
+	size_t		i;
 	char		*command;
 	char		**command_split;
 
