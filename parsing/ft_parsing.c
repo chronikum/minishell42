@@ -68,7 +68,7 @@ t_command	*ft_parser(char *cmd, int in_flag, int out_flag, char *file_name)
 	command_struct->command = ft_find_executable_path(main_command);
 	command_struct->args = command_parts;
 	if (in_flag == 2) // super important to remove this later @DEBUG
-		command_struct->builtin_sys_flag = 8;
+		command_struct->builtin_sys_flag = 7;
 	else
 		ft_set_builtin_flag(command_struct); // TODO: this needs to be adjusted: this set determined by being a system or a built_in function
 	command_struct->in_flag = in_flag;
@@ -206,11 +206,12 @@ t_command		*ft_parse_in_commands(char *cmds)
 	{
 		printf("FILENAME GOTTEN: %s\n", ft_get_cmd_filename(cmds, &i));
 		first = ft_parser(
-					ft_substr(cmds, start, (i - start)),
-					2,
-					7,
-					ft_get_cmd_filename(cmds, &i)
-				);
+			ft_substr(cmds, ft_strlen_set(cmds, " "), ft_strlen_set(cmds, "|>")),
+			2,
+			7,
+			ft_strtrim(ft_get_cmd_filename(cmds, &i), "<")
+		);
+		//i += ft_strlen_set(cmds, " |>");
 		start = i;
 	}
 
@@ -241,7 +242,6 @@ t_command		*ft_parse_in_commands(char *cmds)
 				|| ft_determine_in_flag(ft_substr(cmds, start, (i - start))) == 4) && quotes_closed)
 			{
 				first = ft_add_outfile_to_commabeur(first, cmds, start, &i);
-
 			}
 			// check if it is pipe
 			else if (ft_determine_in_flag(ft_substr(cmds, start, (i - start))) == 0 && quotes_closed)
@@ -260,7 +260,10 @@ t_command		*ft_parse_in_commands(char *cmds)
 	}
 
 	if (!first)
+	{
+		printf("SETTING FIRST BECAUSE IT WAS EMPTY! \n");
 		first = ft_parser(cmds, -1, -1, NULL);
+	}
 	else
 		ft_commandaddback(&first, ft_parser(ft_substr(cmds, start, (i - start)), ft_determine_in_flag(ft_substr(cmds, start, (i - start))), ft_determine_out_flag(ft_substr(cmds, start, (i - start))), NULL));
 
