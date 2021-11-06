@@ -204,14 +204,13 @@ t_command		*ft_parse_in_commands(char *cmds)
 	quotes_closed = 1;
 	if (cmds[0] == '<')
 	{
-		printf("FILENAME GOTTEN: %s\n", ft_get_cmd_filename(cmds, &i));
 		first = ft_parser(
 			ft_substr(cmds, ft_strlen_set(cmds, " "), ft_strlen_set(cmds, "|>")),
 			2,
-			7,
+			ft_determine_out_flag(ft_substr(cmds, start, (i - start))),
 			ft_strtrim(ft_get_cmd_filename(cmds, &i), "<")
 		);
-		//i += ft_strlen_set(cmds, " |>");
+		i += ft_strlen_set(cmds, " |>");
 		start = i;
 	}
 
@@ -231,11 +230,11 @@ t_command		*ft_parse_in_commands(char *cmds)
 			if (!first && ft_determine_in_flag(ft_substr(cmds, start, (i - start))) != 1 && quotes_closed)
 			{
 				first = ft_parser(
-						ft_substr(cmds, start, (i - start)),
-						ft_determine_out_flag(ft_substr(cmds, start, (i - start))),
-						ft_determine_in_flag(ft_substr(cmds, start, (i - start))),
-						NULL
-					);
+					ft_substr(cmds, start, (i - start)),
+					ft_determine_out_flag(ft_substr(cmds, start, (i - start))),
+					ft_determine_in_flag(ft_substr(cmds, start, (i - start))),
+					NULL
+				);
 			}
 			// check if is output file
 			else if ((ft_determine_in_flag(ft_substr(cmds, start, (i - start))) == 1
