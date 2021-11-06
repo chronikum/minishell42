@@ -207,7 +207,7 @@ t_command	*ft_add_outfile_to_commabeur(t_command *first, char *cmds, int start, 
 			ft_substr(cmds, start, ((*i) - start)),
 			ft_determine_out_flag(ft_substr(cmds, start, ((*i) - start))),
 			1,
-			ft_strtrim(file_name, " ")
+			file_name
 	)));
 }
 
