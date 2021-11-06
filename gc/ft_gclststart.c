@@ -9,6 +9,7 @@
 t_pointer	*ft_gclststart(t_pointer *pointer)
 {
 	static t_pointer	start = NULL;
+
 	if (pointer)
 		start = pointer;
 	return (&start);

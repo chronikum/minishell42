@@ -5,8 +5,8 @@
  */
 int	ft_echo_string(char *string, int n)
 {
-	int i;
-	
+	int	i;
+
 	i = 0;
 	while (string[i])
 	{
@@ -26,9 +26,9 @@ int	ft_echo_string(char *string, int n)
  */
 int	ft_count_quotes(char *characters)
 {
-	int counter;
-	int counted_characters;
-	
+	int	counter;
+	int	counted_characters;
+
 	counter = 0;
 	counted_characters = 0;
 	while (characters[counter])
@@ -61,8 +61,8 @@ int	ft_check_quotes(char *text_to_echo)
  */
 int	ft_echo(char *cmd, int n)
 {
-	char *command_split;
-	
+	char	*command_split;
+
 	command_split = ft_substr(cmd, 5, ft_strlen(cmd) - 5);
 	if (ft_check_quotes(command_split) && !n)
 	{

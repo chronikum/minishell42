@@ -31,7 +31,6 @@ void	ft_free(t_pointer target)
 		tmp = addrs_cumulated;
 		addrs_cumulated = (*(t_pointer *) addrs_cumulated);
 	}
-	
 	if (addrs_cumulated == (*start))
 		ft_free_first_pointer(start);
 	else if (addrs_cumulated)

@@ -1,8 +1,8 @@
-#include "unistd.h"
-#include <stdlib.h>
-
-# ifndef FT_GARBAGE_COLLECTOR_H
+#ifndef FT_GARBAGE_COLLECTOR_H
 # define FT_GARBAGE_COLLECTOR_H
+
+# include "unistd.h"
+# include <stdlib.h>
 
 typedef void*	t_pointer;
 

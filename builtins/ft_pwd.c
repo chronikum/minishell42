@@ -12,4 +12,3 @@ int	ft_pwd(void)
 	free(str);
 	return (1);
 }
-
