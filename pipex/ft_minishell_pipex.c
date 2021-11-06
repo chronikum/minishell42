@@ -119,12 +119,6 @@ int	ft_run_builtin(char *command)
 	return (0);
 }
 
-void	ft_outfile_remover(t_command *commands)
-{
-	commands->args[ft_array_len(commands->args) - 1] = NULL;
-}
-
-
 void	ft_pipex(t_pipes *p, t_command *commands, t_envlist *envp)
 {
 	ft_pipe(p);
@@ -132,7 +126,6 @@ void	ft_pipex(t_pipes *p, t_command *commands, t_envlist *envp)
 		ft_open_infile(p, commands);
 	if (commands->out_flag == OUT || commands->out_flag == APPEND)
 	{
-		ft_outfile_remover(commands);
 		ft_open_outfile(p, commands);
 		ft_outfile_dup(p);
 	}

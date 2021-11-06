@@ -250,9 +250,10 @@ t_command		*ft_parse_in_commands(char *cmds)
 	quotes_closed = 1;
 	if (cmds[0] == '<')
 	{
-		while (cmds[i] != ' ' && cmds[i] && quotes_closed)
-			ft_increase_i_quote_handler(cmds, &i, &quotes_closed);
+		//while (cmds[i] == ' ' && cmds[i] && quotes_closed)
+		//	ft_increase_i_quote_handler(cmds, &i, &quotes_closed);
 		file_name = ft_get_cmd_filename(cmds, &i);
+		printf("FILENAME GOTTEN: %s", file_name);
 		first = ft_parser(
 					ft_substr(cmds, start, (i - start)),
 					2,
@@ -268,30 +269,16 @@ t_command		*ft_parse_in_commands(char *cmds)
 		{
 			// then we skip the seperators
 			// which we just saw to not get in an infinite while loop.
-			while (ft_single_inset(cmds[i], "|><") != -1 && quotes_closed)
-				ft_increase_i_quote_handler(cmds, &i, &quotes_closed);
 			// then we check if we already added a seperator to the list (if yes, we can ignore this safely.)
 			// this checks also for everything which is NOT an OUT file. It would thereotically match
 			// the infile too
+
+			// this will always add the first node in the list
 			if (!first && ft_determine_in_flag(ft_substr(cmds, start, (i - start))) != 1 && quotes_closed)
 			{
-				first = ft_parser(
-					ft_substr(cmds, start, (i - start)),
-					ft_determine_out_flag(ft_substr(cmds, start, (i - start))),
-					ft_determine_in_flag(ft_substr(cmds, start, (i - start))),
-					NULL
-				);
-			}
-			// check if is output file
-			else if ((ft_determine_in_flag(ft_substr(cmds, start, (i - start))) == 1
-				|| ft_determine_in_flag(ft_substr(cmds, start, (i - start))) == 4) && quotes_closed)
-			{
-				first = ft_add_outfile_to_commabeur(first, cmds, start, &i);
-
-			}
-			// check if it is pipe
-			else if (ft_determine_in_flag(ft_substr(cmds, start, (i - start))) == 0 && quotes_closed)
-			{
+				printf("FOUND FLAG IN: %d \n", ft_determine_in_flag(ft_substr(cmds, start, (i - start))));
+				while (ft_single_inset(cmds[i], "|><") != -1 && quotes_closed)
+					ft_increase_i_quote_handler(cmds, &i, &quotes_closed);
 				ft_commandaddback(&first, ft_parser(
 					ft_substr(cmds, start, (i - start)),
 					ft_determine_out_flag(ft_substr(cmds, start, (i - start))),
@@ -299,15 +286,28 @@ t_command		*ft_parse_in_commands(char *cmds)
 					NULL
 				));
 			}
+			// check if is output file. it needs to skip the filename as argument then too
+			else if ((ft_determine_in_flag(ft_substr(cmds, start, (i - start))) == 1
+				|| ft_determine_in_flag(ft_substr(cmds, start, (i - start))) == 4) && quotes_closed)
+			{
+				while (ft_single_inset(cmds[i], "|><") != -1 && quotes_closed)
+					ft_increase_i_quote_handler(cmds, &i, &quotes_closed);
+				first = ft_add_outfile_to_commabeur(first, cmds, start, &i);
+			}
 			start = i;
 		}
 		ft_increase_i_quote_handler(cmds, &i, &quotes_closed);
 	}
 
-	if (!first)
+	if (!first) // this is the new in file handler!
+	{
+		printf("GETS ADDED BECAUSE FIRST SEEMS TO BE ZERO \n");
 		first = ft_parser(cmds, -1, -1, NULL);
-	else
+	}
+	else if (ft_get_last_command(first)->out_flag != 1)
+	{
 		ft_commandaddback(&first, ft_parser(ft_substr(cmds, start, (i - start)), ft_determine_in_flag(ft_substr(cmds, start, (i - start))), ft_determine_out_flag(ft_substr(cmds, start, (i - start))), NULL));
+	}
 
 	return (first);
 }

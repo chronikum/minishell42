@@ -182,5 +182,6 @@ char		**ft_gc_split(char const *s, char c);
 // Command list handling
 t_command	*ft_commandaddback(t_command **lst, t_command *new);
 t_command	*ft_newcommand(char *command);
+t_command	*ft_get_last_command(t_command *lst);
 
 #endif
