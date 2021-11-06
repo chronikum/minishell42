@@ -132,63 +132,6 @@ void	ft_skip_whitespaces(char *cmd, int *i)
 }
 
 /*
-	Gets called when a quote is being seen. Toggles a int (pointer)
-*/
-void	ft_toggle_quote(int *quote_toggle)
-{
-	if ((*quote_toggle))
-		(*quote_toggle) = 0;
-	else
-		(*quote_toggle) = 1;
-}
-
-///*
-//	Parses a string of commands in multiple single segments
-//	and creates a funky linked command list
-//	out of it.
-
-//	Returns the beginning of the command list.
-
-//	TODO: Actually send the right flag to ft_parser, currently we are only sending the
-//	index which is not quite correct!
-//*/
-//t_command		*ft_parse_in_commands(char *cmds)
-//{
-//	int	i;
-//	int	start;
-//	t_command	*first;
-//	int quotes_closed;
-
-//	i = 0;
-//	start = 0;
-//	quotes_closed = 1;
-//	first = NULL;
-//	while (cmds[i]) // go through all characters of the command
-//	{
-//		if (cmds[i] == '"')
-//			ft_toggle_quote(&quotes_closed);
-//		ft_skip_whitespaces(&cmds[i], &i);
-//		printf("CURRENT; %c \n", cmds[i]);
-//		if (cmds[i] == '>' && (quotes_closed == 1))
-//		{
-//			//printf("FILE NAME: %s \n", ft_substr(cmds, i, ft_strlenc(&cmds[i], ' ')));
-//			printf("Length: %d \n", ft_strlenc(&cmds[i], ' '));
-//			ft_commandaddback(&first,
-//				ft_parser(
-//				cmds,
-//				ft_determine_out_flag(ft_substr(cmds, start, (i - start))),
-//				ft_determine_in_flag(ft_substr(cmds, start, (i - start))),
-//				ft_substr(cmds, (i), ft_strlenc(&cmds[start], ' '))
-//			));
-//		}
-//		start = i;
-//		i++;
-//	}
-
-//	return (first);
-//}
-
-/*
 	Adds an outfile to the given command linked list.
 	Will use the next argument in the list instead.
 	Will look for the filename after the > or >> indicator
@@ -212,10 +155,22 @@ t_command	*ft_add_outfile_to_commabeur(t_command *first, char *cmds, int start, 
 }
 
 
+
+/*
+	Gets called when a quote is being seen. Toggles a int (pointer)
+*/
+static void	ft_toggle_quote(int *quote_toggle)
+{
+	if ((*quote_toggle))
+		(*quote_toggle) = 0;
+	else
+		(*quote_toggle) = 1;
+}
+
 /*
 	Increases counter by one and toggles quote counter if it encounters one
 */
-void	ft_increase_i_quote_handler(char *cmd, int *i, int *quote)
+static void	ft_increase_i_quote_handler(char *cmd, int *i, int *quote)
 {
 	if (cmd[(*i)] == '"')
 		ft_toggle_quote(quote);
@@ -239,7 +194,6 @@ t_command		*ft_parse_in_commands(char *cmds)
 	int		i;
 	int		start;
 	t_command	*first;
-	//char *file_name;
 	int	quotes_closed;
 	int	skip;
 
@@ -248,20 +202,17 @@ t_command		*ft_parse_in_commands(char *cmds)
 	start = 0;
 	first = NULL;
 	quotes_closed = 1;
-	//if (cmds[0] == '<')
-	//{
-	//	//while (cmds[i] == ' ' && cmds[i] && quotes_closed)
-	//	//	ft_increase_i_quote_handler(cmds, &i, &quotes_closed);
-	//	file_name = ft_get_cmd_filename(cmds, &i);
-	//	printf("FILENAME GOTTEN: %s", file_name);
-	//	first = ft_parser(
-	//				ft_substr(cmds, start, (i - start)),
-	//				2,
-	//				7,
-	//				file_name
-	//			);
-	//	start = i;
-	//}
+	if (cmds[0] == '<')
+	{
+		printf("FILENAME GOTTEN: %s\n", ft_get_cmd_filename(cmds, &i));
+		first = ft_parser(
+					ft_substr(cmds, start, (i - start)),
+					2,
+					7,
+					ft_get_cmd_filename(cmds, &i)
+				);
+		start = i;
+	}
 
 	while(cmds[i])
 	{
@@ -279,11 +230,11 @@ t_command		*ft_parse_in_commands(char *cmds)
 			if (!first && ft_determine_in_flag(ft_substr(cmds, start, (i - start))) != 1 && quotes_closed)
 			{
 				first = ft_parser(
-					ft_substr(cmds, start, (i - start)),
-					ft_determine_out_flag(ft_substr(cmds, start, (i - start))),
-					ft_determine_in_flag(ft_substr(cmds, start, (i - start))),
-					NULL
-				);
+						ft_substr(cmds, start, (i - start)),
+						ft_determine_out_flag(ft_substr(cmds, start, (i - start))),
+						ft_determine_in_flag(ft_substr(cmds, start, (i - start))),
+						NULL
+					);
 			}
 			// check if is output file
 			else if ((ft_determine_in_flag(ft_substr(cmds, start, (i - start))) == 1
