@@ -68,7 +68,7 @@ t_command	*ft_parser(char *cmd, int in_flag, int out_flag, char *file_name)
 	command_struct->command = ft_find_executable_path(main_command);
 	command_struct->args = command_parts;
 	if (in_flag == 2) // super important to remove this later @DEBUG
-		command_struct->builtin_sys_flag = 7;
+		command_struct->builtin_sys_flag = 6;
 	else
 		ft_set_builtin_flag(command_struct); // TODO: this needs to be adjusted: this set determined by being a system or a built_in function
 	command_struct->in_flag = in_flag;
@@ -212,6 +212,7 @@ t_command		*ft_parse_in_commands(char *cmds)
 		);
 		i += ft_strlen_set(cmds, " |>");
 		start = i;
+		skip = 1;
 	}
 
 	while(cmds[i])
@@ -258,12 +259,19 @@ t_command		*ft_parse_in_commands(char *cmds)
 		ft_increase_i_quote_handler(cmds, &i, &quotes_closed);
 	}
 
+	// we need to get the commands after
+	// <infile cat | HERE
+	// right now they are just being skipped
+	// it should not be like that.
+
+	// idea is to implement the single command check in the while loop
+	// somehow so we can reset the skip flag
 	if (!first)
 	{
 		printf("SETTING FIRST BECAUSE IT WAS EMPTY! \n");
 		first = ft_parser(cmds, -1, -1, NULL);
 	}
-	else
+	else if (skip == 0)
 		ft_commandaddback(&first, ft_parser(ft_substr(cmds, start, (i - start)), ft_determine_in_flag(ft_substr(cmds, start, (i - start))), ft_determine_out_flag(ft_substr(cmds, start, (i - start))), NULL));
 
 	return (first);
