@@ -246,7 +246,6 @@ t_command		*ft_parse_in_commands(char *cmds)
 			// check if it is pipe
 			else if (ft_determine_in_flag(ft_substr(cmds, start, (i - start))) == 0 && quotes_closed)
 			{
-				printf("GETS ADDED IN LAST SEGEMNT! COMMAND IS: %s \n", ft_substr(cmds, start, (i - start)));
 				ft_commandaddback(&first, ft_parser(
 					ft_substr(cmds, start, (i - start)),
 					ft_determine_out_flag(ft_substr(cmds, start, (i - start))),
