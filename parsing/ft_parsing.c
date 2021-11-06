@@ -44,7 +44,7 @@ void	ft_set_builtin_flag(t_command *command)
 	else  if (ft_check_builtin(main_command))
 		command->builtin_sys_flag = 5;
 	else
-		command->builtin_sys_flag = 7;
+		command->builtin_sys_flag = 6;
 }
 
 /*
@@ -68,7 +68,7 @@ t_command	*ft_parser(char *cmd, int in_flag, int out_flag, char *file_name)
 	command_struct->command = ft_find_executable_path(main_command);
 	command_struct->args = command_parts;
 	if (in_flag == 2) // super important to remove this later @DEBUG
-		command_struct->builtin_sys_flag = 7;
+		command_struct->builtin_sys_flag = 8;
 	else
 		ft_set_builtin_flag(command_struct); // TODO: this needs to be adjusted: this set determined by being a system or a built_in function
 	command_struct->in_flag = in_flag;
@@ -263,10 +263,16 @@ t_command		*ft_parse_in_commands(char *cmds)
 	}
 	while(cmds[i])
 	{
-		if (ft_single_inset(cmds[i], "|><") != -1 && quotes_closed) // <
+		// increases i until it finds one of the seperators and only if the quotes are closed
+		if (ft_single_inset(cmds[i], "|><") != -1 && quotes_closed)
 		{
-			while (ft_single_inset(cmds[i], "|><") != -1 && quotes_closed) // >>
+			// then we skip the seperators
+			// which we just saw to not get in an infinite while loop.
+			while (ft_single_inset(cmds[i], "|><") != -1 && quotes_closed)
 				ft_increase_i_quote_handler(cmds, &i, &quotes_closed);
+			// then we check if we already added a seperator to the list (if yes, we can ignore this safely.)
+			// this checks also for everything which is NOT an OUT file. It would thereotically match
+			// the infile too
 			if (!first && ft_determine_in_flag(ft_substr(cmds, start, (i - start))) != 1 && quotes_closed)
 			{
 				first = ft_parser(
@@ -283,7 +289,8 @@ t_command		*ft_parse_in_commands(char *cmds)
 				first = ft_add_outfile_to_commabeur(first, cmds, start, &i);
 
 			}
-			else
+			// check if it is pipe
+			else if (ft_determine_in_flag(ft_substr(cmds, start, (i - start))) == 0 && quotes_closed)
 			{
 				ft_commandaddback(&first, ft_parser(
 					ft_substr(cmds, start, (i - start)),
