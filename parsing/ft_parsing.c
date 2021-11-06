@@ -132,7 +132,7 @@ void	ft_skip_whitespaces(char *cmd, int *i)
 }
 
 /*
-	Gets called when a quote is being seen. Toggles a int (pointer) 
+	Gets called when a quote is being seen. Toggles a int (pointer)
 */
 void	ft_toggle_quote(int *quote_toggle)
 {
@@ -199,7 +199,8 @@ void	ft_toggle_quote(int *quote_toggle)
 */
 t_command	*ft_add_outfile_to_commabeur(t_command *first, char *cmds, int start, int *i)
 {
-	char *file_name = ft_substr(cmds, (*i), ft_strlenc(&cmds[(*i)], ' '));
+
+	char *file_name = ft_get_cmd_filename(cmds, i);
 	while (cmds[(*i)] != ' ' && cmds[(*i)])
 		(*i)++;
 	return (ft_commandaddback(&first, ft_parser(
@@ -228,7 +229,7 @@ void	ft_increase_i_quote_handler(char *cmd, int *i, int *quote)
 
 	Returns the beginning of the command list.
 	Also handles quotes in general by toggling a int value.
-	The function 
+	The function
 
 	TODO: Actually send the right flag to ft_parser, currently we are only sending the
 	index which is not quite correct!
@@ -249,7 +250,7 @@ t_command		*ft_parse_in_commands(char *cmds)
 	{
 		while (cmds[i] != ' ' && cmds[i] && quotes_closed)
 			ft_increase_i_quote_handler(cmds, &i, &quotes_closed);
-		file_name = ft_substr(cmds, (start + 1), ft_strlenc(&cmds[i], ' '));
+		file_name = ft_get_cmd_filename(cmds, &i);
 		first = ft_parser(
 					ft_substr(cmds, start, (i - start)),
 					2,

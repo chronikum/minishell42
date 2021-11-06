@@ -30,7 +30,7 @@
 // built_sys
 # define BUILT_IN 5
 # define SYS 6
-# define SKIP 8 
+# define SKIP 8
 
 /*
 	Environment list
@@ -129,6 +129,8 @@ int				ft_command_size(t_command *lst);
 char			**ft_split_quote(char *s, char c);
 t_command		*ft_parse_in_commands(char *cmds);
 int				ft_strlenc(char *cmd, char c);
+int				ft_strlen_set(char *cmd, char *set);
+char			*ft_get_cmd_filename(char *cmd, int *i);
 
 //envlist
 t_envlist	*ft_env_list(t_envlist *env_list);
