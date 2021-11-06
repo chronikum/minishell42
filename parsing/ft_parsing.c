@@ -267,10 +267,7 @@ t_command		*ft_parse_in_commands(char *cmds)
 	// idea is to implement the single command check in the while loop
 	// somehow so we can reset the skip flag
 	if (!first)
-	{
-		printf("SETTING FIRST BECAUSE IT WAS EMPTY! \n");
 		first = ft_parser(cmds, -1, -1, NULL);
-	}
 	else if (skip == 0)
 		ft_commandaddback(&first, ft_parser(ft_substr(cmds, start, (i - start)), ft_determine_in_flag(ft_substr(cmds, start, (i - start))), ft_determine_out_flag(ft_substr(cmds, start, (i - start))), NULL));
 
