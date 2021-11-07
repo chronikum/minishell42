@@ -130,15 +130,15 @@ void	ft_pipe(t_pipes *p)
 
 int	ft_run_builtin(t_command *command)
 {
-	if (ft_strncmp(command->command, "pwd", ft_strlen("pwd")) == 0)
+	if (ft_strncmp(command->args[0], "pwd", ft_strlen("pwd")) == 0)
 		return (ft_pwd());
-	else if (ft_strncmp(command->command, "exit", ft_strlen("exit")) == 0)
+	else if (ft_strncmp(command->args[0], "exit", ft_strlen("exit")) == 0)
 		ft_quit();
 	else if (ft_strncmp(command->args[0], "env", ft_strlen("env")) == 0)
 		return (ft_env());
-	else if (ft_strncmp(command->original_string, "echo ", ft_strlen("echo ")) == 0)
+	else if (ft_strncmp(command->args[0], "echo ", ft_strlen("echo ")) == 0)
 		return (ft_echo(command->original_string, 0));
-	else if (ft_strncmp(command->original_string, "export ", ft_strlen("export ")) == 0)
+	else if (ft_strncmp(command->args[0], "export", ft_strlen("export")) == 0)
 		return (builtin_export(command->original_string));
 	return (0);
 }
