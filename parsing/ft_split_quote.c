@@ -106,7 +106,7 @@ char	**ft_split_quote(char *s, char c)
 	while (current || i == 0)
 	{
 		if (!current)
-			current = ft_get_next_word(s, 1);
+			current = ft_strtrim(ft_get_next_word(s, 1), "\"");
 		if (!current)
 			return (NULL);
 		if (ft_strlen(current) != 0)
@@ -114,7 +114,7 @@ char	**ft_split_quote(char *s, char c)
 			result[i] = current;
 			i++;
 		}
-		current = ft_get_next_word(s, 0);
+		current = ft_strtrim(ft_get_next_word(s, 0), "\"");
 	}
 	result[i] = NULL;
 	return (result);
