@@ -17,17 +17,17 @@ void	ft_assign_file_name_to_path(t_command *command, char *file_name)
 */
 int	ft_check_builtin(char *command)
 {
-	if (ft_strncmp(command, "pwd", ft_strlen("pwd")) == 0)
+	if (ft_spongebob_strncmp(command, "pwd", ft_strlen("pwd")) == 0)
 		return (1);
-	else if (ft_strncmp(command, "exit", ft_strlen("exit")) == 0)
+	else if (ft_spongebob_strncmp(command, "exit", ft_strlen("exit")) == 0)
 		return (1);
-	else if (ft_strncmp(command, "env", ft_strlen("env")) == 0)
+	else if (ft_spongebob_strncmp(command, "env", ft_strlen("env")) == 0)
 		return (1);
-	else if (ft_strncmp(command, "echo ", ft_strlen("echo ")) == 0)
+	else if (ft_spongebob_strncmp(command, "echo", ft_strlen("echo")) == 0)
 		return (1);
-	else if (ft_strncmp(command, "cd", ft_strlen("cd")) == 0)
+	else if (ft_spongebob_strncmp(command, "cd", ft_strlen("cd")) == 0)
 		return (1);
-	else if (ft_strncmp(command, "export", ft_strlen("export")) == 0)
+	else if (ft_spongebob_strncmp(command, "export", ft_strlen("export")) == 0)
 		return (1);
 	return (0);
 }

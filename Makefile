@@ -24,13 +24,15 @@ FLAGS = -Wall -Wextra -Werror -g
 
 GARBAGE_COLLECTOR = ./gc/ft_free.c ./gc/ft_freeall.c ./gc/ft_gclststart.c ./gc/ft_malloc.c
 
-GC_LIBFT_VARIATIONS = ./helper/ft_gc_split.c ./helper/ft_gc_strjoin.c
+GC_LIBFT_VARIATIONS = ./helper/ft_gc_split.c ./helper/ft_gc_strjoin.c ./helper/ft_gc_strdup.c
 
 COMMANDLIST = ./parsing/ft_newcommand.c ./parsing/ft_commandaddback.c
 
 PROMPT = ./prompt/ft_nice_prompt.c ./prompt/ft_set_shellname.c
 
 DEBUGGING = ./debug_help/ft_translate_flags.c
+
+STRHELPER = ./helper/strhelper/ft_strtouppercase.c ./helper/strhelper/ft_strtolowercase.c ./helper/ft_spongebob_strncmp.c
 
 # from home
 ifeq ($(USER), jonathanfritz)
@@ -51,7 +53,8 @@ endif
 
 CFLAGS = -g -lreadline $(LDFLAGS) $(CPPFLAGS) -ltermcap -Wall -Wextra -Werror
 
-ALLSRC = $(SRC) $(BUILTINS) $(ENV) $(HELPERS) $(PIPEX) $(PROMPT) $(COMMANDLIST) $(PATHS) $(DEBUGGING) $(PARSING) $(GARBAGE_COLLECTOR) $(GC_LIBFT_VARIATIONS)
+ALLSRC = $(SRC) $(BUILTINS) $(ENV) $(HELPERS) $(PIPEX) $(PROMPT) $(COMMANDLIST) $(PATHS) $(DEBUGGING) \
+$(STRHELPER) $(PARSING) $(GARBAGE_COLLECTOR) $(GC_LIBFT_VARIATIONS)
 
 
 all: $(NAME)

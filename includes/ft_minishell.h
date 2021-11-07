@@ -95,6 +95,7 @@ t_command		*ft_parse_in_commands(char *cmds);
 int				ft_strlenc(char *cmd, char c);
 int				ft_strlen_set(char *cmd, char *set);
 char			*ft_get_cmd_filename(char *cmd, int *i);
+int				ft_spongebob_strncmp(char *s1, char *s2, int n);
 
 //envlist
 t_envlist	*ft_env_list(t_envlist *env_list);
