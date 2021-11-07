@@ -193,4 +193,7 @@ t_envlist	*ft_find_envlist(char *key);
 t_envlist	*ft_new_list(char *f, char *n, char *c, char **envp);
 void		ft_env_addback(t_envlist **lst, t_envlist *new);
 
+// prompt
+char		*ft_get_nice_prompt(void);
+
 #endif

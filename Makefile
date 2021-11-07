@@ -28,6 +28,8 @@ GC_LIBFT_VARIATIONS = ./helper/ft_gc_split.c ./helper/ft_gc_strjoin.c
 
 COMMANDLIST = ./parsing/ft_newcommand.c ./parsing/ft_commandaddback.c
 
+PROMPT = ./prompt/ft_nice_prompt.c
+
 # from home
 ifeq ($(USER), jonathanfritz)
 	LDFLAGS="-L/opt/homebrew/opt/readline/lib"
@@ -47,7 +49,7 @@ endif
 
 CFLAGS = -g -lreadline $(LDFLAGS) $(CPPFLAGS) -ltermcap -Wall -Wextra -Werror
 
-ALLSRC = $(SRC) $(BUILTINS) $(ENV) $(HELPERS) $(PIPEX) $(COMMANDLIST) $(PATHS) $(PARSING) $(GARBAGE_COLLECTOR) $(GC_LIBFT_VARIATIONS)
+ALLSRC = $(SRC) $(BUILTINS) $(ENV) $(HELPERS) $(PIPEX) $(PROMPT) $(COMMANDLIST) $(PATHS) $(PARSING) $(GARBAGE_COLLECTOR) $(GC_LIBFT_VARIATIONS)
 
 
 all: $(NAME)

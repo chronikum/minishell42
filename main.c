@@ -81,7 +81,7 @@ int	main(int argc, char **argv, char **envp)
 		signal(SIGQUIT, &ft_quit);
 		signal(SIGINT, &sig_handler_int);
 		// function read and check the input
-		cmd = readline("mini\e[36mShell\033[0m \033[0;31m$\033[0m> ");
+		cmd = readline(ft_get_nice_prompt());
 		if (cmd == NULL)
 			ft_quit();
 		if (ft_strncmp(cmd, "", ft_strlen(cmd)))
