@@ -65,7 +65,7 @@ int	ft_execute(t_command *commands, t_envlist *envp)
 	if (access(c->full_path, F_OK) != -1)
 		execve(c->full_path, commands->args, envp->envp);
 	if (access(c->full_path, F_OK) == -1 && c->i == 0)
-		command_not_found(commands->command);
+		command_not_found(commands->original_string);
 	exit(0);
 }
 
