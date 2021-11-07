@@ -30,6 +30,8 @@ COMMANDLIST = ./parsing/ft_newcommand.c ./parsing/ft_commandaddback.c
 
 PROMPT = ./prompt/ft_nice_prompt.c ./prompt/ft_set_shellname.c
 
+DEBUGGING = ./debug_help/ft_translate_flags.c
+
 # from home
 ifeq ($(USER), jonathanfritz)
 	LDFLAGS="-L/opt/homebrew/opt/readline/lib"
@@ -49,7 +51,7 @@ endif
 
 CFLAGS = -g -lreadline $(LDFLAGS) $(CPPFLAGS) -ltermcap -Wall -Wextra -Werror
 
-ALLSRC = $(SRC) $(BUILTINS) $(ENV) $(HELPERS) $(PIPEX) $(PROMPT) $(COMMANDLIST) $(PATHS) $(PARSING) $(GARBAGE_COLLECTOR) $(GC_LIBFT_VARIATIONS)
+ALLSRC = $(SRC) $(BUILTINS) $(ENV) $(HELPERS) $(PIPEX) $(PROMPT) $(COMMANDLIST) $(PATHS) $(DEBUGGING) $(PARSING) $(GARBAGE_COLLECTOR) $(GC_LIBFT_VARIATIONS)
 
 
 all: $(NAME)

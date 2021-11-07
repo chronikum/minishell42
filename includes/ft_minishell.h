@@ -17,6 +17,7 @@
 # include <unistd.h>
 # include "../gc/ft_garbage_collector.h"
 # include "../prompt/ft_prompt.h"
+# include "../debug_help/ft_debugging_help.h"
 
 // IN
 # define IN 2 // <
@@ -80,45 +81,6 @@ typedef struct s_child
 	char				**cmnd;
 	char				**paths;
 }			t_child;
-
-
-//trash?
-//cat hello.txt | grep -e "test asdf asdf"
-
-//first linked list
-//command = cat
-//args = (cat) (hello.txt)
-//file = fd descriptor for hello.txt
-//flag = 1
-//next -> linked list two
-
-//linked list two
-// command = grep
-// args = grep (-e) ("test asdf asdf")
-// flag = 8
-// next -> null
-
-/*
-
-	-> char **ft_split_no_quotes() TODO
-
-	void ft_parser(cmd)
-	{
-		struct t_command *command_info;
-		if (cmd)
-		{
-
-			char **command_parts = 	ft_split_no_quotes(cmd);
-			char *command = command_parts[0];
-			command_info->command = command_parts[0];
-			command_info->original_string = cmd;
-			command_info->arg = command_parts;
-			add_to_command_history();
-		}
-	}
-
-*/
-
 
 int			main(int argc, char **argv, char **envp);
 void		ft_handle_sig(int sig);

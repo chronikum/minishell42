@@ -87,9 +87,9 @@ t_command	*ft_parser(char *cmd, int in_flag, int out_flag, char *file_name)
 			printf("FILE: 				%s|\n", command_struct->file);
 			printf("FILE NAME LENGTH: 	%lu\n", ft_strlen(command_struct->file)); /// as we know the file name changes in length occassionally
 		}
-		printf("	IN FLAG: 			%d\n", command_struct->in_flag);
-		printf("	OUT FLAG: 			%d\n", command_struct->out_flag);
-		printf("	BUILT_SYS:			%d\n", command_struct->builtin_sys_flag);
+		printf("	IN FLAG: 			%d	%s\n", command_struct->in_flag, ft_translate_flags(command_struct->in_flag));
+		printf("	OUT FLAG: 			%d	%s\n", command_struct->out_flag, ft_translate_flags(command_struct->out_flag));
+		printf("	BUILT_SYS:			%d	%s\n", command_struct->builtin_sys_flag, ft_translate_flags(command_struct->builtin_sys_flag));
 		printf("%sSECTION END %s\n", BACKGROUND_BLUE, RESET_COLOR);
 	}
 	return (command_struct);
