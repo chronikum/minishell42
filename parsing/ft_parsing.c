@@ -8,7 +8,7 @@ void	ft_assign_file_name_to_path(t_command *command, char *file_name)
 	command->file = NULL;
 	if (file_name)
 	{
-		command->file = ft_strjoin("./", ft_strtrim(file_name, " "));
+		command->file = ft_strjoin("./", ft_gc_strtrim(file_name, " "));
 	}
 }
 
@@ -41,7 +41,7 @@ void	ft_set_builtin_flag(t_command *command)
 	char *main_command;
 
 	main_command = command->args[0];
-	if (ft_check_builtin(ft_strtrim(command->original_string, " ")))
+	if (ft_check_builtin(ft_gc_strtrim(command->original_string, " ")))
 		command->builtin_sys_flag = BUILT_IN;
 	else if (ft_find_executable_path(main_command))
 		command->builtin_sys_flag = SYS;
@@ -81,7 +81,7 @@ t_command	*ft_parser(char *cmd, int in_flag, int out_flag, char *file_name)
 	{
 		printf("%sSECTION     %s\n", BACKGROUND_BLUE, RESET_COLOR);
 		printf("	Command: 			%s\n", command_struct->command);
-		printf("	Full String: 			%s\n", ft_strtrim(command_struct->original_string, "<>| "));
+		printf("	Full String: 			%s\n", ft_gc_strtrim(command_struct->original_string, "<>| "));
 		ft_arg_printer(command_struct->args);
 		if (command_struct->file)
 		{
@@ -213,7 +213,7 @@ t_command		*ft_parse_in_commands(char *cmds)
 			ft_substr(cmds, ft_strlen_set(cmds, " "), ft_strlen_set(cmds, "|>")),
 			2,
 			ft_determine_out_flag(ft_substr(cmds, start, (i - start))),
-			ft_strtrim(ft_get_cmd_filename(cmds, &i), "<")
+			ft_gc_strtrim(ft_get_cmd_filename(cmds, &i), "<")
 		);
 		i += ft_strlen_set(cmds, " |>");
 		start = i;

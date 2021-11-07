@@ -25,7 +25,7 @@ FLAGS = -Wall -Wextra -Werror -g
 GARBAGE_COLLECTOR = ./gc/ft_free.c ./gc/ft_freeall.c ./gc/ft_gclststart.c ./gc/ft_malloc.c
 
 GC_LIBFT_VARIATIONS = ./helper/ft_gc_split.c ./helper/ft_gc_strjoin.c ./helper/ft_gc_strdup.c \
-./helper/ft_gc_substr.c
+./helper/ft_gc_substr.c ./helper/ft_gc_strtrim.c
 
 COMMANDLIST = ./parsing/ft_newcommand.c ./parsing/ft_commandaddback.c
 

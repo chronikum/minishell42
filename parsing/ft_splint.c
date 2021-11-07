@@ -34,7 +34,7 @@ int ft_new_word_counter(char *cmd)
 	quote_closed = 1;
 	i = 0;
 	words = 1;
-	temp = ft_strtrim(cmd, "|<> ");
+	temp = ft_gc_strtrim(cmd, "|<> ");
 	while (temp[i])
 	{
 		if (temp[i] == ' ' && quote_closed)
@@ -63,7 +63,7 @@ char *ft_get_next_word(char *cmd, int r)
 	int	quote_counter;
 
 	quote_closed = 1;
-	temp = ft_strtrim(cmd, "|<> ");
+	temp = ft_gc_strtrim(cmd, "|<> ");
 	saved = i;
 	if (r)
 		ft_reset_static_vars(&i, &saved);
@@ -78,17 +78,17 @@ char *ft_get_next_word(char *cmd, int r)
 				quote_counter++;
 				ft_increase_i_quote_handler(temp, &i, &quote_closed);
 			}
-			return (ft_strtrim(ft_gc_substr(temp, saved, (quote_counter + 1)), " "));
+			return (ft_gc_strtrim(ft_gc_substr(temp, saved, (quote_counter + 1)), " "));
 		}
 		if (temp[i] == ' ' && quote_closed)
 		{
 			while (temp[i] == ' ' && temp[i])
 				ft_increase_i_quote_handler(temp, &i, &quote_closed);
-			return (ft_strtrim(ft_gc_substr(temp, saved, ft_strlenc(&temp[saved], ' ')), " "));
+			return (ft_gc_strtrim(ft_gc_substr(temp, saved, ft_strlenc(&temp[saved], ' ')), " "));
 		}
 		ft_increase_i_quote_handler(temp, &i, &quote_closed);
 	}
-	return (ft_strtrim(ft_gc_substr(temp, saved, ft_strlenc(&temp[saved], ' ')), " "));
+	return (ft_gc_strtrim(ft_gc_substr(temp, saved, ft_strlenc(&temp[saved], ' ')), " "));
 }
 
 char	**ft_splint(char *s)
@@ -105,7 +105,7 @@ char	**ft_splint(char *s)
 	while (current || i == 0)
 	{
 		if (!current)
-			current = ft_strtrim(ft_get_next_word(s, 1), "\"");
+			current = ft_gc_strtrim(ft_get_next_word(s, 1), "\"");
 		if (!current)
 			return (NULL);
 		if (ft_strlen(current) != 0)
@@ -113,7 +113,7 @@ char	**ft_splint(char *s)
 			result[i] = current;
 			i++;
 		}
-		current = ft_strtrim(ft_get_next_word(s, 0), "\"");
+		current = ft_gc_strtrim(ft_get_next_word(s, 0), "\"");
 	}
 	result[i] = NULL;
 	return (result);

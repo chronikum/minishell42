@@ -41,6 +41,8 @@ int	ft_array_len(char **argv)
 
 void	command_not_found(char *command)
 {
+	ft_putstr_fd(RED_COLOR, 2);
 	ft_putstr_fd("command not found: ", 2);
+	ft_putstr_fd(RESET_COLOR, 2);
 	ft_putendl_fd(command, 2);
 }
