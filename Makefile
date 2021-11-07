@@ -73,10 +73,10 @@ debug: *.c
 clean:
 	rm -f ./libft/*.o
 	rm -f *.o
+	rm -rf $(OUTFILES)
 
 fclean: clean
 	rm -f ./libft/libft.a
 	rm -f $(NAME) minishell
-	rm -rf $(OUTFILES)
 
 re: fclean $(NAME)
