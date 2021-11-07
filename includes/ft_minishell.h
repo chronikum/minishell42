@@ -17,6 +17,7 @@
 # include <unistd.h>
 # include "../gc/ft_garbage_collector.h"
 # include "../prompt/ft_prompt.h"
+# include "../helper/ft_gc_functions.h"
 # include "../debug_help/ft_debugging_help.h"
 
 // IN
