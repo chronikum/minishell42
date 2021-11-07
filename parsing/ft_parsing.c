@@ -247,6 +247,10 @@ t_command		*ft_parse_in_commands(char *cmds)
 				|| ft_determine_in_flag(ft_substr(cmds, start, (i - start))) == 4) && quotes_closed)
 			{
 				first = ft_add_outfile_to_commabeur(first, cmds, start, &i);
+				// skipping over the filename here
+				start = i;
+				i += ft_strlen_set(&cmds[i], "|<>");
+				i++;
 			}
 			// check if it is pipe
 			else if (ft_determine_in_flag(ft_substr(cmds, start, (i - start))) == 0 && quotes_closed)
