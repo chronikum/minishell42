@@ -215,9 +215,12 @@ t_command		*ft_parse_in_commands(char *cmds)
 			ft_determine_out_flag(ft_substr(cmds, start, (i - start))),
 			ft_gc_strtrim(ft_get_cmd_filename(cmds, &i), "<")
 		);
-		i += ft_strlen_set(cmds, " |>");
 		start = i;
-		skip = 1;
+		i += ft_strlen_set(&cmds[i], "|<>");
+		i++;
+		//i += ft_strlen_set(cmds, " |>");
+		//start = i;
+		//skip = 1;
 	}
 
 	while(cmds[i])
