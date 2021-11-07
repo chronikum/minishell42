@@ -21,17 +21,6 @@ static void	ft_increase_i_quote_handler(char *cmd, unsigned int *i, int *quote)
 	(*i)++;
 }
 
-
-///*
-//	Skips operators liek | < > << >> because
-//	those should not show up in the argument list
-//*/
-//static void	ft_skip_operators(unsigned int *i, char *cmd)
-//{
-//	while (ft_single_inset(cmd[(*i)], "|><") != -1)
-//		(*i)++;
-//}
-
 /*
 	Counts words. Can handle quotes with ease.
 */
@@ -113,7 +102,6 @@ char	**ft_split_quote(char *s, char c)
 	i = 0;
 	current = NULL;
 	wc = ft_new_word_counter(s);
-	printf("WORD COUNTER: %d \n", wc);
 	result = ft_malloc(sizeof(char *) * (wc + 1));
 	while (current || i == 0)
 	{
