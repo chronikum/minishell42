@@ -22,15 +22,15 @@ static void	ft_increase_i_quote_handler(char *cmd, unsigned int *i, int *quote)
 }
 
 
-/*
-	Skips operators liek | < > << >> because
-	those should not show up in the argument list
-*/
-static void	ft_skip_operators(unsigned int *i, char *cmd)
-{
-	while (ft_single_inset(cmd[(*i)], "|><") != -1)
-		(*i)++;
-}
+///*
+//	Skips operators liek | < > << >> because
+//	those should not show up in the argument list
+//*/
+//static void	ft_skip_operators(unsigned int *i, char *cmd)
+//{
+//	while (ft_single_inset(cmd[(*i)], "|><") != -1)
+//		(*i)++;
+//}
 
 /*
 	Counts words. Can handle quotes with ease.
@@ -65,29 +65,35 @@ static void	ft_reset_static_vars(unsigned int *i, unsigned int *saved)
 	(*i) = 0;
 }
 
-
 char *ft_get_next_word(char *cmd, int r)
 {
 	int quote_closed;
-	int	words;
 	char	*temp;
 	static unsigned int	i = 0; // current iterator
 	static unsigned int	saved = 0;
+	int	quote_counter;
 
 	quote_closed = 1;
-	words = 1;
 	temp = ft_strtrim(cmd, "|<> ");
-	ft_skip_operators(&i, temp);
 	saved = i;
 	if (r)
 		ft_reset_static_vars(&i, &saved);
 	while (temp[i])
 	{
-		while (!quote_closed)
-			ft_increase_i_quote_handler(temp, &i, &quote_closed);
-		if (temp[i] == ' ')
+		quote_counter = 0;
+		if (temp[i] == '"')
 		{
-			while ((temp[i] == ' ') && temp[i])
+			ft_increase_i_quote_handler(temp, &i, &quote_closed);
+			while (!quote_closed)
+			{
+				quote_counter++;
+				ft_increase_i_quote_handler(temp, &i, &quote_closed);
+			}
+			return (ft_strtrim(ft_gc_substr(temp, saved, (quote_counter + 1)), " "));
+		}
+		if (temp[i] == ' ' && quote_closed)
+		{
+			while (temp[i] == ' ' && temp[i])
 				ft_increase_i_quote_handler(temp, &i, &quote_closed);
 			return (ft_strtrim(ft_gc_substr(temp, saved, ft_strlenc(&temp[saved], ' ')), " "));
 		}
@@ -95,64 +101,6 @@ char *ft_get_next_word(char *cmd, int r)
 	}
 	return (ft_strtrim(ft_gc_substr(temp, saved, ft_strlenc(&temp[saved], ' ')), " "));
 }
-
-/*
-	Returns the word when the function finds a seperator character, a end of char pointer or
-	a closing quote. The static variables need to be set to 0 after every iteration.
-*/
-//static char	*ft_get_next_word(char *s, char c, int r)
-//{
-//	// runtime variables
-//	static unsigned int	i = 0; // current iterator
-//	static unsigned int	saved = 0;
-
-//	if (r)
-//		ft_reset_static_vars(&i, &saved);
-
-//	ft_skip_operators(&i, s);
-//	saved = i;
-//	while ((s[i] == c && s[i] && saved == 0))
-//	{
-//		i++;
-//		saved++;
-//	}
-//	while (s[i])
-//	{
-//		ft_skip_operators(&i, s);
-//		while (saved != 0 && (s[i] == c || s[i] == '"'))
-//		{
-//			saved++;
-//			i++;
-//		}
-//		ft_skip_operators(&i, s);
-//		if (s[i] == '"' && s[i]) // join in when starting character is a quote
-//		{
-//			i++;
-//			while (s[i] != '"' && s[i])
-//				i++;
-//			ft_skip_operators(&saved, s);
-//			return (ft_substr(s, saved, (i - saved - 1)));
-//		}
-//		ft_skip_operators(&i, s);
-//		if (s[i] != c && s[i])
-//		{
-//			while (s[i] != c && s[i])
-//			{
-//				i++;
-//				ft_skip_operators(&saved, s);
-//				if (s[i] == '"')
-//					return (ft_substr(s, saved, (i - saved)));
-//				if (!s[i])
-//					return (ft_substr(s, saved, (i - saved)));
-//			}
-//			ft_skip_operators(&saved, s);
-//			if (s[i] == c || !s[i])
-//				return (ft_substr(s, saved, (i - saved)));
-//		}
-//		i++;
-//	}
-//	return (NULL);
-//}
 
 char	**ft_split_quote(char *s, char c)
 {
@@ -165,6 +113,7 @@ char	**ft_split_quote(char *s, char c)
 	i = 0;
 	current = NULL;
 	wc = ft_new_word_counter(s);
+	printf("WORD COUNTER: %d \n", wc);
 	result = ft_malloc(sizeof(char *) * (wc + 1));
 	while (current || i == 0)
 	{
