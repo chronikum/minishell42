@@ -122,6 +122,7 @@ typedef struct s_child
 int			main(int argc, char **argv, char **envp);
 void		ft_handle_sig(int sig);
 void		ft_quit();
+void		ft_init_shell(char **envp);
 
 char			***ft_split_machine(char *str, char dlmtr);
 t_command		*ft_parser(char *cmd, int in_flag, int out_flag, char *file_name);
@@ -195,5 +196,6 @@ void		ft_env_addback(t_envlist **lst, t_envlist *new);
 
 // prompt
 char		*ft_get_nice_prompt(void);
+void		set_shell_envvariable(void);
 
 #endif

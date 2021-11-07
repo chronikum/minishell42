@@ -2,7 +2,7 @@ CC = clang
 
 NAME = libft_minishell.a
 
-SRC = main.c
+SRC = main.c setup_shell.c
 
 OUTFILES = compiled/
 
@@ -28,7 +28,7 @@ GC_LIBFT_VARIATIONS = ./helper/ft_gc_split.c ./helper/ft_gc_strjoin.c
 
 COMMANDLIST = ./parsing/ft_newcommand.c ./parsing/ft_commandaddback.c
 
-PROMPT = ./prompt/ft_nice_prompt.c
+PROMPT = ./prompt/ft_nice_prompt.c ./prompt/ft_set_shellname.c
 
 # from home
 ifeq ($(USER), jonathanfritz)
