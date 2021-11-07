@@ -178,10 +178,18 @@ void		ft_triple_free(char	***string);
 
 // libft functions which use ft_malloc instead
 char		**ft_gc_split(char const *s, char c);
+char		*ft_gc_strjoin(char const *s1, char const *s2);
 
 // Command list handling
 t_command	*ft_commandaddback(t_command **lst, t_command *new);
 t_command	*ft_newcommand(char *command);
 t_command	*ft_get_last_command(t_command *lst);
+
+
+// env lsit
+t_envlist	*ft_setenv(char *key, char *value);
+t_envlist	*ft_find_envlist(char *key);
+t_envlist	*ft_new_list(char *f, char *n, char *c, char **envp);
+void		ft_env_addback(t_envlist **lst, t_envlist *new);
 
 #endif
