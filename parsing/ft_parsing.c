@@ -17,15 +17,17 @@ void	ft_assign_file_name_to_path(t_command *command, char *file_name)
 */
 int	ft_check_builtin(char *command)
 {
-	if (ft_strncmp(command, "pwd", ft_strlen("pwd")) == 0)
+	if (ft_spongebob_strncmp(command, "pwd", ft_strlen("pwd")) == 0)
 		return (1);
-	else if (ft_strncmp(command, "exit", ft_strlen("exit")) == 0)
+	else if (ft_spongebob_strncmp(command, "exit", ft_strlen("exit")) == 0)
 		return (1);
-	else if (ft_strncmp(command, "env", ft_strlen("env")) == 0)
+	else if (ft_spongebob_strncmp(command, "env", ft_strlen("env")) == 0)
 		return (1);
-	else if (ft_strncmp(command, "echo", ft_strlen("echo")) == 0)
+	else if (ft_spongebob_strncmp(command, "echo", ft_strlen("echo")) == 0)
 		return (1);
-	else if (ft_strncmp(command, "cd", ft_strlen("cd")) == 0)
+	else if (ft_spongebob_strncmp(command, "cd", ft_strlen("cd")) == 0)
+		return (1);
+	else if (ft_spongebob_strncmp(command, "export", ft_strlen("export")) == 0)
 		return (1);
 	return (0);
 }
@@ -39,12 +41,12 @@ void	ft_set_builtin_flag(t_command *command)
 	char *main_command;
 
 	main_command = command->args[0];
-	if (ft_find_executable_path(main_command))
-		command->builtin_sys_flag = 6;
-	else  if (ft_check_builtin(main_command))
-		command->builtin_sys_flag = 5;
+	if (ft_check_builtin(main_command))
+		command->builtin_sys_flag = BUILT_IN;
+	else if (ft_find_executable_path(main_command))
+		command->builtin_sys_flag = SYS;
 	else
-		command->builtin_sys_flag = 6;
+		command->builtin_sys_flag = SYS;
 }
 
 /*
@@ -65,6 +67,7 @@ t_command	*ft_parser(char *cmd, int in_flag, int out_flag, char *file_name)
 	if (!command_parts)
 		return (NULL);
 	main_command = command_parts[0];
+	command_struct->original_string = cmd;
 	command_struct->command = ft_find_executable_path(main_command);
 	command_struct->args = command_parts;
 	if (in_flag == 2) // super important to remove this later @DEBUG
@@ -76,17 +79,18 @@ t_command	*ft_parser(char *cmd, int in_flag, int out_flag, char *file_name)
 	ft_assign_file_name_to_path(command_struct, file_name);
 	if (DEBUG)
 	{
-		printf("----- SECTION -----\n");
-		printf("Command: 			%s\n", command_struct->command);
+		printf("%sSECTION     %s\n", BACKGROUND_BLUE, RESET_COLOR);
+		printf("	Command: 			%s\n", command_struct->command);
 		ft_arg_printer(command_struct->args);
 		if (command_struct->file)
 		{
 			printf("FILE: 				%s|\n", command_struct->file);
 			printf("FILE NAME LENGTH: 	%lu\n", ft_strlen(command_struct->file)); /// as we know the file name changes in length occassionally
 		}
-		printf("IN FLAG: 			%d\n", command_struct->in_flag);
-		printf("OUT FLAG: 			%d\n", command_struct->out_flag);
-		printf("BUILT_SYS:			%d\n", command_struct->builtin_sys_flag);
+		printf("	IN FLAG: 			%d	%s\n", command_struct->in_flag, ft_translate_flags(command_struct->in_flag));
+		printf("	OUT FLAG: 			%d	%s\n", command_struct->out_flag, ft_translate_flags(command_struct->out_flag));
+		printf("	BUILT_SYS:			%d	%s\n", command_struct->builtin_sys_flag, ft_translate_flags(command_struct->builtin_sys_flag));
+		printf("%sSECTION END %s\n", BACKGROUND_BLUE, RESET_COLOR);
 	}
 	return (command_struct);
 }

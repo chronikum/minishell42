@@ -24,7 +24,7 @@ char *ft_find_executable_path(char *exec) // as soon as exec is being accessed t
 	char	*temp_path;
 
 	i = 0;
-	paths = ft_split(getenv("PATH"), ':');
+	paths = ft_split(ft_find_envlist("PATH")->value, ':');
 	while (paths[i])
 	{
 		temp_path = ft_join_path(paths[i], exec);

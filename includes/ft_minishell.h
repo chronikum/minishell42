@@ -16,6 +16,8 @@
 # include <termios.h>
 # include <unistd.h>
 # include "../gc/ft_garbage_collector.h"
+# include "../prompt/ft_prompt.h"
+# include "../debug_help/ft_debugging_help.h"
 
 // IN
 # define IN 2 // <
@@ -80,48 +82,10 @@ typedef struct s_child
 	char				**paths;
 }			t_child;
 
-
-//trash?
-//cat hello.txt | grep -e "test asdf asdf"
-
-//first linked list
-//command = cat
-//args = (cat) (hello.txt)
-//file = fd descriptor for hello.txt
-//flag = 1
-//next -> linked list two
-
-//linked list two
-// command = grep
-// args = grep (-e) ("test asdf asdf")
-// flag = 8
-// next -> null
-
-/*
-
-	-> char **ft_split_no_quotes() TODO
-
-	void ft_parser(cmd)
-	{
-		struct t_command *command_info;
-		if (cmd)
-		{
-
-			char **command_parts = 	ft_split_no_quotes(cmd);
-			char *command = command_parts[0];
-			command_info->command = command_parts[0];
-			command_info->original_string = cmd;
-			command_info->arg = command_parts;
-			add_to_command_history();
-		}
-	}
-
-*/
-
-
 int			main(int argc, char **argv, char **envp);
 void		ft_handle_sig(int sig);
 void		ft_quit();
+void		ft_init_shell(char **envp);
 
 char			***ft_split_machine(char *str, char dlmtr);
 t_command		*ft_parser(char *cmd, int in_flag, int out_flag, char *file_name);
@@ -131,6 +95,7 @@ t_command		*ft_parse_in_commands(char *cmds);
 int				ft_strlenc(char *cmd, char c);
 int				ft_strlen_set(char *cmd, char *set);
 char			*ft_get_cmd_filename(char *cmd, int *i);
+int				ft_spongebob_strncmp(char *s1, char *s2, int n);
 
 //envlist
 t_envlist	*ft_env_list(t_envlist *env_list);
@@ -169,6 +134,7 @@ void		ft_arg_printer(char **args);
 int			ft_pwd(void);
 int			ft_env(void);
 int			ft_echo(char *cmd, int n);
+int			builtin_export(char *cmd);
 
 //free_functions
 void		ft_custom_free(char **str1, char **str2, char SD);
@@ -178,10 +144,22 @@ void		ft_triple_free(char	***string);
 
 // libft functions which use ft_malloc instead
 char		**ft_gc_split(char const *s, char c);
+char		*ft_gc_strjoin(char const *s1, char const *s2);
 
 // Command list handling
 t_command	*ft_commandaddback(t_command **lst, t_command *new);
 t_command	*ft_newcommand(char *command);
 t_command	*ft_get_last_command(t_command *lst);
+
+
+// env lsit
+t_envlist	*ft_setenv(char *key, char *value);
+t_envlist	*ft_find_envlist(char *key);
+t_envlist	*ft_new_list(char *f, char *n, char *c, char **envp);
+void		ft_env_addback(t_envlist **lst, t_envlist *new);
+
+// prompt
+char		*ft_get_nice_prompt(void);
+void		set_shell_envvariable(void);
 
 #endif

@@ -10,6 +10,13 @@ size_t	ft_get_env_count(char **envp)
 	return (i);
 }
 
+/*
+	Creates a new env list with the given
+	full line	(full line)
+	n			(name)
+	c			(value)
+	envp		(envp char array)
+*/
 t_envlist	*ft_new_list(char *f, char *n, char *c, char **envp)
 {
 	t_envlist	*new;
