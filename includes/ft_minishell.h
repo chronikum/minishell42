@@ -16,6 +16,7 @@
 # include <termios.h>
 # include <unistd.h>
 # include "../gc/ft_garbage_collector.h"
+# include "../prompt/ft_prompt.h"
 
 // IN
 # define IN 2 // <

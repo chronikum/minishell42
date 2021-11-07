@@ -1,5 +1,4 @@
 #include "../includes/ft_minishell.h"
-#include "ft_prompt.h"
 
 /*
 	Returns a nice styled prompt with the username and host

@@ -79,17 +79,18 @@ t_command	*ft_parser(char *cmd, int in_flag, int out_flag, char *file_name)
 	ft_assign_file_name_to_path(command_struct, file_name);
 	if (DEBUG)
 	{
-		printf("----- SECTION -----\n");
-		printf("Command: 			%s\n", command_struct->command);
+		printf("%sSECTION     %s\n", BACKGROUND_BLUE, RESET_COLOR);
+		printf("	Command: 			%s\n", command_struct->command);
 		ft_arg_printer(command_struct->args);
 		if (command_struct->file)
 		{
 			printf("FILE: 				%s|\n", command_struct->file);
 			printf("FILE NAME LENGTH: 	%lu\n", ft_strlen(command_struct->file)); /// as we know the file name changes in length occassionally
 		}
-		printf("IN FLAG: 			%d\n", command_struct->in_flag);
-		printf("OUT FLAG: 			%d\n", command_struct->out_flag);
-		printf("BUILT_SYS:			%d\n", command_struct->builtin_sys_flag);
+		printf("	IN FLAG: 			%d\n", command_struct->in_flag);
+		printf("	OUT FLAG: 			%d\n", command_struct->out_flag);
+		printf("	BUILT_SYS:			%d\n", command_struct->builtin_sys_flag);
+		printf("%sSECTION END %s\n", BACKGROUND_BLUE, RESET_COLOR);
 	}
 	return (command_struct);
 }
