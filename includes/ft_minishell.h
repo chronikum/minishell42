@@ -169,6 +169,7 @@ void		ft_arg_printer(char **args);
 int			ft_pwd(void);
 int			ft_env(void);
 int			ft_echo(char *cmd, int n);
+int			builtin_export(char *cmd);
 
 //free_functions
 void		ft_custom_free(char **str1, char **str2, char SD);

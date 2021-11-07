@@ -4,7 +4,7 @@ NAME = libft_minishell.a
 
 SRC = main.c
 
-BUILTINS = ./builtins/ft_pwd.c ./builtins/ft_env.c ./builtins/ft_echo.c
+BUILTINS = ./builtins/ft_pwd.c ./builtins/ft_env.c ./builtins/ft_echo.c ./builtins/ft_export.c
 
 ENV = ./envlist/ft_init_env_list.c ./envlist/ft_env_list.c ./envlist/ft_find_env.c \
        ./envlist/ft_env_addback.c envlist/ft_setenv.c

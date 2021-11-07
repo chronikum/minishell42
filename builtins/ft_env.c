@@ -3,13 +3,13 @@
 // needs a fix :( will print null as first env for a unknown reason
 void	ft_print_env()
 {
-	t_envlist	*env_list;
+	t_envlist	*temp;
 
-	env_list = ft_env_list(NULL);
-	while (env_list)
+	temp = ft_env_list(NULL);
+	while (temp)
 	{
-		printf("%s\n", env_list->full_line);
-		env_list = env_list->next;
+		printf("%s\n", temp->full_line);
+		temp = temp->next;
 	}
 }
 

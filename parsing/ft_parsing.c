@@ -27,6 +27,8 @@ int	ft_check_builtin(char *command)
 		return (1);
 	else if (ft_strncmp(command, "cd", ft_strlen("cd")) == 0)
 		return (1);
+	else if (ft_strncmp(command, "export", ft_strlen("export")) == 0)
+		return (1);
 	return (0);
 }
 
@@ -39,12 +41,12 @@ void	ft_set_builtin_flag(t_command *command)
 	char *main_command;
 
 	main_command = command->args[0];
-	if (ft_find_executable_path(main_command))
-		command->builtin_sys_flag = 6;
-	else  if (ft_check_builtin(main_command))
-		command->builtin_sys_flag = 5;
+	if (ft_check_builtin(main_command))
+		command->builtin_sys_flag = BUILT_IN;
+	else if (ft_find_executable_path(main_command))
+		command->builtin_sys_flag = SYS;
 	else
-		command->builtin_sys_flag = 6;
+		command->builtin_sys_flag = SYS;
 }
 
 /*
@@ -65,6 +67,7 @@ t_command	*ft_parser(char *cmd, int in_flag, int out_flag, char *file_name)
 	if (!command_parts)
 		return (NULL);
 	main_command = command_parts[0];
+	command_struct->original_string = cmd;
 	command_struct->command = ft_find_executable_path(main_command);
 	command_struct->args = command_parts;
 	if (in_flag == 2) // super important to remove this later @DEBUG
