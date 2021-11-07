@@ -4,6 +4,8 @@ NAME = libft_minishell.a
 
 SRC = main.c
 
+OUTFILES = compiled/
+
 BUILTINS = ./builtins/ft_pwd.c ./builtins/ft_env.c ./builtins/ft_echo.c ./builtins/ft_export.c
 
 ENV = ./envlist/ft_init_env_list.c ./envlist/ft_env_list.c ./envlist/ft_find_env.c \
@@ -56,6 +58,8 @@ $(NAME): *.c
 	$(CC) $(FLAGS) -D DEBUG=0 -c $(ALLSRC)
 	ar rc $(NAME) *.o
 	$(CC) $(CFLAGS) -L. -lft_minishell -o minishell
+	mkdir -p $(OUTFILES)
+	mv *.o $(OUTFILES)
 
 debug: *.c
 	make -C libft/
@@ -63,6 +67,8 @@ debug: *.c
 	$(CC) $(FLAGS) -D DEBUG=1 -c $(ALLSRC)
 	ar rc $(NAME) *.o
 	$(CC) $(CFLAGS) -L. -lft_minishell -o minishell
+	mkdir -p $(OUTFILES)
+	mv *.o $(OUTFILES)
 
 clean:
 	rm -f ./libft/*.o
@@ -71,5 +77,6 @@ clean:
 fclean: clean
 	rm -f ./libft/libft.a
 	rm -f $(NAME) minishell
+	rm -rf $(OUTFILES)
 
 re: fclean $(NAME)
