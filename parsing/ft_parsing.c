@@ -23,7 +23,7 @@ int	ft_check_builtin(char *command)
 		return (1);
 	else if (ft_strncmp(command, "env", ft_strlen("env")) == 0)
 		return (1);
-	else if (ft_strncmp(command, "echo", ft_strlen("echo")) == 0)
+	else if (ft_strncmp(command, "echo ", ft_strlen("echo ")) == 0)
 		return (1);
 	else if (ft_strncmp(command, "cd", ft_strlen("cd")) == 0)
 		return (1);
