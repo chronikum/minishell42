@@ -29,7 +29,7 @@ void	sig_handler_int(int signal)
 /**
  * Gets the command list for the give char array
  */
-void	ft_get_command_list(char *command)
+void	ft_execute_terminal_command(char *command)
 {
 	t_command	*list;
 	t_pipes		*p;
@@ -65,7 +65,7 @@ int	main(int argc, char **argv, char **envp)
 			ft_quit();
 		if (ft_strncmp(cmd, "", ft_strlen(cmd)))
 		{
-			ft_get_command_list(cmd);
+			ft_execute_terminal_command(cmd);
 			add_history(cmd);
 		}
 	}

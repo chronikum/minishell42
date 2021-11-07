@@ -87,6 +87,7 @@ int			main(int argc, char **argv, char **envp);
 void		ft_handle_sig(int sig);
 void		ft_quit();
 void		ft_init_shell(char **envp);
+void		ft_execute_terminal_command(char *command);
 
 char			***ft_split_machine(char *str, char dlmtr);
 t_command		*ft_parser(char *cmd, int in_flag, int out_flag, char *file_name);
