@@ -91,14 +91,13 @@ char *ft_get_next_word(char *cmd, int r)
 	return (ft_strtrim(ft_gc_substr(temp, saved, ft_strlenc(&temp[saved], ' ')), " "));
 }
 
-char	**ft_split_quote(char *s, char c)
+char	**ft_splint(char *s)
 {
 	char	**result;
 	char	*current;
 	int		i;
 	int		wc;
 
-	(void)c;
 	i = 0;
 	current = NULL;
 	wc = ft_new_word_counter(s);

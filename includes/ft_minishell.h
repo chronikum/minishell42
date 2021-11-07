@@ -91,7 +91,7 @@ void		ft_init_shell(char **envp);
 char			***ft_split_machine(char *str, char dlmtr);
 t_command		*ft_parser(char *cmd, int in_flag, int out_flag, char *file_name);
 int				ft_command_size(t_command *lst);
-char			**ft_split_quote(char *s, char c);
+char			**ft_splint(char *s);
 t_command		*ft_parse_in_commands(char *cmds);
 int				ft_strlenc(char *cmd, char c);
 int				ft_strlen_set(char *cmd, char *set);

@@ -63,7 +63,7 @@ t_command	*ft_parser(char *cmd, int in_flag, int out_flag, char *file_name)
 
 	command_struct = ft_malloc(sizeof(t_command));
 	command_struct->next = NULL;
-	command_parts = ft_split_quote(cmd, ' '); // Todo only split if not surrounded by quotes
+	command_parts = ft_splint(cmd); // Todo only split if not surrounded by quotes
 	if (!command_parts)
 		return (NULL);
 	main_command = command_parts[0];
@@ -81,6 +81,7 @@ t_command	*ft_parser(char *cmd, int in_flag, int out_flag, char *file_name)
 	{
 		printf("%sSECTION     %s\n", BACKGROUND_BLUE, RESET_COLOR);
 		printf("	Command: 			%s\n", command_struct->command);
+		printf("	Full String: 			%s\n", ft_strtrim(command_struct->original_string, "<>| "));
 		ft_arg_printer(command_struct->args);
 		if (command_struct->file)
 		{
