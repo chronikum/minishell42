@@ -10,6 +10,8 @@ void	ft_assign_file_name_to_path(t_command *command, char *file_name)
 	{
 		command->file = ft_strjoin("./", ft_gc_strtrim(file_name, " "));
 	}
+	if (ft_strncmp("./", command->args[0], ft_strlen("./")) == 0)
+		command->file = command->args[0];
 }
 
 /*
