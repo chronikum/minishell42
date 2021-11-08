@@ -62,8 +62,8 @@ int	ft_check_quotes(char *text_to_echo)
 int	ft_echo(char *cmd, int n)
 {
 	char	*command_split;
-
-	command_split = ft_substr(cmd, 5, ft_strlen(cmd) - 5);
+	
+	command_split = ft_substr(cmd, ft_strlenc(cmd, ' '), ft_strlen_set(&cmd[5], "|><") - 1);
 	if (ft_check_quotes(command_split) && !n)
 	{
 		ft_echo_string(command_split, 1);
