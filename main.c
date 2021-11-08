@@ -127,6 +127,18 @@ int	main(int argc, char **argv, char **envp)
 
 
 
+
+
+//	////HERE_DOC
+//	char *commmand_args[2];
+//	commmand_args[0] = "cat";
+//	commmand_args[1] = NULL;
+
+
+
+
+
+
 //	////REGULAR TEST
 //	//// second command
 //	//command2 = malloc(sizeof(t_command));
@@ -150,26 +162,26 @@ int	main(int argc, char **argv, char **envp)
 
 
 
-	////INFILE TEST
-	//// second command
-	//command2 = malloc(sizeof(t_command));
-	//command2->args = commmand_args2;
-	//command2->command = "cat";
-	//command2->in_flag = 7;
-	//command2->out_flag = STDOUT;
-	//command->builtin_sys_flag = BUILT_IN;
-	//command2->next = NULL;
+//	////INFILE TEST
+//	//// second command
+//	//command2 = malloc(sizeof(t_command));
+//	//command2->args = commmand_args2;
+//	//command2->command = "cat";
+//	//command2->in_flag = 7;
+//	//command2->out_flag = STDOUT;
+//	//command->builtin_sys_flag = BUILT_IN;
+//	//command2->next = NULL;
 
-	//// first commands
-	//command = malloc(sizeof(t_command));
-	//command->args = commmand_args;
-	//command->command = "<in";
-	//command->file = "./in";
-	//command->in_flag = IN;
-	//command->out_flag = 7;
-	//command->builtin_sys_flag = 7;
-	////command->next = NULL;
-	//command->next = command2;
+//	//// first commands
+//	//command = malloc(sizeof(t_command));
+//	//command->args = commmand_args;
+//	//command->command = "<in";
+//	//command->file = "./in";
+//	//command->in_flag = IN;
+//	//command->out_flag = 7;
+//	//command->builtin_sys_flag = 7;
+//	////command->next = NULL;
+//	//command->next = command2;
 
 
 
@@ -186,6 +198,22 @@ int	main(int argc, char **argv, char **envp)
 //	//command->out_flag = OUT;
 //	//command->builtin_sys_flag = BUILT_IN; //6
 //	//command->next = NULL;
+
+
+
+
+
+
+//	////HERE_DOC
+//	command = malloc(sizeof(t_command));
+//	command->args = commmand_args;
+//	command->command = "/bin/cat";
+//	command->delimiter = "delimiter";
+//	command->in_flag = HERE_DOC;
+//	command->out_flag = STDOUT;
+//	command->builtin_sys_flag = SYS;
+//	command->next = NULL;
+
 
 
 

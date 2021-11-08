@@ -54,6 +54,7 @@ typedef struct s_command
 	char				*command;
 	char				*original_string;
 	char				*file; // the path to the file
+	char				*delimiter;
 	char				**args;
 	int					in_flag;  // flag at the beginning
 	int					out_flag; // flag at the end

@@ -2,26 +2,36 @@
 
 void	ft_close(t_pipes *p)
 {
-	close(p->temp_fd);
-	close(p->in);
-	close(p->out);
-	close(p->pipe[0]);
-	close(p->pipe[1]);
-	close(p->stout);
+	if (p->temp_fd)
+		close(p->temp_fd);
+	if (p->in)
+		close(p->in);
+	if (p->out)
+		close(p->out);
+	if (p->pipe[0])
+		close(p->pipe[0]);
+	if (p->pipe[1])
+		close(p->pipe[1]);
+	if (p->stout)
+		close(p->stout);
 }
 
 void	ft_pipe_after_dup(t_pipes *p)
 {
-	close(p->pipe[1]);
-	close(p->temp_fd);
+	if (p->pipe[1])
+		close(p->pipe[1]);
+	if (p->temp_fd)
+		close(p->temp_fd);
 	dup2(p->pipe[0], p->temp_fd);
-	close(p->pipe[0]);
+	if (p->pipe[0])
+		close(p->pipe[0]);
 }
 
 void	ft_pipe_pre_dup(t_pipes *p)
 {
 	dup2(p->pipe[1], 1);
-	close(p->pipe[1]);
+	if (p->pipe[1])
+		close(p->pipe[1]);
 }
 
 void	ft_outfile_dup(t_pipes *p)
@@ -73,19 +83,19 @@ void	ft_system_command(t_pipes *p, t_command *commands, t_envlist *envp)
 {
 	pid_t	pid;
 
-	(void) p;
-	(void) envp;
 	pid = fork();
 	if (pid == -1)
 		exit(0);
 	if (pid == 0)
 	{
-		close(p->pipe[0]);
+		if (p->pipe[0])
+			close(p->pipe[0]);
 		ft_execute(commands, envp);
 	}
 	if (pid != 0)
 	{
-		close(p->pipe[1]);
+		if (p->pipe[1])
+			close(p->pipe[1]);
 		wait(0);
 	}
 }
@@ -143,11 +153,28 @@ int	ft_run_builtin(t_command *command)
 	return (0);
 }
 
+void	ft_here_doc(t_pipes *p, t_command *commands)
+{
+	char *str;
+
+	str = NULL;
+	while (str == NULL || ft_spongebob_strncmp(str, commands->delimiter, ft_strlen(commands->delimiter)))
+	{
+		str = readline("> ");
+		if (!ft_spongebob_strncmp(str, commands->delimiter, ft_strlen(commands->delimiter)))
+			break ;
+		ft_putendl_fd(str, p->pipe[1]);
+	}
+	ft_pipe_after_dup(p);
+}
+
 void	ft_pipex(t_pipes *p, t_command *commands, t_envlist *envp)
 {
 	ft_pipe(p);
 	if (commands->in_flag == IN)
 		ft_open_infile(p, commands);
+	if (commands->in_flag == HERE_DOC)
+		ft_here_doc(p, commands);
 	if (commands->out_flag == OUT || commands->out_flag == APPEND)
 	{
 		ft_open_outfile(p, commands);
