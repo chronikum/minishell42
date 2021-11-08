@@ -116,8 +116,8 @@ void	ft_open_outfile(t_pipes *p, t_command *commands)
 	if (p->out == -1)
 	{
 		ft_putstr_fd("Permission denied: ", 2);
-		ft_putendl_fd(commands->file, 2);
-		exit(0); //is exit right here?
+		ft_putendl_fd(&commands->file[2], 2);
+		exit(0);
 	}
 }
 
