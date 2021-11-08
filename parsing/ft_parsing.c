@@ -87,8 +87,8 @@ t_command	*ft_parser(char *cmd, int in_flag, int out_flag, char *file_name)
 		ft_arg_printer(command_struct->args);
 		if (command_struct->file)
 		{
-			printf("FILE: 				%s|\n", command_struct->file);
-			printf("FILE NAME LENGTH: 	%lu\n", ft_strlen(command_struct->file)); /// as we know the file name changes in length occassionally
+			printf("	FILE PATH: 			%s|\n", command_struct->file);
+			printf("	FILE PATH LENGTH : 		%lu\n", ft_strlen(command_struct->file)); /// as we know the file name changes in length occassionally
 		}
 		printf("	IN FLAG: 			%d	%s\n", command_struct->in_flag, ft_translate_flags(command_struct->in_flag));
 		printf("	OUT FLAG: 			%d	%s\n", command_struct->out_flag, ft_translate_flags(command_struct->out_flag));
