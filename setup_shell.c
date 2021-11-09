@@ -2,7 +2,7 @@
 
 void	ft_unnecessary_motd()
 {
-printf("						 __ \n");
+printf("			 __ \n");
 printf(" __ _________ ____ ___  / /_\n");
 printf("/ // / __/ _ `/ -_) _ \\/ __/\n");
 printf("\\_,_/_/  \\_, /\\__/_//_/\\__/\n");
