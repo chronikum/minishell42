@@ -184,6 +184,48 @@ static void	ft_increase_i_quote_handler(char *cmd, int *i, int *quote)
 	(*i)++;
 }
 
+
+/*
+	Adds a infile to the command struct if
+	there is a infile. Will do nothing otherwise
+*/
+void	ft_add_infile_if_exists(t_command **list, char *cmds, int *i, int *start)
+{
+	t_command	*first;
+	int			offset;
+	int			changed;
+
+	offset = 0;
+	changed = 0;
+	if (cmds[(*i)] == '<')
+	{
+		(*i)++;
+		while (ft_single_inset(cmds[(*i) + offset], " ") == 0)
+		{
+			(*i)++;
+			changed++;
+		}
+		while (ft_single_inset(cmds[(*i) + offset], " |<>") == -1 && changed != 0)
+			offset++;
+		//printf("DETECTED < FLAG! \n");
+		//printf("SKIPPED TO: |%s|! \n", &cmds[(*i) + offset]);
+		//printf("FILE NAME WILL BE: %s \n", ft_gc_strtrim(ft_get_cmd_filename(cmds, i), "<"));
+		first = ft_parser(
+			ft_substr(ft_substr(cmds, (*i) + offset, ft_strlen_set(&cmds[(*i) + offset], "|>")), ft_strlen_set(cmds, " "), ft_strlen_set(cmds, "|>")),
+			2,
+			ft_inset(&cmds[(*i)], "|<>"),
+			ft_gc_strtrim(ft_get_cmd_filename(cmds, i), "<")
+		);
+		(*i) += ft_strlen_set(&cmds[(*i)], "|<>");
+		//printf("FILENAME SET: %s\n", first->file);
+		(*start) = (*i);
+		if (list)
+			ft_commandaddback(list, first);
+		else
+			(*list) = first;
+	}
+}
+
 /*
 	Parses a string of commands in multiple single segments
 	and creates a funky linked command list
@@ -209,21 +251,6 @@ t_command		*ft_parse_in_commands(char *cmds)
 	start = 0;
 	first = NULL;
 	quotes_closed = 1;
-	if (cmds[0] == '<')
-	{
-		first = ft_parser(
-			ft_substr(cmds, ft_strlen_set(cmds, " "), ft_strlen_set(cmds, "|>")),
-			2,
-			ft_determine_out_flag(ft_substr(cmds, start, (i - start))),
-			ft_gc_strtrim(ft_get_cmd_filename(cmds, &i), "<")
-		);
-		start = i;
-		i += ft_strlen_set(&cmds[i], "|<>");
-		i++;
-		//i += ft_strlen_set(cmds, " |>");
-		//start = i;
-		//skip = 1;
-	}
 
 	while(cmds[i])
 	{
@@ -231,6 +258,7 @@ t_command		*ft_parse_in_commands(char *cmds)
 		// problem: only gets entered if there is atleast one seperator. won't enter if there is none.
 		if (ft_single_inset(cmds[i], "|><") != -1 && quotes_closed)
 		{
+			ft_add_infile_if_exists(&first, cmds, &i, &start);
 			// then we skip the seperators
 			// which we just saw to not get in an infinite while loop.
 			while (ft_single_inset(cmds[i], "|><") != -1 && quotes_closed)
