@@ -2,11 +2,11 @@
 
 void	ft_unnecessary_motd()
 {
-printf("			 __ \n");
-printf(" __ _________ ____ ___  / /_\n");
-printf("/ // / __/ _ `/ -_) _ \\/ __/\n");
-printf("\\_,_/_/  \\_, /\\__/_//_/\\__/\n");
-printf("	/___/\n");
+	printf("			 __ \n");
+	printf(" __ _________ ____ ___  / /_\n");
+	printf("/ // / __/ _ `/ -_) _ \\/ __/\n");
+	printf("\\_,_/_/  \\_, /\\__/_//_/\\__/\n");
+	printf("	/___/\n");
 }
 
 /*
@@ -18,6 +18,7 @@ static void	ft_disable_control_c_symbol(void)
 {
 	ft_execute_terminal_command("stty -echoctl");
 }
+
 /*
 	Runs setup methods like building the env list
 	or setting initial ENV variables
