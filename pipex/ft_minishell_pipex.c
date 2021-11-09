@@ -150,6 +150,8 @@ int	ft_run_builtin(t_command *command)
 		return (ft_echo(command));
 	else if (ft_spongebob_strncmp(command->args[0], "export", ft_strlen("export")) == 0)
 		return (builtin_export(command->original_string));
+	else if (ft_spongebob_strncmp(command->args[0], "cd", ft_strlen("cd")) == 0)
+		return (ft_cd(command->args[1]));
 	return (0);
 }
 
