@@ -136,7 +136,7 @@ void		ft_arg_printer(char **args);
 //buildins
 int			ft_pwd(void);
 int			ft_env(void);
-int			ft_echo(char *cmd, int n);
+int			ft_echo(t_command *command);
 int			builtin_export(char *cmd);
 
 //free_functions

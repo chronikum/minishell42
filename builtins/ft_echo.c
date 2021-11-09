@@ -3,22 +3,32 @@
 /**
  * Will "echo" the string out but will remove quotes without esacping sequence (\)
  */
-int	ft_echo_string(char *string, int n)
+int	ft_echo_string(char **string, int n)
 {
 	int	i;
+	int s;
 
 	i = 0;
-	while (string[i])
+	s = n;
+	if (n == 0)
+		s = 2;
+	while (string[s])
 	{
-		if (string[i] != '"')
-			ft_putchar_fd(string[i], 1);
-		else if (string[i] == '"' && string[i - 1] == '\\')
-			ft_putchar_fd(string[i], 1);
-		i++;
+		i = 0;
+		while (string[s][i])
+		{
+			if (string[s][i] != '"')
+				ft_putchar_fd(string[s][i], 1);
+			else if (string[s][i] == '"' && string[s][i - 1] == '\\')
+				ft_putchar_fd(string[s][i], 1);
+			i++;
+		}
+		s++;
+		ft_putchar_fd(' ', 1);
 	}
 	if (n)
 		ft_putchar_fd('\n', 1);
-	return (1);
+	return (0);
 }
 
 /**
@@ -46,7 +56,7 @@ int	ft_count_quotes(char *characters)
  * no quotes at all
  * TODO: Check forbidden signs like double exclamation mark
  * TODO: Clean the text_to_echo up so no unescaped quotes remain in output
- * 
+ *
  */
 int	ft_check_quotes(char *text_to_echo)
 {
@@ -55,29 +65,48 @@ int	ft_check_quotes(char *text_to_echo)
 	return (0);
 }
 
-/**
- * Returns one on success
- * Takes n parameter
- */
-int	ft_echo(char *cmd, int n)
+/*
+	Returns one if paramater is a flag
+*/
+int	ft_has_n_flag(char *param)
 {
-	char	*command_split;
-	
-	command_split = ft_strtrim(ft_substr(cmd, ft_strlenc(cmd, ' '), ft_strlen_set(&cmd[5], "|><") - 1), " ");
-	if (ft_check_quotes(command_split) && !n)
+	if (!param)
+		return (0);
+	if (ft_strlen(param) >= 2)
 	{
-		ft_echo_string(command_split, 1);
-		free(command_split);
-		return (1);
+		if (ft_gc_strtrim(param, " ")[0] == '-')
+			return (ft_gc_strtrim(param, " ")[1] == 'n');
 	}
-	else if (ft_check_quotes(command_split) && n)
+	return (0);
+}
+
+/**
+ * Returns zero on success
+ * Returns one if something fails
+ * Takes t_command
+ */
+int	ft_echo(t_command *command)
+{
+	char	*cmd;
+	int		n;
+	char	*string_to_echo;
+
+	cmd = command->args[0];
+	n = ft_has_n_flag(command->args[1]);
+	if (n)
 	{
-		ft_echo_string(command_split, 0);
-		free(command_split);
-		return (1);
+		if (command->args[2])
+			string_to_echo = command->args[2];
+		else
+			string_to_echo = "";
 	}
 	else
+		string_to_echo = command->args[1];
+	if (ft_check_quotes(string_to_echo) && !n)
+		return (ft_echo_string(command->args, 1));
+	else if (ft_check_quotes(string_to_echo) && n)
+		return (ft_echo_string(command->args, 0));
+	else
 		ft_putstr_fd("Error\n", 2);
-	free(command_split);
-	return (0);
+	return (1);
 }

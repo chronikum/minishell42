@@ -147,7 +147,7 @@ int	ft_run_builtin(t_command *command)
 	else if (ft_spongebob_strncmp(command->args[0], "env", ft_strlen("env")) == 0)
 		return (ft_env());
 	else if (ft_spongebob_strncmp(command->args[0], "echo", ft_strlen("echo")) == 0)
-		return (ft_echo(command->original_string, 0));
+		return (ft_echo(command));
 	else if (ft_spongebob_strncmp(command->args[0], "export", ft_strlen("export")) == 0)
 		return (builtin_export(command->original_string));
 	return (0);
