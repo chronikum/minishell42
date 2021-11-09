@@ -126,7 +126,10 @@ void	ft_open_infile(t_pipes *p, t_command *commands)
 	check_file(commands->file, 'R');
 	p->temp_fd = open(commands->file, O_RDONLY);
 	if (p->temp_fd == -1)
+	{
+		commands->builtin_sys_flag = 7;
 		p->temp_fd = 5;
+	}
 }
 
 void	ft_pipe(t_pipes *p)
@@ -189,11 +192,12 @@ void	ft_pipex(t_pipes *p, t_command *commands, t_envlist *envp)
 		ft_pipe_pre_dup(p);
 	if (commands->builtin_sys_flag == BUILT_IN)
 		ft_run_builtin(commands);
-	if (commands->builtin_sys_flag == SYS) //!= 7 for test purposes == SYS
+	if (commands->builtin_sys_flag == SYS)
 		ft_system_command(p, commands, envp);
 	if (commands->out_flag == PIPE)
 		ft_pipe_after_dup(p);
 	//if (commands->out_flag == STDOUT || commands->out_flag == OUT
 	//	|| commands->out_flag == APPEND)
-	//	ft_close(p);
+	if (commands->out_flag != PIPE)
+		ft_close(p);
 }
