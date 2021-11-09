@@ -3,7 +3,7 @@
 char	*ft_gc_substr(char const *s, unsigned int start, int len)
 {
 	char	*result;
-	int	i;
+	int		i;
 
 	if (s == 0)
 		return (0);

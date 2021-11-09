@@ -1,10 +1,10 @@
 #include "../ft_gc_functions.h"
 #include "../../libft/libft.h"
 
-char *ft_strtouppercase(char *str)
+char	*ft_strtouppercase(char *str)
 {
-	int	i;
-	char *temp;
+	int		i;
+	char	*temp;
 
 	i = 0;
 	temp = ft_gc_strdup(str);
@@ -13,5 +13,5 @@ char *ft_strtouppercase(char *str)
 		temp[i] = ft_toupper(temp[i]);
 		i++;
 	}
-	return temp;
+	return (temp);
 }

@@ -44,28 +44,6 @@ void	ft_stdout_dup(t_pipes *p)
 	dup2(p->stout, 1);
 }
 
-//int ft_execute(t_command *commands, t_envlist *envp)
-//{
-//    t_child	*c;
-
-//	c = malloc(sizeof(t_child));
-//	c->paths = ft_split(getenv("PATH"), ':');
-//	c->cmnd = commands->args;
-//	c->i = ft_array_len(c->paths);
-//	while (c->i >= 0)
-//	{
-//		c->temp = ft_strjoin(c->paths[c->i], "/");
-//		c->full_path = ft_strjoin(c->temp, c->cmnd[0]);
-//		if (access(c->full_path, F_OK) != -1)
-//			execve(c->full_path, commands->args, envp->envp);
-//		if (access(c->full_path, F_OK) == -1 && c->i == 0)
-//			command_not_found(commands->command);
-//		ft_custom_free(&c->full_path, &c->temp, 'S');
-//		c->i--;
-//	}
-//	exit(0);
-//}
-
 int	ft_execute(t_command *commands, t_envlist *envp)
 {
 	t_child	*c;
@@ -143,30 +121,38 @@ void	ft_pipe(t_pipes *p)
 
 int	ft_run_builtin(t_command *command)
 {
-	if (ft_spongebob_strncmp(command->args[0], "pwd", ft_strlen("pwd")) == 0)
+	if (ft_spongebob_strncmp(command->args[0],
+			"pwd", ft_strlen("pwd")) == 0)
 		return (ft_pwd());
-	else if (ft_spongebob_strncmp(command->args[0], "exit", ft_strlen("exit")) == 0)
+	else if (ft_spongebob_strncmp(command->args[0],
+			"exit", ft_strlen("exit")) == 0)
 		ft_quit();
-	else if (ft_spongebob_strncmp(command->args[0], "env", ft_strlen("env")) == 0)
+	else if (ft_spongebob_strncmp(command->args[0],
+			"env", ft_strlen("env")) == 0)
 		return (ft_env());
-	else if (ft_spongebob_strncmp(command->args[0], "echo", ft_strlen("echo")) == 0)
+	else if (ft_spongebob_strncmp(command->args[0],
+			"echo", ft_strlen("echo")) == 0)
 		return (ft_echo(command));
-	else if (ft_spongebob_strncmp(command->args[0], "export", ft_strlen("export")) == 0)
+	else if (ft_spongebob_strncmp(command->args[0],
+			"export", ft_strlen("export")) == 0)
 		return (builtin_export(command->original_string));
-	else if (ft_spongebob_strncmp(command->args[0], "cd", ft_strlen("cd")) == 0)
+	else if (ft_spongebob_strncmp(command->args[0],
+			"cd", ft_strlen("cd")) == 0)
 		return (ft_cd(command));
 	return (0);
 }
 
 void	ft_here_doc(t_pipes *p, t_command *commands)
 {
-	char *str;
+	char	*str;
 
 	str = NULL;
-	while (str == NULL || ft_spongebob_strncmp(str, commands->delimiter, ft_strlen(commands->delimiter)))
+	while (str == NULL || ft_spongebob_strncmp(str,
+			commands->delimiter, ft_strlen(commands->delimiter)))
 	{
 		str = readline("> ");
-		if (!ft_spongebob_strncmp(str, commands->delimiter, ft_strlen(commands->delimiter)))
+		if (!ft_spongebob_strncmp(str,
+				commands->delimiter, ft_strlen(commands->delimiter)))
 			break ;
 		ft_putendl_fd(str, p->pipe[1]);
 	}
@@ -196,8 +182,6 @@ void	ft_pipex(t_pipes *p, t_command *commands, t_envlist *envp)
 		ft_system_command(p, commands, envp);
 	if (commands->out_flag == PIPE)
 		ft_pipe_after_dup(p);
-	//if (commands->out_flag == STDOUT || commands->out_flag == OUT
-	//	|| commands->out_flag == APPEND)
 	if (commands->out_flag != PIPE)
 		ft_close(p);
 }
