@@ -1,6 +1,5 @@
 #include "../includes/ft_minishell.h"
 
-
 /*
 	Exports a value and a key.
 	Returns 0 on success and 1 if something goes wrong
@@ -38,8 +37,8 @@ int	builtin_export(char *cmd)
 		splitted_keypair = ft_gc_split(key_value_pair, '=');
 		if (splitted_keypair[1])
 			value = splitted_keypair[1];
-		if (ft_strchr(key_value_pair, '=') == ft_strrchr(key_value_pair, '=') 
-		&& ft_strrchr(key_value_pair, '='))
+		if (ft_strchr(key_value_pair, '=') == ft_strrchr(key_value_pair, '=')
+			&& ft_strrchr(key_value_pair, '='))
 			return (ft_raw_export(splitted_keypair[0], splitted_keypair[1]));
 	}
 	return (1);

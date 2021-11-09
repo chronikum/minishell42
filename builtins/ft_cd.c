@@ -2,14 +2,29 @@
 
 int	ft_cd(t_command *command)
 {
-	ft_setenv("PWD", command->args[1]);
-	//access
-	if (chdir(command->args[1]) == -1)
+	char		*path;
+	t_envlist	*env_list;
+
+	if (!command->args[1])
 	{
-		if (access(command->args[1], F_OK) == -1)
-			printf("bash: cd: %s: No such file or directory\n", command->args[1]);
+		env_list = ft_find_envlist("HOME");
+		if (ft_strlen(env_list->value) != 0)
+			path = env_list->value;
 		else
-			printf("bash: cd: %s: Not a directory\n", command->args[1]);
+		{
+			printf("HOME is not being set \n");
+			return (1);
+		}
 	}
-	return(0);
+	else
+		path = command->args[1];
+	ft_setenv("PWD", path);
+	if (chdir(path) == -1)
+	{
+		if (access(path, F_OK) == -1)
+			printf("bash: cd: %s: No such file or directory\n", path);
+		else
+			printf("bash: cd: %s: Not a directory\n", path);
+	}
+	return (0);
 }

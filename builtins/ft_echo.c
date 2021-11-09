@@ -1,12 +1,13 @@
 #include "../includes/ft_minishell.h"
 
 /**
- * Will "echo" the string out but will remove quotes without esacping sequence (\)
+ * Will "echo" the string out but will 
+ * remove quotes without esacping sequence (\)
  */
 int	ft_echo_string(char **string, int n)
 {
 	int	i;
-	int s;
+	int	s;
 
 	i = 0;
 	s = n;
