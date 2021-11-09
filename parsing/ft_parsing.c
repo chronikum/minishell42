@@ -193,18 +193,25 @@ void	ft_add_infile_if_exists(t_command **list, char *cmds, int *i, int *start)
 {
 	t_command	*first;
 	int			offset;
+	int			changed;
 
 	offset = 0;
+	changed = 0;
 	if (cmds[(*i)] == '<')
 	{
 		(*i)++;
 		while (ft_single_inset(cmds[(*i) + offset], " ") == 0)
+		{
 			(*i)++;
+			changed++;
+		}
+		while (ft_single_inset(cmds[(*i) + offset], " |<>") == -1 && changed != 0)
+			offset++;
 		printf("DETECTED < FLAG! \n");
 		printf("SKIPPED TO: |%s|! \n", &cmds[(*i) + offset]);
 		printf("FILE NAME WILL BE: %s \n", ft_gc_strtrim(ft_get_cmd_filename(cmds, i), "<"));
 		first = ft_parser(
-			ft_substr(ft_substr(cmds, (*i), ft_strlen_set(cmds, "|>")), ft_strlen_set(cmds, " "), ft_strlen_set(cmds, "|>")),
+			ft_substr(ft_substr(cmds, (*i) + offset, ft_strlen_set(cmds, "|>")), ft_strlen_set(cmds, " "), ft_strlen_set(cmds, "|>")),
 			ft_determine_in_flag(ft_substr(cmds, (*start), ((*i) - (*start)))),
 			ft_inset(&cmds[(*i)], "|<>"),
 			ft_gc_strtrim(ft_get_cmd_filename(cmds, i), "<")
