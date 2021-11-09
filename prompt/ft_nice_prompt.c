@@ -4,7 +4,7 @@
 	Returns a nice styled prompt with the username and host
 	machine
 */
-char *ft_get_nice_prompt(void)
+char	*ft_get_nice_prompt(void)
 {
 	char	*user;
 	char	*command_prompt;
@@ -18,6 +18,7 @@ char *ft_get_nice_prompt(void)
 		username = ft_find_envlist("USER")->value;
 	user = ft_gc_strjoin(ft_gc_strjoin(RED_COLOR, username), RESET_COLOR);
 	colored_part = "minishell\033[0m \033[0;36m⇉\033[0m ";
-	command_prompt = ft_gc_strjoin(ft_gc_strjoin(user, user_at_char), colored_part);
+	command_prompt = ft_gc_strjoin(ft_gc_strjoin(user,
+				user_at_char), colored_part);
 	return (command_prompt);
 }

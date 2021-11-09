@@ -4,7 +4,7 @@
 	Sets the shell name in the SHELL env variable
 	(likes bash does!)
 */
-void		set_shell_envvariable(void)
+void	set_shell_envvariable(void)
 {
 	ft_setenv("SHELL", "minishell");
 }
