@@ -138,7 +138,7 @@ int			ft_pwd(void);
 int			ft_env(void);
 int			ft_echo(t_command *command);
 int			builtin_export(char *cmd);
-int			ft_cd(char *path);
+int			ft_cd(t_command *command);
 
 //free_functions
 void		ft_custom_free(char **str1, char **str2, char SD);
