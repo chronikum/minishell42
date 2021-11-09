@@ -3,21 +3,20 @@
 /*
 	Joins path and slash and executable name and returns string
 */
-char *ft_join_path(char *path, char *executable)
+char	*ft_join_path(char *path, char *executable)
 {
-	char *pathwithslash;
-	char *pathwithslashandexecutable;
+	char	*pathwithslash;
+	char	*pathwithslashandexecutable;
 
 	pathwithslash = ft_strjoin(path, "/");
 	pathwithslashandexecutable = ft_strjoin(pathwithslash, executable);
-
 	return (pathwithslashandexecutable);
 }
 
 /*
 	Gets the executable path
 */
-char *ft_find_executable_path(char *exec) // as soon as exec is being accessed the program will stop.
+char	*ft_find_executable_path(char *exec)
 {
 	char	**paths;
 	int		i;
@@ -50,7 +49,6 @@ int	ft_check_command(char *exec)
 
 	i = 0;
 	paths = ft_split(getenv("PATH"), ':');
-
 	while (paths[i])
 	{
 		temp_path = ft_join_path(paths[i], exec);
