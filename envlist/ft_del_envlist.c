@@ -10,7 +10,6 @@ int	ft_del_envlist(char *key_to_delete)
 {
 	t_envlist	*temp;
 
-	printf("ATTEMPTING TO DELETRE KEY: %s \n", key_to_delete);
 	temp = ft_env_list(NULL);
 	while (temp)
 	{
