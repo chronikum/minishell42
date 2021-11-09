@@ -31,6 +31,8 @@ int	ft_check_builtin(char *command)
 		return (1);
 	else if (ft_spongebob_strncmp(command, "export ", ft_strlen("export ")) == 0)
 		return (1);
+	else if (ft_spongebob_strncmp(command, "unset ", ft_strlen("unset ")) == 0)
+		return (1);
 	return (0);
 }
 

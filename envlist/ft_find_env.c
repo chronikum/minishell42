@@ -9,10 +9,10 @@ t_envlist *ft_find_envlist(char *key)
 	t_envlist	*temp;
 
 	temp = ft_env_list(NULL);
-	
+
 	while(temp)
 	{
-		if (ft_strncmp(temp->var_name, key, ft_strlen(temp->var_name)) == 0)
+		if (ft_strcmp(temp->var_name, key) == 0)
 			return (temp);
 		temp = temp->next;
 	}

@@ -8,7 +8,8 @@ void	ft_print_env()
 	temp = ft_env_list(NULL);
 	while (temp)
 	{
-		printf("%s\n", temp->full_line);
+		if (temp->var_name)
+			printf("%s\n", temp->full_line);
 		temp = temp->next;
 	}
 }

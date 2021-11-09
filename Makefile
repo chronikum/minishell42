@@ -6,10 +6,10 @@ SRC = main.c setup_shell.c
 
 OUTFILES = compiled/
 
-BUILTINS = ./builtins/ft_pwd.c ./builtins/ft_env.c ./builtins/ft_echo.c ./builtins/ft_export.c ./builtins/ft_cd.c
+BUILTINS = ./builtins/ft_pwd.c ./builtins/ft_env.c ./builtins/ft_echo.c ./builtins/ft_export.c ./builtins/ft_cd.c ./builtins/ft_unset.c
 
 ENV = ./envlist/ft_init_env_list.c ./envlist/ft_env_list.c ./envlist/ft_find_env.c \
-       ./envlist/ft_env_addback.c envlist/ft_setenv.c
+       ./envlist/ft_env_addback.c envlist/ft_setenv.c ./envlist/ft_del_envlist.c
 
 PATHS = ./path_helpers/ft_check_paths.c ./path_helpers/ft_check_file_exists.c
 

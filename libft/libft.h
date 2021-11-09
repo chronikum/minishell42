@@ -6,7 +6,7 @@
 /*   By: jfritz <jfritz@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/23 14:43:34 by olgerret          #+#    #+#             */
-/*   Updated: 2021/11/03 09:22:09 by jfritz           ###   ########.fr       */
+/*   Updated: 2021/11/09 15:28:04 by jfritz           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,4 +74,5 @@ t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *));
 int		ft_inset(char *str, char const *set);
 int		ft_single_inset(char c, char const *set);
 void	*ft_memdup(const void *mem, size_t size);
+int		ft_strcmp(char *s1, char *s2);
 #endif

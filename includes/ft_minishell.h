@@ -139,6 +139,7 @@ int			ft_env(void);
 int			ft_echo(t_command *command);
 int			builtin_export(char *cmd);
 int			ft_cd(t_command *command);
+int			ft_unset(t_command *command);
 
 //free_functions
 void		ft_custom_free(char **str1, char **str2, char SD);
@@ -161,6 +162,7 @@ t_envlist	*ft_setenv(char *key, char *value);
 t_envlist	*ft_find_envlist(char *key);
 t_envlist	*ft_new_list(char *f, char *n, char *c, char **envp);
 void		ft_env_addback(t_envlist **lst, t_envlist *new);
+int			ft_del_envlist(char *key_to_delete);
 
 // prompt
 char		*ft_get_nice_prompt(void);
