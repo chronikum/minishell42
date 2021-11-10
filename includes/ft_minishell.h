@@ -41,11 +41,11 @@
 typedef struct s_envlist
 {
 	char				**envp;
-	char 				*full_line;
+	char				*full_line;
 	char				*var_name;
 	char				*value;
-	struct s_envlist *next;
-} 			t_envlist;
+	struct s_envlist	*next;
+}			t_envlist;
 
 // todo: add length of linked list
 
@@ -53,13 +53,13 @@ typedef struct s_command
 {
 	char				*command;
 	char				*original_string;
-	char				*file; // the path to the file
+	char				*file;
 	char				*delimiter;
 	char				**args;
-	int					in_flag;  // flag at the beginning
-	int					out_flag; // flag at the end
-	int					builtin_sys_flag; // determines if builtin or ssy command
-	int					op; // ? later //remove this one?
+	int					in_flag;
+	int					out_flag;
+	int					builtin_sys_flag;
+	int					op;
 	struct s_command	*next;
 }			t_command;
 
@@ -90,15 +90,15 @@ void		ft_quit();
 void		ft_init_shell(char **envp);
 void		ft_execute_terminal_command(char *command);
 
-char			***ft_split_machine(char *str, char dlmtr);
-t_command		*ft_parser(char *cmd, int in_flag, int out_flag, char *file_name);
-int				ft_command_size(t_command *lst);
-char			**ft_splint(char *s);
-t_command		*ft_parse_in_commands(char *cmds);
-int				ft_strlenc(char *cmd, char c);
-int				ft_strlen_set(char *cmd, char *set);
-char			*ft_get_cmd_filename(char *cmd, int *i);
-int				ft_spongebob_strncmp(char *s1, char *s2, int n);
+char		***ft_split_machine(char *str, char dlmtr);
+t_command	*ft_parser(char *cmd, int in_flag, int out_flag, char *file_name);
+int			ft_command_size(t_command *lst);
+char		**ft_splint(char *s);
+t_command	*ft_parse_in_commands(char *cmds);
+int			ft_strlenc(char *cmd, char c);
+int			ft_strlen_set(char *cmd, char *set);
+char		*ft_get_cmd_filename(char *cmd, int *i);
+int			ft_spongebob_strncmp(char *s1, char *s2, int n);
 
 //envlist
 t_envlist	*ft_env_list(t_envlist *env_list);
@@ -106,17 +106,17 @@ t_envlist	*ft_create_env_list(char **envp);
 
 //path_helpers
 int			ft_check_command(char *exec);
-char 		*ft_join_path(char *path, char *executable);
+char		*ft_join_path(char *path, char *executable);
 int			ft_check_file_exists(char *file);
 
 //pipex
 void		ft_pipex(t_pipes *p, t_command *commands, t_envlist *envp);
-void    	ft_pipe(t_pipes *p);
-void   		ft_open_infile(t_pipes *p, t_command *commands);
-void    	ft_init_dup(t_pipes *p);
+void		ft_pipe(t_pipes *p);
+void		ft_open_infile(t_pipes *p, t_command *commands);
+void		ft_init_dup(t_pipes *p);
 void		ft_open_outfile(t_pipes *p, t_command *commands);
 
-void   		ft_system_command(t_pipes *p, t_command *commands, t_envlist *envp);
+void		ft_system_command(t_pipes *p, t_command *commands, t_envlist *envp);
 int			ft_execute(t_command *commands, t_envlist *envp);
 void		ft_outfile_dup(t_pipes *p);
 void		ft_pipe_pre_dup(t_pipes *p);
@@ -155,7 +155,6 @@ char		*ft_gc_strjoin(char const *s1, char const *s2);
 t_command	*ft_commandaddback(t_command **lst, t_command *new);
 t_command	*ft_newcommand(char *command);
 t_command	*ft_get_last_command(t_command *lst);
-
 
 // env lsit
 t_envlist	*ft_setenv(char *key, char *value);
