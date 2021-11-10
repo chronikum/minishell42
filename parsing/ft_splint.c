@@ -24,12 +24,12 @@ static void	ft_increase_i_quote_handler(char *cmd, unsigned int *i, int *quote)
 /*
 	Counts words. Can handle quotes with ease.
 */
-int ft_new_word_counter(char *cmd)
+int	ft_new_word_counter(char *cmd)
 {
 	unsigned int	i;
-	int quote_closed;
-	int	words;
-	char	*temp;
+	int				quote_closed;
+	int				words;
+	char			*temp;
 
 	quote_closed = 1;
 	i = 0;
@@ -54,13 +54,13 @@ static void	ft_reset_static_vars(unsigned int *i, unsigned int *saved)
 	(*i) = 0;
 }
 
-char *ft_get_next_word(char *cmd, int r)
+char	*ft_get_next_word(char *cmd, int r)
 {
-	int quote_closed;
-	char	*temp;
-	static unsigned int	i = 0; // current iterator
 	static unsigned int	saved = 0;
-	int	quote_counter;
+	static unsigned int	i = 0; // current iterator
+	int					quote_closed;
+	int					quote_counter;
+	char				*temp;
 
 	quote_closed = 1;
 	temp = ft_gc_strtrim(cmd, "|<> ");
@@ -78,17 +78,20 @@ char *ft_get_next_word(char *cmd, int r)
 				quote_counter++;
 				ft_increase_i_quote_handler(temp, &i, &quote_closed);
 			}
-			return (ft_gc_strtrim(ft_gc_substr(temp, saved, (quote_counter + 1)), " "));
+			return (ft_gc_strtrim(ft_gc_substr(temp,
+						saved, (quote_counter + 1)), " "));
 		}
 		if (temp[i] == ' ' && quote_closed)
 		{
 			while (temp[i] == ' ' && temp[i])
 				ft_increase_i_quote_handler(temp, &i, &quote_closed);
-			return (ft_gc_strtrim(ft_gc_substr(temp, saved, ft_strlenc(&temp[saved], ' ')), " "));
+			return (ft_gc_strtrim(ft_gc_substr(temp,
+						saved, ft_strlenc(&temp[saved], ' ')), " "));
 		}
 		ft_increase_i_quote_handler(temp, &i, &quote_closed);
 	}
-	return (ft_gc_strtrim(ft_gc_substr(temp, saved, ft_strlenc(&temp[saved], ' ')), " "));
+	return (ft_gc_strtrim(ft_gc_substr(temp,
+				saved, ft_strlenc(&temp[saved], ' ')), " "));
 }
 
 char	**ft_splint(char *s)
