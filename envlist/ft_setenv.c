@@ -21,6 +21,7 @@ t_envlist	*ft_setenv(char *key, char *value)
 		env_list->full_line = full_line;
 	}
 	else
-		ft_env_addback(&start, ft_new_list(full_line, key, value, ft_env_list(NULL)->envp));
+		ft_env_addback(&start, ft_new_list(full_line,
+				key, value, ft_env_list(NULL)->envp));
 	return (start);
 }
