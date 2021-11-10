@@ -33,11 +33,11 @@ void	ft_execute_terminal_command(char *command)
 {
 	t_command	*list;
 	t_pipes		*p;
+	t_envlist	*envp;
 
 	p = malloc(sizeof(t_pipes));
 	list = ft_parse_in_commands(command);
-	t_envlist *envp = ft_env_list(NULL);
-	//Do this before entering PIPEX
+	envp = ft_env_list(NULL);
 	p->temp_fd = dup(STDIN_FILENO);
 	p->stout = dup(1);
 	while (list != NULL)
@@ -49,10 +49,12 @@ void	ft_execute_terminal_command(char *command)
 
 int	main(int argc, char **argv, char **envp)
 {
-	char *cmd;
-	int	oldstdin = dup(0);
-	int	oldstdout = dup(1);
+	char	*cmd;
+	int		oldstdin;
+	int		oldstdout;
 
+	oldstdin = dup(0);
+	oldstdout = dup(1);
 	ft_init_shell(envp);
 	while (1 && argc && argv && envp)
 	{
@@ -71,8 +73,6 @@ int	main(int argc, char **argv, char **envp)
 	}
 	return (0);
 }
-
-
 
 //int	main(int argc, char **argv, char **envp)
 //{
