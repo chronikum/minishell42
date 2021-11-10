@@ -1,6 +1,6 @@
 #include "./includes/ft_minishell.h"
 
-void	ft_unnecessary_motd()
+void	ft_unnecessary_motd(void)
 {
 	printf("			 __ \n");
 	printf(" __ _________ ____ ___  / /_\n");
