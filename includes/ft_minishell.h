@@ -127,7 +127,7 @@ void		ft_outfile_remover(t_command *commands);
 void		ft_close(t_pipes *p);
 void		command_not_found(char *command);
 int			ft_array_len(char **argv);
-int			check_file(char *filename, char RW);
+int			check_file(char *filename);
 
 //????
 char		*ft_find_executable_path(char *exec);

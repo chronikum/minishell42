@@ -93,15 +93,16 @@ void	ft_open_outfile(t_pipes *p, t_command *commands)
 				 O_RDWR | O_CREAT | O_APPEND, 0666);
 	if (p->out == -1)
 	{
-		ft_putstr_fd("Permission denied: ", 2);
-		ft_putendl_fd(&commands->file[2], 2);
-		exit(0);
+		ft_putstr_fd("bash: ", 2);
+		ft_putstr_fd(&commands->file[2], 2);
+		ft_putendl_fd(": Permission denied", 2);
+		commands->builtin_sys_flag = 7;
 	}
 }
 
 void	ft_open_infile(t_pipes *p, t_command *commands)
 {
-	check_file(commands->file, 'R');
+	check_file(commands->file);
 	p->temp_fd = open(commands->file, O_RDONLY);
 	if (p->temp_fd == -1)
 	{
