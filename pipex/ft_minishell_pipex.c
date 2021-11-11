@@ -86,15 +86,15 @@ void	ft_init_dup(t_pipes *p)
 void	ft_open_outfile(t_pipes *p, t_command *commands)
 {
 	if (commands->out_flag == OUT)
-		p->out = open(commands->file,
+		p->out = open(&commands->files->file_name[2],
 				 O_RDWR | O_CREAT | O_TRUNC, 0666);
 	if (commands->out_flag == APPEND)
-		p->out = open(commands->file,
+		p->out = open(&commands->files->file_name[2],
 				 O_RDWR | O_CREAT | O_APPEND, 0666);
 	if (p->out == -1)
 	{
 		ft_putstr_fd("bash: ", 2);
-		ft_putstr_fd(&commands->file[2], 2);
+		ft_putstr_fd(&commands->files->file_name[2], 2);
 		ft_putendl_fd(": Permission denied", 2);
 		commands->builtin_sys_flag = 7;
 	}
@@ -102,8 +102,8 @@ void	ft_open_outfile(t_pipes *p, t_command *commands)
 
 void	ft_open_infile(t_pipes *p, t_command *commands)
 {
-	check_file(commands->file);
-	p->temp_fd = open(commands->file, O_RDONLY);
+	check_file(&commands->files->file_name[2]);
+	p->temp_fd = open(&commands->files->file_name[2], O_RDONLY);
 	if (p->temp_fd == -1)
 	{
 		commands->builtin_sys_flag = 7;

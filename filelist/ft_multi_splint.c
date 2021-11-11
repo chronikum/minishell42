@@ -82,7 +82,6 @@ char	**ft_multi_splint(char *s, char *splitter)
 	{
 		if (!current)
 			current = ft_gc_strtrim(ft_get_next_word(s, 1, splitter), "\"");
-		printf("IS BEING SET: %s \n", current);
 		if (!current)
 			return (NULL);
 		if (ft_strlen(current) != 0)
