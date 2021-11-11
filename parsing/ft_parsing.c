@@ -94,7 +94,7 @@ t_command	*ft_parser(char *cmd, int in_flag, int out_flag, char *file_name, char
 			printf("	FILE PATH LENGTH : 		%lu\n", ft_strlen(command_struct->file)); /// as we know the file name changes in length occassionally
 		}
 		printf("	FILES LIST: 			\n");
-		ft_arg_printer(command_struct->files);
+		ft_print_files(command_struct->files);
 		printf("	IN FLAG: 			%d	%s\n", command_struct->in_flag, ft_translate_flags(command_struct->in_flag));
 		printf("	OUT FLAG: 			%d	%s\n", command_struct->out_flag, ft_translate_flags(command_struct->out_flag));
 		printf("	BUILT_SYS:			%d	%s\n", command_struct->builtin_sys_flag, ft_translate_flags(command_struct->builtin_sys_flag));

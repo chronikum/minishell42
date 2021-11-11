@@ -31,7 +31,7 @@ COMMANDLIST = ./parsing/ft_newcommand.c ./parsing/ft_commandaddback.c
 
 PROMPT = ./prompt/ft_nice_prompt.c ./prompt/ft_set_shellname.c
 
-DEBUGGING = ./debug_help/ft_translate_flags.c
+DEBUGGING = ./debug_help/ft_translate_flags.c ./debug_help/ft_print_files.c
 
 STRHELPER = ./helper/strhelper/ft_strtouppercase.c ./helper/strhelper/ft_strtolowercase.c ./helper/ft_spongebob_strncmp.c
 

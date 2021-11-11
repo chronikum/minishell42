@@ -21,33 +21,6 @@ static void	ft_increase_i_quote_handler(char *cmd, unsigned int *i, int *quote)
 	(*i)++;
 }
 
-///*
-//	Counts words. Can handle quotes with ease.
-//*/
-//static int	ft_new_word_counter(char *cmd, char *set)
-//{
-//	unsigned int	i;
-//	int				quote_closed;
-//	int				words;
-//	char			*temp;
-
-//	quote_closed = 1;
-//	i = 0;
-//	words = 1;
-//	temp = ft_gc_strtrim(cmd, " ");
-//	while (temp[i])
-//	{
-//		if ((ft_single_inset(temp[i], set) != -1) && quote_closed)
-//		{
-//			words++;
-//			while ((ft_single_inset(temp[i], set) != -1) && temp[i])
-//				ft_increase_i_quote_handler(temp, &i, &quote_closed);
-//		}
-//		ft_increase_i_quote_handler(temp, &i, &quote_closed);
-//	}
-//	return (words);
-//}
-
 static void	ft_reset_static_vars(unsigned int *i, unsigned int *saved)
 {
 	(*saved) = 0;
@@ -109,6 +82,7 @@ char	**ft_multi_splint(char *s, char *splitter)
 	{
 		if (!current)
 			current = ft_gc_strtrim(ft_get_next_word(s, 1, splitter), "\"");
+		printf("IS BEING SET: %s \n", current);
 		if (!current)
 			return (NULL);
 		if (ft_strlen(current) != 0)
@@ -116,7 +90,8 @@ char	**ft_multi_splint(char *s, char *splitter)
 			result[i] = current;
 			i++;
 		}
-		current = ft_gc_strtrim(ft_get_next_word(s, 0, splitter), "\"");
+		if (current)
+			current = ft_gc_strtrim(ft_get_next_word(s, 0, splitter), "\"");
 	}
 	result[i] = NULL;
 	return (result);

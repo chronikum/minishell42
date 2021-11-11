@@ -54,7 +54,7 @@ static void	ft_reset_static_vars(unsigned int *i, unsigned int *saved)
 	(*i) = 0;
 }
 
-static char	*ft_get_next_word(char *cmd, int r)
+char	*ft_get_next_word(char *cmd, int r)
 {
 	static unsigned int	saved = 0;
 	static unsigned int	i = 0; // current iterator

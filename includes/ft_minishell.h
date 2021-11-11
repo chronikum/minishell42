@@ -54,7 +54,7 @@ typedef struct s_files
 	char *path;
 	int	in;
 	int	out;
-	struct t_files	*next;
+	struct s_files	*next;
 }			t_files;
 // todo: add length of linked list
 
@@ -67,7 +67,7 @@ typedef struct s_command
 	char				**args;
 	int					in_flag;
 	int					out_flag;
-	char				**files;
+	t_files				*files;
 	int					builtin_sys_flag;
 	int					op;
 	struct s_command	*next;
@@ -179,6 +179,7 @@ int			ft_del_envlist(char *key_to_delete);
 char		*ft_get_nice_prompt(void);
 void		set_shell_envvariable(void);
 
-char		**ft_create_file_list(char *command);
+t_files		*ft_create_file_list(char *command);
+void		ft_print_files(t_files *files);
 
 #endif
