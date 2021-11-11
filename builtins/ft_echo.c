@@ -1,7 +1,7 @@
 #include "../includes/ft_minishell.h"
 
 /**
- * Will "echo" the string out but will 
+ * Will "echo" the string out but will
  * remove quotes without esacping sequence (\)
  */
 int	ft_echo_string(char **string, int n)
@@ -42,6 +42,8 @@ int	ft_count_quotes(char *characters)
 
 	counter = 0;
 	counted_characters = 0;
+	if (!characters)
+		return (0);
 	while (characters[counter])
 	{
 		if (characters[counter] == '"' && characters[counter - 1] != '\\')

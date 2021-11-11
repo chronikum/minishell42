@@ -35,6 +35,8 @@ DEBUGGING = ./debug_help/ft_translate_flags.c
 
 STRHELPER = ./helper/strhelper/ft_strtouppercase.c ./helper/strhelper/ft_strtolowercase.c ./helper/ft_spongebob_strncmp.c
 
+FILELIST = ./filelist/ft_create_file_list.c ./filelist/ft_multi_splint.c
+
 # from home
 ifeq ($(USER), jonathanfritz)
 	LDFLAGS="-L/opt/homebrew/opt/readline/lib"
@@ -55,7 +57,7 @@ endif
 CFLAGS = -g -lreadline $(LDFLAGS) $(CPPFLAGS) -ltermcap -Wall -Wextra -Werror
 
 ALLSRC = $(SRC) $(BUILTINS) $(ENV) $(HELPERS) $(PIPEX) $(PROMPT) $(COMMANDLIST) $(PATHS) $(DEBUGGING) \
-$(STRHELPER) $(PARSING) $(GARBAGE_COLLECTOR) $(GC_LIBFT_VARIATIONS)
+$(STRHELPER) $(PARSING) $(GARBAGE_COLLECTOR) $(GC_LIBFT_VARIATIONS) $(FILELIST)
 
 
 all: $(NAME)

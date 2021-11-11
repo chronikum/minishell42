@@ -35,6 +35,15 @@ int ft_detect_mredirections(char *command)
 	quote_closed = 1;
 	while (command[i])
 	{
+		if (i != 0)
+		{
+			if (command[i - 1] == '<' && command[i] == '<')
+			{
+				counted++;
+				ft_increase_i_quote_handler(command, &i, &quote_closed);
+				continue;
+			}
+		}
 		if (ft_single_inset(command[i], "<>") != -1 && quote_closed)
 			counted++;
 		ft_increase_i_quote_handler(command, &i, &quote_closed);
