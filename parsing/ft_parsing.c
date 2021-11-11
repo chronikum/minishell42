@@ -1,6 +1,6 @@
 #include "../includes/ft_minishell.h"
 
-/* > >> after that comes a filename 
+/* > >> after that comes a filename
 which is being supplied to the struct BEFORE the sep */
 void	ft_assign_file_name_to_path(t_command *command, char *file_name)
 {
@@ -247,6 +247,8 @@ t_command	*ft_parse_in_commands(char *cmds)
 	start = 0;
 	first = NULL;
 	quotes_closed = 1;
+	printf("CMDS: %s \n", cmds);
+	printf("FOUND REDIRECTIONS COUNT: %d \n", ft_detect_mredirections(cmds));
 	while (cmds[i])
 	{
 		// increases i until it finds one of the seperators and only if the quotes are closed

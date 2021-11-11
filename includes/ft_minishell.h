@@ -132,6 +132,7 @@ int			check_file(char *filename);
 //????
 char		*ft_find_executable_path(char *exec);
 void		ft_arg_printer(char **args);
+int			ft_detect_mredirections(char *command);
 
 //buildins
 int			ft_pwd(void);
