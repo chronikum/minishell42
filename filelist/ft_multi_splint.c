@@ -21,32 +21,32 @@ static void	ft_increase_i_quote_handler(char *cmd, unsigned int *i, int *quote)
 	(*i)++;
 }
 
-/*
-	Counts words. Can handle quotes with ease.
-*/
-int	ft_new_word_counter(char *cmd)
-{
-	unsigned int	i;
-	int				quote_closed;
-	int				words;
-	char			*temp;
+///*
+//	Counts words. Can handle quotes with ease.
+//*/
+//static int	ft_new_word_counter(char *cmd, char *set)
+//{
+//	unsigned int	i;
+//	int				quote_closed;
+//	int				words;
+//	char			*temp;
 
-	quote_closed = 1;
-	i = 0;
-	words = 1;
-	temp = ft_gc_strtrim(cmd, "|<> ");
-	while (temp[i])
-	{
-		if (temp[i] == ' ' && quote_closed)
-		{
-			words++;
-			while (temp[i] == ' ' && temp[i])
-				ft_increase_i_quote_handler(temp, &i, &quote_closed);
-		}
-		ft_increase_i_quote_handler(temp, &i, &quote_closed);
-	}
-	return (words);
-}
+//	quote_closed = 1;
+//	i = 0;
+//	words = 1;
+//	temp = ft_gc_strtrim(cmd, " ");
+//	while (temp[i])
+//	{
+//		if ((ft_single_inset(temp[i], set) != -1) && quote_closed)
+//		{
+//			words++;
+//			while ((ft_single_inset(temp[i], set) != -1) && temp[i])
+//				ft_increase_i_quote_handler(temp, &i, &quote_closed);
+//		}
+//		ft_increase_i_quote_handler(temp, &i, &quote_closed);
+//	}
+//	return (words);
+//}
 
 static void	ft_reset_static_vars(unsigned int *i, unsigned int *saved)
 {
@@ -54,7 +54,7 @@ static void	ft_reset_static_vars(unsigned int *i, unsigned int *saved)
 	(*i) = 0;
 }
 
-static char	*ft_get_next_word(char *cmd, int r)
+static char	*ft_get_next_word(char *cmd, int r, char *set)
 {
 	static unsigned int	saved = 0;
 	static unsigned int	i = 0; // current iterator
@@ -63,7 +63,7 @@ static char	*ft_get_next_word(char *cmd, int r)
 	char				*temp;
 
 	quote_closed = 1;
-	temp = ft_gc_strtrim(cmd, "|<> ");
+	temp = ft_gc_strtrim(cmd, " ");
 	saved = i;
 	if (r)
 		ft_reset_static_vars(&i, &saved);
@@ -81,20 +81,20 @@ static char	*ft_get_next_word(char *cmd, int r)
 			return (ft_gc_strtrim(ft_gc_substr(temp,
 						saved, (quote_counter + 1)), " "));
 		}
-		if (temp[i] == ' ' && quote_closed)
+		if ((ft_single_inset(temp[i], set) != -1) && quote_closed)
 		{
-			while (temp[i] == ' ' && temp[i])
+			while ((ft_single_inset(temp[i], set) != -1) && temp[i])
 				ft_increase_i_quote_handler(temp, &i, &quote_closed);
 			return (ft_gc_strtrim(ft_gc_substr(temp,
-						saved, ft_strlenc(&temp[saved], ' ')), " "));
+						saved, ft_strlen_set(&temp[saved], set)), " "));
 		}
 		ft_increase_i_quote_handler(temp, &i, &quote_closed);
 	}
 	return (ft_gc_strtrim(ft_gc_substr(temp,
-				saved, ft_strlenc(&temp[saved], ' ')), " "));
+				saved, ft_strlen_set(&temp[saved], set)), " "));
 }
 
-char	**ft_splint(char *s)
+char	**ft_multi_splint(char *s, char *splitter)
 {
 	char	**result;
 	char	*current;
@@ -103,12 +103,12 @@ char	**ft_splint(char *s)
 
 	i = 0;
 	current = NULL;
-	wc = ft_new_word_counter(s);
+	wc = ft_detect_mredirections(s);
 	result = ft_malloc(sizeof(char *) * (wc + 1));
 	while (current || i == 0)
 	{
 		if (!current)
-			current = ft_gc_strtrim(ft_get_next_word(s, 1), "\"");
+			current = ft_gc_strtrim(ft_get_next_word(s, 1, splitter), "\"");
 		if (!current)
 			return (NULL);
 		if (ft_strlen(current) != 0)
@@ -116,7 +116,7 @@ char	**ft_splint(char *s)
 			result[i] = current;
 			i++;
 		}
-		current = ft_gc_strtrim(ft_get_next_word(s, 0), "\"");
+		current = ft_gc_strtrim(ft_get_next_word(s, 0, splitter), "\"");
 	}
 	result[i] = NULL;
 	return (result);

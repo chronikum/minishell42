@@ -47,6 +47,15 @@ typedef struct s_envlist
 	struct s_envlist	*next;
 }			t_envlist;
 
+
+typedef struct s_files
+{
+	char *file_name;
+	char *path;
+	int	in;
+	int	out;
+	struct t_files	*next;
+}			t_files;
 // todo: add length of linked list
 
 typedef struct s_command
@@ -58,6 +67,7 @@ typedef struct s_command
 	char				**args;
 	int					in_flag;
 	int					out_flag;
+	char				**files;
 	int					builtin_sys_flag;
 	int					op;
 	struct s_command	*next;
@@ -91,7 +101,7 @@ void		ft_init_shell(char **envp);
 void		ft_execute_terminal_command(char *command);
 
 char		***ft_split_machine(char *str, char dlmtr);
-t_command	*ft_parser(char *cmd, int in_flag, int out_flag, char *file_name);
+t_command	*ft_parser(char *cmd, int in_flag, int out_flag, char *file_name, char *original);
 int			ft_command_size(t_command *lst);
 char		**ft_splint(char *s);
 t_command	*ft_parse_in_commands(char *cmds);
@@ -132,6 +142,8 @@ int			check_file(char *filename);
 //????
 char		*ft_find_executable_path(char *exec);
 void		ft_arg_printer(char **args);
+int			ft_detect_mredirections(char *command);
+char		**ft_multi_splint(char *s, char *splitter);
 
 //buildins
 int			ft_pwd(void);
@@ -166,5 +178,7 @@ int			ft_del_envlist(char *key_to_delete);
 // prompt
 char		*ft_get_nice_prompt(void);
 void		set_shell_envvariable(void);
+
+char		**ft_create_file_list(char *command);
 
 #endif

@@ -1,6 +1,6 @@
 #include "../includes/ft_minishell.h"
 
-/* > >> after that comes a filename 
+/* > >> after that comes a filename
 which is being supplied to the struct BEFORE the sep */
 void	ft_assign_file_name_to_path(t_command *command, char *file_name)
 {
@@ -59,7 +59,7 @@ void	ft_set_builtin_flag(t_command *command)
 	The flag is the type of redirection which should be set.
 	Those are also defined in the header file
 */
-t_command	*ft_parser(char *cmd, int in_flag, int out_flag, char *file_name)
+t_command	*ft_parser(char *cmd, int in_flag, int out_flag, char *file_name, char *original)
 {
 	char		**command_parts;
 	char		*main_command;
@@ -80,6 +80,7 @@ t_command	*ft_parser(char *cmd, int in_flag, int out_flag, char *file_name)
 		ft_set_builtin_flag(command_struct); // TODO: this needs to be adjusted: this set determined by being a system or a built_in function
 	command_struct->in_flag = in_flag;
 	command_struct->out_flag = out_flag;
+	command_struct->files = ft_create_file_list(original);
 	ft_assign_file_name_to_path(command_struct, file_name);
 	if (DEBUG)
 	{
@@ -92,6 +93,8 @@ t_command	*ft_parser(char *cmd, int in_flag, int out_flag, char *file_name)
 			printf("	FILE PATH: 			%s|\n", command_struct->file);
 			printf("	FILE PATH LENGTH : 		%lu\n", ft_strlen(command_struct->file)); /// as we know the file name changes in length occassionally
 		}
+		printf("	FILES LIST: 			\n");
+		ft_arg_printer(command_struct->files);
 		printf("	IN FLAG: 			%d	%s\n", command_struct->in_flag, ft_translate_flags(command_struct->in_flag));
 		printf("	OUT FLAG: 			%d	%s\n", command_struct->out_flag, ft_translate_flags(command_struct->out_flag));
 		printf("	BUILT_SYS:			%d	%s\n", command_struct->builtin_sys_flag, ft_translate_flags(command_struct->builtin_sys_flag));
@@ -150,14 +153,19 @@ void	ft_skip_whitespaces(char *cmd, int *i)
 	not print out too many arguments later on
 */
 t_command	*ft_add_outfile_to_commabeur(t_command *first,
-			char *cmds, int start, int *i)
+			char *cmds, int start, int *i, char *original)
 {
 	char	*file_name;
 
 	file_name = ft_get_cmd_filename(cmds, i);
 	while (cmds[(*i)] == ' ' && cmds[(*i)])
 		(*i)++;
-	return (ft_commandaddback(&first, ft_parser(ft_substr(cmds, start, ((*i) - start)), ft_determine_out_flag(ft_substr(cmds, start, ((*i) - start))), 1, file_name)));
+	return (ft_commandaddback(&first, ft_parser(
+		ft_substr(cmds, start, ((*i) - start)),
+		ft_determine_out_flag(ft_substr(cmds, start, ((*i) - start))),
+		1,
+		file_name,
+		original)));
 }
 
 /*
@@ -210,7 +218,8 @@ void	ft_add_infile_if_exists(t_command **list, char *cmds, int *i, int *start)
 			ft_substr(ft_substr(cmds, (*i) + offset, ft_strlen_set(&cmds[(*i) + offset], "|>")), ft_strlen_set(cmds, " "), ft_strlen_set(cmds, "|>")),
 			2,
 			ft_inset(&cmds[(*i)], "|<>"),
-			ft_gc_strtrim(ft_get_cmd_filename(cmds, i), "<")
+			ft_gc_strtrim(ft_get_cmd_filename(cmds, i), "<"),
+			cmds
 		);
 		(*i) += ft_strlen_set(&cmds[(*i)], "|<>");
 		//printf("FILENAME SET: %s\n", first->file);
@@ -247,6 +256,8 @@ t_command	*ft_parse_in_commands(char *cmds)
 	start = 0;
 	first = NULL;
 	quotes_closed = 1;
+	printf("CMDS: %s \n", cmds);
+	printf("FOUND REDIRECTIONS COUNT: %d \n", ft_detect_mredirections(cmds));
 	while (cmds[i])
 	{
 		// increases i until it finds one of the seperators and only if the quotes are closed
@@ -263,13 +274,13 @@ t_command	*ft_parse_in_commands(char *cmds)
 			// the infile too
 			if (!first && ft_determine_in_flag(ft_substr(cmds, start, (i - start))) != 1 && quotes_closed)
 			{
-				first = ft_parser(ft_substr(cmds, start, (i - start)), ft_determine_out_flag(ft_substr(cmds, start, (i - start))), ft_determine_in_flag(ft_substr(cmds, start, (i - start))), NULL);
+				first = ft_parser(ft_substr(cmds, start, (i - start)), ft_determine_out_flag(ft_substr(cmds, start, (i - start))), ft_determine_in_flag(ft_substr(cmds, start, (i - start))), NULL, cmds);
 			}
 			// check if is output file
 			else if ((ft_determine_in_flag(ft_substr(cmds, start, (i - start))) == 1
 					|| ft_determine_in_flag(ft_substr(cmds, start, (i - start))) == 4) && quotes_closed)
 			{
-				first = ft_add_outfile_to_commabeur(first, cmds, start, &i);
+				first = ft_add_outfile_to_commabeur(first, cmds, start, &i, cmds);
 				// skipping over the filename here
 				start = i;
 				i += ft_strlen_set(&cmds[i], "|<>");
@@ -278,7 +289,7 @@ t_command	*ft_parse_in_commands(char *cmds)
 			// check if it is pipe
 			else if (ft_determine_in_flag(ft_substr(cmds, start, (i - start))) == 0 && quotes_closed)
 			{
-				ft_commandaddback(&first, ft_parser(ft_substr(cmds, start, (i - start)), ft_determine_out_flag(ft_substr(cmds, start, (i - start))), ft_determine_in_flag(ft_substr(cmds, start, (i - start))), NULL));
+				ft_commandaddback(&first, ft_parser(ft_substr(cmds, start, (i - start)), ft_determine_out_flag(ft_substr(cmds, start, (i - start))), ft_determine_in_flag(ft_substr(cmds, start, (i - start))), NULL, cmds));
 			}
 			start = i;
 		}
@@ -291,8 +302,8 @@ t_command	*ft_parse_in_commands(char *cmds)
 	// idea is to implement the single command check in the while loop
 	// somehow so we can reset the skip flag
 	if (!first)
-		first = ft_parser(cmds, -1, -1, NULL);
+		first = ft_parser(cmds, -1, -1, NULL, cmds);
 	else if (skip == 0)
-		ft_commandaddback(&first, ft_parser(ft_substr(cmds, start, (i - start)), ft_determine_in_flag(ft_substr(cmds, start, (i - start))), ft_determine_out_flag(ft_substr(cmds, start, (i - start))), NULL));
+		ft_commandaddback(&first, ft_parser(ft_substr(cmds, start, (i - start)), ft_determine_in_flag(ft_substr(cmds, start, (i - start))), ft_determine_out_flag(ft_substr(cmds, start, (i - start))), NULL, cmds));
 	return (first);
 }

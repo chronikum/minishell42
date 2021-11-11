@@ -18,7 +18,7 @@ PIPEX = ./pipex/ft_minishell_pipex.c ./pipex/ft_pipex_utils.c
 HELPERS = ./free_functions/ft_free_functions.c ./arg_printer.c
 
 PARSING = ./parsing/ft_parsing.c ./parsing/ft_splint.c ./parsing/ft_command_size.c ./parsing/ft_parsing_aux.c \
-          ./parsing/ft_get_cmd_filename.c ./parsing/ft_get_last_command.c
+          ./parsing/ft_get_cmd_filename.c ./parsing/ft_get_last_command.c ./parsing/ft_detect_mredirections.c
 
 FLAGS = -Wall -Wextra -Werror -g
 
@@ -34,6 +34,8 @@ PROMPT = ./prompt/ft_nice_prompt.c ./prompt/ft_set_shellname.c
 DEBUGGING = ./debug_help/ft_translate_flags.c
 
 STRHELPER = ./helper/strhelper/ft_strtouppercase.c ./helper/strhelper/ft_strtolowercase.c ./helper/ft_spongebob_strncmp.c
+
+FILELIST = ./filelist/ft_create_file_list.c ./filelist/ft_multi_splint.c
 
 # from home
 ifeq ($(USER), jonathanfritz)
@@ -55,7 +57,7 @@ endif
 CFLAGS = -g -lreadline $(LDFLAGS) $(CPPFLAGS) -ltermcap -Wall -Wextra -Werror
 
 ALLSRC = $(SRC) $(BUILTINS) $(ENV) $(HELPERS) $(PIPEX) $(PROMPT) $(COMMANDLIST) $(PATHS) $(DEBUGGING) \
-$(STRHELPER) $(PARSING) $(GARBAGE_COLLECTOR) $(GC_LIBFT_VARIATIONS)
+$(STRHELPER) $(PARSING) $(GARBAGE_COLLECTOR) $(GC_LIBFT_VARIATIONS) $(FILELIST)
 
 
 all: $(NAME)
