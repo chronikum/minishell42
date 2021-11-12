@@ -40,11 +40,11 @@ void	ft_execute_terminal_command(char *command)
 	envp = ft_env_list(NULL);
 	p->temp_fd = dup(STDIN_FILENO);
 	p->stout = dup(1);
-	while (list != NULL)
-	{
+	//while (list != NULL)
+	//{
 		ft_pipex(p, list, envp);
 		list = list->next;
-	}
+	//}
 }
 
 int	main(int argc, char **argv, char **envp)

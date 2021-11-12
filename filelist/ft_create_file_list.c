@@ -18,6 +18,7 @@ t_files	*ft_new_file(char *filename, char *path, int in, int out)
 	new->in = in;
 	new->out = out;
 	new->next = NULL;
+	new->is_last = 0;
 	return (new);
 }
 
@@ -41,15 +42,16 @@ t_files	*ft_create_file_list(char *command)
 		if (files)
 		{
 			files->next = ft_new_file(result[i], result[i], 0, 0);
+			files->is_last = 0;
 			files = files->next;
 		}
 		else
 		{
 			files = ft_new_file(result[i], result[i], 0, 0);
+			files->is_last = 0;
 			start = files;
 		}
 		i++;
 	}
-
 	return (start);
 }

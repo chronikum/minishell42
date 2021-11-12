@@ -163,11 +163,41 @@ void	ft_here_doc(t_pipes *p, t_command *commands)
 	ft_pipe_after_dup(p);
 }
 
+void	multi_redirections(t_pipes *p, t_command *commands)
+{
+	t_files	*temp;
+
+	temp = commands->files;
+	while (temp != NULL)
+	{
+		if (ft_strcmp(commands->args[0], temp->file_name) != 0)
+		{
+			if (commands->out_flag == OUT)
+				open(temp->file_name, O_CREAT, 0666);
+			if (commands->out_flag == APPEND)
+				open(temp->file_name, O_CREAT, 0666);
+			if (temp->is_last)
+			{
+				if (commands->out_flag == OUT)
+					p->out = open(temp->file_name,
+						O_RDWR | O_CREAT | O_TRUNC, 0666);
+				if (commands->out_flag == APPEND)
+					p->out = open(temp->file_name,
+						O_RDWR | O_CREAT | O_APPEND, 0666);
+				ft_outfile_dup(p);
+			}
+		}
+		temp = temp->next;
+	}
+}
+
 void	ft_pipex(t_pipes *p, t_command *commands, t_envlist *envp)
 {
 	ft_pipe(p);
-	if (commands->in_flag == IN)
-		ft_open_infile(p, commands);
+	//if (commands->in_flag == -1) //if (commands->file && commands->files->is_multiple)
+	//	multi_redirections(p, commands); //else if
+	//if (commands->in_flag == IN)
+	//	ft_open_infile(p, commands);
 	if (commands->in_flag == HERE_DOC)
 		ft_here_doc(p, commands);
 	if (commands->out_flag == OUT || commands->out_flag == APPEND)
@@ -189,3 +219,6 @@ void	ft_pipex(t_pipes *p, t_command *commands, t_envlist *envp)
 	if (commands->out_flag != PIPE)
 		ft_close(p);
 }
+
+
+//ls > out >> out2 > out 3 >> out4

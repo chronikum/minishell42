@@ -50,11 +50,12 @@ typedef struct s_envlist
 
 typedef struct s_files
 {
-	char *file_name;
-	char *path;
-	int	in;
-	int	out;
-	struct s_files	*next;
+	char 				*file_name;
+	char 				*path;
+	int					in;
+	int					out;
+	int					is_last;
+	struct s_files		*next;
 }			t_files;
 // todo: add length of linked list
 
