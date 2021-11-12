@@ -31,6 +31,7 @@ t_files	*ft_create_file_list(char *command)
 	t_files	*files;
 	t_files	*start;
 
+	//substring = ft_substr(command, 0, ft_strlenc(command, '|'));
 	i = 0;
 	result = ft_multi_splint(command, "<>");
 	files = malloc(sizeof(t_list));
