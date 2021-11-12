@@ -44,28 +44,13 @@ void	ft_stdout_dup(t_pipes *p)
 	dup2(p->stout, 1);
 }
 
-char *ft_command_from_path(char *args_zero)
-{
-	char	**splitted_path;
-	char	*command;
-	int		len;
-
-	splitted_path = ft_split(args_zero, '/');
-	len = ft_array_len(splitted_path);
-	command = splitted_path[len - 1];
-	return (command);
-}
-
 int	ft_execute(t_command *commands, t_envlist *envp)
 {
 	t_child	*c;
 
 	c = malloc(sizeof(t_child));
 	if (commands->args[0][0] == '/')
-	{
 		c->full_path = commands->original_string;
-		commands->args[0] = ft_command_from_path(commands->args[0]);
-	}
 	else
 		c->full_path = ft_find_executable_path(commands->args[0]);
 	if (access(c->full_path, F_OK) != -1)
@@ -209,6 +194,18 @@ void	ft_multi_redirections(t_pipes *p, t_command *commands)
 	}
 }
 
+char *ft_command_from_path(char *args_zero)
+{
+	char	**splitted_path;
+	char	*command;
+	int		len;
+
+	splitted_path = ft_split(args_zero, '/');
+	len = ft_array_len(splitted_path);
+	command = splitted_path[len - 1];
+	return (command);
+}
+
 void	ft_pipex(t_pipes *p, t_command *commands, t_envlist *envp)
 {
 	ft_pipe(p);
@@ -228,6 +225,8 @@ void	ft_pipex(t_pipes *p, t_command *commands, t_envlist *envp)
 		ft_stdout_dup(p);
 	if (commands->out_flag == PIPE)
 		ft_pipe_pre_dup(p);
+	if (commands->args[0][0] == '/')
+		commands->args[0] = ft_command_from_path(commands->args[0]);
 	if (commands->builtin_sys_flag == BUILT_IN)
 		ft_run_builtin(commands);
 	if (commands->builtin_sys_flag == SYS)
