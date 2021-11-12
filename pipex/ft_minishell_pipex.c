@@ -208,9 +208,9 @@ void	ft_pipex(t_pipes *p, t_command *commands, t_envlist *envp)
 {
 	ft_pipe(p);
 	if (commands->file && commands->files->is_multiple)
-		ft_multi_redirections(p, commands); //else if
-	//if (commands->in_flag == IN)
-	//	ft_open_infile(p, commands);
+		ft_multi_redirections(p, commands);
+	if (commands->in_flag == IN)
+		ft_open_infile(p, commands);
 	if (commands->in_flag == HERE_DOC)
 		ft_here_doc(p, commands);
 	if (commands->out_flag == OUT || commands->out_flag == APPEND)
