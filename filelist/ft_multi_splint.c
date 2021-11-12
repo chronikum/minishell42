@@ -61,6 +61,8 @@ static char	*ft_get_next_word(char *cmd, int r, char *set)
 			return (ft_gc_strtrim(ft_gc_substr(temp,
 						saved, ft_strlen_set(&temp[saved], set)), " "));
 		}
+		while ((ft_single_inset(temp[i], set) != -1) && temp[i])
+			ft_increase_i_quote_handler(temp, &i, &quote_closed);
 		ft_increase_i_quote_handler(temp, &i, &quote_closed);
 	}
 	return (ft_gc_strtrim(ft_gc_substr(temp,
@@ -92,6 +94,15 @@ char	**ft_multi_splint(char *s, char *splitter)
 		if (current)
 			current = ft_gc_strtrim(ft_get_next_word(s, 0, splitter), "\"");
 	}
+	int i1;
+
+	i1 = 0;
+	printf("DEBUGGING NOW! \n");
 	result[i] = NULL;
+	while (result[i1])
+	{
+		printf("DEBUGGING WORD: %s \n", result[i1]);
+		i1++;
+	}
 	return (result);
 }

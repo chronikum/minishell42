@@ -38,7 +38,7 @@ t_files	*ft_create_file_list(char *command)
 	files = malloc(sizeof(t_list));
 	start = NULL;
 	files = NULL;
-	while (ft_detect_mredirections(command) > i)
+	while (result[i])
 	{
 		if (files)
 		{
