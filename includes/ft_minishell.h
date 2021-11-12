@@ -51,6 +51,7 @@ typedef struct s_envlist
 typedef struct s_files
 {
 	char *file_name;
+	int	is_multiple;
 	char *path;
 	int	in;
 	int	out;
