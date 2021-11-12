@@ -41,14 +41,14 @@ t_files	*ft_create_file_list(char *command)
 	{
 		if (files)
 		{
-			files->is_multiple = 1;
+			start->is_multiple = 1;
 			files->next = ft_new_file(result[i], result[i], 0, 0);
 			files = files->next;
 		}
 		else
 		{
-			files->is_multiple = 0;
 			files = ft_new_file(result[i], result[i], 0, 0);
+			files->is_multiple = 0;
 			start = files;
 		}
 		i++;
