@@ -56,7 +56,7 @@ typedef struct s_files
 	int					in;
 	int					out;
 	int					is_last;
-	struct s_files	*next;
+	struct s_files		*next;
 }			t_files;
 // todo: add length of linked list
 
