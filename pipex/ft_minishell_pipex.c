@@ -207,7 +207,7 @@ char *ft_command_from_path(char *args_zero)
 void	ft_pipex(t_pipes *p, t_command *commands, t_envlist *envp)
 {
 	ft_pipe(p);
-	if (commands->in_flag == -1) //if (commands->file && commands->files->is_multiple)
+	if (commands->file && commands->files->is_multiple)
 		ft_multi_redirections(p, commands); //else if
 	//if (commands->in_flag == IN)
 	//	ft_open_infile(p, commands);
