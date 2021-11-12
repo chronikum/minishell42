@@ -43,7 +43,7 @@ void	ft_execute_terminal_command(char *command)
 	//while (list != NULL)
 	//{
 		ft_pipex(p, list, envp);
-		list = list->next;
+	//	list = list->next;
 	//}
 }
 
