@@ -92,11 +92,11 @@ t_command	*ft_parser(char *cmd, int in_flag, int out_flag, char *file_name, char
 		printf("	Command: 			%s\n", command_struct->command);
 		printf("	Full String: 			%s\n", ft_gc_strtrim(command_struct->original_string, "<>| "));
 		ft_arg_printer(command_struct->args);
-		//if (command_struct->file)
-		//{
-		//	printf("	FILE PATH: 			%s|\n", command_struct->file);
-		//	printf("	FILE PATH LENGTH : 		%lu\n", ft_strlen(command_struct->file)); /// as we know the file name changes in length occassionally
-		//}
+		if (command_struct->file)
+		{
+			printf("	FILE PATH: 			%s|\n", command_struct->file);
+			printf("	FILE PATH LENGTH : 		%lu\n", ft_strlen(command_struct->file)); /// as we know the file name changes in length occassionally
+		}
 		printf("	FILES LIST: 			\n");
 		ft_print_files(command_struct->files);
 		printf("	IN FLAG: 			%d	%s\n", command_struct->in_flag, ft_translate_flags(command_struct->in_flag));
