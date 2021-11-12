@@ -65,9 +65,12 @@ t_command	*ft_parser(char *cmd, int in_flag, int out_flag, char *file_name, char
 	char		*main_command;
 	t_command	*command_struct;
 
+	(void) file_name;
+
 	command_struct = ft_malloc(sizeof(t_command));
 	command_struct->next = NULL;
 	command_parts = ft_splint(cmd); // Todo only split if not surrounded by quotes
+	command_struct->file = NULL;
 	if (!command_parts)
 		return (NULL);
 	main_command = command_parts[0];
@@ -80,6 +83,7 @@ t_command	*ft_parser(char *cmd, int in_flag, int out_flag, char *file_name, char
 		ft_set_builtin_flag(command_struct); // TODO: this needs to be adjusted: this set determined by being a system or a built_in function
 	command_struct->in_flag = in_flag;
 	command_struct->out_flag = out_flag;
+	printf("TAKING IN STRING: %s \n", original);
 	command_struct->files = ft_create_file_list(original);
 	ft_assign_file_name_to_path(command_struct, file_name);
 	if (DEBUG)
@@ -88,11 +92,11 @@ t_command	*ft_parser(char *cmd, int in_flag, int out_flag, char *file_name, char
 		printf("	Command: 			%s\n", command_struct->command);
 		printf("	Full String: 			%s\n", ft_gc_strtrim(command_struct->original_string, "<>| "));
 		ft_arg_printer(command_struct->args);
-		if (command_struct->file)
-		{
-			printf("	FILE PATH: 			%s|\n", command_struct->file);
-			printf("	FILE PATH LENGTH : 		%lu\n", ft_strlen(command_struct->file)); /// as we know the file name changes in length occassionally
-		}
+		//if (command_struct->file)
+		//{
+		//	printf("	FILE PATH: 			%s|\n", command_struct->file);
+		//	printf("	FILE PATH LENGTH : 		%lu\n", ft_strlen(command_struct->file)); /// as we know the file name changes in length occassionally
+		//}
 		printf("	FILES LIST: 			\n");
 		ft_print_files(command_struct->files);
 		printf("	IN FLAG: 			%d	%s\n", command_struct->in_flag, ft_translate_flags(command_struct->in_flag));
