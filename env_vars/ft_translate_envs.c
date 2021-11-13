@@ -93,10 +93,12 @@ char	*ft_translate_envs(char *command)
 		}
 		else
 		{
-			result[total] = command[i];
+			if (command[i] != '\'' && command[i] != '"')
+				result[total] = command[i];
 		}
 		ft_increase_i_quote_handler(command, &i, &quote_closed);
-		total++;
+		if (command[i] != '\'' && command[i] != '"')
+			total++;
 	}
 	result[total] = '\0';
 	return (result);
