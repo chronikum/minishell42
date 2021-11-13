@@ -56,5 +56,6 @@ t_files	*ft_create_file_list(char *command)
 		}
 		i++;
 	}
+	files->is_last = 1;
 	return (start);
 }
