@@ -85,9 +85,11 @@ char	*ft_translate_envs(char *command)
 			inner_i = 0;
 			var_name = ft_get_value_from_env(ft_substr(command, i, ft_strlen_set(&command[i], " |><")));
 			i+=ft_strlen_set(&command[i], " |><");
+			printf("INJECTING:\n");
 			while (var_name[inner_i])
 			{
 				result[total] = var_name[inner_i];
+				printf("%c", result[total]);
 				inner_i++;
 				total++;
 			}
@@ -95,8 +97,8 @@ char	*ft_translate_envs(char *command)
 		else
 		{
 			result[total] = command[i];
+			total++;
 		}
-		total++;
 		ft_increase_i_quote_handler(command, &i, &quote_closed);
 	}
 	result[total] = '\0';
