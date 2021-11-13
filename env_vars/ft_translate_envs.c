@@ -76,7 +76,6 @@ char	*ft_translate_envs(char *command)
 	offset = 0;
 	total = 0;
 	quote_closed = 1;
-	printf("COUNTING: %d\n", ft_total_count(command));
 	while (command[i])
 	{
 		if (command[i] == '$' && quote_closed)
