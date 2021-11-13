@@ -90,18 +90,18 @@ t_command	*ft_parser(char *cmd, int in_flag, int out_flag, char *file_name, char
 	{
 		printf("%sSECTION     %s\n", BACKGROUND_BLUE, RESET_COLOR);
 		printf("	Command: 			%s\n", command_struct->command);
-		printf("	Full String: 			%s\n", ft_gc_strtrim(command_struct->original_string, "<>| "));
+		printf("	original_string: 		%s\n", ft_gc_strtrim(command_struct->original_string, "<>| "));
 		ft_arg_printer(command_struct->args);
 		if (command_struct->file)
 		{
-			printf("	FILE PATH: 			%s|\n", command_struct->file);
+			printf("	file: 				%s|\n", command_struct->file);
 			printf("	FILE PATH LENGTH : 		%lu\n", ft_strlen(command_struct->file)); /// as we know the file name changes in length occassionally
 		}
-		printf("	FILES LIST: 			\n");
+		printf("	files: 			\n");
 		ft_print_files(command_struct->files);
-		printf("	IN FLAG: 			%d	%s\n", command_struct->in_flag, ft_translate_flags(command_struct->in_flag));
-		printf("	OUT FLAG: 			%d	%s\n", command_struct->out_flag, ft_translate_flags(command_struct->out_flag));
-		printf("	BUILT_SYS:			%d	%s\n", command_struct->builtin_sys_flag, ft_translate_flags(command_struct->builtin_sys_flag));
+		printf("	in_flag: 			%d	%s\n", command_struct->in_flag, ft_translate_flags(command_struct->in_flag));
+		printf("	out_flag: 			%d	%s\n", command_struct->out_flag, ft_translate_flags(command_struct->out_flag));
+		printf("	builtin_sys_flag:		%d	%s\n", command_struct->builtin_sys_flag, ft_translate_flags(command_struct->builtin_sys_flag));
 		printf("%sSECTION END %s\n", BACKGROUND_BLUE, RESET_COLOR);
 	}
 	return (command_struct);
