@@ -97,12 +97,8 @@ char	**ft_multi_splint(char *s, char *splitter)
 	int i1;
 
 	i1 = 0;
-	printf("DEBUGGING NOW! \n");
 	result[i] = NULL;
 	while (result[i1])
-	{
-		printf("DEBUGGING WORD: %s \n", result[i1]);
 		i1++;
-	}
 	return (result);
 }
