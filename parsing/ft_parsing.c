@@ -83,7 +83,6 @@ t_command	*ft_parser(char *cmd, int in_flag, int out_flag, char *file_name, char
 		ft_set_builtin_flag(command_struct); // TODO: this needs to be adjusted: this set determined by being a system or a built_in function
 	command_struct->in_flag = in_flag;
 	command_struct->out_flag = out_flag;
-	printf("TAKING IN STRING: %s \n", original);
 	command_struct->files = ft_create_file_list(original);
 	ft_assign_file_name_to_path(command_struct, file_name);
 	if (DEBUG)
@@ -260,8 +259,11 @@ t_command	*ft_parse_in_commands(char *cmds)
 	start = 0;
 	first = NULL;
 	quotes_closed = 1;
-	printf("CMDS: %s \n", cmds);
-	printf("FOUND REDIRECTIONS COUNT: %d \n", ft_detect_mredirections(cmds));
+	if (DEBUG)
+	{
+		printf("CMDS: %s \n", cmds);
+		printf("FOUND REDIRECTIONS COUNT: %d \n", ft_detect_mredirections(cmds));	
+	}
 	while (cmds[i])
 	{
 		// increases i until it finds one of the seperators and only if the quotes are closed

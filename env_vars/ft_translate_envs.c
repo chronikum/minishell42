@@ -17,22 +17,87 @@ static void	ft_toggle_quote(int *quote_toggle)
 */
 static void	ft_increase_i_quote_handler(char *cmd, unsigned int *i, int *quote)
 {
-	if (cmd[(*i)] == '"')
+	if (cmd[(*i)] == '\'')
 		ft_toggle_quote(quote);
 	(*i)++;
 }
 
-char	*ft_translate_envs(char *command)
+
+/*
+	Gets env value or an empty string
+*/
+static	char	*ft_get_value_from_env(char *key)
 {
-	unsigned int i;
-	int quote_closed;
+	t_envlist	*env;
+	
+	env = ft_find_envlist(ft_gc_strtrim(key, "$\""));
+	if (env)
+		return env->value;
+	return "";
+}
+
+static	int	ft_total_count(char *command)
+{
+	unsigned int	i;
+	int				quote_closed;
+	char			*var_name;
+	int				total;
 
 	i = 0;
 	quote_closed = 1;
+	total = 0;
 	while (command[i])
 	{
+		if (command[i] == '$' && quote_closed)
+		{
+			var_name = ft_substr(command, i, ft_strlen_set(&command[i], " |><"));
+			i+=ft_strlen_set(&command[i], " |><");
+			total+=(int) ft_strlen(ft_get_value_from_env(var_name));
+		}
 		ft_increase_i_quote_handler(command, &i, &quote_closed);
+		total++;
 	}
 	
-	return (command);
+	return (total);
+}
+
+char	*ft_translate_envs(char *command)
+{
+	unsigned int	i;
+	int				quote_closed;
+	char			*var_name;
+	char			*result;
+	int				offset;
+	int				inner_i;
+	int				total;
+
+	result = malloc(sizeof(char) * ft_total_count(command) + 1);
+	i = 0;
+	offset = 0;
+	total = 0;
+	quote_closed = 1;
+	printf("COUNTING: %d\n", ft_total_count(command));
+	while (command[i])
+	{
+		if (command[i] == '$' && quote_closed)
+		{
+			inner_i = 0;
+			var_name = ft_get_value_from_env(ft_substr(command, i, ft_strlen_set(&command[i], " |><")));
+			i+=ft_strlen_set(&command[i], " |><");
+			while (var_name[inner_i])
+			{
+				result[total] = var_name[inner_i];
+				inner_i++;
+				total++;
+			}
+		}
+		else
+		{
+			result[total] = command[i];
+		}
+		ft_increase_i_quote_handler(command, &i, &quote_closed);
+		total++;
+	}
+	result[total] = '\0';
+	return (result);
 }
