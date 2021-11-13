@@ -214,7 +214,6 @@ void	ft_out_or_append(t_pipes *p, t_command *commands)
 void	ft_pipex(t_pipes *p, t_command *commands, t_envlist *envp)
 {
 	ft_pipe(p);
-	printf("is multiple: %d\n", commands->files->is_multiple);
 	if (commands->file && commands->files->is_multiple)
 		ft_multi_redirections(p, commands);
 	if (commands->in_flag == IN)
@@ -233,7 +232,7 @@ void	ft_pipex(t_pipes *p, t_command *commands, t_envlist *envp)
 		commands->args[0] = ft_command_from_path(commands->args[0]);
 	if (commands->builtin_sys_flag == BUILT_IN)
 		ft_run_builtin(commands);
-	if (commands->builtin_sys_flag == SYS)
+	if (commands->builtin_sys_flag == SYS && commands->args[0][0] != '.')
 		ft_system_command(p, commands, envp);
 	if (commands->out_flag == PIPE)
 		ft_pipe_after_dup(p);
