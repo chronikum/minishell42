@@ -214,6 +214,7 @@ void	ft_out_or_append(t_pipes *p, t_command *commands)
 void	ft_pipex(t_pipes *p, t_command *commands, t_envlist *envp)
 {
 	ft_pipe(p);
+	printf("is multiple: %d\n", commands->files->is_multiple);
 	if (commands->file && commands->files->is_multiple)
 		ft_multi_redirections(p, commands);
 	if (commands->in_flag == IN)
@@ -241,3 +242,4 @@ void	ft_pipex(t_pipes *p, t_command *commands, t_envlist *envp)
 }
 
 //ls > out >> out2 > out3 >> out4
+//<in grep “e” | cat >out
