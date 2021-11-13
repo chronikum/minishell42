@@ -79,6 +79,7 @@ char	*ft_translate_envs(char *command)
 	printf("COUNTING: %d\n", ft_total_count(command));
 	while (command[i])
 	{
+		printf("NOW LOOKING AT CHAR: %c\n", command[i]);
 		if (command[i] == '$' && quote_closed)
 		{
 			inner_i = 0;
@@ -93,12 +94,10 @@ char	*ft_translate_envs(char *command)
 		}
 		else
 		{
-			if (command[i] != '\'' && command[i] != '"')
-				result[total] = command[i];
+			result[total] = command[i];
 		}
+		total++;
 		ft_increase_i_quote_handler(command, &i, &quote_closed);
-		if (command[i] != '\'' && command[i] != '"')
-			total++;
 	}
 	result[total] = '\0';
 	return (result);
