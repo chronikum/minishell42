@@ -44,28 +44,13 @@ void	ft_stdout_dup(t_pipes *p)
 	dup2(p->stout, 1);
 }
 
-char *ft_command_from_path(char *args_zero)
-{
-	char	**splitted_path;
-	char	*command;
-	int		len;
-
-	splitted_path = ft_split(args_zero, '/');
-	len = ft_array_len(splitted_path);
-	command = splitted_path[len - 1];
-	return (command);
-}
-
 int	ft_execute(t_command *commands, t_envlist *envp)
 {
 	t_child	*c;
 
 	c = malloc(sizeof(t_child));
 	if (commands->args[0][0] == '/')
-	{
 		c->full_path = commands->original_string;
-		commands->args[0] = ft_command_from_path(commands->args[0]);
-	}
 	else
 		c->full_path = ft_find_executable_path(commands->args[0]);
 	if (access(c->full_path, F_OK) != -1)
@@ -105,10 +90,10 @@ void	ft_open_outfile(t_pipes *p, t_command *commands)
 {
 	if (commands->out_flag == OUT)
 		p->out = open(&commands->files->file_name[2],
-				 O_RDWR | O_CREAT | O_TRUNC, 0666);
+				 O_RDWR | O_CREAT | O_TRUNC, 0777);
 	if (commands->out_flag == APPEND)
 		p->out = open(&commands->files->file_name[2],
-				 O_RDWR | O_CREAT | O_APPEND, 0666);
+				 O_RDWR | O_CREAT | O_APPEND, 0777);
 	if (p->out == -1)
 	{
 		ft_putstr_fd("bash: ", 2);
@@ -191,34 +176,46 @@ void	ft_multi_redirections(t_pipes *p, t_command *commands)
 		if (ft_strcmp(commands->args[0], temp->file_name) != 0)
 		{
 			if (commands->out_flag == OUT)
-				open(temp->file_name, O_CREAT, 0666);
+				p->out = open(temp->file_name, O_CREAT, 0777);
 			if (commands->out_flag == APPEND)
-				open(temp->file_name, O_CREAT, 0666);
+				p->out = open(temp->file_name, O_CREAT, 0777);
+			close(p->out);
 			if (temp->is_last)
 			{
 				if (commands->out_flag == OUT)
 					p->out = open(temp->file_name,
-						O_RDWR | O_CREAT | O_TRUNC, 0666);
+						O_RDWR | O_CREAT | O_TRUNC, 0777);
 				if (commands->out_flag == APPEND)
 					p->out = open(temp->file_name,
-						O_RDWR | O_CREAT | O_APPEND, 0666);
-				//ft_outfile_dup(p);
+						O_RDWR | O_CREAT | O_APPEND, 0777);
+				ft_outfile_dup(p);
 			}
 		}
 		temp = temp->next;
 	}
 }
 
+char *ft_command_from_path(char *args_zero)
+{
+	char	**splitted_path;
+	int		len;
+
+	splitted_path = ft_split(args_zero, '/');
+	len = ft_array_len(splitted_path);
+	return (splitted_path[len - 1]);
+}
+
 void	ft_pipex(t_pipes *p, t_command *commands, t_envlist *envp)
 {
 	ft_pipe(p);
-	//if (commands->in_flag == -1) //if (commands->file && commands->files->is_multiple)
-	//	ft_multi_redirections(p, commands); //else if
-	//if (commands->in_flag == IN)
-	//	ft_open_infile(p, commands);
+	if (commands->file && commands->files->is_multiple)
+		ft_multi_redirections(p, commands);
+	if (commands->in_flag == IN)
+		ft_open_infile(p, commands);
 	if (commands->in_flag == HERE_DOC)
 		ft_here_doc(p, commands);
-	if (commands->out_flag == OUT || commands->out_flag == APPEND)
+	if ((commands->out_flag == OUT || commands->out_flag == APPEND) &&
+			!(commands->file && commands->files->is_multiple))
 	{
 		ft_open_outfile(p, commands);
 		ft_outfile_dup(p);
@@ -228,6 +225,8 @@ void	ft_pipex(t_pipes *p, t_command *commands, t_envlist *envp)
 		ft_stdout_dup(p);
 	if (commands->out_flag == PIPE)
 		ft_pipe_pre_dup(p);
+	if (commands->args[0][0] == '/')
+		commands->args[0] = ft_command_from_path(commands->args[0]);
 	if (commands->builtin_sys_flag == BUILT_IN)
 		ft_run_builtin(commands);
 	if (commands->builtin_sys_flag == SYS)
@@ -238,4 +237,4 @@ void	ft_pipex(t_pipes *p, t_command *commands, t_envlist *envp)
 		ft_close(p);
 }
 
-//ls > out >> out2 > out 3 >> out4
+//ls > out >> out2 > out3 >> out4
