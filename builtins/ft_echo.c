@@ -18,9 +18,9 @@ int	ft_echo_string(char **string, int n)
 		i = 0;
 		while (string[s][i])
 		{
-			if (string[s][i] != '"')
+			if (string[s][i] != '"' && string[s][i] != '\'')
 				ft_putchar_fd(string[s][i], 1);
-			else if (string[s][i] == '"' && string[s][i - 1] == '\\')
+			else if (string[s][i] == '"' && string[s][i - 1] == '\\' && string[s][i] != '\'')
 				ft_putchar_fd(string[s][i], 1);
 			i++;
 		}
