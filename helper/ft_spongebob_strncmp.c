@@ -17,3 +17,8 @@ int	ft_spongebob_strncmp(char *s1, char *s2, int n)
 {
 	return (ft_strncmp(ft_strtolowercase(s1), ft_strtolowercase(s2), n));
 }
+
+int	ft_sb_strcmp(char *s1, char *s2)
+{
+	return (ft_strcmp(ft_strtolowercase(s1), ft_strtolowercase(s2)));
+}

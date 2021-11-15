@@ -9,5 +9,6 @@ char	*ft_strtouppercase(char *str);
 char	*ft_strtolowercase(char *str);
 char	*ft_gc_substr(char const *s, unsigned int start, int len);
 char	*ft_gc_strtrim(char const *s1, char const *set);
+int		ft_sb_strcmp(char *s1, char *s2);
 
 #endif
