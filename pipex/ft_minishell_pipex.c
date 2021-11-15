@@ -175,10 +175,17 @@ void	ft_multi_redirections(t_pipes *p, t_command *commands)
 	{
 		if (ft_strcmp(commands->args[0], temp->file_name) != 0)
 		{
-			if (commands->out_flag == OUT)
+			if (commands->out_flag == OUT || commands->out_flag == APPEND)
 				p->out = open(temp->file_name, O_CREAT, 0777);
-			if (commands->out_flag == APPEND)
-				p->out = open(temp->file_name, O_CREAT, 0777);
+			if (p->out == -1)
+			{
+				ft_putstr_fd("bash: ", 2);
+				ft_putstr_fd(commands->file, 2);
+				ft_putendl_fd(": Permission denied", 2);
+				commands->builtin_sys_flag = 7;
+				close(p->out);
+				break ;
+			}
 			close(p->out);
 			if (temp->is_last)
 			{
@@ -244,3 +251,10 @@ void	ft_pipex(t_pipes *p, t_command *commands, t_envlist *envp)
 //<in grep “e” | cat >out
 //../../../../../../../../../bin/ls
 //strjoin (pwd, relative path)
+
+//chmod 000 test1
+//ls > test1 >> test2
+//should not do anything with test1 and test2
+
+//ls > test1 >> test2
+//Should append ls to test2
