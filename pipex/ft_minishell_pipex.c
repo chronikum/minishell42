@@ -175,8 +175,25 @@ void	ft_multi_redirections(t_pipes *p, t_command *commands)
 	{
 		if (ft_strcmp(commands->args[0], temp->file_name) != 0)
 		{
-			if (commands->out_flag == OUT || commands->out_flag == APPEND)
+			if (temp->is_last)
+			{
+				if (commands->out_flag == OUT)
+					p->out = open(temp->file_name,
+							O_RDWR | O_CREAT | O_TRUNC, 0777);
+				if (commands->out_flag == APPEND)
+				{
+					p->out = open(temp->file_name,
+							O_RDWR | O_CREAT | O_APPEND, 0777);
+					commands->out_flag = APPEND;
+				}
+				//include this here: if (p->out == -1)?
+				ft_outfile_dup(p);
+			}
+			else if (commands->out_flag == OUT || commands->out_flag == APPEND)
+			{
 				p->out = open(temp->file_name, O_CREAT, 0777);
+				close(p->out);
+			}
 			if (p->out == -1)
 			{
 				ft_putstr_fd("bash: ", 2);
@@ -185,17 +202,6 @@ void	ft_multi_redirections(t_pipes *p, t_command *commands)
 				commands->builtin_sys_flag = 7;
 				close(p->out);
 				break ;
-			}
-			close(p->out);
-			if (temp->is_last)
-			{
-				if (commands->out_flag == OUT)
-					p->out = open(temp->file_name,
-							O_RDWR | O_CREAT | O_TRUNC, 0777);
-				if (commands->out_flag == APPEND)
-					p->out = open(temp->file_name,
-							O_RDWR | O_CREAT | O_APPEND, 0777);
-				ft_outfile_dup(p);
 			}
 		}
 		temp = temp->next;
