@@ -18,22 +18,30 @@ char	*ft_join_path(char *path, char *executable)
 */
 char	*ft_find_executable_path(char *exec)
 {
-	char	**paths;
-	int		i;
-	char	*temp_path;
+	char		**paths;
+	int			i;
+	char		*temp_path;
+	t_envlist	*env_list;
 
 	i = 0;
-	paths = ft_split(ft_find_envlist("PATH")->value, ':');
-	while (paths[i])
+	env_list = ft_find_envlist("PATH");
+	if (env_list)
 	{
-		temp_path = ft_join_path(paths[i], exec);
-		if (access(temp_path, F_OK) != -1)
+		if (env_list->value)
 		{
-			ft_double_free(paths);
-			paths = NULL;
-			return (temp_path);
+			paths = ft_split(env_list->value, ':');
+			while (paths[i])
+			{
+				temp_path = ft_join_path(paths[i], exec);
+				if (access(temp_path, F_OK) != -1)
+				{
+					ft_double_free(paths);
+					paths = NULL;
+					return (temp_path);
+				}
+				i++;
+			}		
 		}
-		i++;
 	}
 	return (NULL);
 }
