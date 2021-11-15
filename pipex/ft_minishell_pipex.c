@@ -214,7 +214,7 @@ void	ft_out_or_append(t_pipes *p, t_command *commands)
 void	ft_pipex(t_pipes *p, t_command *commands, t_envlist *envp)
 {
 	ft_pipe(p);
-	if (commands->file && commands->files->is_multiple)
+	if (commands->files && commands->files->is_multiple)
 		ft_multi_redirections(p, commands);
 	if (commands->in_flag == IN)
 		ft_open_infile(p, commands);
@@ -228,7 +228,7 @@ void	ft_pipex(t_pipes *p, t_command *commands, t_envlist *envp)
 		ft_stdout_dup(p);
 	if (commands->out_flag == PIPE)
 		ft_pipe_pre_dup(p);
-	if (commands->args[0][0] == '/')
+	if (commands->args[0][0] == '/' || (commands->args[0][0] == '.' && commands->args[0][1] == '.'))
 		commands->args[0] = ft_command_from_path(commands->args[0]);
 	if (commands->builtin_sys_flag == BUILT_IN)
 		ft_run_builtin(commands);
@@ -242,3 +242,5 @@ void	ft_pipex(t_pipes *p, t_command *commands, t_envlist *envp)
 
 //ls > out >> out2 > out3 >> out4
 //<in grep “e” | cat >out
+//../../../../../../../../../bin/ls
+//strjoin (pwd, relative path)
