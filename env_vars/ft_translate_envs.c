@@ -86,7 +86,6 @@ char	*ft_translate_envs(char *command)
 			while (var_name[inner_i])
 			{
 				result[total] = var_name[inner_i];
-				printf("%c", result[total]);
 				inner_i++;
 				total++;
 			}
