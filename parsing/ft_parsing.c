@@ -18,10 +18,9 @@ void	ft_assign_file_name_to_path(t_command *command, char *file_name)
 */
 int	ft_check_builtin(char *command)
 {
-	if (ft_spongebob_strncmp(command, "pwd ", ft_strlen("pwd ")) == 0)
+	if (ft_sb_strcmp(command, "pwd") == 0)
 		return (1);
-	else if (ft_spongebob_strncmp(command,
-			"exit", ft_strlen("exit")) == 0)
+	else if (ft_spongebob_strncmp(command, "exit", ft_strlen("exit")) == 0)
 		return (1);
 	else if (ft_spongebob_strncmp(command, "env", ft_strlen("env")) == 0)
 		return (1);
