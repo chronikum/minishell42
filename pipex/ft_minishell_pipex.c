@@ -102,6 +102,7 @@ void	ft_open_outfile(t_pipes *p, t_command *commands)
 		ft_putstr_fd("bash: ", 2);
 		ft_putstr_fd(commands->file, 2);
 		ft_putendl_fd(": Permission denied", 2);
+		p->exit_status = 1;
 		commands->builtin_sys_flag = 7;
 	}
 }
@@ -122,6 +123,7 @@ void	ft_pipe(t_pipes *p)
 	if (pipe(p->pipe) == -1)
 	{
 		perror("Error");
+		p->exit_status = 1;
 		exit(0);
 	}
 }
@@ -196,6 +198,7 @@ void	ft_multi_redirections(t_pipes *p, t_command *commands)
 					ft_putstr_fd("bash: ", 2);
 					ft_putstr_fd(commands->file, 2);
 					ft_putendl_fd(": Permission denied", 2);
+					p->exit_status = 1;
 					commands->builtin_sys_flag = 7;
 					close(p->out);
 					break ;
@@ -212,6 +215,7 @@ void	ft_multi_redirections(t_pipes *p, t_command *commands)
 				ft_putstr_fd("bash: ", 2);
 				ft_putstr_fd(commands->file, 2);
 				ft_putendl_fd(": Permission denied", 2);
+				p->exit_status = 1;
 				commands->builtin_sys_flag = 7;
 				close(p->out);
 				break ;
