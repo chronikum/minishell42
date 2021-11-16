@@ -60,7 +60,7 @@ int	ft_execute(t_command *commands, t_envlist *envp)
 	exit(0);
 }
 
-void	ft_system_command(t_pipes *p, t_command *commands, t_envlist *envp)
+void	ft_system_command(t_pipes *p, t_command *commands, t_envlist *envp, int *exit_status)
 {
 	pid_t	pid;
 
@@ -72,6 +72,7 @@ void	ft_system_command(t_pipes *p, t_command *commands, t_envlist *envp)
 		if (p->pipe[0])
 			close(p->pipe[0]);
 		ft_execute(commands, envp);
+		WEXITSTATUS(exit_status);
 	}
 	if (pid != 0)
 	{
@@ -123,7 +124,7 @@ void	ft_pipe(t_pipes *p)
 	}
 }
 
-int	ft_run_builtin(t_command *command)
+int	ft_run_builtin(t_command *command, int *exit_status)
 {
 	if (ft_spongebob_strncmp(command->args[0],
 			"pwd", ft_strlen("pwd")) == 0)
@@ -146,6 +147,9 @@ int	ft_run_builtin(t_command *command)
 	else if (ft_spongebob_strncmp(command->args[0],
 			"unset", ft_strlen("unset")) == 0)
 		return (ft_unset(command));
+	else if (ft_spongebob_strncmp(command->args[0],
+			"$?", ft_strlen("$?")) == 0)
+		printf("%d\n", *exit_status);
 	return (0);
 }
 
@@ -184,7 +188,6 @@ void	ft_multi_redirections(t_pipes *p, t_command *commands)
 				{
 					p->out = open(temp->file_name,
 							O_RDWR | O_CREAT | O_APPEND, 0777);
-					commands->out_flag = APPEND;
 				}
 				//include this here: if (p->out == -1)?
 				ft_outfile_dup(p);
@@ -226,6 +229,8 @@ void	ft_out_or_append(t_pipes *p, t_command *commands)
 
 void	ft_pipex(t_pipes *p, t_command *commands, t_envlist *envp)
 {
+	static int	*exit_status = 0;
+
 	ft_pipe(p);
 	if (commands->files && commands->files->is_multiple)
 		ft_multi_redirections(p, commands);
@@ -244,16 +249,17 @@ void	ft_pipex(t_pipes *p, t_command *commands, t_envlist *envp)
 	if (commands->args[0][0] == '/' || (commands->args[0][0] == '.' && commands->args[0][1] == '.'))
 		commands->args[0] = ft_command_from_path(commands->args[0]);
 	if (commands->builtin_sys_flag == BUILT_IN)
-		ft_run_builtin(commands);
+		*exit_status = ft_run_builtin(commands, exit_status);
 	if (commands->builtin_sys_flag == SYS && commands->args[0][0] != '.')
-		ft_system_command(p, commands, envp);
+		ft_system_command(p, commands, envp, exit_status);
 	if (commands->out_flag == PIPE)
 		ft_pipe_after_dup(p);
 	if (commands->out_flag != PIPE)
 		ft_close(p);
 }
 
-//ls > out >> out2 > out3 >> out4
+//pwd > out >> out2 > out3 >> out4
+//pwd > out >> out2
 //<in grep “e” | cat >out
 //../../../../../../../../../bin/ls
 //strjoin (pwd, relative path)
