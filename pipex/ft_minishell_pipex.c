@@ -60,7 +60,7 @@ int	ft_execute(t_command *commands, t_envlist *envp)
 	exit(0);
 }
 
-void	ft_system_command(t_pipes *p, t_command *commands, t_envlist *envp, int *exit_status)
+void	ft_system_command(t_pipes *p, t_command *commands, t_envlist *envp)
 {
 	pid_t	pid;
 
@@ -72,7 +72,7 @@ void	ft_system_command(t_pipes *p, t_command *commands, t_envlist *envp, int *ex
 		if (p->pipe[0])
 			close(p->pipe[0]);
 		ft_execute(commands, envp);
-		WEXITSTATUS(exit_status);
+		*p->exit_status = WEXITSTATUS(p->exit_status);
 	}
 	if (pid != 0)
 	{
@@ -124,32 +124,32 @@ void	ft_pipe(t_pipes *p)
 	}
 }
 
-int	ft_run_builtin(t_command *command, int *exit_status)
+int	ft_run_builtin(t_pipes *p, t_command *commands)
 {
-	if (ft_spongebob_strncmp(command->args[0],
+	if (ft_spongebob_strncmp(commands->args[0],
 			"pwd", ft_strlen("pwd")) == 0)
 		return (ft_pwd());
-	else if (ft_spongebob_strncmp(command->args[0],
+	else if (ft_spongebob_strncmp(commands->args[0],
 			"exit", ft_strlen("exit")) == 0)
 		ft_quit();
-	else if (ft_spongebob_strncmp(command->args[0],
+	else if (ft_spongebob_strncmp(commands->args[0],
 			"env", ft_strlen("env")) == 0)
 		return (ft_env());
-	else if (ft_spongebob_strncmp(command->args[0],
+	else if (ft_spongebob_strncmp(commands->args[0],
 			"echo", ft_strlen("echo")) == 0)
-		return (ft_echo(command));
-	else if (ft_spongebob_strncmp(command->args[0],
+		return (ft_echo(commands));
+	else if (ft_spongebob_strncmp(commands->args[0],
 			"export", ft_strlen("export")) == 0)
-		return (builtin_export(command->original_string));
-	else if (ft_spongebob_strncmp(command->args[0],
+		return (builtin_export(commands->original_string));
+	else if (ft_spongebob_strncmp(commands->args[0],
 			"cd", ft_strlen("cd")) == 0)
-		return (ft_cd(command));
-	else if (ft_spongebob_strncmp(command->args[0],
+		return (ft_cd(commands));
+	else if (ft_spongebob_strncmp(commands->args[0],
 			"unset", ft_strlen("unset")) == 0)
-		return (ft_unset(command));
-	else if (ft_spongebob_strncmp(command->args[0],
+		return (ft_unset(commands));
+	else if (ft_spongebob_strncmp(commands->args[0],
 			"$?", ft_strlen("$?")) == 0)
-		printf("%d\n", *exit_status);
+		printf("%d\n", *p->exit_status);
 	return (0);
 }
 
@@ -229,8 +229,7 @@ void	ft_out_or_append(t_pipes *p, t_command *commands)
 
 void	ft_pipex(t_pipes *p, t_command *commands, t_envlist *envp)
 {
-	static int	*exit_status = 0;
-
+	p->exit_status = 0;
 	ft_pipe(p);
 	if (commands->files && commands->files->is_multiple)
 		ft_multi_redirections(p, commands);
@@ -249,9 +248,9 @@ void	ft_pipex(t_pipes *p, t_command *commands, t_envlist *envp)
 	if (commands->args[0][0] == '/' || (commands->args[0][0] == '.' && commands->args[0][1] == '.'))
 		commands->args[0] = ft_command_from_path(commands->args[0]);
 	if (commands->builtin_sys_flag == BUILT_IN)
-		*exit_status = ft_run_builtin(commands, exit_status);
+		*p->exit_status = ft_run_builtin(p, commands);
 	if (commands->builtin_sys_flag == SYS && commands->args[0][0] != '.')
-		ft_system_command(p, commands, envp, exit_status);
+		ft_system_command(p, commands, envp);
 	if (commands->out_flag == PIPE)
 		ft_pipe_after_dup(p);
 	if (commands->out_flag != PIPE)

@@ -85,6 +85,8 @@ typedef struct s_pipes
 
 	int					pipe[2];
 	int					temp_fd;
+
+	int					*exit_status;
 }			t_pipes;
 
 typedef struct s_child
@@ -92,7 +94,6 @@ typedef struct s_child
 	int					i;
 	char				*full_path;
 	char				*temp;
-	char				**cmnd;
 	char				**paths;
 }			t_child;
 
