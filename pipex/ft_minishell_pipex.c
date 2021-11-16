@@ -63,7 +63,7 @@ int	ft_execute(t_command *commands, t_envlist *envp)
 void	ft_system_command(t_pipes *p, t_command *commands, t_envlist *envp)
 {
 	pid_t	pid;
-	//int		status;
+	int		status;
 
 	pid = fork();
 	if (pid == -1)
@@ -78,10 +78,9 @@ void	ft_system_command(t_pipes *p, t_command *commands, t_envlist *envp)
 	{
 		if (p->pipe[1])
 			close(p->pipe[1]);
-		wait(0);
-		//wait(&status);
-		//if (WIFEXITED(status))
-		//	*p->exit_status = WEXITSTATUS(status);
+		wait(&status);
+		if (WIFEXITED(status))
+			p->exit_status = WEXITSTATUS(status);
 	}
 }
 
@@ -152,7 +151,7 @@ int	ft_run_builtin(t_pipes *p, t_command *commands)
 		return (ft_unset(commands));
 	else if (ft_spongebob_strncmp(commands->args[0],
 			"$?", ft_strlen("$?")) == 0)
-		printf("%d\n", *p->exit_status);
+		printf("%d\n", p->exit_status);
 	return (0);
 }
 
@@ -192,7 +191,15 @@ void	ft_multi_redirections(t_pipes *p, t_command *commands)
 					p->out = open(temp->file_name,
 							O_RDWR | O_CREAT | O_APPEND, 0777);
 				}
-				//include this here: if (p->out == -1)?
+				if (p->out == -1)
+				{
+					ft_putstr_fd("bash: ", 2);
+					ft_putstr_fd(commands->file, 2);
+					ft_putendl_fd(": Permission denied", 2);
+					commands->builtin_sys_flag = 7;
+					close(p->out);
+					break ;
+				}
 				ft_outfile_dup(p);
 			}
 			else if (commands->out_flag == OUT || commands->out_flag == APPEND)
@@ -251,7 +258,7 @@ void	ft_pipex(t_pipes *p, t_command *commands, t_envlist *envp)
 	if (commands->args[0][0] == '/' || (commands->args[0][0] == '.' && commands->args[0][1] == '.'))
 		commands->args[0] = ft_command_from_path(commands->args[0]);
 	if (commands->builtin_sys_flag == BUILT_IN)
-		ft_run_builtin(p, commands); //p->exit_status = 
+		p->exit_status = ft_run_builtin(p, commands);
 	if (commands->builtin_sys_flag == SYS && commands->args[0][0] != '.')
 		ft_system_command(p, commands, envp);
 	if (commands->out_flag == PIPE)
