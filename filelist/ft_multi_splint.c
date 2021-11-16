@@ -69,7 +69,7 @@ static char	*ft_get_next_word(char *cmd, int r, char *set)
 				saved, ft_strlen_set(&temp[saved], set)), " "));
 }
 
-char	**ft_multi_splint(char *s, char *splitter)
+char	**ft_multi_splint(char *s, char *splitter, int *size)
 {
 	char	**result;
 	char	*current;
@@ -79,6 +79,7 @@ char	**ft_multi_splint(char *s, char *splitter)
 	i = 0;
 	current = NULL;
 	wc = ft_detect_mredirections(s);
+	(*size) = wc;
 	result = ft_malloc(sizeof(char *) * (wc + 1));
 	while (current || i == 0)
 	{

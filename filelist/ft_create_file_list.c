@@ -27,14 +27,15 @@ t_files	*ft_new_file(char *filename, char *path, int in, int out)
 */
 t_files	*ft_create_file_list(char *command)
 {
-	char	**result;
-	int		i;
-	t_files	*files;
-	t_files	*start;
-
-	//substring = ft_substr(command, 0, ft_strlenc(command, '|'));
+	char		**result;
+	int			i;
+	t_files		*files;
+	t_files		*start;
+	int			is_multiple;
+	
+	is_multiple = 0;
 	i = 0;
-	result = ft_multi_splint(command, "<>");
+	result = ft_multi_splint(command, "<>", &is_multiple);
 	files = malloc(sizeof(t_list));
 	start = NULL;
 	files = NULL;
@@ -42,7 +43,7 @@ t_files	*ft_create_file_list(char *command)
 	{
 		if (files)
 		{
-			start->is_multiple = 1;
+			start->is_multiple = !!is_multiple;
 			files->next = ft_new_file(result[i], result[i], 0, 0);
 			files->is_last = 0;
 			files = files->next;
@@ -51,7 +52,7 @@ t_files	*ft_create_file_list(char *command)
 		{
 			files = ft_new_file(result[i], result[i], 0, 0);
 			files->is_last = 0;
-			files->is_multiple = 0;
+			files->is_multiple = !!is_multiple;
 			start = files;
 		}
 		i++;

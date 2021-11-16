@@ -145,7 +145,7 @@ int			check_file(char *filename);
 char		*ft_find_executable_path(char *exec);
 void		ft_arg_printer(char **args);
 int			ft_detect_mredirections(char *command);
-char		**ft_multi_splint(char *s, char *splitter);
+char		**ft_multi_splint(char *s, char *splitter, int *size);
 
 //buildins
 int			ft_pwd(void);
