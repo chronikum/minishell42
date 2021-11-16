@@ -249,7 +249,7 @@ void	ft_pipex(t_pipes *p, t_command *commands, t_envlist *envp)
 	if (commands->args[0][0] == '/' || (commands->args[0][0] == '.' && commands->args[0][1] == '.'))
 		commands->args[0] = ft_command_from_path(commands->args[0]);
 	if (commands->builtin_sys_flag == BUILT_IN)
-		*p->exit_status = ft_run_builtin(p, commands);
+		ft_run_builtin(p, commands); //p->exit_status = 
 	if (commands->builtin_sys_flag == SYS && commands->args[0][0] != '.')
 		ft_system_command(p, commands, envp);
 	if (commands->out_flag == PIPE)
