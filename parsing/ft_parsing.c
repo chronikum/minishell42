@@ -28,8 +28,7 @@ int	ft_check_builtin(char *command)
 		return (1);
 	else if (ft_spongebob_strncmp(command, "cd ", ft_strlen("cd ")) == 0)
 		return (1);
-	else if (ft_spongebob_strncmp(command,
-			"export ", ft_strlen("export ")) == 0)
+	else if (ft_spongebob_strncmp(command, "export ", ft_strlen("export ")) == 0)
 		return (1);
 	else if (ft_spongebob_strncmp(command, "unset ", ft_strlen("unset ")) == 0)
 		return (1);
@@ -108,6 +107,8 @@ t_command	*ft_parser(char *cmd, int in_flag, int out_flag, char *file_name, char
 // todo: do something which makes sense
 int	ft_determine_out_flag(char *command)
 {
+	if ((command[0] == '<' && command[1] == '<' && command[2] != '<'))
+		return (3);
 	if (ft_single_inset(command[0], "|><") != -1
 		&& (ft_single_inset(command[1], "|><") == -1))
 	{
@@ -123,6 +124,8 @@ int	ft_determine_out_flag(char *command)
 
 int	ft_determine_in_flag(char *command)
 {
+	if ((command[0] == '<' && command[1] == '<' && command[2] != '<'))
+		return (3);
 	if (ft_single_inset(command[ft_strlen(command) - 1], "|><") != -1
 		&& (ft_single_inset(command[ft_strlen(command) - 2], "|><") == -1))
 	{
@@ -272,6 +275,8 @@ t_command	*ft_parse_in_commands(char *cmds)
 			ft_add_infile_if_exists(&first, cmds, &i, &start);
 			// then we skip the seperators
 			// which we just saw to not get in an infinite while loop.
+			if (ft_determine_in_flag(cmds) == 3)
+				first = ft_parser(cmds, 3, ft_determine_in_flag(ft_substr(cmds, start, (i - start))), NULL, cmds);
 			while (ft_single_inset(cmds[i], "|><") != -1 && quotes_closed)
 				ft_increase_i_quote_handler(cmds, &i, &quotes_closed);
 			// then we check if we already added a seperator to the list (if yes, we can ignore this safely.)
