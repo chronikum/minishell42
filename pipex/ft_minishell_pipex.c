@@ -63,6 +63,7 @@ int	ft_execute(t_command *commands, t_envlist *envp)
 void	ft_system_command(t_pipes *p, t_command *commands, t_envlist *envp)
 {
 	pid_t	pid;
+	//int		x;
 
 	pid = fork();
 	if (pid == -1)
@@ -72,13 +73,13 @@ void	ft_system_command(t_pipes *p, t_command *commands, t_envlist *envp)
 		if (p->pipe[0])
 			close(p->pipe[0]);
 		ft_execute(commands, envp);
-		*p->exit_status = WEXITSTATUS(p->exit_status);
 	}
 	if (pid != 0)
 	{
 		if (p->pipe[1])
 			close(p->pipe[1]);
 		wait(0);
+		//*p->exit_status = WEXITSTATUS(x);
 	}
 }
 
