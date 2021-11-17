@@ -44,7 +44,7 @@ void	ft_stdout_dup(t_pipes *p)
 	dup2(p->stout, 1);
 }
 
-int	ft_execute(t_command *commands, t_envlist *envp)
+int	ft_execute(t_pipes *p, t_command *commands, t_envlist *envp)
 {
 	t_child	*c;
 
@@ -56,7 +56,7 @@ int	ft_execute(t_command *commands, t_envlist *envp)
 	if (access(c->full_path, F_OK) != -1)
 		execve(c->full_path, commands->args, envp->envp);
 	if (access(c->full_path, F_OK) == -1 && c->i == 0)
-		command_not_found(commands->original_string);
+		ft_command_not_found(p, commands->original_string);
 	exit(0);
 }
 
@@ -72,7 +72,7 @@ void	ft_system_command(t_pipes *p, t_command *commands, t_envlist *envp)
 	{
 		if (p->pipe[0])
 			close(p->pipe[0]);
-		ft_execute(commands, envp);
+		ft_execute(p, commands, envp);
 	}
 	if (pid != 0)
 	{
@@ -109,7 +109,7 @@ void	ft_open_outfile(t_pipes *p, t_command *commands)
 
 void	ft_open_infile(t_pipes *p, t_command *commands)
 {
-	check_file(commands->file);
+	ft_check_file(p, commands->file);
 	p->temp_fd = open(commands->file, O_RDONLY);
 	if (p->temp_fd == -1)
 	{

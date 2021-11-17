@@ -130,7 +130,7 @@ void		ft_init_dup(t_pipes *p);
 void		ft_open_outfile(t_pipes *p, t_command *commands);
 
 void		ft_system_command(t_pipes *p, t_command *commands, t_envlist *envp);
-int			ft_execute(t_command *commands, t_envlist *envp);
+int			ft_execute(t_pipes *p, t_command *commands, t_envlist *envp);
 void		ft_outfile_dup(t_pipes *p);
 void		ft_pipe_pre_dup(t_pipes *p);
 void		ft_pipe_after_dup(t_pipes *p);
@@ -138,9 +138,9 @@ void		ft_stdout_dup(t_pipes *p);
 void		ft_outfile_remover(t_command *commands);
 
 void		ft_close(t_pipes *p);
-void		command_not_found(char *command);
+void		ft_command_not_found(t_pipes *p, char *command);
 int			ft_array_len(char **argv);
-int			check_file(char *filename);
+int			ft_check_file(t_pipes *p, char *filename);
 
 //????
 char		*ft_find_executable_path(char *exec);
