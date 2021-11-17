@@ -7,8 +7,8 @@ int	ft_pwd(void)
 	str = malloc(sizeof(char) * 4096);
 	str = getcwd(str, 4096);
 	if (!str)
-		return (-1);
+		return (1);
 	printf("%s\n", str);
 	free(str);
-	return (1);
+	return (0);
 }

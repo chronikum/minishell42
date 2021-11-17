@@ -20,5 +20,5 @@ void	ft_print_env()
 int	ft_env(void)
 {
 	ft_print_env();
-	return (1);
+	return (0);
 }

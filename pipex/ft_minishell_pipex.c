@@ -141,10 +141,10 @@ int	ft_run_builtin(t_pipes *p, t_command *commands)
 		return (ft_env());
 	else if (ft_spongebob_strncmp(commands->args[0],
 			"echo", ft_strlen("echo")) == 0)
-		return (ft_echo(commands));
+		return (ft_echo(commands)); //TODO check 1 (error) or 0 (success)
 	else if (ft_spongebob_strncmp(commands->args[0],
 			"export", ft_strlen("export")) == 0)
-		return (builtin_export(commands->original_string));
+		return (builtin_export(commands->original_string)); //TODO check 1 (error) or 0 (success)
 	else if (ft_spongebob_strncmp(commands->args[0],
 			"cd", ft_strlen("cd")) == 0)
 		return (ft_cd(commands));
@@ -153,7 +153,7 @@ int	ft_run_builtin(t_pipes *p, t_command *commands)
 		return (ft_unset(commands));
 	else if (ft_spongebob_strncmp(commands->args[0],
 			"$?", ft_strlen("$?")) == 0)
-		printf("%d\n", p->exit_status);
+		printf("bash: %d command not found\n", p->exit_status);
 	return (0);
 }
 
