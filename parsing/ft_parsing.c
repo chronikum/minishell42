@@ -75,7 +75,7 @@ t_command	*ft_parser(char *cmd, int in_flag, int out_flag, char *file_name, char
 	command_struct->original_string = cmd;
 	command_struct->command = ft_find_executable_path(main_command);
 	command_struct->args = command_parts;
-	if (in_flag == 2) // super important to remove this later @DEBUG
+	if (in_flag == 2 || in_flag == 4) // super important to remove this later @DEBUG
 		command_struct->builtin_sys_flag = 6;
 	else
 		ft_set_builtin_flag(command_struct); // TODO: this needs to be adjusted: this set determined by being a system or a built_in function
@@ -264,7 +264,7 @@ t_command	*ft_parse_in_commands(char *cmds)
 	if (DEBUG)
 	{
 		printf("CMDS: %s \n", cmds);
-		printf("FOUND REDIRECTIONS COUNT: %d \n", ft_detect_mredirections(cmds));	
+		printf("FOUND REDIRECTIONS COUNT: %d \n", ft_detect_mredirections(cmds));
 	}
 	while (cmds[i])
 	{

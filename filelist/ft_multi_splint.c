@@ -95,11 +95,7 @@ char	**ft_multi_splint(char *s, char *splitter, int *size)
 		if (current)
 			current = ft_gc_strtrim(ft_get_next_word(s, 0, splitter), "\"");
 	}
-	int i1;
 
-	i1 = 0;
 	result[i] = NULL;
-	while (result[i1])
-		i1++;
 	return (result);
 }
