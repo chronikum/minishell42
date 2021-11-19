@@ -1,71 +1,43 @@
 #include "ft_gc_functions.h"
 
-static size_t	set_iterator(char const s, char const *set)
+static int	ft_is_inset(char c, char const *set)
 {
-	size_t	i;
-	size_t	counter;
+	int	count;
 
-	i = 0;
-	counter = 0;
-	while (set[i] != '\0')
+	count = 0;
+	while (set[count])
 	{
-		if (set[i] == s)
-			counter++;
-		i++;
-	}
-	return (counter);
-}
-
-static size_t	s1_right(char const *s1, char const *set)
-{
-	size_t	i;
-
-	i = ft_strlen(s1);
-	while (i > 0)
-	{
-		if (set_iterator(s1[i - 1], set) == 0)
-			return (i);
-		i--;
-	}
-	return (0);
-}
-
-static size_t	s1_left(char const *s1, char const *set)
-{
-	size_t	i;
-
-	i = 0;
-	while (s1[i] != '\0')
-	{
-		if (set_iterator(s1[i], set) == 0)
-			return (i);
-		i++;
+		if (c == set[count])
+			return (1);
+		count++;
 	}
 	return (0);
 }
 
 char	*ft_gc_strtrim(char const *s1, char const *set)
 {
-	size_t		left;
-	size_t		right;
-	size_t		result_len;
-	size_t		i;
-	char		*result;
+	unsigned int	l;
+	int				start;
+	int				end;
+	char			*r;
 
-	if (s1 == 0 || set == 0)
-		return (0);
-	left = s1_left(s1, set);
-	right = s1_right(s1, set);
-	result_len = right - left;
-	result = (char *)ft_malloc((result_len + 1) * sizeof(char));
-	if (result == 0)
-		return (0);
-	i = 0;
-	while (i < result_len)
+	if (!s1 || !set)
+		return (NULL);
+	end = ft_strlen(s1);
+	start = 0;
+	l = ft_strlen(s1);
+	if (ft_strlen(set) == 0)
+		return (ft_gc_strdup(s1));
+	while (ft_is_inset(s1[start], set) == 1)
 	{
-		result[i] = s1[left + i];
-		i++;
+		start++;
+		l--;
 	}
-	result[i] = '\0';
-	return (result);
+	while (ft_is_inset(s1[end - 1], set) == 1)
+	{
+		end--;
+		l--;
+	}
+	r = ft_substr(s1, start, l);
+	return (r);
 }

@@ -36,7 +36,8 @@ static char	*ft_get_next_word(char *cmd, int r, char *set)
 	char				*temp;
 
 	quote_closed = 1;
-	temp = ft_gc_strtrim(cmd, " ");
+	printf("GETTING NEXT WORD: %s \n", cmd);
+	temp = ft_strtrim(cmd, " ");
 	saved = i;
 	if (r)
 		ft_reset_static_vars(&i, &saved);
