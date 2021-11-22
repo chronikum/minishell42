@@ -1,6 +1,5 @@
 #include "../includes/ft_minishell.h"
 
-
 /*
 	Creates a new file list with given values
 	char *filename
@@ -32,7 +31,7 @@ t_files	*ft_create_file_list(char *command)
 	t_files		*files;
 	t_files		*start;
 	int			is_multiple;
-	
+
 	is_multiple = 0;
 	i = 0;
 	result = ft_multi_splint(command, "<>", &is_multiple);

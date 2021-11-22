@@ -47,12 +47,11 @@ typedef struct s_envlist
 	struct s_envlist	*next;
 }			t_envlist;
 
-
 typedef struct s_files
 {
-	char 				*file_name;
+	char				*file_name;
 	int					is_multiple;
-	char 				*path;
+	char				*path;
 	int					in;
 	int					out;
 	int					is_last;
