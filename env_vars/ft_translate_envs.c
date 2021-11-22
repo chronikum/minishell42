@@ -80,10 +80,14 @@ char	*ft_translate_envs(char *command)
 	{
 		if (command[i] == '$' && quote_closed && command[i + 1])
 		{
-			var_name = ft_get_value_from_env(ft_substr(command, i, ft_strlen_set(&command[i], " |><")));
+			var_name = ft_get_value_from_env(ft_substr(command, i, ft_strlen_set(&command[i], " |><\"")));
 			ft_strncat(result, var_name, ft_strlen(var_name));
 			total+=ft_strlen(var_name);
 			i+=ft_strlen_set(&command[i], " |><");
+		}
+		else if (command[i + 1] == '$' && command[i] == '"')
+		{
+			i++;
 		}
 		else
 		{
