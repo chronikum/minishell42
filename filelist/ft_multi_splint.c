@@ -30,7 +30,7 @@ static void	ft_reset_static_vars(unsigned int *i, unsigned int *saved)
 static char	*ft_get_next_word(char *cmd, int r, char *set)
 {
 	static unsigned int	saved = 0;
-	static unsigned int	i = 0; // current iterator
+	static unsigned int	i = 0;
 	int					quote_closed;
 	int					quote_counter;
 	char				*temp;
@@ -95,7 +95,6 @@ char	**ft_multi_splint(char *s, char *splitter, int *size)
 		if (current)
 			current = ft_gc_strtrim(ft_get_next_word(s, 0, splitter), "\"");
 	}
-
 	result[i] = NULL;
 	return (result);
 }
