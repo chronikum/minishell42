@@ -68,7 +68,6 @@ char	*ft_translate_envs(char *command)
 	char			*var_name;
 	char			*result;
 	int				offset;
-	int				inner_i;
 	int				total;
 
 	result = malloc(sizeof(char) * ft_total_count(command) + 1);
@@ -84,10 +83,6 @@ char	*ft_translate_envs(char *command)
 			ft_strncat(result, var_name, ft_strlen(var_name));
 			total+=ft_strlen(var_name);
 			i+=ft_strlen_set(&command[i], " |><");
-		}
-		else if (command[i + 1] == '$' && command[i] == '"')
-		{
-			i++;
 		}
 		else
 		{
