@@ -68,7 +68,6 @@ char	*ft_translate_envs(char *command)
 	char			*var_name;
 	char			*result;
 	int				offset;
-	int				inner_i;
 	int				total;
 
 	result = malloc(sizeof(char) * ft_total_count(command) + 1);
@@ -78,23 +77,29 @@ char	*ft_translate_envs(char *command)
 	quote_closed = 1;
 	while (command[i])
 	{
-		if (command[i] == '$' && quote_closed && command[i + 1])
+		// if (command[i] == '"' && command[i + 1] == '$')
+		// 	ft_increase_i_quote_handler(command, &i, &quote_closed);
+		if (command[i] == '$' && command[i + 1])
 		{
-			inner_i = 0;
-			var_name = ft_get_value_from_env(ft_substr(command, i, ft_strlen_set(&command[i], " |><")));
-			i+=ft_strlen_set(&command[i], " |><");
-			while (var_name[inner_i])
-			{
-				result[total] = var_name[inner_i];
-				inner_i++;
-				total++;
-			}
+			var_name = ft_get_value_from_env(ft_substr(command, i, ft_strlen_set(&command[i], " |><\"")));
+			ft_strncat(result, var_name, ft_strlen(var_name));
+			total+=ft_strlen(var_name);
+			i+=ft_strlen_set(&command[i], " |><\"");
+		}
+		else if (quote_closed)
+		{
+			ft_strncat(result, &command[i], 1);
+			total++;
+			ft_increase_i_quote_handler(command, &i, &quote_closed);
 		}
 		else
 		{
-			result[total] = command[i];
-			total++;
-			ft_increase_i_quote_handler(command, &i, &quote_closed);
+			while (!quote_closed)
+			{
+				ft_strncat(result, &command[i], 1);
+				total++;
+				ft_increase_i_quote_handler(command, &i, &quote_closed);
+			}
 		}
 	}
 	result[total] = '\0';
