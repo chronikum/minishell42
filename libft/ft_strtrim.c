@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strtrim.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: olgerret <olgerret@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jfritz <jfritz@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/17 10:31:58 by olgerret          #+#    #+#             */
-/*   Updated: 2021/06/29 16:03:22 by olgerret         ###   ########.fr       */
+/*   Updated: 2021/11/22 14:09:25 by jfritz           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,8 @@ char	*ft_strtrim(char const *s1, char const *set)
 
 	if (s1 == 0 || set == 0)
 		return (0);
+	if (ft_strlen(s1) == 0)
+		return ((char *) s1);
 	left = s1_left(s1, set);
 	right = s1_right(s1, set);
 	result_len = right - left;

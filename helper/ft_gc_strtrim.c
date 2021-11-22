@@ -23,6 +23,8 @@ char	*ft_gc_strtrim(char const *s1, char const *set)
 
 	if (!s1 || !set)
 		return (NULL);
+	if (ft_strlen(s1) == 0)
+		return ((char *) s1);
 	end = ft_strlen(s1);
 	start = 0;
 	l = ft_strlen(s1);
