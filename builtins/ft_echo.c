@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_echo.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: olgerret <olgerret@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/11/22 13:41:55 by olgerret          #+#    #+#             */
+/*   Updated: 2021/11/22 13:42:29 by olgerret         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../includes/ft_minishell.h"
 
 /**
@@ -20,7 +32,8 @@ int	ft_echo_string(char **string, int n)
 		{
 			if (string[s][i] != '"' && string[s][i] != '\'')
 				ft_putchar_fd(string[s][i], 1);
-			else if (string[s][i] == '"' && string[s][i - 1] == '\\' && string[s][i] != '\'')
+			else if (string[s][i] == '"' &&
+				string[s][i - 1] == '\\' && string[s][i] != '\'')
 				ft_putchar_fd(string[s][i], 1);
 			i++;
 		}
