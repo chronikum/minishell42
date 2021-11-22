@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_check_paths.c                                   :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: olgerret <olgerret@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/11/22 14:04:04 by olgerret          #+#    #+#             */
+/*   Updated: 2021/11/22 14:08:07 by olgerret         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../includes/ft_minishell.h"
 
 /*
@@ -30,7 +42,7 @@ char	*ft_find_executable_path(char *exec)
 		if (env_list->value)
 		{
 			paths = ft_split(env_list->value, ':');
-			while (paths[i])
+			while (paths[i++])
 			{
 				temp_path = ft_join_path(paths[i], exec);
 				if (access(temp_path, F_OK) != -1)
@@ -39,7 +51,6 @@ char	*ft_find_executable_path(char *exec)
 					paths = NULL;
 					return (temp_path);
 				}
-				i++;
 			}		
 		}
 	}
