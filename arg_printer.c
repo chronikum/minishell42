@@ -15,7 +15,8 @@ void	ft_arg_printer(char **args)
 	args_count = ft_array_len(args);
 	while (args[i])
 	{
-		printf("	%s( ARG %d/%d )%s			|%s|\n", YELLOW_COLOR, (counter + 1), args_count, RESET_COLOR, args[i]);
+		printf("	%s( ARG %d/%d )%s			|%s|\n", YELLOW_COLOR,
+			(counter + 1), args_count, RESET_COLOR, args[i]);
 		i++;
 		counter++;
 	}
