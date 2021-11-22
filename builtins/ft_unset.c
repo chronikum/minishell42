@@ -1,8 +1,7 @@
 #include "../includes/ft_minishell.h"
 
 /*
-
-
+	Unsets a env variable
 */
 int	ft_unset(t_command *command)
 {
