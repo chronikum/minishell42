@@ -56,7 +56,7 @@ ifeq ($(jfritzmacbookpro), YES)
 	CPPFLAGS="-I/usr/local/opt/readline/include"
 endif
 
-CFLAGS = -g -lreadline $(LDFLAGS) $(CPPFLAGS) -ltermcap -Wall -Wextra -Werror
+CFLAGS = -g -lreadline $(LDFLAGS) $(CPPFLAGS) -ltermcap
 
 ALLSRC = $(SRC) $(BUILTINS) $(ENV) $(HELPERS) $(PIPEX) $(PROMPT) $(COMMANDLIST) $(PATHS) $(DEBUGGING) \
 $(STRHELPER) $(PARSING) $(GARBAGE_COLLECTOR) $(GC_LIBFT_VARIATIONS) $(FILELIST) $(ENV_VARS)
@@ -69,7 +69,7 @@ $(NAME): *.c
 	cp ./libft/libft.a ${NAME}
 	$(CC) $(FLAGS) -D DEBUG=0 -c $(ALLSRC)
 	ar rc $(NAME) *.o
-	$(CC) $(CFLAGS) -L. -lft_minishell -o minishell
+	$(CC) $(CFLAGS) $(FLAGS) -L. -lft_minishell -o minishell
 	mkdir -p $(OUTFILES)
 	mv *.o $(OUTFILES)
 
@@ -77,6 +77,15 @@ debug: *.c
 	make -C libft/
 	cp ./libft/libft.a ${NAME}
 	$(CC) $(FLAGS) -D DEBUG=1 -c $(ALLSRC)
+	ar rc $(NAME) *.o
+	$(CC) $(CFLAGS) $(FLAGS) -L. -lft_minishell -o minishell
+	mkdir -p $(OUTFILES)
+	mv *.o $(OUTFILES)
+	
+debug_no_flags: *.c
+	make -C libft/
+	cp ./libft/libft.a ${NAME}
+	$(CC) -D DEBUG=1 -c $(ALLSRC)
 	ar rc $(NAME) *.o
 	$(CC) $(CFLAGS) -L. -lft_minishell -o minishell
 	mkdir -p $(OUTFILES)

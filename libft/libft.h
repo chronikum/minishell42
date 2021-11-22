@@ -6,7 +6,7 @@
 /*   By: jfritz <jfritz@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/23 14:43:34 by olgerret          #+#    #+#             */
-/*   Updated: 2021/11/13 10:54:16 by jfritz           ###   ########.fr       */
+/*   Updated: 2021/11/22 10:37:08 by jfritz           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,4 +76,5 @@ int		ft_single_inset(char c, char const *set);
 void	*ft_memdup(const void *mem, size_t size);
 int		ft_strcmp(char *s1, char *s2);
 void	*ft_realloc(void **src, size_t size);
+char	*ft_strncat(char *str1, char *str2, size_t n);
 #endif
