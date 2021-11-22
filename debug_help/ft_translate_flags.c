@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_translate_flags.c                               :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: olgerret <olgerret@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/11/22 13:45:03 by olgerret          #+#    #+#             */
+/*   Updated: 2021/11/22 13:45:05 by olgerret         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../includes/ft_minishell.h"
 
 /*
@@ -8,7 +20,7 @@
 
 	// OUT
 	# define STDOUT -1 // last command in chain
-	# define PIPE 0 // |
+	# define PIPE 0 å// |
 	# define OUT 1 // >
 	# define APPEND 4 // >> append
 
