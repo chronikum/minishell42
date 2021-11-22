@@ -67,9 +67,7 @@ t_command	*ft_parser(char *cmd, int in_flag, int out_flag, char *file_name, char
 
 	command_struct = ft_malloc(sizeof(t_command));
 	command_struct->next = NULL;
-	printf("BEFORE SPLINT \n");
 	command_parts = ft_splint(cmd); // Todo only split if not surrounded by quotes
-	printf("AFTER SPLINT \n");
 	command_struct->file = NULL;
 	if (!command_parts)
 		return (NULL);
