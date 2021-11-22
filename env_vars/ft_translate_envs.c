@@ -1,6 +1,5 @@
 #include "../includes/ft_minishell.h"
 
-
 /*
 	Gets called when a quote is being seen. Toggles a int (pointer)
 */
@@ -22,18 +21,17 @@ static void	ft_increase_i_quote_handler(char *cmd, unsigned int *i, int *quote)
 	(*i)++;
 }
 
-
 /*
 	Gets env value or an empty string
 */
 static	char	*ft_get_value_from_env(char *key)
 {
 	t_envlist	*env;
-	
+
 	env = ft_find_envlist(ft_gc_strtrim(key, "$\""));
 	if (env)
-		return env->value;
-	return "";
+		return (env->value);
+	return ("");
 }
 
 static	int	ft_total_count(char *command)
@@ -50,14 +48,14 @@ static	int	ft_total_count(char *command)
 	{
 		if (command[i] == '$' && quote_closed)
 		{
-			var_name = ft_substr(command, i, ft_strlen_set(&command[i], " |><"));
-			i+=ft_strlen_set(&command[i], " |><");
-			total+=(int) ft_strlen(ft_get_value_from_env(var_name));
+			var_name = ft_substr(command, i,
+					ft_strlen_set(&command[i], " |><"));
+			i += ft_strlen_set(&command[i], " |><");
+			total += (int)ft_strlen(ft_get_value_from_env(var_name));
 		}
 		ft_increase_i_quote_handler(command, &i, &quote_closed);
 		total++;
 	}
-	
 	return (total);
 }
 
@@ -79,10 +77,11 @@ char	*ft_translate_envs(char *command)
 	{
 		if (command[i] == '$' && command[i + 1])
 		{
-			var_name = ft_get_value_from_env(ft_substr(command, i, ft_strlen_set(&command[i], " |><\"")));
+			var_name = ft_get_value_from_env(
+					ft_substr(command, i, ft_strlen_set(&command[i], " |><\"")));
 			ft_strncat(result, var_name, ft_strlen(var_name));
-			total+=ft_strlen(var_name);
-			i+=ft_strlen_set(&command[i], " |><\"");
+			total += ft_strlen(var_name);
+			i += ft_strlen_set(&command[i], " |><\"");
 		}
 		else if (quote_closed)
 		{
