@@ -18,7 +18,7 @@ int	ft_del_envlist(char *key_to_delete)
 		if (ft_strcmp(temp->var_name, key_to_delete) == 0)
 		{
 			if (previous)
-				previous->next = ft_gc_memdup(temp->next, sizeof(t_envlist*));
+				previous->next = ft_gc_memdup(temp->next, sizeof (t_envlist *));
 			else
 				ft_env_list(ft_env_list(NULL)->next);
 			return (1);
