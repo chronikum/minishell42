@@ -19,6 +19,8 @@ static void	ft_increase_i_quote_handler(char *cmd, unsigned int *i, int *quote)
 	if (cmd[(*i)] == '"')
 		ft_toggle_quote(quote);
 	(*i)++;
+	// if (!ft_strchr(&cmd[(*i) + 1], '"') && !(*quote))
+	// 	ft_toggle_quote(quote);
 }
 
 /*
