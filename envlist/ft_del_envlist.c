@@ -9,17 +9,25 @@
 int	ft_del_envlist(char *key_to_delete)
 {
 	t_envlist	*temp;
+	t_envlist	*previous;
 
+	previous = NULL;
 	temp = ft_env_list(NULL);
 	while (temp)
 	{
 		if (ft_strcmp(temp->var_name, key_to_delete) == 0)
 		{
-			temp->var_name = NULL;
-			temp->value = NULL;
-			temp->full_line = NULL;
+			if (previous)
+				previous->next = temp->next;
+			else
+				ft_env_list(ft_env_list(NULL)->next);
+			return (1);
 		}
-		temp = temp->next;
+		else
+		{
+			previous = temp;
+			temp = temp->next;
+		}
 	}
 	return (0);
 }
