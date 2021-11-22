@@ -22,7 +22,7 @@ PARSING = ./parsing/ft_parsing.c ./parsing/ft_splint.c ./parsing/ft_command_size
 
 FLAGS = -Wall -Wextra -Werror -g
 
-GARBAGE_COLLECTOR = ./gc/ft_free.c ./gc/ft_freeall.c ./gc/ft_gclststart.c ./gc/ft_malloc.c
+GARBAGE_COLLECTOR = ./gc/ft_free.c ./gc/ft_freeall.c ./gc/ft_gclststart.c ./gc/ft_malloc.c ./gc/ft_gc_memdup.c
 
 GC_LIBFT_VARIATIONS = ./helper/ft_gc_split.c ./helper/ft_gc_strjoin.c ./helper/ft_gc_strdup.c \
 ./helper/ft_gc_substr.c ./helper/ft_gc_strtrim.c
