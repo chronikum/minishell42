@@ -12,11 +12,10 @@ t_command	*ft_newcommand(char *command)
 	if (result == 0)
 		return (0);
 	result->original_string = command;
-	result->command = NULL;
+	result->command = command;
 	result->next = NULL;
 	result->args = NULL;
 	result->file = NULL;
-	result->original_string = NULL;
 	result->op = -3301;
 	result->in_flag = -3301;
 	result->out_flag = -3301;

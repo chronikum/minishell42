@@ -23,7 +23,7 @@ int	ft_new_word_counter(char *cmd)
 	quote_closed = 1;
 	i = 0;
 	words = 1;
-	temp = ft_gc_strtrim(cmd, "|<> ");
+	temp = ft_gc_strtrim(cmd, "| ");
 	while (temp[i])
 	{
 		if (temp[i] == ' ' && quote_closed)
@@ -52,7 +52,7 @@ char	*ft_get_next_word(char *cmd, int r)
 	char				*temp;
 
 	quote_closed = 1;
-	temp = ft_gc_strtrim(cmd, "|<> ");
+	temp = ft_gc_strtrim(cmd, "| ");
 	saved = i;
 	if (r)
 		ft_reset_static_vars(&i, &saved);

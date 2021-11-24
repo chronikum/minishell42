@@ -32,11 +32,11 @@ t_command	*ft_create_new_command(char *command_section)
 	t_command	*command;
 	
 	command = ft_newcommand(command_section);
-	command->original_string = command_section;
 	command->args = ft_splint(command_section);
 	ft_set_builtin_flag(command);
-	ft_command_debug(command);
 	ft_set_flags(command);
+	command->files = ft_create_file_list(command_section);
+	ft_command_debug(command);
 	return (command);
 }
 

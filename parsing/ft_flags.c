@@ -5,8 +5,13 @@
 */
 void	ft_set_flags(t_command *command)
 {
-	if (ft_strchr(command->original_string, '<') || ft_strchr(command->original_string, '>'))
-		command->out_flag = 1;
-	else
-		command->out_flag = 0;
+	command->out_flag = PIPE;
+	if (ft_strnstr(command->original_string, "<", ft_strlen(command->original_string)))
+		command->in_flag = IN;
+	if (ft_strnstr(command->original_string, "<<", ft_strlen(command->original_string)))
+		command->in_flag = HERE_DOC;
+	if (ft_strnstr(command->original_string, ">", ft_strlen(command->original_string)))
+		command->out_flag = OUT;
+	if (ft_strnstr(command->original_string, ">>", ft_strlen(command->original_string)))
+		command->out_flag = APPEND;
 }

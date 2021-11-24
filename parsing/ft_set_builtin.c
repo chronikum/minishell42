@@ -36,4 +36,5 @@ void	ft_set_builtin_flag(t_command *command)
 		command->builtin_sys_flag = SYS;
 	else
 		command->builtin_sys_flag = SYS;
+	ft_set_flags(command);
 }
