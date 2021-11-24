@@ -31,13 +31,20 @@ t_files	*ft_create_file_list(char *command)
 	t_files		*files;
 	t_files		*start;
 	int			is_multiple;
+	char		*ft_file_str;
 
 	is_multiple = 0;
-	i = 0;
-	result = ft_file_splitter(command, "<>", &is_multiple);
-	files = malloc(sizeof(t_list));
+	i = 1;
 	start = NULL;
 	files = NULL;
+	ft_file_str = ft_substr(
+		command, 
+		ft_strlen_set(command, "<>"), 
+		ft_strlen_set(command, "") - ft_strlen_set(command, "<>")
+	);
+	result = ft_file_splitter(ft_file_str, "<>", &is_multiple);
+	if (!result)
+		return (NULL);
 	while (result[i])
 	{
 		if (files)
