@@ -39,8 +39,8 @@ t_files	*ft_create_file_list(char *command)
 	files = NULL;
 	ft_file_str = ft_substr(
 		command, 
-		ft_strlen_set(command, "<>"), 
-		ft_strlen_set(command, "") - ft_strlen_set(command, "<>")
+		ft_strlen_not_quoted(command, "<>"),
+		ft_strlen(command) - ft_strlen_not_quoted(command, "<>")
 	);
 	result = ft_file_splitter(ft_file_str, "<>", &is_multiple);
 	if (!result)
