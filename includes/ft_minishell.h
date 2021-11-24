@@ -175,6 +175,7 @@ t_command	*ft_newcommand(char *command);
 t_command	*ft_get_last_command(t_command *lst);
 void		ft_increase_i_quote_handler(char *cmd, int *i, int *quote);
 void		ft_toggle_quote(int *quote_toggle);
+int			ft_strlen_not_quoted(char *str, char const *set);
 
 // env lsit
 t_envlist	*ft_setenv(char *key, char *value);

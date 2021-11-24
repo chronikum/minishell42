@@ -17,7 +17,7 @@ t_command	*ft_newcommand(char *command)
 	result->args = NULL;
 	result->file = NULL;
 	result->op = -3301;
-	result->in_flag = -3301;
+	result->in_flag = -1;
 	result->out_flag = -3301;
 	result->builtin_sys_flag = -3301;
 	result->files = NULL;

@@ -89,15 +89,17 @@ char	**ft_splint(char *s)
 	char	*current;
 	int		i;
 	int		wc;
+	char	*to_use;
 
 	i = 0;
+	to_use = ft_gc_substr(s, 0, ft_strlen_not_quoted(s, "<>"));
 	current = NULL;
-	wc = ft_new_word_counter(s);
+	wc = ft_new_word_counter(to_use);
 	result = ft_malloc(sizeof(char *) * (wc + 1));
 	while (current || i == 0)
 	{
 		if (!current)
-			current = ft_gc_strtrim(ft_get_next_word(s, 1), "\"");
+			current = ft_gc_strtrim(ft_get_next_word(to_use, 1), "\"");
 		if (!current)
 			return (NULL);
 		if (ft_strlen(current) != 0)
@@ -105,7 +107,7 @@ char	**ft_splint(char *s)
 			result[i] = current;
 			i++;
 		}
-		current = ft_gc_strtrim(ft_get_next_word(s, 0), "\"");
+		current = ft_gc_strtrim(ft_get_next_word(to_use, 0), "\"");
 	}
 	result[i] = NULL;
 	return (result);
