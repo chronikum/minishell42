@@ -18,7 +18,8 @@ PIPEX = ./pipex/ft_minishell_pipex.c ./pipex/ft_pipex_utils.c
 HELPERS = ./free_functions/ft_free_functions.c ./arg_printer.c
 
 PARSING = ./parsing/ft_parsing.c ./parsing/ft_splint.c ./parsing/ft_command_size.c ./parsing/ft_parsing_aux.c \
-          ./parsing/ft_get_cmd_filename.c ./parsing/ft_get_last_command.c ./parsing/ft_detect_mredirections.c
+          ./parsing/ft_get_cmd_filename.c ./parsing/ft_get_last_command.c ./parsing/ft_detect_mredirections.c \
+		  ./parsing/ft_set_builtin.c ./parsing/ft_toggle_quote.c ./parsing/ft_flags.c
 
 FLAGS = -Wall -Wextra -Werror -g
 
@@ -35,7 +36,7 @@ DEBUGGING = ./debug_help/ft_translate_flags.c ./debug_help/ft_print_files.c
 
 STRHELPER = ./helper/strhelper/ft_strtouppercase.c ./helper/strhelper/ft_strtolowercase.c ./helper/ft_spongebob_strncmp.c
 
-FILELIST = ./filelist/ft_create_file_list.c ./filelist/ft_multi_splint.c
+FILELIST = ./filelist/ft_create_file_list.c ./filelist/ft_multi_splint.c ./parsing/ft_file_splitter.c
 
 ENV_VARS = ./env_vars/ft_translate_envs.c
 

@@ -34,7 +34,7 @@ t_files	*ft_create_file_list(char *command)
 
 	is_multiple = 0;
 	i = 0;
-	result = ft_multi_splint(command, "<>", &is_multiple);
+	result = ft_file_splitter(command, "<>", &is_multiple);
 	files = malloc(sizeof(t_list));
 	start = NULL;
 	files = NULL;
@@ -57,5 +57,7 @@ t_files	*ft_create_file_list(char *command)
 		i++;
 	}
 	files->is_last = 1;
-	return (start);
+	if (files->is_last)
+		return (start);
+	return (start->next);
 }

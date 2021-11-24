@@ -146,6 +146,9 @@ char		*ft_find_executable_path(char *exec);
 void		ft_arg_printer(char **args);
 int			ft_detect_mredirections(char *command);
 char		**ft_multi_splint(char *s, char *splitter, int *size);
+char		**ft_file_splitter(char *s, char *splitter, int *size);
+void		ft_set_builtin_flag(t_command *command);
+void		ft_set_flags(t_command *command);
 
 //buildins
 int			ft_pwd(void);
@@ -169,6 +172,8 @@ char		*ft_gc_strjoin(char const *s1, char const *s2);
 t_command	*ft_commandaddback(t_command **lst, t_command *new);
 t_command	*ft_newcommand(char *command);
 t_command	*ft_get_last_command(t_command *lst);
+void		ft_increase_i_quote_handler(char *cmd, int *i, int *quote);
+void		ft_toggle_quote(int *quote_toggle);
 
 // env lsit
 t_envlist	*ft_setenv(char *key, char *value);

@@ -1,26 +1,13 @@
 #include "../includes/ft_minishell.h"
 
 /*
-	Gets called when a quote is being seen. Toggles a int (pointer)
-*/
-static void	ft_toggle_quote(int *quote_toggle)
-{
-	if ((*quote_toggle))
-		(*quote_toggle) = 0;
-	else
-		(*quote_toggle) = 1;
-}
-
-/*
 	Increases counter by one and toggles quote counter if it encounters one
 */
-static void	ft_increase_i_quote_handler(char *cmd, unsigned int *i, int *quote)
+static void	ft_increase_ui_quote_handler(char *cmd, unsigned int *i, int *quote)
 {
 	if (cmd[(*i)] == '"')
 		ft_toggle_quote(quote);
 	(*i)++;
-	// if (!ft_strchr(&cmd[(*i) + 1], '"') && !(*quote))
-	// 	ft_toggle_quote(quote);
 }
 
 /*
@@ -43,9 +30,9 @@ int	ft_new_word_counter(char *cmd)
 		{
 			words++;
 			while (temp[i] == ' ' && temp[i])
-				ft_increase_i_quote_handler(temp, &i, &quote_closed);
+				ft_increase_ui_quote_handler(temp, &i, &quote_closed);
 		}
-		ft_increase_i_quote_handler(temp, &i, &quote_closed);
+		ft_increase_ui_quote_handler(temp, &i, &quote_closed);
 	}
 	return (words);
 }
@@ -74,11 +61,11 @@ char	*ft_get_next_word(char *cmd, int r)
 		quote_counter = 0;
 		if (temp[i] == '"')
 		{
-			ft_increase_i_quote_handler(temp, &i, &quote_closed);
+			ft_increase_ui_quote_handler(temp, &i, &quote_closed);
 			while (!quote_closed)
 			{
 				quote_counter++;
-				ft_increase_i_quote_handler(temp, &i, &quote_closed);
+				ft_increase_ui_quote_handler(temp, &i, &quote_closed);
 			}
 			return (ft_gc_strtrim(ft_gc_substr(temp,
 						saved, (quote_counter + 1)), " "));
@@ -86,11 +73,11 @@ char	*ft_get_next_word(char *cmd, int r)
 		if (temp[i] == ' ' && quote_closed)
 		{
 			while (temp[i] == ' ' && temp[i])
-				ft_increase_i_quote_handler(temp, &i, &quote_closed);
+				ft_increase_ui_quote_handler(temp, &i, &quote_closed);
 			return (ft_gc_strtrim(ft_gc_substr(temp,
 						saved, ft_strlenc(&temp[saved], ' ')), " "));
 		}
-		ft_increase_i_quote_handler(temp, &i, &quote_closed);
+		ft_increase_ui_quote_handler(temp, &i, &quote_closed);
 	}
 	return (ft_gc_strtrim(ft_gc_substr(temp,
 				saved, ft_strlenc(&temp[saved], ' ')), " "));

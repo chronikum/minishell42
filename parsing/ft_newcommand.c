@@ -11,7 +11,8 @@ t_command	*ft_newcommand(char *command)
 	result = (t_command *)malloc(sizeof(t_command));
 	if (result == 0)
 		return (0);
-	result->command = command;
+	result->original_string = command;
+	result->command = NULL;
 	result->next = NULL;
 	result->args = NULL;
 	result->file = NULL;
@@ -19,5 +20,7 @@ t_command	*ft_newcommand(char *command)
 	result->op = -3301;
 	result->in_flag = -3301;
 	result->out_flag = -3301;
+	result->builtin_sys_flag = -3301;
+	result->files = NULL;
 	return (result);
 }
