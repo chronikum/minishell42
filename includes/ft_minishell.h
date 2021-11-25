@@ -85,7 +85,7 @@ typedef struct s_pipes
 	int					pipe[2];
 	int					temp_fd;
 
-	int					exit_status;
+	//int					exit_status;
 }			t_pipes;
 
 typedef struct s_child
@@ -129,7 +129,7 @@ void		ft_init_dup(t_pipes *p);
 void		ft_open_outfile(t_pipes *p, t_command *commands);
 
 void		ft_system_command(t_pipes *p, t_command *commands, t_envlist *envp);
-int			ft_execute(t_pipes *p, t_command *commands, t_envlist *envp);
+int			ft_execute(t_command *commands, t_envlist *envp);
 void		ft_outfile_dup(t_pipes *p);
 void		ft_pipe_pre_dup(t_pipes *p);
 void		ft_pipe_after_dup(t_pipes *p);
@@ -137,9 +137,9 @@ void		ft_stdout_dup(t_pipes *p);
 void		ft_outfile_remover(t_command *commands);
 
 void		ft_close(t_pipes *p);
-void		ft_command_not_found(t_pipes *p, char *command);
+void		ft_command_not_found(char *command);
 int			ft_array_len(char **argv);
-int			ft_check_file(t_pipes *p, char *filename);
+int			ft_check_file(char *filename);
 
 //????
 char		*ft_find_executable_path(char *exec);

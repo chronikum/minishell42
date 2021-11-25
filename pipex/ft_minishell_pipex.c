@@ -44,7 +44,7 @@ void	ft_stdout_dup(t_pipes *p)
 	dup2(p->stout, 1);
 }
 
-int	ft_execute(t_pipes *p, t_command *commands, t_envlist *envp)
+int	ft_execute(t_command *commands, t_envlist *envp)
 {
 	t_child	*c;
 
@@ -56,7 +56,7 @@ int	ft_execute(t_pipes *p, t_command *commands, t_envlist *envp)
 	if (access(c->full_path, F_OK) != -1)
 		execve(c->full_path, commands->args, envp->envp);
 	if (access(c->full_path, F_OK) == -1 && c->i == 0)
-		ft_command_not_found(p, commands->original_string);
+		ft_command_not_found(commands->original_string);
 	exit(0);
 }
 
@@ -72,7 +72,7 @@ void	ft_system_command(t_pipes *p, t_command *commands, t_envlist *envp)
 	{
 		if (p->pipe[0])
 			close(p->pipe[0]);
-		ft_execute(p, commands, envp);
+		ft_execute(commands, envp);
 	}
 	if (pid != 0)
 	{
@@ -80,7 +80,7 @@ void	ft_system_command(t_pipes *p, t_command *commands, t_envlist *envp)
 			close(p->pipe[1]);
 		wait(&status);
 		if (WIFEXITED(status))
-			p->exit_status = WEXITSTATUS(status);
+			ft_set_most_recent_exit_code(WEXITSTATUS(status), 1);
 	}
 }
 
@@ -105,7 +105,7 @@ void	ft_open_outfile(t_pipes *p, t_command *commands)
 		ft_putstr_fd("bash: ", 2);
 		ft_putstr_fd(temp->file_name, 2);
 		ft_putendl_fd(": Permission denied", 2);
-		p->exit_status = 1;
+		ft_set_most_recent_exit_code(1, 1);
 		commands->builtin_sys_flag = 7;
 	}
 }
@@ -115,7 +115,7 @@ void	ft_open_infile(t_pipes *p, t_command *commands)
 	t_files	*temp;
 
 	temp = commands->files;
-	ft_check_file(p, temp->file_name);
+	ft_check_file(temp->file_name);
 	p->temp_fd = open(temp->file_name, O_RDONLY);
 	if (p->temp_fd == -1)
 	{
@@ -129,12 +129,12 @@ void	ft_pipe(t_pipes *p)
 	if (pipe(p->pipe) == -1)
 	{
 		perror("Error");
-		p->exit_status = 1;
+		ft_set_most_recent_exit_code(1, 1);
 		exit(0);
 	}
 }
 
-int	ft_run_builtin(t_pipes *p, t_command *commands)
+int	ft_run_builtin(t_command *commands)
 {
 	if (ft_sb_strcmp(commands->args[0],
 			"pwd") == 0)
@@ -147,21 +147,30 @@ int	ft_run_builtin(t_pipes *p, t_command *commands)
 		return (ft_env());
 	else if (ft_sb_strcmp(commands->args[0],
 			"echo") == 0)
-		return (ft_echo(commands)); //TODO check 1 (error) or 0 (success)
+		return (ft_echo(commands));
 	else if (ft_sb_strcmp(commands->args[0],
 			"export") == 0)
-		return (builtin_export(commands->original_string)); //TODO check 1 (error) or 0 (success)
+		return (builtin_export(commands->original_string));
 	else if (ft_sb_strcmp(commands->args[0],
 			"cd") == 0)
 		return (ft_cd(commands));
 	else if (ft_sb_strcmp(commands->args[0],
 			"unset") == 0)
 		return (ft_unset(commands));
-	else if (ft_sb_strcmp(commands->args[0],
-			"$?") == 0)
-		printf("bash: %d command not found\n", p->exit_status);
 	return (0);
 }
+
+//void	sig_handler_int2(int signal)
+//{
+//	if (signal == SIGINT)
+//	{
+//		printf("\n");
+//		rl_on_new_line();
+//		rl_replace_line("", 1);
+//		rl_redisplay();
+//	}
+//	return (-1);
+//}
 
 void	ft_here_doc(t_pipes *p, t_command *commands)
 {
@@ -171,6 +180,15 @@ void	ft_here_doc(t_pipes *p, t_command *commands)
 	while (str == NULL || ft_spongebob_strncmp(str,
 			commands->delimiter, ft_strlen(commands->delimiter)))
 	{
+		//if (signal(SIGQUIT, SIG_IGN))
+		//	break ;
+		//signal(SIGINT, &sig_handler_int2);
+		//if (flag == -1)
+		//{
+		//	flag = 1;
+		//	close (p->pipe[1]);
+		//	close (p->pipe[0]);
+		//}
 		str = readline("> ");
 		if (!ft_spongebob_strncmp(str,
 				commands->delimiter, ft_strlen(commands->delimiter)))
@@ -204,7 +222,7 @@ void	ft_multi_redirections(t_pipes *p, t_command *commands)
 					ft_putstr_fd("bash: ", 2);
 					ft_putstr_fd(commands->file, 2);
 					ft_putendl_fd(": Permission denied", 2);
-					p->exit_status = 1;
+					ft_set_most_recent_exit_code(1, 1);
 					commands->builtin_sys_flag = 7;
 					close(p->out);
 					break ;
@@ -220,7 +238,7 @@ void	ft_multi_redirections(t_pipes *p, t_command *commands)
 					ft_putstr_fd("bash: ", 2);
 					ft_putstr_fd(commands->file, 2);
 					ft_putendl_fd(": Permission denied", 2);
-					p->exit_status = 1;
+					ft_set_most_recent_exit_code(1, 1);
 					commands->builtin_sys_flag = 7;
 					close(p->out);
 					break ;
@@ -249,7 +267,7 @@ void	ft_out_or_append(t_pipes *p, t_command *commands)
 
 void	ft_pipex(t_pipes *p, t_command *commands, t_envlist *envp)
 {
-	p->exit_status = 0;
+	//p->exit_status = 0;
 	ft_pipe(p);
 	if (commands->files && commands->files->is_multiple)
 		ft_multi_redirections(p, commands);
@@ -268,7 +286,7 @@ void	ft_pipex(t_pipes *p, t_command *commands, t_envlist *envp)
 	if (commands->args[0][0] == '/' || (commands->args[0][0] == '.' && commands->args[0][1] == '.'))
 		commands->args[0] = ft_command_from_path(commands->args[0]);
 	if (commands->builtin_sys_flag == BUILT_IN)
-		p->exit_status = ft_run_builtin(p, commands);
+		ft_set_most_recent_exit_code(ft_run_builtin(commands), 1);
 	if (commands->builtin_sys_flag == SYS && commands->args[0][0] != '.')
 		ft_system_command(p, commands, envp);
 	if (commands->out_flag == PIPE)
