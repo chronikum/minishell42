@@ -5,6 +5,18 @@ int global;
 /*
 **	Quits the program
 */
+void	ft_quit_signal(int signal)
+{
+	(void) signal;
+	if (global == 2)
+	{
+		global = 1;
+	}
+}
+
+/*
+**	Quits the program
+*/
 void	ft_quit()
 {
 	ft_freeall();
@@ -68,7 +80,7 @@ int	main(int argc, char **argv, char **envp)
 	{
 		dup2(oldstdin, 0);
 		dup2(oldstdout, 1);
-		signal(SIGQUIT, SIG_IGN);
+		signal(SIGQUIT, &ft_quit_signal);
 		signal(SIGINT, &sig_handler_int);
 		cmd = readline(ft_get_nice_prompt());
 		if (cmd == NULL)
