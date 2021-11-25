@@ -35,7 +35,7 @@ static	int	ft_total_count(char *command)
 	total = 0;
 	while (command[i])
 	{
-		if (command[i] == '$' && quote_closed && command[i + 1] != '?')
+		if (command[i] == '$' && quote_closed)
 		{
 			var_name = ft_substr(command, i,
 					ft_strlen_set(&command[i], " |><+-"));
