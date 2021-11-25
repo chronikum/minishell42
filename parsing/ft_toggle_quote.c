@@ -32,3 +32,12 @@ void	ft_increase_ui_quote_handler(char *cmd,
 		ft_toggle_quote(quote);
 	(*i)++;
 }
+
+/*
+	Toggles if it sees a single quote at the current zero index
+*/
+void	ft_singlequote_handler(char *cmd, int *quote)
+{
+	if (cmd[0] == '\'')
+		ft_toggle_quote(quote);
+}

@@ -198,6 +198,7 @@ char		*ft_insert_exit_code(char *command);
 
 void	ft_increase_i_singlequote_handler(char *cmd, int *i, int *quote);
 void	ft_increase_ui_singlequote_handler(char *cmd, unsigned int *i, int *quote);
+void	ft_singlequote_handler(char *cmd, int *quote);
 
 int		ft_set_most_recent_exit_code(int exit_code, int set);
 char	*ft_strnstr_single_quotes(const char *haystack, const char *needle, size_t len);
