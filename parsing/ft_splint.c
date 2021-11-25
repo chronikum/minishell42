@@ -11,9 +11,9 @@ int	ft_new_word_counter(char *cmd)
 	char			*temp;
 	int				single_closed;
 
-	quote_closed = 1;
 	i = 0;
 	words = 1;
+	quote_closed = 1;
 	single_closed = 1;
 	temp = ft_gc_strtrim(cmd, "| ");
 	while (temp[i])
@@ -86,7 +86,7 @@ char	**ft_splint(char *s)
 	char	*to_use;
 
 	i = 0;
-	to_use = ft_gc_substr(s, 0, ft_strlen_not_any_quoted(s, "<>"));
+	to_use = ft_gc_substr(s, 0, ft_strlen_not_quoted(s, "<>"));
 	current = NULL;
 	wc = ft_new_word_counter(to_use);
 	result = ft_malloc(sizeof(char *) * (wc + 1));
