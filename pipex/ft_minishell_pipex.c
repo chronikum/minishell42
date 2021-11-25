@@ -1,5 +1,7 @@
 #include "../includes/ft_minishell.h"
 
+int global = 0;
+
 void	ft_close(t_pipes *p)
 {
 	if (p->temp_fd)
@@ -160,17 +162,13 @@ int	ft_run_builtin(t_command *commands)
 	return (0);
 }
 
-//void	sig_handler_int2(int signal)
-//{
-//	if (signal == SIGINT)
-//	{
-//		printf("\n");
-//		rl_on_new_line();
-//		rl_replace_line("", 1);
-//		rl_redisplay();
-//	}
-//	return (-1);
-//}
+void	sig_handler_int2(int signal)
+{
+	if (signal == SIGINT)
+		global = 1;
+	if (signal == SIGQUIT)
+		global = 2;
+}
 
 void	ft_here_doc(t_pipes *p, t_command *commands)
 {
@@ -180,15 +178,12 @@ void	ft_here_doc(t_pipes *p, t_command *commands)
 	while (str == NULL || ft_spongebob_strncmp(str,
 			commands->delimiter, ft_strlen(commands->delimiter)))
 	{
-		//if (signal(SIGQUIT, SIG_IGN))
-		//	break ;
-		//signal(SIGINT, &sig_handler_int2);
-		//if (flag == -1)
-		//{
-		//	flag = 1;
-		//	close (p->pipe[1]);
-		//	close (p->pipe[0]);
-		//}
+		signal(SIGQUIT, &sig_handler_int2);
+		signal(SIGINT, &sig_handler_int2);
+		if (global == 1)
+			exit(0);
+		if (global == 2)
+			exit(0);
 		str = readline("> ");
 		if (!ft_spongebob_strncmp(str,
 				commands->delimiter, ft_strlen(commands->delimiter)))
@@ -307,4 +302,4 @@ void	ft_pipex(t_pipes *p, t_command *commands, t_envlist *envp)
 
 //ls > test1 >> test2
 //Should append ls to test2
-//ls -a >out >out2
+//ls -a >out >out
