@@ -10,12 +10,12 @@
 */
 int	ft_spongebob_strncmp(char *s1, char *s2, int n)
 {
-	if (ft_strlen(s1) == ft_strlen(s2))
-		return (ft_strncmp(ft_strtolowercase(s1), ft_strtolowercase(s2), n));
-	return (-1);
+	return (ft_strncmp(ft_strtolowercase(s1), ft_strtolowercase(s2), n));
 }
 
 int	ft_sb_strcmp(char *s1, char *s2)
 {
+	if (ft_strlen(s1) != ft_strlen(s2))
+		return (-1);
 	return (ft_strcmp(ft_strtolowercase(s1), ft_strtolowercase(s2)));
 }

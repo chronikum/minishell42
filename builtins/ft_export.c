@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_export.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: olgerret <olgerret@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jfritz <jfritz@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/22 13:42:01 by olgerret          #+#    #+#             */
-/*   Updated: 2021/11/22 13:42:02 by olgerret         ###   ########.fr       */
+/*   Updated: 2021/11/25 12:27:45 by jfritz           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,12 @@
 */
 int	ft_raw_export(char *key, char *value)
 {
+	printf("KEY IS: %s VALUE IS : %s! \n", key, value);
+	if (!key && !value)
+	{
+		ft_env();
+		return (1);
+	}
 	if (!key)
 		return (1);
 	if (!value)
