@@ -20,7 +20,7 @@ HELPERS = ./free_functions/ft_free_functions.c ./arg_printer.c
 PARSING = ./parsing/ft_parsing.c ./parsing/ft_splint.c ./parsing/ft_command_size.c ./parsing/ft_parsing_aux.c \
           ./parsing/ft_get_cmd_filename.c ./parsing/ft_get_last_command.c ./parsing/ft_detect_mredirections.c \
 		  ./parsing/ft_set_builtin.c ./parsing/ft_toggle_quote.c ./parsing/ft_flags.c ./parsing/ft_add_files.c \
-		  ./parsing/ft_strlen_not_quoted.c
+		  ./parsing/ft_strlen_not_quoted.c ./parsing/ft_set_heredoc.c ./parsing/ft_strnstr_quotes.c
 
 FLAGS = -Wall -Wextra -Werror -g
 

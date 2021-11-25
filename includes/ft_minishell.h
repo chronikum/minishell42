@@ -150,6 +150,8 @@ char		**ft_file_splitter(char *s, char *splitter, int *size);
 void		ft_set_builtin_flag(t_command *command);
 void		ft_set_flags(t_command *command);
 void		ft_add_files(t_command *command);
+void		ft_set_heredoc(t_command *command, char* string);
+char		*ft_strnstr_quotes(const char *haystack, const char *needle, size_t len);
 
 //buildins
 int			ft_pwd(void);
@@ -174,6 +176,7 @@ t_command	*ft_commandaddback(t_command **lst, t_command *new);
 t_command	*ft_newcommand(char *command);
 t_command	*ft_get_last_command(t_command *lst);
 void		ft_increase_i_quote_handler(char *cmd, int *i, int *quote);
+void		ft_increase_ui_quote_handler(char *cmd, unsigned int *i, int *quote);
 void		ft_toggle_quote(int *quote_toggle);
 int			ft_strlen_not_quoted(char *str, char const *set);
 
