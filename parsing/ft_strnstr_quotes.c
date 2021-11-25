@@ -53,11 +53,11 @@ char	*ft_strnstr_single_quotes(const char *haystack, const char *needle, size_t 
 		while (haystack[i + j] == needle[j]
 			&& needle[j] != '\0' && (i + j) < len && quote_closed)
 		{
-			ft_increase_ui_quote_handler((char *) &haystack[i], &j, &quote_closed);
+			ft_increase_i_singlequote_handler((char *) &haystack[i], &j, &quote_closed);
 			if (j == needle_len)
 				return (&phaystack[i]);
 		}
-		ft_increase_ui_quote_handler((char *) haystack, &i, &quote_closed);
+		ft_increase_i_singlequote_handler((char *) haystack, &i, &quote_closed);
 		j = 0;
 	}
 	return (NULL);
