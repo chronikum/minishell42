@@ -76,7 +76,7 @@ char	*ft_translate_envs(char *command)
 		{
 			ft_strncat(result, &command[i], 1);
 			total++;
-			ft_single_increase_i_quote_handler(command, &i, &quote_closed);
+			ft_increase_ui_singlequote_handler(command, &i, &quote_closed);
 		}
 		else
 		{
