@@ -6,7 +6,7 @@
 /*   By: jfritz <jfritz@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/22 13:42:01 by olgerret          #+#    #+#             */
-/*   Updated: 2021/11/25 12:27:45 by jfritz           ###   ########.fr       */
+/*   Updated: 2021/11/25 12:53:52 by jfritz           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,12 +19,6 @@
 */
 int	ft_raw_export(char *key, char *value)
 {
-	printf("KEY IS: %s VALUE IS : %s! \n", key, value);
-	if (!key && !value)
-	{
-		ft_env();
-		return (1);
-	}
 	if (!key)
 		return (1);
 	if (!value)
@@ -48,7 +42,7 @@ int	builtin_export(char *cmd)
 	char	**splitted_keypair;
 
 	value = "";
-	splitted_parts = ft_gc_split(cmd, ' ');
+	splitted_parts = ft_gc_split(ft_gc_strtrim(cmd, " "), ' ');
 	if (splitted_parts[1])
 	{
 		key_value_pair = splitted_parts[1];
@@ -59,5 +53,7 @@ int	builtin_export(char *cmd)
 			&& ft_strrchr(key_value_pair, '='))
 			return (ft_raw_export(splitted_keypair[0], splitted_keypair[1]));
 	}
+	else
+		return (ft_env());
 	return (1);
 }
