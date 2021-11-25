@@ -29,10 +29,9 @@ void	ft_set_builtin_flag(t_command *command)
 {
 	char	*main_command;
 
-	main_command = command->args[0];
 	if (ft_check_builtin(ft_gc_strtrim(command->args[0], " ")))
 		command->builtin_sys_flag = BUILT_IN;
-	else if (ft_find_executable_path(main_command))
+	else if (ft_find_executable_path(command->args[0]))
 		command->builtin_sys_flag = SYS;
 	else
 		command->builtin_sys_flag = SYS;
