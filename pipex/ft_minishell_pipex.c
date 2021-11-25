@@ -90,17 +90,20 @@ void	ft_init_dup(t_pipes *p)
 }
 
 void	ft_open_outfile(t_pipes *p, t_command *commands)
-{
+{	
+	t_files	*temp;
+
+	temp = commands->files;
 	if (commands->out_flag == OUT)
-		p->out = open(commands->file,
+		p->out = open(temp->file_name,
 				 O_RDWR | O_CREAT | O_TRUNC, 0777);
 	if (commands->out_flag == APPEND)
-		p->out = open(commands->file,
+		p->out = open(temp->file_name,
 				 O_RDWR | O_CREAT | O_APPEND, 0777);
 	if (p->out == -1)
 	{
 		ft_putstr_fd("bash: ", 2);
-		ft_putstr_fd(commands->file, 2);
+		ft_putstr_fd(temp->file_name, 2);
 		ft_putendl_fd(": Permission denied", 2);
 		p->exit_status = 1;
 		commands->builtin_sys_flag = 7;
@@ -109,8 +112,11 @@ void	ft_open_outfile(t_pipes *p, t_command *commands)
 
 void	ft_open_infile(t_pipes *p, t_command *commands)
 {
-	ft_check_file(p, commands->file);
-	p->temp_fd = open(commands->file, O_RDONLY);
+	t_files	*temp;
+
+	temp = commands->files;
+	ft_check_file(p, temp->file_name);
+	p->temp_fd = open(temp->file_name, O_RDONLY);
 	if (p->temp_fd == -1)
 	{
 		commands->builtin_sys_flag = 7;
@@ -209,16 +215,16 @@ void	ft_multi_redirections(t_pipes *p, t_command *commands)
 			{
 				p->out = open(temp->file_name, O_CREAT, 0777);
 				close(p->out);
-			}
-			if (p->out == -1)
-			{
-				ft_putstr_fd("bash: ", 2);
-				ft_putstr_fd(commands->file, 2);
-				ft_putendl_fd(": Permission denied", 2);
-				p->exit_status = 1;
-				commands->builtin_sys_flag = 7;
-				close(p->out);
-				break ;
+				if (p->out == -1)
+				{
+					ft_putstr_fd("bash: ", 2);
+					ft_putstr_fd(commands->file, 2);
+					ft_putendl_fd(": Permission denied", 2);
+					p->exit_status = 1;
+					commands->builtin_sys_flag = 7;
+					close(p->out);
+					break ;
+				}
 			}
 		}
 		temp = temp->next;
@@ -283,3 +289,4 @@ void	ft_pipex(t_pipes *p, t_command *commands, t_envlist *envp)
 
 //ls > test1 >> test2
 //Should append ls to test2
+//ls -a >out >out2
