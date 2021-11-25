@@ -1,5 +1,7 @@
 #include "./includes/ft_minishell.h"
 
+int global;
+
 /*
 **	Quits the program
 */
@@ -17,15 +19,14 @@ void	ft_quit()
 */
 void	sig_handler_int(int signal)
 {
-	if (signal == SIGINT && global != 2)
+	if (signal == SIGINT)
 	{
 		printf("\n");
 		rl_on_new_line();
 		rl_replace_line("", 1);
 		rl_redisplay();
-	}
-	else if (global == 2)
 		global = 1;
+	}
 }
 
 /**
