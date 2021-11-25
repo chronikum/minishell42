@@ -136,29 +136,29 @@ void	ft_pipe(t_pipes *p)
 
 int	ft_run_builtin(t_pipes *p, t_command *commands)
 {
-	if (ft_spongebob_strncmp(commands->args[0],
-			"pwd", ft_strlen("pwd")) == 0)
+	if (ft_sb_strcmp(commands->args[0],
+			"pwd") == 0)
 		return (ft_pwd());
-	else if (ft_spongebob_strncmp(commands->args[0],
-			"exit", ft_strlen("exit")) == 0)
+	else if (ft_sb_strcmp(commands->args[0],
+			"exit") == 0)
 		ft_quit();
-	else if (ft_spongebob_strncmp(commands->args[0],
-			"env", ft_strlen("env")) == 0)
+	else if (ft_sb_strcmp(commands->args[0],
+			"env") == 0)
 		return (ft_env());
-	else if (ft_spongebob_strncmp(commands->args[0],
-			"echo", ft_strlen("echo")) == 0)
+	else if (ft_sb_strcmp(commands->args[0],
+			"echo") == 0)
 		return (ft_echo(commands)); //TODO check 1 (error) or 0 (success)
-	else if (ft_spongebob_strncmp(commands->args[0],
-			"export", ft_strlen("export")) == 0)
+	else if (ft_sb_strcmp(commands->args[0],
+			"export") == 0)
 		return (builtin_export(commands->original_string)); //TODO check 1 (error) or 0 (success)
-	else if (ft_spongebob_strncmp(commands->args[0],
-			"cd", ft_strlen("cd")) == 0)
+	else if (ft_sb_strcmp(commands->args[0],
+			"cd") == 0)
 		return (ft_cd(commands));
-	else if (ft_spongebob_strncmp(commands->args[0],
-			"unset", ft_strlen("unset")) == 0)
+	else if (ft_sb_strcmp(commands->args[0],
+			"unset") == 0)
 		return (ft_unset(commands));
-	else if (ft_spongebob_strncmp(commands->args[0],
-			"$?", ft_strlen("$?")) == 0)
+	else if (ft_sb_strcmp(commands->args[0],
+			"$?") == 0)
 		printf("bash: %d command not found\n", p->exit_status);
 	return (0);
 }
