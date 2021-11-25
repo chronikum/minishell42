@@ -39,13 +39,16 @@ void	ft_command_debug(t_command *start)
 t_command	*ft_create_new_command(char *command_section)
 {
 	t_command	*command;
+	char		**splitted_commands;
 	
 	command = ft_newcommand(command_section);
-	command->args = ft_splint(command_section);
+	splitted_commands = ft_splint(command_section);
+	command->args = splitted_commands;
+	if (splitted_commands)
+		command->command = ft_find_executable_path(command->args[0]);
 	ft_set_flags(command);
-	command->command = ft_find_executable_path(command->args[0]);
-	command->files = ft_create_file_list(command_section);
 	ft_set_builtin_flag(command);
+	command->files = ft_create_file_list(command_section);
 	return (command);
 }
 

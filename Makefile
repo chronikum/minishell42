@@ -41,6 +41,8 @@ FILELIST = ./filelist/ft_create_file_list.c ./filelist/ft_multi_splint.c ./parsi
 
 ENV_VARS = ./env_vars/ft_translate_envs.c
 
+EXIT_CODE = ./exit_code/ft_insert_exit_code.c
+
 # from home
 ifeq ($(USER), jonathanfritz)
 	LDFLAGS="-L/opt/homebrew/opt/readline/lib"
@@ -61,7 +63,7 @@ endif
 CFLAGS = -g -lreadline $(LDFLAGS) $(CPPFLAGS) -ltermcap
 
 ALLSRC = $(SRC) $(BUILTINS) $(ENV) $(HELPERS) $(PIPEX) $(PROMPT) $(COMMANDLIST) $(PATHS) $(DEBUGGING) \
-$(STRHELPER) $(PARSING) $(GARBAGE_COLLECTOR) $(GC_LIBFT_VARIATIONS) $(FILELIST) $(ENV_VARS)
+$(STRHELPER) $(PARSING) $(GARBAGE_COLLECTOR) $(GC_LIBFT_VARIATIONS) $(FILELIST) $(ENV_VARS) $(EXIT_CODE)
 
 
 all: $(NAME)

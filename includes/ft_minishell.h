@@ -195,4 +195,6 @@ t_files		*ft_create_file_list(char *command);
 void		ft_print_files(t_files *files);
 char		*ft_translate_envs(char *command);
 
+char		*ft_insert_exit_code(char *command);
+
 #endif

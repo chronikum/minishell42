@@ -37,6 +37,7 @@ t_files	*ft_create_file_list(char *command)
 	i = 1;
 	start = NULL;
 	files = NULL;
+	
 	ft_file_str = ft_substr(
 		command, 
 		ft_strlen_not_quoted(command, "<>"),
@@ -49,7 +50,7 @@ t_files	*ft_create_file_list(char *command)
 	{
 		if (files)
 		{
-			start->is_multiple = 1;
+			files->is_multiple = !!(is_multiple - 1);
 			files->next = ft_new_file(result[i], result[i], 0, 0);
 			files->is_last = 0;
 			files = files->next;
@@ -58,7 +59,7 @@ t_files	*ft_create_file_list(char *command)
 		{
 			files = ft_new_file(result[i], result[i], 0, 0);
 			files->is_last = 0;
-			files->is_multiple = 1;
+			files->is_multiple = !!(is_multiple - 1);
 			start = files;
 		}
 		i++;
