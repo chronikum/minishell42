@@ -150,6 +150,7 @@ char		**ft_file_splitter(char *s, char *splitter, int *size);
 void		ft_set_builtin_flag(t_command *command);
 void		ft_set_flags(t_command *command);
 void		ft_add_files(t_command *command);
+void		ft_set_heredoc(t_command *command, char* string);
 
 //buildins
 int			ft_pwd(void);
