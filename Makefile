@@ -41,7 +41,7 @@ FILELIST = ./filelist/ft_create_file_list.c ./filelist/ft_multi_splint.c ./parsi
 
 ENV_VARS = ./env_vars/ft_translate_envs.c
 
-EXIT_CODE = ./exit_code/ft_insert_exit_code.c
+EXIT_CODE = ./exit_code/ft_insert_exit_code.c ./exit_code/ft_exit_magic.c
 
 # from home
 ifeq ($(USER), jonathanfritz)
