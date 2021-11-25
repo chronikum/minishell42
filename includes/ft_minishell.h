@@ -19,6 +19,7 @@
 # include "../prompt/ft_prompt.h"
 # include "../helper/ft_gc_functions.h"
 # include "../debug_help/ft_debugging_help.h"
+# include "../includes/ft_global.h"
 
 // IN
 # define IN 2 // <

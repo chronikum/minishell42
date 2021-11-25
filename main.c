@@ -17,13 +17,15 @@ void	ft_quit()
 */
 void	sig_handler_int(int signal)
 {
-	if (signal == SIGINT)
+	if (signal == SIGINT && global != 2)
 	{
 		printf("\n");
 		rl_on_new_line();
 		rl_replace_line("", 1);
 		rl_redisplay();
 	}
+	else if (global == 2)
+		global = 1;
 }
 
 /**

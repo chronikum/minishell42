@@ -1,6 +1,6 @@
 #include "../includes/ft_minishell.h"
 
-int global = 0;
+int global;
 
 void	ft_close(t_pipes *p)
 {
@@ -175,18 +175,13 @@ void	ft_here_doc(t_pipes *p, t_command *commands)
 	char	*str;
 
 	str = NULL;
+	global = 2;
 	while (str == NULL || ft_spongebob_strncmp(str,
 			commands->delimiter, ft_strlen(commands->delimiter)))
 	{
-		signal(SIGQUIT, &sig_handler_int2);
-		signal(SIGINT, &sig_handler_int2);
-		if (global == 1)
-			exit(0);
-		if (global == 2)
-			exit(0);
 		str = readline("> ");
 		if (!ft_spongebob_strncmp(str,
-				commands->delimiter, ft_strlen(commands->delimiter)))
+				commands->delimiter, ft_strlen(commands->delimiter)) || global == 1)
 			break ;
 		ft_putendl_fd(str, p->pipe[1]);
 	}
