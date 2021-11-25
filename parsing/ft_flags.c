@@ -22,13 +22,14 @@ static void ft_setup_heredoc(t_command *command)
 */
 void	ft_set_flags(t_command *command)
 {
+	printf("LOOKING AT THE STRING: %s \n", command->original_string);
 	command->out_flag = PIPE;
-	if (ft_strnstr_quotes(command->original_string, "<<", ft_strlen(command->original_string)))
+	if (ft_strnstr_nowhere_quotes(command->original_string, "<<", ft_strlen(command->original_string)))
 		ft_setup_heredoc(command);
-	else if (ft_strnstr_quotes(command->original_string, "<", ft_strlen(command->original_string)))
+	else if (ft_strnstr_nowhere_quotes(command->original_string, "<", ft_strlen(command->original_string)))
 		ft_set_infile(command);
-	if (ft_strnstr_quotes(command->original_string, ">", ft_strlen(command->original_string)))
+	if (ft_strnstr_nowhere_quotes(command->original_string, ">", ft_strlen(command->original_string)))
 		command->out_flag = OUT;
-	if (ft_strnstr_quotes(command->original_string, ">>", ft_strlen(command->original_string)))
+	if (ft_strnstr_nowhere_quotes(command->original_string, ">>", ft_strlen(command->original_string)))
 		command->out_flag = APPEND;
 }

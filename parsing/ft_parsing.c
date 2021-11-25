@@ -1,14 +1,5 @@
 #include "../includes/ft_minishell.h"
 
-static void ft_single_double_quote_handler(char *cmd, int *i, int *dq, int *sq)
-{
-	if (cmd[(*i)] == '\'')
-		ft_toggle_quote(sq);
-	if (cmd[(*i)] == '"')
-		ft_toggle_quote(dq);
-	(*i)++;
-}
-
 void	ft_command_debug(t_command *start)
 {
 	t_command *command_struct;

@@ -62,3 +62,37 @@ char	*ft_strnstr_single_quotes(const char *haystack, const char *needle, size_t 
 	}
 	return (NULL);
 }
+
+/*
+	Makes sure the needle is neither being enclosed by double or single quotes.
+	Ultimate quote handling function
+*/
+char	*ft_strnstr_nowhere_quotes(const char *haystack, const char *needle, size_t len)
+{
+	unsigned int	i;
+	unsigned int	j;
+	char	*phaystack;
+	int		quote_closed;
+	int		single_quote;
+
+	i = 0;
+	j = 0;
+	quote_closed = 1;
+	single_quote = 1;
+	phaystack = (char *)haystack;
+	if (needle[0] == '\0')
+		return (phaystack);
+	while (haystack[i] != '\0' && i < len)
+	{
+		while (haystack[i + j] == needle[j]
+			&& needle[j] != '\0' && (i + j) < len && quote_closed && single_quote)
+		{
+			ft_u_single_double_quote_handler((char *) &haystack[i], &j, &quote_closed, &single_quote);
+			if (j == ft_strlen(needle))
+				return (&phaystack[i]);
+		}
+		ft_u_single_double_quote_handler((char *) &haystack, &i, &quote_closed, &single_quote);
+		j = 0;
+	}
+	return (NULL);
+}

@@ -1,14 +1,5 @@
 #include "../includes/ft_minishell.h"
 
-static void ft_single_double_quote_handler(char *cmd, unsigned int *i, int *dq, int *sq)
-{
-	if (cmd[(*i)] == '\'')
-		ft_toggle_quote(sq);
-	if (cmd[(*i)] == '"')
-		ft_toggle_quote(dq);
-	(*i)++;
-}
-
 /*
 	Counts words. Can handle quotes with ease.
 */
@@ -31,9 +22,9 @@ int	ft_new_word_counter(char *cmd)
 		{
 			words++;
 			while (temp[i] == ' ' && temp[i] && quote_closed && single_closed)
-				ft_single_double_quote_handler(temp, &i, &quote_closed, &single_closed);
+				ft_u_single_double_quote_handler(temp, &i, &quote_closed, &single_closed);
 		}
-		ft_single_double_quote_handler(temp, &i, &quote_closed, &single_closed);
+		ft_u_single_double_quote_handler(temp, &i, &quote_closed, &single_closed);
 	}
 	return (words);
 }
@@ -64,11 +55,11 @@ char	*ft_get_next_word(char *cmd, int r)
 		quote_counter = 0;
 		if (temp[i] == '"' || temp[i] == '\'')
 		{
-			ft_single_double_quote_handler(temp, &i, &quote_closed, &single_quote);
+			ft_u_single_double_quote_handler(temp, &i, &quote_closed, &single_quote);
 			while (!quote_closed || !single_quote)
 			{
 				quote_counter++;
-				ft_single_double_quote_handler(temp, &i, &quote_closed, &single_quote);
+				ft_u_single_double_quote_handler(temp, &i, &quote_closed, &single_quote);
 			}
 			return (ft_gc_strtrim(ft_gc_substr(temp,
 						saved, (quote_counter + 1)), " "));
@@ -76,11 +67,11 @@ char	*ft_get_next_word(char *cmd, int r)
 		if (temp[i] == ' ' && quote_closed && single_quote)
 		{
 			while (temp[i] == ' ' && temp[i])
-				ft_single_double_quote_handler(temp, &i, &quote_closed, &single_quote);
+				ft_u_single_double_quote_handler(temp, &i, &quote_closed, &single_quote);
 			return (ft_gc_strtrim(ft_gc_substr(temp,
 						saved, ft_strlenc(&temp[saved], ' ')), " "));
 		}
-		ft_single_double_quote_handler(temp, &i, &quote_closed, &single_quote);
+		ft_u_single_double_quote_handler(temp, &i, &quote_closed, &single_quote);
 	}
 	return (ft_gc_strtrim(ft_gc_substr(temp,
 				saved, ft_strlenc(&temp[saved], ' ')), " "));
