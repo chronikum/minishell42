@@ -12,12 +12,12 @@ static void ft_setup_heredoc(t_command *command)
 void	ft_set_flags(t_command *command)
 {
 	command->out_flag = PIPE;
-	if (ft_strnstr(command->original_string, "<", ft_strlen(command->original_string)))
+	if (ft_strnstr_quotes(command->original_string, "<", ft_strlen(command->original_string)))
 		command->in_flag = IN;
-	if (ft_strnstr(command->original_string, "<<", ft_strlen(command->original_string)))
+	if (ft_strnstr_quotes(command->original_string, "<<", ft_strlen(command->original_string)))
 		ft_setup_heredoc(command);
-	if (ft_strnstr(command->original_string, ">", ft_strlen(command->original_string)))
+	if (ft_strnstr_quotes(command->original_string, ">", ft_strlen(command->original_string)))
 		command->out_flag = OUT;
-	if (ft_strnstr(command->original_string, ">>", ft_strlen(command->original_string)))
+	if (ft_strnstr_quotes(command->original_string, ">>", ft_strlen(command->original_string)))
 		command->out_flag = APPEND;
 }

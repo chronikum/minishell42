@@ -1,16 +1,6 @@
 #include "../includes/ft_minishell.h"
 
 /*
-	Increases counter by one and toggles quote counter if it encounters one
-*/
-static void	ft_increase_ui_quote_handler(char *cmd, unsigned int *i, int *quote)
-{
-	if (cmd[(*i)] == '"')
-		ft_toggle_quote(quote);
-	(*i)++;
-}
-
-/*
 	Counts words. Can handle quotes with ease.
 */
 int	ft_new_word_counter(char *cmd)

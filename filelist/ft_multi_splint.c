@@ -1,15 +1,5 @@
 #include "../includes/ft_minishell.h"
 
-/*
-	Increases counter by one and toggles quote counter if it encounters one
-*/
-static void	ft_increase_ui_quote_handler(char *cmd, unsigned int *i, int *quote)
-{
-	if (cmd[(*i)] == '"')
-		ft_toggle_quote(quote);
-	(*i)++;
-}
-
 static void	ft_reset_static_vars(unsigned int *i, unsigned int *saved)
 {
 	(*saved) = 0;

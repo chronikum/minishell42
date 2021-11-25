@@ -35,9 +35,7 @@ void	ft_set_heredoc(t_command *command, char *string)
 	delimiter_pos = ft_get_heredoc_pos(string);
 	if (delimiter_pos == -1)
 		return;
-	printf("THE DELIMITER POSITION IS: %d\n", delimiter_pos);
 	trimmed_string = ft_gc_strtrim(&string[(delimiter_pos + 2)], " ");
 	delimiter = ft_substr(trimmed_string, 0, ft_strlen_not_quoted(trimmed_string, " "));
-	printf("FOUND DELIMITER: %s\n", delimiter);
 	command->delimiter = delimiter;
 }
