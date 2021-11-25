@@ -1,5 +1,13 @@
 #include "../includes/ft_minishell.h"
 
+static void ft_single_double_quote_handler(char *cmd, int *i, int *dq, int *sq)
+{
+	if (cmd[(*i)] == '\'')
+		ft_toggle_quote(sq);
+	if (cmd[(*i)] == '"')
+		ft_toggle_quote(dq);
+	(*i)++;
+}
 
 void	ft_command_debug(t_command *start)
 {
@@ -62,17 +70,19 @@ t_command	*ft_parse_in_commands(char *cmds)
 	t_command	*list;
 	int			i;
 	int			quotes_closed;
+	int			single_closed;
 	int			start;
 	
 	i = 0;
 	list = NULL;
 	quotes_closed = 1;
+	single_closed = 1;
 	start = 0;
 	while (cmds[i])
 	{
 		// New command section.
 		// i is now at the end of the last command.
-		if (quotes_closed && ft_single_inset(cmds[i], "|") != -1)
+		if (quotes_closed && ft_single_inset(cmds[i], "|") != -1 && single_closed)
 		{
 			// Append to the list or create if does not exist
 			ft_commandaddback(
@@ -82,7 +92,7 @@ t_command	*ft_parse_in_commands(char *cmds)
 			start++;
 			start = i;
 		}
-		ft_increase_i_quote_handler(cmds, &i, &quotes_closed);
+		ft_single_double_quote_handler(cmds, &i, &quotes_closed, &single_closed);
 	}
 	// Adds the last or the first argument
 	ft_commandaddback(
