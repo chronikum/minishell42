@@ -38,6 +38,8 @@ void	ft_execute_terminal_command(char *command)
 	p = malloc(sizeof(t_pipes));
 	command = ft_translate_envs(command);
 	command = ft_insert_exit_code(command);
+	if (ft_strlen(ft_gc_strtrim(command, " ")) == 0)
+		return;
 	list = ft_parse_in_commands(command);
 	envp = ft_env_list(NULL);
 	p->temp_fd = dup(STDIN_FILENO);
