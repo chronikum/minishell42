@@ -27,5 +27,5 @@ char	*ft_strnstr_quotes(const char *haystack, const char *needle, size_t len)
 		ft_increase_ui_quote_handler((char *) haystack, &i, &quote_closed);
 		j = 0;
 	}
-	return (0);
+	return (NULL);
 }
