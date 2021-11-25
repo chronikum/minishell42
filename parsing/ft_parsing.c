@@ -14,6 +14,7 @@ void	ft_command_debug(t_command *start)
 			printf("%sSECTION     %s\n", BACKGROUND_BLUE, RESET_COLOR);
 			printf("	Command: 			%s\n", command_struct->command);
 			printf("	original_string: 		%s\n", ft_gc_strtrim(command_struct->original_string, "<>| "));
+			printf("	delimiter: 				%s\n", command_struct->delimiter);
 			ft_arg_printer(command_struct->args);
 			if (command_struct->file)
 			{
