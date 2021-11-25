@@ -64,7 +64,7 @@ char	*ft_translate_envs(char *command)
 	quote_closed = 1;
 	while (command[i])
 	{
-		if (command[i] == '$' && command[i + 1])
+		if (command[i] == '$' && command[i + 1] && quote_closed)
 		{
 			var_name = ft_get_value_from_env(
 					ft_substr(command, i, ft_strlen_set(&command[i], " |><\"+-")));
