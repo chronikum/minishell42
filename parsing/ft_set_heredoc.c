@@ -10,6 +10,7 @@ static int		ft_get_heredoc_pos(char *string)
 	int		i;
 	
 	i = 0;
+	quotes_closed = 1;
 	
 	while (string[i])
 	{
