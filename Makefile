@@ -18,17 +18,19 @@ PIPEX = ./pipex/ft_minishell_pipex.c ./pipex/ft_pipex_utils.c
 HELPERS = ./free_functions/ft_free_functions.c ./arg_printer.c
 
 PARSING = ./parsing/ft_parsing.c ./parsing/ft_splint.c ./parsing/ft_command_size.c ./parsing/ft_parsing_aux.c \
-          ./parsing/ft_get_cmd_filename.c ./parsing/ft_get_last_command.c ./parsing/ft_detect_mredirections.c \
-		  ./parsing/ft_set_builtin.c ./parsing/ft_toggle_quote.c ./parsing/ft_flags.c ./parsing/ft_add_files.c \
-		  ./parsing/ft_strlen_not_quoted.c ./parsing/ft_set_heredoc.c ./parsing/ft_strnstr_quotes.c ./parsing/ft_toggle_single_quote.c \
-		  ./parsing/ft_toggle_double_quote.c
+			./parsing/ft_get_cmd_filename.c ./parsing/ft_get_last_command.c ./parsing/ft_detect_mredirections.c \
+			./parsing/ft_set_builtin.c ./parsing/ft_flags.c ./parsing/ft_add_files.c \
+			./parsing/ft_set_heredoc.c
+		  
+QUOTE_TERROR =	./parsing/ft_toggle_double_quote.c ./parsing/ft_strnstr_quotes.c ./parsing/ft_toggle_single_quote.c \
+				./parsing/ft_strlen_not_quoted.c  ./parsing/ft_toggle_quote.c ./parsing/ft_strlen_not_any_quote.c
 
 FLAGS = -Wall -Wextra -Werror -g
 
 GARBAGE_COLLECTOR = ./gc/ft_free.c ./gc/ft_freeall.c ./gc/ft_gclststart.c ./gc/ft_malloc.c ./gc/ft_gc_memdup.c
 
-GC_LIBFT_VARIATIONS = ./helper/ft_gc_split.c ./helper/ft_gc_strjoin.c ./helper/ft_gc_strdup.c \
-./helper/ft_gc_substr.c ./helper/ft_gc_strtrim.c
+GC_LIBFT_VARIATIONS =	./helper/ft_gc_split.c ./helper/ft_gc_strjoin.c ./helper/ft_gc_strdup.c \
+						./helper/ft_gc_substr.c ./helper/ft_gc_strtrim.c
 
 COMMANDLIST = ./parsing/ft_newcommand.c ./parsing/ft_commandaddback.c
 
@@ -64,7 +66,8 @@ endif
 CFLAGS = -g -lreadline $(LDFLAGS) $(CPPFLAGS) -ltermcap
 
 ALLSRC = $(SRC) $(BUILTINS) $(ENV) $(HELPERS) $(PIPEX) $(PROMPT) $(COMMANDLIST) $(PATHS) $(DEBUGGING) \
-$(STRHELPER) $(PARSING) $(GARBAGE_COLLECTOR) $(GC_LIBFT_VARIATIONS) $(FILELIST) $(ENV_VARS) $(EXIT_CODE)
+$(STRHELPER) $(PARSING) $(GARBAGE_COLLECTOR) $(GC_LIBFT_VARIATIONS) $(FILELIST) $(ENV_VARS) 		\
+$(EXIT_CODE) $(QUOTE_TERROR)
 
 
 all: $(NAME)

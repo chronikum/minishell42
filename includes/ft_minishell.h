@@ -205,5 +205,6 @@ int		ft_set_most_recent_exit_code(int exit_code, int set);
 char	*ft_strnstr_single_quotes(const char *haystack, const char *needle, size_t len);
 void	ft_single_double_quote_handler(char *cmd, int *i, int *dq, int *sq);
 void	ft_u_single_double_quote_handler(char *cmd, unsigned int *i, int *dq, int *sq);
+int		ft_strlen_not_any_quoted(char *str, char const *set);
 
 #endif

@@ -8,7 +8,7 @@
 	distance to it. Neither double or
 	single quote!
 */
-int	ft_strlen_not_quoted(char *str, char const *set)
+int	ft_strlen_not_any_quoted(char *str, char const *set)
 {
 	int	count;
 	int	quote_closed;

@@ -37,6 +37,6 @@ void	ft_set_heredoc(t_command *command, char *string)
 	if (delimiter_pos == -1)
 		return;
 	trimmed_string = ft_gc_strtrim(&string[(delimiter_pos + 2)], " ");
-	delimiter = ft_substr(trimmed_string, 0, ft_strlen_not_quoted(trimmed_string, " "));
+	delimiter = ft_substr(trimmed_string, 0, ft_strlen_not_any_quoted(trimmed_string, " "));
 	command->delimiter = delimiter;
 }
