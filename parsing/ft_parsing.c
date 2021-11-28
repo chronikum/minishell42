@@ -40,6 +40,8 @@ t_command	*ft_create_new_command(char *command_section)
 	t_command	*command;
 	char		**splitted_commands;
 	
+	if (ft_check_infile(command_section))
+		return (ft_check_infile(command_section));
 	command = ft_newcommand(command_section);
 	splitted_commands = ft_splint(command_section);
 	command->args = splitted_commands;

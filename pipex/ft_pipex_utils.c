@@ -32,10 +32,10 @@ int	ft_array_len(char **argv)
 
 void	ft_command_not_found(char *command)
 {
-	ft_putstr_fd("bash: ", 2);
+	ft_putstr_fd("urgent: ", 2);
 	ft_putstr_fd(RED_COLOR, 2);
 	ft_putstr_fd("command not found: ", 2);
 	ft_putstr_fd(RESET_COLOR, 2);
-	ft_putendl_fd(command, 2);
+	ft_putendl_fd(ft_gc_strtrim(command, "\""), 2);
 	ft_set_most_recent_exit_code(127, 1);
 }

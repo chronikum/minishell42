@@ -8,13 +8,15 @@
 
 	TODO FIX: Check if it would currently skip >> too
 */
-char	*ft_get_cmd_filename(char *cmd, int *i)
+char	*ft_get_cmd_filename(char *cmd)
 {
+	int 	i;
 	char	*filename;
-
-	while (ft_strlen_set(&cmd[(*i)], "<>") == -1)
-		(*i)++;
-	filename = ft_gc_strtrim(ft_substr(cmd, (*i),
-				ft_strlen_set(&cmd[(*i)], "|<> ")), " ");
+	
+	i = 0;
+	while (ft_strlen_set(&cmd[i], "<>") == -1)
+		i++;
+	filename = ft_gc_strtrim(ft_substr(cmd, i,
+				ft_strlen_set(&cmd[i], "|<> ")), " ");
 	return (filename);
 }

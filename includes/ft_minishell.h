@@ -110,7 +110,7 @@ char		**ft_splint(char *s);
 t_command	*ft_parse_in_commands(char *cmds);
 int			ft_strlenc(char *cmd, char c);
 int			ft_strlen_set(char *cmd, char *set);
-char		*ft_get_cmd_filename(char *cmd, int *i);
+char		*ft_get_cmd_filename(char *cmd);
 int			ft_spongebob_strncmp(char *s1, char *s2, int n);
 
 //envlist
@@ -207,5 +207,8 @@ char	*ft_strnstr_single_quotes(const char *haystack, const char *needle, size_t 
 void	ft_single_double_quote_handler(char *cmd, int *i, int *dq, int *sq);
 void	ft_u_single_double_quote_handler(char *cmd, unsigned int *i, int *dq, int *sq);
 int		ft_strlen_not_any_quoted(char *str, char const *set);
+
+t_files		*ft_new_file(char *filename, char *path, int in, int out);
+t_command	*ft_check_infile(char *command_section);
 
 #endif
