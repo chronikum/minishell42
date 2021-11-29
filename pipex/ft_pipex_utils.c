@@ -25,9 +25,13 @@ int	ft_array_len(char **argv)
 	int	i;
 
 	i = 1;
-	while (argv[i] != NULL)
-		i++;
-	return (i);
+	if (argv)
+	{
+		while (argv[i] != NULL)
+			i++;
+		return (i);
+	}
+	return (0);
 }
 
 void	ft_command_not_found(char *command)

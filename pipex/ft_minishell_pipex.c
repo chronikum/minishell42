@@ -193,7 +193,7 @@ void	ft_multi_redirections(t_pipes *p, t_command *commands)
 	t_files	*temp;
 
 	temp = commands->files;
-	while (temp != NULL)
+	while (temp != NULL && commands->args)
 	{
 		if (ft_strcmp(commands->args[0], temp->file_name) != 0)
 		{
@@ -264,7 +264,7 @@ void	ft_pipex(t_pipes *p, t_command *commands, t_envlist *envp)
 	if (commands->in_flag == IN)
 		ft_open_infile(p, commands);
 	if (commands->in_flag == HERE_DOC)
-		ft_here_doc(p, commands);
+		return ft_here_doc(p, commands);
 	if ((commands->out_flag == OUT || commands->out_flag == APPEND)
 		&& !(commands->file && commands->files->is_multiple))
 		ft_out_or_append(p, commands);

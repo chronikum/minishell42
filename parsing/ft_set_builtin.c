@@ -27,8 +27,11 @@ static int	ft_check_builtin(char *command)
 */
 void	ft_set_builtin_flag(t_command *command)
 {
-	if (command->in_flag == 1)
+	if (command->in_flag == 1 || command->in_flag == 3)
+	{
+		command->builtin_sys_flag = SYS;
 		return;
+	}
 	if (ft_check_builtin(ft_gc_strtrim(command->args[0], " ")))
 		command->builtin_sys_flag = BUILT_IN;
 	else if (ft_find_executable_path(command->args[0]))
