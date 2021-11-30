@@ -9,7 +9,7 @@ static void ft_set_infile(t_command *command)
 	
 	file_name = ft_gc_strtrim(ft_get_cmd_filename(command->original_string), "<");
 	command->in_flag = IN;
-	command->files = ft_new_file(file_name, file_name, 0, 0);
+	// command->files = ft_new_file(file_name, file_name, 0, 0);
 }
 
 /*
@@ -18,7 +18,7 @@ static void ft_set_infile(t_command *command)
 static void ft_setup_heredoc(t_command *command)
 {
 	command->in_flag = HERE_DOC;
-	ft_set_heredoc(command, command->original_string);
+	// ft_set_heredoc(command, command->original_string);
 }
 
 /*
@@ -30,7 +30,10 @@ void	ft_set_flags(t_command *command)
 	if (ft_strnstr_nowhere_quotes(command->original_string, "<<", ft_strlen(command->original_string)))
 		ft_setup_heredoc(command);
 	else if (ft_strnstr_nowhere_quotes(command->original_string, "<", ft_strlen(command->original_string)))
+	{
 		ft_set_infile(command);
+		printf("SET INFILE NOW!\n");
+	}
 	if (ft_strnstr_nowhere_quotes(command->original_string, ">", ft_strlen(command->original_string)))
 		command->out_flag = OUT;
 	if (ft_strnstr_nowhere_quotes(command->original_string, ">>", ft_strlen(command->original_string)))

@@ -71,27 +71,27 @@ char	*ft_strnstr_nowhere_quotes(const char *haystack, const char *needle, size_t
 {
 	unsigned int	i;
 	unsigned int	j;
+	unsigned int	needle_len;
 	char	*phaystack;
 	int		quote_closed;
-	int		single_quote;
 
 	i = 0;
 	j = 0;
 	quote_closed = 1;
-	single_quote = 1;
+	needle_len = ft_strlen(needle);
 	phaystack = (char *)haystack;
 	if (needle[0] == '\0')
 		return (phaystack);
 	while (haystack[i] != '\0' && i < len)
 	{
 		while (haystack[i + j] == needle[j]
-			&& needle[j] != '\0' && (i + j) < len && quote_closed && single_quote)
+			&& needle[j] != '\0' && (i + j) < len && quote_closed)
 		{
-			ft_u_single_double_quote_handler((char *) &haystack[i], &j, &quote_closed, &single_quote);
-			if (j == ft_strlen(needle))
+			ft_u_single_double_quote_handler((char *) &haystack[i], &j, &quote_closed, &quote_closed);
+			if (j == needle_len)
 				return (&phaystack[i]);
 		}
-		ft_u_single_double_quote_handler((char *) &haystack, &i, &quote_closed, &single_quote);
+		ft_u_single_double_quote_handler((char *) haystack, &i, &quote_closed, &quote_closed);
 		j = 0;
 	}
 	return (NULL);
