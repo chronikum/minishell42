@@ -13,14 +13,11 @@ void	ft_arg_printer(char **args)
 	i = 0;
 	counter = 0;
 	args_count = ft_array_len(args);
-	if (args_count != 0)
+	while (args[i])
 	{
-		while (args[i])
-		{
-			printf("	%s( ARG %d/%d )%s			|%s|\n", YELLOW_COLOR,
-				(counter + 1), args_count, RESET_COLOR, args[i]);
-			i++;
-			counter++;
-		}
+		printf("	%s( ARG %d/%d )%s			|%s|\n", YELLOW_COLOR,
+			(counter + 1), args_count, RESET_COLOR, args[i]);
+		i++;
+		counter++;
 	}
 }
