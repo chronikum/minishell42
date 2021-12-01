@@ -75,7 +75,7 @@ t_command	*ft_parse_in_commands(char *cmds)
 	{
 		// New command section.
 		// i is now at the end of the last command.
-		if (quotes_closed && ft_single_inset(cmds[i], "|") != -1 && single_closed)
+		if (quotes_closed && ft_single_inset(cmds[i], "|") != -1 && single_closed && quotes_closed)
 		{
 			// Append to the list or create if does not exist
 			ft_commandaddback(
