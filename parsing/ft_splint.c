@@ -86,7 +86,7 @@ char	**ft_splint(char *s)
 	char	*to_use;
 
 	i = 0;
-	to_use = ft_gc_substr(s, 0, ft_strlen_not_quoted(s, "<>"));
+	to_use = ft_gc_substr(s, 0, ft_strlen_not_any_quoted(s, "<>"));
 	current = NULL;
 	wc = ft_new_word_counter(to_use);
 	result = ft_malloc(sizeof(char *) * (wc + 1));
