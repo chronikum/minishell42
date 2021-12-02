@@ -1,6 +1,6 @@
 #include "../includes/ft_minishell.h"
 
-int global;
+int	g_global;
 
 void	ft_close(t_pipes *p)
 {
@@ -165,9 +165,9 @@ int	ft_run_builtin(t_command *commands)
 void	sig_handler_int2(int signal)
 {
 	if (signal == SIGINT)
-		global = 1;
+		g_global = 1;
 	if (signal == SIGQUIT)
-		global = 2;
+		g_global = 2;
 }
 
 void	ft_here_doc(t_pipes *p, t_command *commands)
@@ -175,7 +175,7 @@ void	ft_here_doc(t_pipes *p, t_command *commands)
 	char	*str;
 
 	str = NULL;
-	global = 2;
+	g_global = 2;
 	while (str == NULL || ft_strcmp_len(str,
 			commands->delimiter))
 	{
@@ -260,10 +260,8 @@ void	ft_out_or_append(t_pipes *p, t_command *commands)
 	ft_outfile_dup(p);
 }
 
-void	ft_pipex(t_pipes *p, t_command *commands, t_envlist *envp)
+void	ft_io(t_pipes *p, t_command *commands)
 {
-	//p->exit_status = 0;
-	ft_pipe(p);
 	if (commands->files && commands->files->is_multiple)
 		ft_multi_redirections(p, commands);
 	if (commands->in_flag == IN)
@@ -273,12 +271,19 @@ void	ft_pipex(t_pipes *p, t_command *commands, t_envlist *envp)
 	if ((commands->out_flag == OUT || commands->out_flag == APPEND)
 		&& !(commands->files->is_multiple))
 		ft_out_or_append(p, commands);
+}
+
+void	ft_pipex(t_pipes *p, t_command *commands, t_envlist *envp)
+{
+	ft_pipe(p);
+	ft_io(p, commands);
 	ft_init_dup(p);
 	if (commands->out_flag == STDOUT)
 		ft_stdout_dup(p);
 	if (commands->out_flag == PIPE)
 		ft_pipe_pre_dup(p);
-	if (commands->args[0][0] == '/' || (commands->args[0][0] == '.' && commands->args[0][1] == '.'))
+	if (commands->args[0][0] == '/'
+		|| (commands->args[0][0] == '.' && commands->args[0][1] == '.'))
 		commands->args[0] = ft_command_from_path(commands->args[0]);
 	if (commands->builtin_sys_flag == BUILT_IN)
 		ft_set_most_recent_exit_code(ft_run_builtin(commands), 1);
@@ -289,6 +294,8 @@ void	ft_pipex(t_pipes *p, t_command *commands, t_envlist *envp)
 	if (commands->out_flag != PIPE)
 		ft_close(p);
 }
+
+//p->exit_status = 0;
 
 //pwd > out >> out2 > out3 >> out4
 //pwd > out >> out2
