@@ -180,10 +180,13 @@ void	ft_here_doc(t_pipes *p, t_command *commands)
 			commands->delimiter))
 	{
 		str = readline("> ");
-		if (ft_strlen(str) == ft_strlen(commands->delimiter))
+		if (str)
 		{
-			if (!ft_strcmp_len(str, commands->delimiter) || global == 1)
-				break ;
+			if (ft_strlen(str) == ft_strlen(commands->delimiter))
+			{
+				if (!ft_strcmp_len(str, commands->delimiter) || global == 1)
+					break ;
+			}
 		}
 		ft_putendl_fd(str, p->pipe[1]);
 	}
