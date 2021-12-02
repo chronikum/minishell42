@@ -176,13 +176,15 @@ void	ft_here_doc(t_pipes *p, t_command *commands)
 
 	str = NULL;
 	global = 2;
-	while (str == NULL || ft_spongebob_strncmp(str,
-			commands->delimiter, ft_strlen(commands->delimiter)))
+	while (str == NULL || ft_strcmp_len(str,
+			commands->delimiter))
 	{
 		str = readline("> ");
-		if (!ft_spongebob_strncmp(str,
-				commands->delimiter, ft_strlen(commands->delimiter)) || global == 1)
-			break ;
+		if (ft_strlen(str) == ft_strlen(commands->delimiter))
+		{
+			if (!ft_strcmp_len(str, commands->delimiter) || global == 1)
+				break ;
+		}
 		ft_putendl_fd(str, p->pipe[1]);
 	}
 	ft_pipe_after_dup(p);
@@ -298,3 +300,6 @@ void	ft_pipex(t_pipes *p, t_command *commands, t_envlist *envp)
 //ls > test1 >> test2
 //Should append ls to test2
 //ls -a >out >out
+
+//echo '<in | cat | ls | banana >out'
+//cat '<in banana cat out | '
