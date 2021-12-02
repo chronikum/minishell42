@@ -81,7 +81,7 @@ int	main(int argc, char **argv, char **envp)
 	{
 		dup2(oldstdin, 0);
 		dup2(oldstdout, 1);
-		signal(SIGQUIT, &ft_quit_signal);
+		signal(SIGQUIT, SIG_IGN);
 		signal(SIGINT, &sig_handler_int);
 		cmd = readline(ft_get_nice_prompt());
 		if (cmd == NULL)
