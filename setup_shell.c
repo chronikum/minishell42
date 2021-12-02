@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   setup_shell.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: olgerret <olgerret@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jfritz <jfritz@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/22 13:51:35 by olgerret          #+#    #+#             */
-/*   Updated: 2021/11/22 13:51:36 by olgerret         ###   ########.fr       */
+/*   Updated: 2021/12/02 14:39:44 by jfritz           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ void	ft_unnecessary_motd(void)
 static void	ft_disable_control_c_symbol(void)
 {
 	ft_execute_terminal_command("stty -echoctl");
+	ft_execute_terminal_command("stty quit ^-");
 }
 
 /*
