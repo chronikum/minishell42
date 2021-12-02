@@ -58,7 +58,6 @@ void	ft_set_heredoc(t_command *command, char *string)
 	int		d_pos;
 	
 	d_pos = ft_get_heredoc_pos(string);
-	printf("CURRENT HEREDOC POS: %d\n", d_pos);
 	if (d_pos == -1)
 		return;
 	command->delimiter = ft_get_delimiter(command, string, d_pos);
