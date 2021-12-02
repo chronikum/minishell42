@@ -266,7 +266,7 @@ void	ft_pipex(t_pipes *p, t_command *commands, t_envlist *envp)
 	if (commands->in_flag == HERE_DOC)
 		ft_here_doc(p, commands);
 	if ((commands->out_flag == OUT || commands->out_flag == APPEND)
-		&& !(commands->file && commands->files->is_multiple))
+		&& !(commands->files->is_multiple))
 		ft_out_or_append(p, commands);
 	ft_init_dup(p);
 	if (commands->out_flag == STDOUT)
