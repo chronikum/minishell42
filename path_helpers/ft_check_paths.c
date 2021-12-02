@@ -6,7 +6,7 @@
 /*   By: jfritz <jfritz@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/22 14:04:04 by olgerret          #+#    #+#             */
-/*   Updated: 2021/12/02 17:52:57 by jfritz           ###   ########.fr       */
+/*   Updated: 2021/12/02 17:55:33 by jfritz           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,9 +68,7 @@ int	ft_check_command(char *exec)
 	{
 		temp_path = ft_join_path(paths[i], exec);
 		if (access(temp_path, F_OK) != -1)
-		{
 			return (1);
-		}
 		i++;
 	}
 	printf("urgent: command not found: %s\n", exec);
