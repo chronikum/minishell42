@@ -130,7 +130,7 @@ void		ft_init_dup(t_pipes *p);
 void		ft_open_outfile(t_pipes *p, t_command *commands);
 
 void		ft_system_command(t_pipes *p, t_command *commands, t_envlist *envp);
-int			ft_execute(t_command *commands, t_envlist *envp);
+void		ft_execute(t_command *commands, t_envlist *envp);
 void		ft_outfile_dup(t_pipes *p);
 void		ft_pipe_pre_dup(t_pipes *p);
 void		ft_pipe_after_dup(t_pipes *p);

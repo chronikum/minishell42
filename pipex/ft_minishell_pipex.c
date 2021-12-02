@@ -46,7 +46,7 @@ void	ft_stdout_dup(t_pipes *p)
 	dup2(p->stout, 1);
 }
 
-int	ft_execute(t_command *commands, t_envlist *envp)
+void	ft_execute(t_command *commands, t_envlist *envp)
 {
 	t_child	*c;
 
@@ -58,8 +58,10 @@ int	ft_execute(t_command *commands, t_envlist *envp)
 	if (access(c->full_path, F_OK) != -1)
 		execve(c->full_path, commands->args, envp->envp);
 	if (access(c->full_path, F_OK) == -1 && c->i == 0)
+	{
 		ft_command_not_found(commands->original_string);
-	exit(0);
+		exit(127);
+	}
 }
 
 void	ft_system_command(t_pipes *p, t_command *commands, t_envlist *envp)
@@ -275,6 +277,7 @@ void	ft_io(t_pipes *p, t_command *commands)
 
 void	ft_pipex(t_pipes *p, t_command *commands, t_envlist *envp)
 {
+	//p->exit_status = 0;
 	ft_pipe(p);
 	ft_io(p, commands);
 	ft_init_dup(p);
