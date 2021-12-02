@@ -134,7 +134,7 @@ void	ft_pipe(t_pipes *p)
 	{
 		perror("Error");
 		ft_set_most_recent_exit_code(1, 1);
-		exit(0);
+		exit(1);
 	}
 }
 
