@@ -200,7 +200,7 @@ void	ft_multi_redirections(t_pipes *p, t_command *commands)
 	t_files	*temp;
 
 	temp = commands->files;
-	while (temp != NULL)
+	while (temp != NULL && commands->args)
 	{
 		if (ft_strcmp(commands->args[0], temp->file_name) != 0)
 		{
@@ -281,13 +281,18 @@ void	ft_pipex(t_pipes *p, t_command *commands, t_envlist *envp)
 	ft_pipe(p);
 	ft_io(p, commands);
 	ft_init_dup(p);
+	if (!commands->args)
+		return;
 	if (commands->out_flag == STDOUT)
 		ft_stdout_dup(p);
 	if (commands->out_flag == PIPE)
 		ft_pipe_pre_dup(p);
-	if (commands->args[0][0] == '/'
-		|| (commands->args[0][0] == '.' && commands->args[0][1] == '.'))
-		commands->args[0] = ft_command_from_path(commands->args[0]);
+	if (commands->args)
+	{
+		if (commands->args[0][0] == '/'
+			|| (commands->args[0][0] == '.' && commands->args[0][1] == '.'))
+			commands->args[0] = ft_command_from_path(commands->args[0]);
+	}
 	if (commands->builtin_sys_flag == BUILT_IN)
 		ft_set_most_recent_exit_code(ft_run_builtin(commands), 1);
 	if (commands->builtin_sys_flag == SYS && commands->args[0][0] != '.')

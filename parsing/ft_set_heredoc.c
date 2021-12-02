@@ -24,19 +24,42 @@ static int		ft_get_heredoc_pos(char *string)
 	return (-1);
 }
 
+static char	*ft_get_delimiter(t_command* commmand, char *string, int d_pos)
+{
+	char	*delimiter;
+	char	*trimmed_string;
+	char	**heredoc_suffix;
+	
+	if (d_pos != 0)
+	{
+		trimmed_string = ft_gc_strtrim(&string[(d_pos + 2)], " ");
+		delimiter = ft_substr(trimmed_string, 0, ft_strlen_not_any_quoted(trimmed_string, " "));
+		return (delimiter);
+	}
+	heredoc_suffix = ft_gc_split(ft_gc_strtrim(&string[2], " "), ' ');
+	if (heredoc_suffix[0])
+	{
+		if (heredoc_suffix[1])
+		{
+			commmand->args = malloc(sizeof(char *) * 2);
+			commmand->args[0] = heredoc_suffix[1];
+			commmand->args[1] = NULL;
+		}
+		return (heredoc_suffix[0]);
+	}
+	return (NULL);
+}
+
 /*
 	Adds the heredoc delimiter to the provided command
 */
 void	ft_set_heredoc(t_command *command, char *string)
 {
-	int		delimiter_pos;
-	char	*delimiter;
-	char	*trimmed_string;
+	int		d_pos;
 	
-	delimiter_pos = ft_get_heredoc_pos(string);
-	if (delimiter_pos == -1)
+	d_pos = ft_get_heredoc_pos(string);
+	printf("CURRENT HEREDOC POS: %d\n", d_pos);
+	if (d_pos == -1)
 		return;
-	trimmed_string = ft_gc_strtrim(&string[(delimiter_pos + 2)], " ");
-	delimiter = ft_substr(trimmed_string, 0, ft_strlen_not_any_quoted(trimmed_string, " "));
-	command->delimiter = delimiter;
+	command->delimiter = ft_get_delimiter(command, string, d_pos);
 }
