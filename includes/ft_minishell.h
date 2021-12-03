@@ -127,24 +127,27 @@ void		ft_io(t_pipes *p, t_command *commands);
 void		ft_out_or_append(t_pipes *p, t_command *commands);
 char		*ft_command_from_path(char *args_zero);
 void		ft_multi_redirections(t_pipes *p, t_command *commands);
+
 void		ft_mr_while_loop(t_pipes *p, t_command *commands, t_files	*temp);
-void		ft_mr_open_last(t_pipes *p, t_command *commands, t_files *temp);
+int			ft_mr_open_last(t_pipes *p, t_command *commands, t_files *temp);
 void		ft_here_doc(t_pipes *p, t_command *commands);
 void		sig_handler_int2(int signal);
 int			ft_run_builtin(t_command *commands);
+
 void		ft_pipe(t_pipes *p);
 void		ft_open_infile(t_pipes *p, t_command *commands);
 void		ft_open_outfile(t_pipes *p, t_command *commands);
 void		ft_open_error(t_pipes *p, t_command *commands);
 void		ft_init_dup(t_pipes *p);
+
 void		ft_system_command(t_pipes *p, t_command *commands, t_envlist *envp);
 void		ft_execute(t_command *commands, t_envlist *envp);
 void		ft_stdout_dup(t_pipes *p);
 void		ft_outfile_dup(t_pipes *p);
 void		ft_pipe_pre_dup(t_pipes *p);
+
 void		ft_pipe_after_dup(t_pipes *p);
 void		ft_close(t_pipes *p);
-
 void		ft_command_not_found(char *command);
 int			ft_array_len(char **argv);
 int			ft_check_file(char *filename);
