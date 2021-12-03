@@ -186,7 +186,7 @@ void	ft_here_doc(t_pipes *p, t_command *commands)
 		{
 			if (ft_strlen(str) == ft_strlen(commands->delimiter))
 			{
-				if (!ft_strcmp_len(str, commands->delimiter) || global == 1)
+				if (!ft_strcmp_len(str, commands->delimiter) || g_global == 1)
 					break ;
 			}
 		}
