@@ -3,7 +3,8 @@
 /*
 	Increases counter by one and toggles quote counter if it encounters one
 */
-static void	ft_single_increase_i_quote_handler(char *cmd, unsigned int *i, int *quote)
+static void	ft_single_increase_i_quote_handler(char *cmd,
+	unsigned int *i, int *quote)
 {
 	if (cmd[(*i)] == '\'')
 		ft_toggle_quote(quote);
