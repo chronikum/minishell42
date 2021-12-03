@@ -10,9 +10,9 @@
 */
 char	*ft_get_cmd_filename(char *cmd)
 {
-	int 	i;
+	int		i;
 	char	*filename;
-	
+
 	i = 0;
 	while (ft_strlen_set(&cmd[i], "<>") == -1)
 		i++;

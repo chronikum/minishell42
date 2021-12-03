@@ -22,9 +22,11 @@ int	ft_new_word_counter(char *cmd)
 		{
 			words++;
 			while (temp[i] == ' ' && temp[i] && quote_closed && single_closed)
-				ft_u_single_double_quote_handler(temp, &i, &quote_closed, &single_closed);
+				ft_u_single_double_quote_handler(
+					temp, &i, &quote_closed, &single_closed);
 		}
-		ft_u_single_double_quote_handler(temp, &i, &quote_closed, &single_closed);
+		ft_u_single_double_quote_handler(
+			temp, &i, &quote_closed, &single_closed);
 	}
 	return (words);
 }
@@ -38,7 +40,7 @@ static void	ft_reset_static_vars(unsigned int *i, unsigned int *saved)
 char	*ft_get_next_word(char *cmd, int r)
 {
 	static unsigned int	saved = 0;
-	static unsigned int	i = 0; // current iterator
+	static unsigned int	i = 0;
 	int					quote_closed;
 	int					quote_counter;
 	int					single_quote;
@@ -55,11 +57,13 @@ char	*ft_get_next_word(char *cmd, int r)
 		quote_counter = 0;
 		if (temp[i] == '"' || temp[i] == '\'')
 		{
-			ft_u_single_double_quote_handler(temp, &i, &quote_closed, &single_quote);
+			ft_u_single_double_quote_handler(
+				temp, &i, &quote_closed, &single_quote);
 			while (!quote_closed || !single_quote)
 			{
 				quote_counter++;
-				ft_u_single_double_quote_handler(temp, &i, &quote_closed, &single_quote);
+				ft_u_single_double_quote_handler(
+					temp, &i, &quote_closed, &single_quote);
 			}
 			return (ft_gc_strtrim(ft_gc_substr(temp,
 						saved, (quote_counter + 1)), " "));
@@ -67,11 +71,13 @@ char	*ft_get_next_word(char *cmd, int r)
 		if (temp[i] == ' ' && quote_closed && single_quote)
 		{
 			while (temp[i] == ' ' && temp[i])
-				ft_u_single_double_quote_handler(temp, &i, &quote_closed, &single_quote);
+				ft_u_single_double_quote_handler(
+					temp, &i, &quote_closed, &single_quote);
 			return (ft_gc_strtrim(ft_gc_substr(temp,
 						saved, ft_strlenc(&temp[saved], ' ')), " "));
 		}
-		ft_u_single_double_quote_handler(temp, &i, &quote_closed, &single_quote);
+		ft_u_single_double_quote_handler(
+			temp, &i, &quote_closed, &single_quote);
 	}
 	return (ft_gc_strtrim(ft_gc_substr(temp,
 				saved, ft_strlenc(&temp[saved], ' ')), " "));

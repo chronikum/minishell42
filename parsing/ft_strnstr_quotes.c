@@ -5,8 +5,8 @@ char	*ft_strnstr_quotes(const char *haystack, const char *needle, size_t len)
 	unsigned int	i;
 	unsigned int	j;
 	unsigned int	needle_len;
-	char	*phaystack;
-	int		quote_closed;
+	char			*phaystack;
+	int				quote_closed;
 
 	i = 0;
 	j = 0;
@@ -20,7 +20,8 @@ char	*ft_strnstr_quotes(const char *haystack, const char *needle, size_t len)
 		while (haystack[i + j] == needle[j]
 			&& needle[j] != '\0' && (i + j) < len && quote_closed)
 		{
-			ft_increase_ui_quote_handler((char *) &haystack[i], &j, &quote_closed);
+			ft_increase_ui_quote_handler(
+				(char *) &haystack[i], &j, &quote_closed);
 			if (j == needle_len)
 				return (&phaystack[i]);
 		}
@@ -33,13 +34,14 @@ char	*ft_strnstr_quotes(const char *haystack, const char *needle, size_t len)
 /*
 	Searches a string not being surround by single quotes
 */
-char	*ft_strnstr_single_quotes(const char *haystack, const char *needle, size_t len)
+char	*ft_strnstr_single_quotes(
+		const char *haystack, const char *needle, size_t len)
 {
 	unsigned int	i;
 	unsigned int	j;
 	unsigned int	needle_len;
-	char	*phaystack;
-	int		quote_closed;
+	char			*phaystack;
+	int				quote_closed;
 
 	i = 0;
 	j = 0;
@@ -53,11 +55,13 @@ char	*ft_strnstr_single_quotes(const char *haystack, const char *needle, size_t 
 		while (haystack[i + j] == needle[j]
 			&& needle[j] != '\0' && (i + j) < len && quote_closed)
 		{
-			ft_increase_ui_singlequote_handler((char *) &haystack[i], &j, &quote_closed);
+			ft_increase_ui_singlequote_handler(
+				(char *) &haystack[i], &j, &quote_closed);
 			if (j == needle_len)
 				return (&phaystack[i]);
 		}
-		ft_increase_ui_singlequote_handler((char *) haystack, &i, &quote_closed);
+		ft_increase_ui_singlequote_handler(
+			(char *) haystack, &i, &quote_closed);
 		j = 0;
 	}
 	return (NULL);
@@ -67,13 +71,14 @@ char	*ft_strnstr_single_quotes(const char *haystack, const char *needle, size_t 
 	Makes sure the needle is neither being enclosed by double or single quotes.
 	Ultimate quote handling function
 */
-char	*ft_strnstr_nowhere_quotes(const char *haystack, const char *needle, size_t len)
+char	*ft_strnstr_nowhere_quotes(
+		const char *haystack, const char *needle, size_t len)
 {
 	unsigned int	i;
 	unsigned int	j;
 	unsigned int	needle_len;
-	char	*phaystack;
-	int		quote_closed;
+	char			*phaystack;
+	int				quote_closed;
 
 	i = 0;
 	j = 0;
@@ -87,11 +92,13 @@ char	*ft_strnstr_nowhere_quotes(const char *haystack, const char *needle, size_t
 		while (haystack[i + j] == needle[j]
 			&& needle[j] != '\0' && (i + j) < len && quote_closed)
 		{
-			ft_u_single_double_quote_handler((char *) &haystack[i], &j, &quote_closed, &quote_closed);
+			ft_u_single_double_quote_handler(
+				(char *) &haystack[i], &j, &quote_closed, &quote_closed);
 			if (j == needle_len)
 				return (&phaystack[i]);
 		}
-		ft_u_single_double_quote_handler((char *) haystack, &i, &quote_closed, &quote_closed);
+		ft_u_single_double_quote_handler(
+			(char *) haystack, &i, &quote_closed, &quote_closed);
 		j = 0;
 	}
 	return (NULL);
