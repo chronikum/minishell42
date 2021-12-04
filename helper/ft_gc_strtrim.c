@@ -6,7 +6,7 @@
 /*   By: jfritz <jfritz@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/04 17:29:52 by olgerret          #+#    #+#             */
-/*   Updated: 2021/12/04 18:34:22 by jfritz           ###   ########.fr       */
+/*   Updated: 2021/12/04 18:46:40 by jfritz           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,6 @@ char	*ft_gc_strtrim(char const *s1, char const *set)
 	unsigned int	l;
 	int				start;
 	int				end;
-	char			*r;
 
 	if (!s1 || !set)
 		return (NULL);

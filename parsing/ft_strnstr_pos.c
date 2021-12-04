@@ -26,13 +26,11 @@ int	ft_strnstr_now_quotes_pos(
 		while (haystack[i + j] == needle[j]
 			&& needle[j] != '\0' && (i + j) < len && quote_closed)
 		{
-			ft_u_single_double_quote_handler(
-				(char *) &haystack[i], &j, &quote_closed, &quote_closed);
+			ft_usdq_handler((char *) &haystack[i], &j, &quote_closed, &quote_closed);
 			if (j == needle_len)
 				return (i);
 		}
-		ft_u_single_double_quote_handler(
-			(char *) haystack, &i, &quote_closed, &quote_closed);
+		ft_usdq_handler((char *) haystack, &i, &quote_closed, &quote_closed);
 		j = 0;
 	}
 	return (-1);
