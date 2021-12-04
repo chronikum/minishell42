@@ -39,3 +39,30 @@ void	ft_command_not_found(char *command)
 	ft_putendl_fd(ft_gc_strtrim(command, "\""), 2);
 	ft_set_most_recent_exit_code(127, 1);
 }
+
+void	ft_close(t_pipes *p)
+{
+	if (p->temp_fd)
+		close(p->temp_fd);
+	if (p->in)
+		close(p->in);
+	if (p->out)
+		close(p->out);
+	if (p->pipe[0])
+		close(p->pipe[0]);
+	if (p->pipe[1])
+		close(p->pipe[1]);
+	if (p->stout)
+		close(p->stout);
+}
+
+void	ft_pipe_after_dup(t_pipes *p)
+{
+	if (p->pipe[1])
+		close(p->pipe[1]);
+	if (p->temp_fd)
+		close(p->temp_fd);
+	dup2(p->pipe[0], p->temp_fd);
+	if (p->pipe[0])
+		close(p->pipe[0]);
+}

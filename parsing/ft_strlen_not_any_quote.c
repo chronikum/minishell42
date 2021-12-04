@@ -19,9 +19,11 @@ int	ft_strlen_not_any_quoted(char *str, char const *set)
 	single_quote = 1;
 	while (str[count])
 	{
-		if (ft_single_inset(str[count], set) != -1 && quote_closed && single_quote)
+		if (ft_single_inset(str[count], set) != -1
+			&& quote_closed && single_quote)
 			return (count);
-		ft_single_double_quote_handler(str, &count, &quote_closed, &single_quote);
+		ft_single_double_quote_handler(
+			str, &count, &quote_closed, &single_quote);
 	}
 	return (count);
 }

@@ -85,8 +85,6 @@ typedef struct s_pipes
 
 	int					pipe[2];
 	int					temp_fd;
-
-	//int					exit_status;
 }			t_pipes;
 
 typedef struct s_child
@@ -104,7 +102,8 @@ void		ft_init_shell(char **envp);
 void		ft_execute_terminal_command(char *command);
 
 char		***ft_split_machine(char *str, char dlmtr);
-t_command	*ft_parser(char *cmd, int in_flag, int out_flag, char *file_name, char *original);
+t_command	*ft_parser(char *cmd, int in_flag,
+				int out_flag, char *file_name, char *original);
 int			ft_command_size(t_command *lst);
 char		**ft_splint(char *s);
 t_command	*ft_parse_in_commands(char *cmds);
@@ -126,27 +125,29 @@ int			ft_check_file_exists(char *file);
 void		ft_pipex(t_pipes *p, t_command *commands, t_envlist *envp);
 void		ft_io(t_pipes *p, t_command *commands);
 void		ft_out_or_append(t_pipes *p, t_command *commands);
-void		ft_pipe(t_pipes *p);
-void		ft_open_infile(t_pipes *p, t_command *commands);
-void		ft_init_dup(t_pipes *p);
-void		ft_open_outfile(t_pipes *p, t_command *commands);
 char		*ft_command_from_path(char *args_zero);
 void		ft_multi_redirections(t_pipes *p, t_command *commands);
+
+void		ft_mr_while_loop(t_pipes *p, t_command *commands, t_files	*temp);
+int			ft_mr_open_last(t_pipes *p, t_command *commands, t_files *temp);
 void		ft_here_doc(t_pipes *p, t_command *commands);
 void		sig_handler_int2(int signal);
 int			ft_run_builtin(t_command *commands);
+
 void		ft_pipe(t_pipes *p);
 void		ft_open_infile(t_pipes *p, t_command *commands);
 void		ft_open_outfile(t_pipes *p, t_command *commands);
+void		ft_open_error(t_pipes *p, t_command *commands);
 void		ft_init_dup(t_pipes *p);
+
 void		ft_system_command(t_pipes *p, t_command *commands, t_envlist *envp);
 void		ft_execute(t_command *commands, t_envlist *envp);
 void		ft_stdout_dup(t_pipes *p);
 void		ft_outfile_dup(t_pipes *p);
 void		ft_pipe_pre_dup(t_pipes *p);
+
 void		ft_pipe_after_dup(t_pipes *p);
 void		ft_close(t_pipes *p);
-
 void		ft_command_not_found(char *command);
 int			ft_array_len(char **argv);
 int			ft_check_file(char *filename);
@@ -173,8 +174,9 @@ char		**ft_file_splitter(char *s, char *splitter, int *size);
 void		ft_set_builtin_flag(t_command *command);
 void		ft_set_flags(t_command *command);
 void		ft_add_files(t_command *command);
-void		ft_set_heredoc(t_command *command, char* string);
-char		*ft_strnstr_quotes(const char *haystack, const char *needle, size_t len);
+void		ft_set_heredoc(t_command *command, char *string);
+char		*ft_strnstr_quotes(const char *haystack,
+				const char *needle, size_t len);
 
 //buildins
 int			ft_pwd(void);
@@ -199,7 +201,8 @@ t_command	*ft_commandaddback(t_command **lst, t_command *new);
 t_command	*ft_newcommand(char *command);
 t_command	*ft_get_last_command(t_command *lst);
 void		ft_increase_i_quote_handler(char *cmd, int *i, int *quote);
-void		ft_increase_ui_quote_handler(char *cmd, unsigned int *i, int *quote);
+void		ft_increase_ui_quote_handler(
+				char *cmd, unsigned int *i, int *quote);
 void		ft_toggle_quote(int *quote_toggle);
 int			ft_strlen_not_quoted(char *str, char const *set);
 
@@ -219,16 +222,22 @@ void		ft_print_files(t_files *files);
 char		*ft_translate_envs(char *command);
 char		*ft_insert_exit_code(char *command);
 
-void	ft_increase_i_singlequote_handler(char *cmd, int *i, int *quote);
-void	ft_increase_ui_singlequote_handler(char *cmd, unsigned int *i, int *quote);
-char	*ft_strnstr_nowhere_quotes(const char *haystack, const char *needle, size_t len);
-void	ft_singlequote_handler(char *cmd, int *quote);
+void		ft_increase_i_singlequote_handler(
+				char *cmd, int *i, int *quote);
+void		ft_increase_ui_singlequote_handler(
+				char *cmd, unsigned int *i, int *quote);
+char		*ft_strnstr_nowhere_quotes(
+				const char *haystack, const char *needle, size_t len);
+void		ft_singlequote_handler(char *cmd, int *quote);
 
-int		ft_set_most_recent_exit_code(int exit_code, int set);
-char	*ft_strnstr_single_quotes(const char *haystack, const char *needle, size_t len);
-void	ft_single_double_quote_handler(char *cmd, int *i, int *dq, int *sq);
-void	ft_u_single_double_quote_handler(char *cmd, unsigned int *i, int *dq, int *sq);
-int		ft_strlen_not_any_quoted(char *str, char const *set);
+int			ft_set_most_recent_exit_code(int exit_code, int set);
+char		*ft_strnstr_single_quotes(
+				const char *haystack, const char *needle, size_t len);
+void		ft_single_double_quote_handler(
+				char *cmd, int *i, int *dq, int *sq);
+void		ft_u_single_double_quote_handler(
+				char *cmd, unsigned int *i, int *dq, int *sq);
+int			ft_strlen_not_any_quoted(char *str, char const *set);
 
 t_files		*ft_new_file(char *filename, char *path, int in, int out);
 t_command	*ft_check_infile(t_command *command, char *command_section);

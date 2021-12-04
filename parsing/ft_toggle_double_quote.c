@@ -1,6 +1,6 @@
 #include "../includes/ft_minishell.h"
 
-void ft_single_double_quote_handler(char *cmd, int *i, int *dq, int *sq)
+void	ft_single_double_quote_handler(char *cmd, int *i, int *dq, int *sq)
 {
 	if (cmd[(*i)] == '\'')
 		ft_toggle_quote(sq);
@@ -9,7 +9,8 @@ void ft_single_double_quote_handler(char *cmd, int *i, int *dq, int *sq)
 	(*i)++;
 }
 
-void ft_u_single_double_quote_handler(char *cmd, unsigned int *i, int *dq, int *sq)
+void	ft_u_single_double_quote_handler(
+		char *cmd, unsigned int *i, int *dq, int *sq)
 {
 	if (cmd[(*i)] == '\'')
 		ft_toggle_quote(sq);

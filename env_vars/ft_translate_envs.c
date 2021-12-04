@@ -3,7 +3,8 @@
 /*
 	Increases counter by one and toggles quote counter if it encounters one
 */
-static void	ft_single_increase_i_quote_handler(char *cmd, unsigned int *i, int *quote)
+static void	ft_single_increase_i_quote_handler(char *cmd,
+	unsigned int *i, int *quote)
 {
 	if (cmd[(*i)] == '\'')
 		ft_toggle_quote(quote);
@@ -67,7 +68,8 @@ char	*ft_translate_envs(char *command)
 		if (command[i] == '$' && command[i + 1] && quote_closed)
 		{
 			var_name = ft_get_value_from_env(
-					ft_substr(command, i, ft_strlen_set(&command[i], " |><\"'+-")));
+					ft_substr(command, i,
+						ft_strlen_set(&command[i], " |><\"'+-")));
 			ft_strncat(result, var_name, ft_strlen(var_name));
 			total += ft_strlen(var_name);
 			i += ft_strlen_set(&command[i], " |><\"'+-");

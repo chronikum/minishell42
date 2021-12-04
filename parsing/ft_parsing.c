@@ -2,10 +2,9 @@
 
 void	ft_command_debug(t_command *start)
 {
-	t_command *command_struct;
-	
+	t_command	*command_struct;
+
 	command_struct = start;
-	
 	while (command_struct)
 	{
 		if (DEBUG)
@@ -18,7 +17,7 @@ void	ft_command_debug(t_command *start)
 			if (command_struct->file)
 			{
 				printf("	file: 				%s|\n", command_struct->file);
-				printf("	FILE PATH LENGTH : 		%lu\n", ft_strlen(command_struct->file)); /// as we know the file name changes in length occassionally
+				printf("	FILE PATH LENGTH : 		%lu\n", ft_strlen(command_struct->file));
 			}
 			printf("	files: 			\n");
 			ft_print_files(command_struct->files);
@@ -65,7 +64,7 @@ t_command	*ft_parse_in_commands(char *cmds)
 	int			quotes_closed;
 	int			single_closed;
 	int			start;
-	
+
 	i = 0;
 	list = NULL;
 	quotes_closed = 1;
@@ -73,28 +72,25 @@ t_command	*ft_parse_in_commands(char *cmds)
 	start = 0;
 	while (cmds[i])
 	{
-		// New command section.
-		// i is now at the end of the last command.
-		if (quotes_closed && ft_single_inset(cmds[i], "|") != -1 && single_closed && quotes_closed)
+		if (quotes_closed && ft_single_inset(
+				cmds[i], "|") != -1 && single_closed && quotes_closed)
 		{
-			// Append to the list or create if does not exist
 			ft_commandaddback(
 				&list,
 				ft_create_new_command(ft_gc_substr(cmds, start, i - start))
-			);
+				);
 			start++;
 			start = i;
 		}
-		ft_single_double_quote_handler(cmds, &i, &quotes_closed, &single_closed);
+		ft_single_double_quote_handler(
+			cmds, &i, &quotes_closed, &single_closed);
 	}
-	// Adds the last or the first argument
 	ft_commandaddback(
 		&list,
 		ft_create_new_command(ft_gc_substr(cmds, start, i - start))
-	);
+		);
 	if (ft_get_last_command(list)->out_flag == 0)
 		ft_get_last_command(list)->out_flag = -1;
-		
 	ft_command_debug(list);
 	return (list);
 }

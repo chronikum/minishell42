@@ -3,7 +3,7 @@
 /*
 	Checks for multiple redirections and returns count of them
 */
-int ft_detect_mredirections(char *command)
+int	ft_detect_mredirections(char *command)
 {
 	int	i;
 	int	quote_closed;
@@ -20,7 +20,7 @@ int ft_detect_mredirections(char *command)
 			{
 				counted++;
 				ft_increase_i_quote_handler(command, &i, &quote_closed);
-				continue;
+				continue ;
 			}
 		}
 		if (ft_single_inset(command[i], "<>") != -1 && quote_closed)
