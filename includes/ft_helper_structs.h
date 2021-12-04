@@ -18,4 +18,6 @@ typedef struct s_strnstr {
 	int				quote_closed;
 }	t_strnstr;
 
+t_strnstr	*ft_get_strnstr(char *needle, char *haystack);
+
 #endif
