@@ -6,7 +6,7 @@
 /*   By: jfritz <jfritz@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/04 17:27:51 by olgerret          #+#    #+#             */
-/*   Updated: 2021/12/04 19:20:53 by jfritz           ###   ########.fr       */
+/*   Updated: 2021/12/04 19:35:52 by jfritz           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,44 +50,45 @@ static	int	ft_total_count(char *command)
 	return (total);
 }
 
+/*
+	Creates a new helper struct
+*/
+t_envit	*ft_env_aux(char *command)
+{
+	t_envit	*helper;
+
+	helper = ft_malloc(sizeof(t_envit));
+	helper->i = 0;
+	helper->qclosed = 1;
+	helper->var_name = NULL;
+	helper->result = malloc(sizeof(char) * ft_total_count(command) + 1);
+	helper->total = 0;
+	return (helper);
+}
+
 char	*ft_translate_envs(char *command)
 {
-	unsigned int	i;
-	int				quote_closed;
-	char			*var_name;
-	char			*result;
-	int				total;
+	t_envit	*h;
 
-	result = malloc(sizeof(char) * ft_total_count(command) + 1);
-	i = 0;
-	total = 0;
-	quote_closed = 1;
-	while (command[i])
+	h = ft_env_aux(command);
+	while (command[h->i])
 	{
-		if (command[i] == '$' && command[i + 1] && quote_closed)
+		if (command[h->i] == '$' && command[h->i + 1] && h->qclosed)
 		{
-			var_name = ft_genvval(ft_substr(command, i,
-						ft_strlen_set(&command[i], " |><\"'+-")));
-			ft_strncat(result, var_name, ft_strlen(var_name));
-			total += ft_strlen(var_name);
-			i += ft_strlen_set(&command[i], " |><\"'+-");
+			h->var_name = ft_genvval(ft_substr(command, h->i,
+						ft_strlen_set(&command[h->i], " |><\"'+-")));
+			ft_strncat(h->result, h->var_name, ft_strlen(h->var_name));
+			h->total += ft_strlen(h->var_name);
+			h->i += ft_strlen_set(&command[h->i], " |><\"'+-");
 		}
-		else if (quote_closed)
-		{
-			ft_strncat(result, &command[i], 1);
-			total++;
-			ft_incs_uihand(command, &i, &quote_closed);
-		}
+		else if (h->qclosed)
+			ft_strncincrtotaluihand(command, h);
 		else
 		{
-			while (!quote_closed)
-			{
-				ft_strncat(result, &command[i], 1);
-				total++;
-				ft_incs_uihand(command, &i, &quote_closed);
-			}
+			while (!h->qclosed)
+				ft_strncincrtotaluihand(command, h);
 		}
 	}
-	result[total] = '\0';
-	return (result);
+	h->result[h->total] = '\0';
+	return (h->result);
 }

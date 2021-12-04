@@ -50,6 +50,8 @@ ENV_VARS = ./env_vars/ft_translate_envs.c
 
 EXIT_CODE = ./exit_code/ft_insert_exit_code.c ./exit_code/ft_exit_magic.c
 
+AUX = ./env_vars/ft_env_aux.c
+
 # from home
 ifeq ($(USER), jonathanfritz)
 	LDFLAGS="-L/opt/homebrew/opt/readline/lib"
@@ -71,7 +73,7 @@ CFLAGS = -g -lreadline $(LDFLAGS) $(CPPFLAGS) -ltermcap
 
 ALLSRC = $(SRC) $(BUILTINS) $(ENV) $(HELPERS) $(PIPEX) $(PROMPT) $(COMMANDLIST) $(PATHS) $(DEBUGGING) \
 $(STRHELPER) $(PARSING) $(GARBAGE_COLLECTOR) $(GC_LIBFT_VARIATIONS) $(FILELIST) $(ENV_VARS) 		\
-$(EXIT_CODE) $(QUOTE_TERROR)
+$(EXIT_CODE) $(QUOTE_TERROR) $(AUX)
 
 
 all: $(NAME)
