@@ -40,10 +40,15 @@ void	ft_command_not_found(char *command)
 	ft_set_most_recent_exit_code(127, 1);
 }
 
-void	ft_close(t_pipes *p)
+void	ft_close(t_pipes *p, t_command *commands)
 {
-	if (p->temp_fd)
-		close(p->temp_fd);
+	if (commands->out_flag != PIPE)
+	{
+		if (p->temp_fd)
+			close(p->temp_fd);
+		if (p->stout)
+			close(p->stout);
+	}
 	if (p->in)
 		close(p->in);
 	if (p->out)
@@ -52,8 +57,6 @@ void	ft_close(t_pipes *p)
 		close(p->pipe[0]);
 	if (p->pipe[1])
 		close(p->pipe[1]);
-	if (p->stout)
-		close(p->stout);
 }
 
 void	ft_pipe_after_dup(t_pipes *p)

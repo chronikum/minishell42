@@ -147,7 +147,7 @@ void		ft_outfile_dup(t_pipes *p);
 void		ft_pipe_pre_dup(t_pipes *p);
 
 void		ft_pipe_after_dup(t_pipes *p);
-void		ft_close(t_pipes *p);
+void		ft_close(t_pipes *p, t_command *commands);
 void		ft_command_not_found(char *command);
 int			ft_array_len(char **argv);
 int			ft_check_file(char *filename);
