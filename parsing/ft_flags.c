@@ -11,7 +11,6 @@ static void	ft_set_infile(t_command	*command)
 	command->in_flag = IN;
 	command->out_flag = IN;
 	command->files = ft_new_file(file_name, file_name, 0, 0);
-	printf("SETTING INFILE!\n");
 }
 
 /*
@@ -38,8 +37,5 @@ void	ft_set_flags(t_command *command)
 		ft_set_infile(command);
 	else if (ft_strnstr_nowhere_quotes(command->original_string, ">",
 			ft_strlen(command->original_string)))
-		command->out_flag = OUT;
-	else if (ft_strnstr_nowhere_quotes(command->original_string, ">>",
-			ft_strlen(command->original_string)))
-		command->out_flag = APPEND;
+		ft_append_or_out(command);
 }
