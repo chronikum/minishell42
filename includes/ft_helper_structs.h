@@ -10,5 +10,12 @@ typedef struct s_envit
 	int				total;
 }			t_envit;
 
+typedef struct s_strnstr {
+	unsigned int	i;
+	unsigned int	j;
+	unsigned int	needle_len;
+	char			*phaystack;
+	int				quote_closed;
+}	t_strnstr;
 
 #endif
