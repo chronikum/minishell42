@@ -55,12 +55,10 @@ char	*ft_translate_envs(char *command)
 	int				quote_closed;
 	char			*var_name;
 	char			*result;
-	int				offset;
 	int				total;
 
 	result = malloc(sizeof(char) * ft_total_count(command) + 1);
 	i = 0;
-	offset = 0;
 	total = 0;
 	quote_closed = 1;
 	while (command[i])
