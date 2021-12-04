@@ -17,5 +17,7 @@ char	*ft_get_cmd_filename(t_command *command, char *cmd)
 		filename = ft_gc_strtrim(tmp[0], "<");
 	if (tmp[1])
 		command->args = &tmp[1];
+	else
+		command->out_flag = OUT;
 	return (filename);
 }
