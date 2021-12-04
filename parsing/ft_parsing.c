@@ -1,319 +1,96 @@
 #include "../includes/ft_minishell.h"
 
-/* > >> after that comes a filename
-which is being supplied to the struct BEFORE the sep */
-void	ft_assign_file_name_to_path(t_command *command, char *file_name)
+void	ft_command_debug(t_command *start)
 {
-	command->file = NULL;
-	if (file_name)
-	{
-		command->file = ft_strjoin("./", ft_gc_strtrim(file_name, " "));
-	}
-	if (ft_strncmp("./", command->args[0], ft_strlen("./")) == 0)
-		command->file = command->args[0];
-}
-
-/*
-	Checks if the command is a builtin command
-*/
-int	ft_check_builtin(char *command)
-{
-	if (ft_sb_strcmp(command, "pwd") == 0)
-		return (1);
-	else if (ft_spongebob_strncmp(command, "exit", ft_strlen("exit")) == 0)
-		return (1);
-	else if (ft_spongebob_strncmp(command, "env", ft_strlen("env")) == 0)
-		return (1);
-	else if (ft_spongebob_strncmp(command, "echo ", ft_strlen("echo ")) == 0)
-		return (1);
-	else if (ft_spongebob_strncmp(command, "cd ", ft_strlen("cd ")) == 0)
-		return (1);
-	else if (ft_spongebob_strncmp(command, "export ", ft_strlen("export ")) == 0)
-		return (1);
-	else if (ft_spongebob_strncmp(command, "unset ", ft_strlen("unset ")) == 0)
-		return (1);
-	return (0);
-}
-
-/*
-	Sets the buildin sys flag to 5 or 6
-*/
-void	ft_set_builtin_flag(t_command *command)
-{
-	char	*main_command;
-
-	main_command = command->args[0];
-	if (ft_check_builtin(ft_gc_strtrim(command->original_string, " ")))
-		command->builtin_sys_flag = BUILT_IN;
-	else if (ft_find_executable_path(main_command))
-		command->builtin_sys_flag = SYS;
-	else
-		command->builtin_sys_flag = SYS;
-}
-
-/*
-	Parses a single segment of a command into a linked list
-	and returns the parsed linked list
-	The flag is the type of redirection which should be set.
-	Those are also defined in the header file
-*/
-t_command	*ft_parser(char *cmd, int in_flag, int out_flag, char *file_name, char *original)
-{
-	char		**command_parts;
-	char		*main_command;
 	t_command	*command_struct;
 
-	(void) file_name;
-
-	command_struct = ft_malloc(sizeof(t_command));
-	command_struct->next = NULL;
-	command_parts = ft_splint(cmd); // Todo only split if not surrounded by quotes
-	command_struct->file = NULL;
-	if (!command_parts)
-		return (NULL);
-	main_command = command_parts[0];
-	command_struct->original_string = cmd;
-	command_struct->command = ft_find_executable_path(main_command);
-	command_struct->args = command_parts;
-	if (in_flag == 2 || in_flag == 4) // super important to remove this later @DEBUG
-		command_struct->builtin_sys_flag = 6;
-	else
-		ft_set_builtin_flag(command_struct); // TODO: this needs to be adjusted: this set determined by being a system or a built_in function
-	command_struct->in_flag = in_flag;
-	command_struct->out_flag = out_flag;
-	command_struct->files = ft_create_file_list(original);
-	ft_assign_file_name_to_path(command_struct, file_name);
-	if (DEBUG)
+	command_struct = start;
+	while (command_struct)
 	{
-		printf("%sSECTION     %s\n", BACKGROUND_BLUE, RESET_COLOR);
-		printf("	Command: 			%s\n", command_struct->command);
-		printf("	original_string: 		%s\n", ft_gc_strtrim(command_struct->original_string, "<>| "));
-		ft_arg_printer(command_struct->args);
-		if (command_struct->file)
+		if (DEBUG)
 		{
-			printf("	file: 				%s|\n", command_struct->file);
-			printf("	FILE PATH LENGTH : 		%lu\n", ft_strlen(command_struct->file)); /// as we know the file name changes in length occassionally
+			printf("%sSECTION     %s\n", BACKGROUND_BLUE, RESET_COLOR);
+			printf("	Command: 			%s\n", command_struct->command);
+			printf("	original_string: 		%s\n", ft_gc_strtrim(command_struct->original_string, "<>| "));
+			printf("	delimiter: 				%s\n", command_struct->delimiter);
+			ft_arg_printer(command_struct->args);
+			if (command_struct->file)
+			{
+				printf("	file: 				%s|\n", command_struct->file);
+				printf("	FILE PATH LENGTH : 		%lu\n", ft_strlen(command_struct->file));
+			}
+			printf("	files: 			\n");
+			ft_print_files(command_struct->files);
+			printf("	in_flag: 			%d	%s\n", command_struct->in_flag, ft_translate_flags(command_struct->in_flag));
+			printf("	out_flag: 			%d	%s\n", command_struct->out_flag, ft_translate_flags(command_struct->out_flag));
+			printf("	builtin_sys_flag:		%d	%s\n", command_struct->builtin_sys_flag, ft_translate_flags(command_struct->builtin_sys_flag));
+			printf("%sSECTION END %s\n", BACKGROUND_BLUE, RESET_COLOR);
 		}
-		printf("	files: 			\n");
-		ft_print_files(command_struct->files);
-		printf("	in_flag: 			%d	%s\n", command_struct->in_flag, ft_translate_flags(command_struct->in_flag));
-		printf("	out_flag: 			%d	%s\n", command_struct->out_flag, ft_translate_flags(command_struct->out_flag));
-		printf("	builtin_sys_flag:		%d	%s\n", command_struct->builtin_sys_flag, ft_translate_flags(command_struct->builtin_sys_flag));
-		printf("%sSECTION END %s\n", BACKGROUND_BLUE, RESET_COLOR);
+		command_struct = command_struct->next;
 	}
-	return (command_struct);
-}
-
-// todo: do something which makes sense
-int	ft_determine_out_flag(char *command)
-{
-	if ((command[0] == '<' && command[1] == '<' && command[2] != '<'))
-		return (3);
-	if (ft_single_inset(command[0], "|><") != -1
-		&& (ft_single_inset(command[1], "|><") == -1))
-	{
-		return (ft_single_inset(command[0], "|><"));
-	}
-	if (ft_single_inset(command[0], "<>") != -1
-		&& (ft_single_inset(command[1], "<>") != -1))
-	{
-		return (ft_single_inset(command[1], "<>") + 3);
-	}
-	return (-1);
-}
-
-int	ft_determine_in_flag(char *command)
-{
-	if ((command[0] == '<' && command[1] == '<' && command[2] != '<'))
-		return (3);
-	if (ft_single_inset(command[ft_strlen(command) - 1], "|><") != -1
-		&& (ft_single_inset(command[ft_strlen(command) - 2], "|><") == -1))
-	{
-		return (ft_single_inset(command[ft_strlen(command) - 1], "|><"));
-	}
-	if (ft_single_inset(command[ft_strlen(command) - 1], "<>") != -1
-		&& (ft_single_inset(command[ft_strlen(command) - 2], "<>") != -1))
-	{
-		return (ft_single_inset(command[ft_strlen(command) - 1], "<>") + 3);
-	}
-	return (-1);
 }
 
 /*
-	Skips white spaces
+	Creates a command from a string which is guaranteed to be a single command
+	only. It contains out and infiles, quotes and spaces.
 */
-void	ft_skip_whitespaces(char *cmd, int *i)
+t_command	*ft_create_new_command(char *command_section)
 {
-	while (cmd[(*i)] == ' ')
-		(*i)++;
-}
-
-/*
-	Adds an outfile to the given command linked list.
-	Will use the next argument in the list instead.
-	Will look for the filename after the > or >> indicator
-	and trim the string fromm whitespaces.
-	Then it will set the result as the command->file.
-	It will take the iterator i to jump to the end of the filename to
-	not print out too many arguments later on
-*/
-t_command	*ft_add_outfile_to_commabeur(t_command *first,
-			char *cmds, int start, int *i, char *original)
-{
-	char	*file_name;
-
-	file_name = ft_get_cmd_filename(cmds, i);
-	while (cmds[(*i)] == ' ' && cmds[(*i)])
-		(*i)++;
-	return (ft_commandaddback(&first, ft_parser(
-		ft_substr(cmds, start, ((*i) - start)),
-		ft_determine_out_flag(ft_substr(cmds, start, ((*i) - start))),
-		1,
-		file_name,
-		original)));
-}
-
-/*
-Gets called when a quote is being seen. Toggles a int (pointer)
-*/
-static void	ft_toggle_quote(int *quote_toggle)
-{
-	if ((*quote_toggle))
-		(*quote_toggle) = 0;
-	else
-		(*quote_toggle) = 1;
-}
-
-/*
-	Increases counter by one and toggles quote counter if it encounters one
-*/
-static void	ft_increase_i_quote_handler(char *cmd, int *i, int *quote)
-{
-	if (cmd[(*i)] == '"')
-		ft_toggle_quote(quote);
-	(*i)++;
-}
-
-/*
-	Adds a infile to the command struct if
-	there is a infile. Will do nothing otherwise
-*/
-void	ft_add_infile_if_exists(t_command **list, char *cmds, int *i, int *start)
-{
-	t_command	*first;
-	int			offset;
-	int			changed;
-
-	offset = 0;
-	changed = 0;
-	if (cmds[(*i)] == '<')
-	{
-		(*i)++;
-		while (ft_single_inset(cmds[(*i) + offset], " ") == 0)
-		{
-			(*i)++;
-			changed++;
-		}
-		while (ft_single_inset(cmds[(*i) + offset], " |<>") == -1 && changed != 0)
-			offset++;
-		//printf("DETECTED < FLAG! \n");
-		//printf("SKIPPED TO: |%s|! \n", &cmds[(*i) + offset]);
-		//printf("FILE NAME WILL BE: %s \n", ft_gc_strtrim(ft_get_cmd_filename(cmds, i), "<"));
-		first = ft_parser(
-			ft_substr(ft_substr(cmds, (*i) + offset, ft_strlen_set(&cmds[(*i) + offset], "|>")), ft_strlen_set(cmds, " "), ft_strlen_set(cmds, "|>")),
-			2,
-			ft_inset(&cmds[(*i)], "|<>"),
-			ft_gc_strtrim(ft_get_cmd_filename(cmds, i), "<"),
-			cmds
-		);
-		(*i) += ft_strlen_set(&cmds[(*i)], "|<>");
-		//printf("FILENAME SET: %s\n", first->file);
-		(*start) = (*i);
-		if (list)
-			ft_commandaddback(list, first);
-		else
-			(*list) = first;
-	}
+	t_command	*command;
+	char		**splitted_commands;
+	
+	command = ft_newcommand(command_section);
+	if (ft_check_infile(command, command_section))
+		return (command);
+	splitted_commands = ft_splint(command_section);
+	command->args = splitted_commands;
+	if (splitted_commands)
+		command->command = ft_find_executable_path(command->args[0]);
+	ft_set_flags(command);
+	ft_set_builtin_flag(command);
+	command->files = ft_create_file_list(command_section);
+	return (command);
 }
 
 /*
 	Parses a string of commands in multiple single segments
 	and creates a funky linked command list
 	out of it.
-
-	Returns the beginning of the command list.
-	Also handles quotes in general by toggling a int value.
-	The function
-
-	TODO: Actually send the right flag to ft_parser, currently we are only sending the
-	index which is not quite correct!
 */
 t_command	*ft_parse_in_commands(char *cmds)
 {
+	t_command	*list;
 	int			i;
-	int			start;
-	t_command	*first;
 	int			quotes_closed;
-	int			skip;
+	int			single_closed;
+	int			start;
 
-	skip = 0;
 	i = 0;
-	start = 0;
-	first = NULL;
+	list = NULL;
 	quotes_closed = 1;
-	if (DEBUG)
-	{
-		printf("CMDS: %s \n", cmds);
-		printf("FOUND REDIRECTIONS COUNT: %d \n", ft_detect_mredirections(cmds));
-	}
+	single_closed = 1;
+	start = 0;
 	while (cmds[i])
 	{
-		// increases i until it finds one of the seperators and only if the quotes are closed
-		// problem: only gets entered if there is atleast one seperator. won't enter if there is none.
-		if (ft_single_inset(cmds[i], "|><") != -1 && quotes_closed)
+		if (quotes_closed && ft_single_inset(
+				cmds[i], "|") != -1 && single_closed && quotes_closed)
 		{
-			ft_add_infile_if_exists(&first, cmds, &i, &start);
-			// then we skip the seperators
-			// which we just saw to not get in an infinite while loop.
-			if (ft_determine_in_flag(cmds) == 3)
-				first = ft_parser(cmds, 3, ft_determine_in_flag(ft_substr(cmds, start, (i - start))), NULL, cmds);
-			while (ft_single_inset(cmds[i], "|><") != -1 && quotes_closed)
-				ft_increase_i_quote_handler(cmds, &i, &quotes_closed);
-			// then we check if we already added a seperator to the list (if yes, we can ignore this safely.)
-			// this checks also for everything which is NOT an OUT file. It would thereotically match
-			// the infile too
-			if (!first && ft_determine_in_flag(ft_substr(cmds, start, (i - start))) != 1 && quotes_closed)
-			{
-				first = ft_parser(ft_substr(cmds, start, (i - start)), ft_determine_out_flag(ft_substr(cmds, start, (i - start))), ft_determine_in_flag(ft_substr(cmds, start, (i - start))), NULL, cmds);
-			}
-			// check if is output file
-			else if ((ft_determine_in_flag(ft_substr(cmds, start, (i - start))) == 1
-					|| ft_determine_in_flag(ft_substr(cmds, start, (i - start))) == 4) && quotes_closed)
-			{
-				first = ft_add_outfile_to_commabeur(first, cmds, start, &i, cmds);
-				// skipping over the filename here
-				start = i;
-				i += ft_strlen_set(&cmds[i], "|<>");
-				i++;
-			}
-			// check if it is pipe
-			else if (ft_determine_in_flag(ft_substr(cmds, start, (i - start))) == 0 && quotes_closed)
-			{
-				ft_commandaddback(&first, ft_parser(ft_substr(cmds, start, (i - start)), ft_determine_out_flag(ft_substr(cmds, start, (i - start))), ft_determine_in_flag(ft_substr(cmds, start, (i - start))), NULL, cmds));
-			}
+			ft_commandaddback(
+				&list,
+				ft_create_new_command(ft_gc_substr(cmds, start, i - start))
+				);
+			start++;
 			start = i;
 		}
-		ft_increase_i_quote_handler(cmds, &i, &quotes_closed);
+		ft_single_double_quote_handler(
+			cmds, &i, &quotes_closed, &single_closed);
 	}
-	// we need to get the commands after
-	// <infile cat | HERE
-	// right now they are just being skipped
-	// it should not be like that.
-	// idea is to implement the single command check in the while loop
-	// somehow so we can reset the skip flag
-	if (!first)
-		first = ft_parser(cmds, -1, -1, NULL, cmds);
-	else if (skip == 0)
-		ft_commandaddback(&first, ft_parser(ft_substr(cmds, start, (i - start)), ft_determine_in_flag(ft_substr(cmds, start, (i - start))), ft_determine_out_flag(ft_substr(cmds, start, (i - start))), NULL, cmds));
-	return (first);
+	ft_commandaddback(
+		&list,
+		ft_create_new_command(ft_gc_substr(cmds, start, i - start))
+		);
+	if (ft_get_last_command(list)->out_flag == 0)
+		ft_get_last_command(list)->out_flag = -1;
+	ft_command_debug(list);
+	return (list);
 }

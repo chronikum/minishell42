@@ -6,6 +6,16 @@ static void	ft_reset_static_vars(unsigned int *i, unsigned int *saved)
 	(*i) = 0;
 }
 
+// /*
+// 	Skips a set of chars in the string
+// 	and increments i pointer
+// */
+// static void	ft_skip_char_set(char *str, int *i, char *set)
+// {
+// 	while (ft_single_inset(str[(*i)], set) != -1)
+// 		(*i)++;
+// }
+
 static char	*ft_get_next_word(char *cmd, int r, char *set)
 {
 	static unsigned int	saved = 0;
@@ -44,11 +54,13 @@ static char	*ft_get_next_word(char *cmd, int r, char *set)
 			ft_increase_ui_quote_handler(temp, &i, &quote_closed);
 		ft_increase_ui_quote_handler(temp, &i, &quote_closed);
 	}
+	while ((ft_single_inset(temp[i], set) != -1) && temp[i])
+		ft_increase_ui_quote_handler(temp, &i, &quote_closed);
 	return (ft_gc_strtrim(ft_gc_substr(temp,
 				saved, ft_strlen_set(&temp[saved], set)), " "));
 }
 
-char	**ft_multi_splint(char *s, char *splitter, int *size)
+char	**ft_file_splitter(char *s, char *splitter, int *size)
 {
 	char	**result;
 	char	*current;

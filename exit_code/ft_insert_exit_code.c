@@ -36,10 +36,9 @@ static	int	ft_total_count(char *command)
 	total = 0;
 	while (command[i])
 	{
-		if (command[i] == '$' && quote_closed)
+		if (command[i] == '$' && command[i + 1] == '?' && quote_closed)
 		{
-			var_name = ft_substr(command, i,
-					ft_strlen_set(&command[i], " |><+-"));
+			var_name = ft_itoa(ft_set_most_recent_exit_code(0, 0));
 			i += ft_strlen_set(&command[i], " |><+-");
 			total += (int)ft_strlen(ft_get_value_from_env(var_name));
 		}
@@ -49,7 +48,7 @@ static	int	ft_total_count(char *command)
 	return (total);
 }
 
-char	*ft_translate_envs(char *command)
+char	*ft_insert_exit_code(char *command)
 {
 	unsigned int	i;
 	int				quote_closed;
@@ -65,14 +64,12 @@ char	*ft_translate_envs(char *command)
 	quote_closed = 1;
 	while (command[i])
 	{
-		if (command[i] == '$' && command[i + 1] && quote_closed)
+		if (command[i] == '$' && command[i + 1] == '?' && quote_closed)
 		{
-			var_name = ft_get_value_from_env(
-					ft_substr(command, i,
-						ft_strlen_set(&command[i], " |><\"'+-")));
+			var_name = ft_itoa(ft_set_most_recent_exit_code(0, 0));
 			ft_strncat(result, var_name, ft_strlen(var_name));
 			total += ft_strlen(var_name);
-			i += ft_strlen_set(&command[i], " |><\"'+-");
+			i += ft_strlen_set(&command[i], " |><\"+-");
 		}
 		else if (quote_closed)
 		{

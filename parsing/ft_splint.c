@@ -1,29 +1,6 @@
 #include "../includes/ft_minishell.h"
 
 /*
-	Gets called when a quote is being seen. Toggles a int (pointer)
-*/
-static void	ft_toggle_quote(int *quote_toggle)
-{
-	if ((*quote_toggle))
-		(*quote_toggle) = 0;
-	else
-		(*quote_toggle) = 1;
-}
-
-/*
-	Increases counter by one and toggles quote counter if it encounters one
-*/
-static void	ft_increase_i_quote_handler(char *cmd, unsigned int *i, int *quote)
-{
-	if (cmd[(*i)] == '"')
-		ft_toggle_quote(quote);
-	(*i)++;
-	// if (!ft_strchr(&cmd[(*i) + 1], '"') && !(*quote))
-	// 	ft_toggle_quote(quote);
-}
-
-/*
 	Counts words. Can handle quotes with ease.
 */
 int	ft_new_word_counter(char *cmd)
@@ -32,20 +9,24 @@ int	ft_new_word_counter(char *cmd)
 	int				quote_closed;
 	int				words;
 	char			*temp;
+	int				single_closed;
 
-	quote_closed = 1;
 	i = 0;
 	words = 1;
-	temp = ft_gc_strtrim(cmd, "|<> ");
+	quote_closed = 1;
+	single_closed = 1;
+	temp = ft_gc_strtrim(cmd, "| ");
 	while (temp[i])
 	{
-		if (temp[i] == ' ' && quote_closed)
+		if (temp[i] == ' ' && quote_closed && single_closed)
 		{
 			words++;
-			while (temp[i] == ' ' && temp[i])
-				ft_increase_i_quote_handler(temp, &i, &quote_closed);
+			while (temp[i] == ' ' && temp[i] && quote_closed && single_closed)
+				ft_u_single_double_quote_handler(
+					temp, &i, &quote_closed, &single_closed);
 		}
-		ft_increase_i_quote_handler(temp, &i, &quote_closed);
+		ft_u_single_double_quote_handler(
+			temp, &i, &quote_closed, &single_closed);
 	}
 	return (words);
 }
@@ -59,38 +40,44 @@ static void	ft_reset_static_vars(unsigned int *i, unsigned int *saved)
 char	*ft_get_next_word(char *cmd, int r)
 {
 	static unsigned int	saved = 0;
-	static unsigned int	i = 0; // current iterator
+	static unsigned int	i = 0;
 	int					quote_closed;
 	int					quote_counter;
+	int					single_quote;
 	char				*temp;
 
 	quote_closed = 1;
-	temp = ft_gc_strtrim(cmd, "|<> ");
+	single_quote = 1;
+	temp = ft_gc_strtrim(cmd, "| ");
 	saved = i;
 	if (r)
 		ft_reset_static_vars(&i, &saved);
 	while (temp[i])
 	{
 		quote_counter = 0;
-		if (temp[i] == '"')
+		if (temp[i] == '"' || temp[i] == '\'')
 		{
-			ft_increase_i_quote_handler(temp, &i, &quote_closed);
-			while (!quote_closed)
+			ft_u_single_double_quote_handler(
+				temp, &i, &quote_closed, &single_quote);
+			while (!quote_closed || !single_quote)
 			{
 				quote_counter++;
-				ft_increase_i_quote_handler(temp, &i, &quote_closed);
+				ft_u_single_double_quote_handler(
+					temp, &i, &quote_closed, &single_quote);
 			}
 			return (ft_gc_strtrim(ft_gc_substr(temp,
 						saved, (quote_counter + 1)), " "));
 		}
-		if (temp[i] == ' ' && quote_closed)
+		if (temp[i] == ' ' && quote_closed && single_quote)
 		{
 			while (temp[i] == ' ' && temp[i])
-				ft_increase_i_quote_handler(temp, &i, &quote_closed);
+				ft_u_single_double_quote_handler(
+					temp, &i, &quote_closed, &single_quote);
 			return (ft_gc_strtrim(ft_gc_substr(temp,
 						saved, ft_strlenc(&temp[saved], ' ')), " "));
 		}
-		ft_increase_i_quote_handler(temp, &i, &quote_closed);
+		ft_u_single_double_quote_handler(
+			temp, &i, &quote_closed, &single_quote);
 	}
 	return (ft_gc_strtrim(ft_gc_substr(temp,
 				saved, ft_strlenc(&temp[saved], ' ')), " "));
@@ -102,15 +89,17 @@ char	**ft_splint(char *s)
 	char	*current;
 	int		i;
 	int		wc;
+	char	*to_use;
 
 	i = 0;
+	to_use = ft_gc_substr(s, 0, ft_strlen_not_any_quoted(s, "<>"));
 	current = NULL;
-	wc = ft_new_word_counter(s);
+	wc = ft_new_word_counter(to_use);
 	result = ft_malloc(sizeof(char *) * (wc + 1));
 	while (current || i == 0)
 	{
 		if (!current)
-			current = ft_gc_strtrim(ft_get_next_word(s, 1), "\"");
+			current = ft_gc_strtrim(ft_get_next_word(to_use, 1), "\"'");
 		if (!current)
 			return (NULL);
 		if (ft_strlen(current) != 0)
@@ -118,7 +107,7 @@ char	**ft_splint(char *s)
 			result[i] = current;
 			i++;
 		}
-		current = ft_gc_strtrim(ft_get_next_word(s, 0), "\"");
+		current = ft_gc_strtrim(ft_get_next_word(to_use, 0), "\"'");
 	}
 	result[i] = NULL;
 	return (result);

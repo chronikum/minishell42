@@ -12,6 +12,11 @@ void	ft_arg_printer(char **args)
 
 	i = 0;
 	counter = 0;
+	if (!args)
+	{
+		printf("			NO ARGS IN THIS COMMAND!\n");
+		return ;
+	}
 	args_count = ft_array_len(args);
 	while (args[i])
 	{
