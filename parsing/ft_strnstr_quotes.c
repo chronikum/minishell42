@@ -41,30 +41,23 @@ char	*ft_strnstr_quotes(const char *haystack, const char *needle, size_t len)
 char	*ft_strnstr_single_quotes(
 		const char *haystack, const char *needle, size_t len)
 {
-	unsigned int	i;
-	unsigned int	j;
-	unsigned int	needle_len;
-	char			*phaystack;
-	int				quote_closed;
+	t_strnstr	*st;
 
-	i = 0;
-	j = 0;
-	quote_closed = 1;
-	needle_len = ft_strlen(needle);
-	phaystack = (char *)haystack;
+	st = ft_get_strnstr((char *) needle, (char *) haystack);
 	if (needle[0] == '\0')
-		return (phaystack);
-	while (haystack[i] != '\0' && i < len)
+		return (st->phaystack);
+	while (haystack[st->i] != '\0' && st->i < len)
 	{
-		while (haystack[i + j] == needle[j]
-			&& needle[j] != '\0' && (i + j) < len && quote_closed)
+		while (haystack[st->i + st->j] == needle[st->j] && needle[st->j]
+			!= '\0' && (st->i + st->j) < len && st->quote_closed)
 		{
-			ft_incs_uihand((char *) &haystack[i], &j, &quote_closed);
-			if (j == needle_len)
-				return (&phaystack[i]);
+			ft_incs_uihand((char *) &haystack[st->i],
+				&st->j, &st->quote_closed);
+			if (st->j == st->needle_len)
+				return (&st->phaystack[st->i]);
 		}
-		ft_incs_uihand((char *) haystack, &i, &quote_closed);
-		j = 0;
+		ft_incs_uihand((char *) haystack, &st->i, &st->quote_closed);
+		st->j = 0;
 	}
 	return (NULL);
 }
@@ -76,30 +69,24 @@ char	*ft_strnstr_single_quotes(
 char	*ft_strnstr_nowhere_quotes(
 		const char *haystack, const char *needle, size_t len)
 {
-	unsigned int	i;
-	unsigned int	j;
-	unsigned int	needle_len;
-	char			*phaystack;
-	int				quote_closed;
+	t_strnstr	*st;
 
-	i = 0;
-	j = 0;
-	quote_closed = 1;
-	needle_len = ft_strlen(needle);
-	phaystack = (char *)haystack;
+	st = ft_get_strnstr((char *) needle, (char *) haystack);
 	if (needle[0] == '\0')
-		return (phaystack);
-	while (haystack[i] != '\0' && i < len)
+		return (st->phaystack);
+	while (haystack[st->i] != '\0' && st->i < len)
 	{
-		while (haystack[i + j] == needle[j]
-			&& needle[j] != '\0' && (i + j) < len && quote_closed)
+		while (haystack[st->i + st->j] == needle[st->j] && needle[st->j]
+			!= '\0' && (st->i + st->j) < len && st->quote_closed)
 		{
-			ft_usdq_handler((char *) &haystack[i], &j, &quote_closed, &quote_closed);
-			if (j == needle_len)
-				return (&phaystack[i]);
+			ft_usdq_handler((char *) &haystack[st->i], &st->j,
+				&st->quote_closed, &st->quote_closed);
+			if (st->j == st->needle_len)
+				return (&st->phaystack[st->i]);
 		}
-		ft_usdq_handler((char *) haystack, &i, &quote_closed, &quote_closed);
-		j = 0;
+		ft_usdq_handler((char *) haystack,
+			&st->i, &st->quote_closed, &st->quote_closed);
+		st->j = 0;
 	}
 	return (NULL);
 }
