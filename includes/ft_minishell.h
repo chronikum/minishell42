@@ -6,7 +6,7 @@
 /*   By: olgerret <olgerret@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/04 17:30:15 by olgerret          #+#    #+#             */
-/*   Updated: 2021/12/04 17:45:27 by olgerret         ###   ########.fr       */
+/*   Updated: 2021/12/04 18:00:34 by olgerret         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,8 +114,6 @@ void		ft_init_shell(char **envp);
 void		ft_execute_terminal_command(char *command);
 
 char		***ft_split_machine(char *str, char dlmtr);
-t_command	*ft_parser(char *cmd, int in_flag,
-				int out_flag, char *file_name, char *original);
 int			ft_command_size(t_command *lst);
 char		**ft_splint(char *s);
 t_command	*ft_parse_in_commands(char *cmds);
