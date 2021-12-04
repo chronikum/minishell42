@@ -7,17 +7,16 @@ int	ft_append_or_out(t_command *command)
 {
 	int append;
 	int out;
+	char	*reversed;
 	
+	reversed = ft_gc_strrev(command->original_string);
 	command->out_flag = OUT;
-	append = ft_strnstr_now_quotes_pos(command->original_string, ">>",
-			ft_strlen(command->original_string));
-	out = ft_strnstr_now_quotes_pos(command->original_string, ">",
-			ft_strlen(command->original_string));
-	if (append == out && (out != -1))
-		command->out_flag = APPEND;
-	if (out > append)
-		command->out_flag = OUT;
-	if (out < append)
+	append = ft_strnstr_now_quotes_pos(reversed, ">>",
+			ft_strlen(reversed));
+	out = ft_strnstr_now_quotes_pos(reversed, ">",
+			ft_strlen(reversed));
+	printf("FOUND NOW APPEND: %d AND OUT %d\n", append, out);
+	if (out == append && (!!append && !!out))
 		command->out_flag = APPEND;
 	return (command->out_flag);
 }

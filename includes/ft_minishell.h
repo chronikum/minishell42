@@ -246,4 +246,6 @@ int			ft_strnstr_pos(const char *haystack, const char *needle, size_t len);
 int			ft_strnstr_now_quotes_pos(const char *haystack, const char *needle, size_t len);
 int			ft_append_or_out(t_command *command);
 
+char		*ft_gc_strrev(char *string);
+
 #endif
