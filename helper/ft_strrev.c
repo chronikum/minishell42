@@ -3,7 +3,7 @@
 int	ft_strlen_int(char *str)
 {
 	int	i;
-	
+
 	i = 0;
 	while (str[i])
 		i++;
@@ -13,12 +13,12 @@ int	ft_strlen_int(char *str)
 /*
 	Reverses a string and null terminates it afterwards
 */
-char *ft_gc_strrev(char *str)
+char	*ft_gc_strrev(char *str)
 {
 	char	*newstr;
 	int		i;
 	int		j;
-	
+
 	i = 0;
 	j = ft_strlen_int(str);
 	newstr = ft_malloc(sizeof(char) * ft_strlen_int(str) + 1);
