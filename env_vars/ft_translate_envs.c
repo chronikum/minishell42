@@ -6,27 +6,16 @@
 /*   By: jfritz <jfritz@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/04 17:27:51 by olgerret          #+#    #+#             */
-/*   Updated: 2021/12/04 18:56:23 by jfritz           ###   ########.fr       */
+/*   Updated: 2021/12/04 19:11:36 by jfritz           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/ft_minishell.h"
 
 /*
-	Increases counter by one and toggles quote counter if it encounters one
-*/
-static void	ft_single_increase_i_quote_handler(char *cmd,
-	unsigned int *i, int *quote)
-{
-	if (cmd[(*i)] == '\'')
-		ft_toggle_quote(quote);
-	(*i)++;
-}
-
-/*
 	Gets env value or an empty string
 */
-static	char	*ft_get_value_from_env(char *key)
+static	char	*ft_genvval(char *key)
 {
 	t_envlist	*env;
 
@@ -53,7 +42,7 @@ static	int	ft_total_count(char *command)
 			var_name = ft_substr(command, i,
 					ft_strlen_set(&command[i], " |><+-"));
 			i += ft_strlen_set(&command[i], " |><+-");
-			total += (int)ft_strlen(ft_get_value_from_env(var_name));
+			total += (int)ft_strlen(ft_genvval(var_name));
 		}
 		ft_single_increase_i_quote_handler(command, &i, &quote_closed);
 		total++;
@@ -77,8 +66,7 @@ char	*ft_translate_envs(char *command)
 	{
 		if (command[i] == '$' && command[i + 1] && quote_closed)
 		{
-			var_name = ft_get_value_from_env(
-					ft_substr(command, i,
+			var_name = ft_genvval(ft_substr(command, i,
 						ft_strlen_set(&command[i], " |><\"'+-")));
 			ft_strncat(result, var_name, ft_strlen(var_name));
 			total += ft_strlen(var_name);
@@ -96,7 +84,7 @@ char	*ft_translate_envs(char *command)
 			{
 				ft_strncat(result, &command[i], 1);
 				total++;
-				ft_single_increase_i_quote_handler(command, &i, &quote_closed);
+				ft_incs_uihand(command, &i, &quote_closed);
 			}
 		}
 	}

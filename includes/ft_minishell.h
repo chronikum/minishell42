@@ -6,7 +6,7 @@
 /*   By: jfritz <jfritz@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/04 17:30:15 by olgerret          #+#    #+#             */
-/*   Updated: 2021/12/04 18:56:38 by jfritz           ###   ########.fr       */
+/*   Updated: 2021/12/04 19:05:18 by jfritz           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -246,6 +246,6 @@ int			ft_append_or_out(t_command *command);
 
 char		*ft_gc_strrev(char *string);
 
-int		ft_increase_until_change(int *q1, int *q2, int *q3, char *temp);
+int			ft_increase_until_change(int *q1, int *q2, int *q3, char *temp);
 
 #endif
