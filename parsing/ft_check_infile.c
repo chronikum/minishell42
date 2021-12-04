@@ -20,7 +20,7 @@ t_command	*ft_check_infile(t_command *command, char *command_section)
 		command->in_flag = IN;
 		command->out_flag = 0;
 		ft_add_infile(command, command_section);
-		command->builtin_sys_flag = 6;
+		command->builtin_sys_flag = SKIP;
 		if (command->args)
 			ft_set_builtin_flag(command);
 		return (command);
