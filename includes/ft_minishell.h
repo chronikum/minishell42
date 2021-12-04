@@ -97,7 +97,7 @@ typedef struct s_child
 
 int			main(int argc, char **argv, char **envp);
 void		ft_handle_sig(int sig);
-void		ft_quit();
+void		ft_quit(void);
 void		ft_init_shell(char **envp);
 void		ft_execute_terminal_command(char *command);
 
@@ -242,8 +242,10 @@ int			ft_strlen_not_any_quoted(char *str, char const *set);
 t_files		*ft_new_file(char *filename, char *path, int in, int out);
 t_command	*ft_check_infile(t_command *command, char *command_section);
 
-int			ft_strnstr_pos(const char *haystack, const char *needle, size_t len);
-int			ft_strnstr_now_quotes_pos(const char *haystack, const char *needle, size_t len);
+int			ft_strnstr_pos(const char *haystack,
+				const char *needle, size_t len);
+int			ft_strnstr_now_quotes_pos(const char *haystack,
+				const char *needle, size_t len);
 int			ft_append_or_out(t_command *command);
 
 #endif
