@@ -6,7 +6,7 @@
 /*   By: jfritz <jfritz@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/04 17:27:51 by olgerret          #+#    #+#             */
-/*   Updated: 2021/12/04 19:11:36 by jfritz           ###   ########.fr       */
+/*   Updated: 2021/12/04 19:20:53 by jfritz           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ static	int	ft_total_count(char *command)
 			i += ft_strlen_set(&command[i], " |><+-");
 			total += (int)ft_strlen(ft_genvval(var_name));
 		}
-		ft_single_increase_i_quote_handler(command, &i, &quote_closed);
+		ft_incs_uihand(command, &i, &quote_closed);
 		total++;
 	}
 	return (total);
