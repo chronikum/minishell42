@@ -17,7 +17,7 @@ void	ft_quit_signal(int signal)
 /*
 **	Quits the program
 */
-void	ft_quit()
+void	ft_quit(void)
 {
 	ft_freeall();
 	exit(0);
