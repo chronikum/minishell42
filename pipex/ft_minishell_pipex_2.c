@@ -91,7 +91,7 @@ void	ft_mr_while_loop(t_pipes *p, t_command *commands, t_files	*temp)
 			}
 			else if (commands->out_flag == OUT || commands->out_flag == APPEND)
 			{
-				p->out = open(temp->file_name, O_CREAT, 0777);
+				p->out = open(temp->file_name, O_CREAT | O_TRUNC, 0777);
 				close(p->out);
 				if (p->out == -1)
 				{
