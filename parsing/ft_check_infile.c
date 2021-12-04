@@ -5,8 +5,8 @@ static void	ft_add_infile(t_command *command, char *command_section)
 	char *file_name;
 	
 	file_name = ft_get_cmd_filename(command, command_section);
+	command->out_flag = -1;
 	command->in_flag = IN;
-	command->out_flag = IN;
 	command->files = ft_new_file(file_name, file_name, 0, 0);
 }
 

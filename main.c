@@ -54,7 +54,7 @@ void	ft_execute_terminal_command(char *command)
 	command = ft_insert_exit_code(command);
 	command = ft_translate_envs(command);
 	command = ft_gc_strtrim(command, "| ");
-	if (ft_strlen(ft_gc_strtrim(command, " \"")) == 0)
+	if (ft_strlen(ft_gc_strtrim(command, " \"<>")) == 0)
 		return ;
 	list = ft_parse_in_commands(command);
 	envp = ft_env_list(NULL);
