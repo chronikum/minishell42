@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_gc_strtrim.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: olgerret <olgerret@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jfritz <jfritz@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/04 17:29:52 by olgerret          #+#    #+#             */
-/*   Updated: 2021/12/04 17:29:53 by olgerret         ###   ########.fr       */
+/*   Updated: 2021/12/04 18:34:22 by jfritz           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,5 @@ char	*ft_gc_strtrim(char const *s1, char const *set)
 		end--;
 		l--;
 	}
-	r = ft_substr(s1, start, l);
-	return (r);
+	return (ft_substr(s1, start, l));
 }
