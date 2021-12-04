@@ -38,7 +38,7 @@ t_command	*ft_create_new_command(char *command_section)
 {
 	t_command	*command;
 	char		**splitted_commands;
-	
+
 	command = ft_newcommand(command_section);
 	if (ft_check_infile(command, command_section))
 		return (command);

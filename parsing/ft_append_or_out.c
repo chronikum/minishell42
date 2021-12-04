@@ -5,10 +5,10 @@
 */
 int	ft_append_or_out(t_command *command)
 {
-	int append;
-	int out;
+	int		append;
+	int		out;
 	char	*reversed;
-	
+
 	reversed = ft_gc_strrev(command->original_string);
 	command->out_flag = OUT;
 	append = ft_strnstr_now_quotes_pos(reversed, ">>",

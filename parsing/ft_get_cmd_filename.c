@@ -10,9 +10,10 @@ char	*ft_get_cmd_filename(t_command *command, char *cmd)
 {
 	char	*filename;
 	char	**tmp;
-	
+
 	filename = NULL;
-	tmp = ft_gc_split(ft_gc_strtrim(ft_gc_substr(cmd, 1, ft_strlen(cmd) - 1), " "), ' ');
+	tmp = ft_gc_split(ft_gc_strtrim(ft_gc_substr(
+					cmd, 1, ft_strlen(cmd) - 1), " "), ' ');
 	if (tmp[0])
 		filename = ft_gc_strtrim(tmp[0], "<");
 	if (tmp[1])
