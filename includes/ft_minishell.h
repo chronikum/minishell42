@@ -237,4 +237,6 @@ int			ft_append_or_out(t_command *command);
 
 char		*ft_gc_strrev(char *string);
 
+void		ft_increase_until_change(int *q1, int *q2, int *q3, char *temp, unsigned int *i);
+
 #endif

@@ -41,42 +41,33 @@ char	*ft_get_next_word(char *cmd, int r)
 {
 	static unsigned int	saved = 0;
 	static unsigned int	i = 0;
-	int					quote[3];
+	int					q[3];
 	char				*temp;
 
-	quote[0] = 1;
-	quote[1] = 1;
-	quote[2] = 0;
+	q[0] = 1;
+	q[1] = 1;
+	q[2] = 0;
 	temp = ft_gc_strtrim(cmd, "| ");
 	saved = i;
 	if (r)
 		ft_reset_static_vars(&i, &saved);
 	while (temp[i])
 	{
-		quote[2] = 0;
+		q[2] = 0;
 		if (temp[i] == '"' || temp[i] == '\'')
 		{
-			ft_u_single_double_quote_handler(
-				temp, &i, &quote[0], &quote[1]);
-			while (!quote[0] || !quote[1])
-			{
-				quote[2]++;
-				ft_u_single_double_quote_handler(
-					temp, &i, &quote[0], &quote[1]);
-			}
-			return (ft_gc_strtrim(ft_gc_substr(temp,
-						saved, (quote[2] + 1)), " "));
+			ft_u_single_double_quote_handler(temp, &i, &q[0], &q[1]);
+			ft_increase_until_change(&q[0], &q[1], &q[2], temp, &i);
+			return (ft_gc_strtrim(ft_gc_substr(temp, saved, (q[2] + 1)), " "));
 		}
-		if (temp[i] == ' ' && quote[0] && quote[1])
+		if (temp[i] == ' ' && q[0] && q[1])
 		{
 			while (temp[i] == ' ' && temp[i])
-				ft_u_single_double_quote_handler(
-					temp, &i, &quote[0], &quote[1]);
-			return (ft_gc_strtrim(ft_gc_substr(temp,
-						saved, ft_strlenc(&temp[saved], ' ')), " "));
+				ft_u_single_double_quote_handler(temp, &i, &q[0], &q[1]);
+			return (ft_gc_strtrim(ft_gc_substr(
+						temp, saved, ft_strlenc(&temp[saved], ' ')), " "));
 		}
-		ft_u_single_double_quote_handler(
-			temp, &i, &quote[0], &quote[1]);
+		ft_u_single_double_quote_handler(temp, &i, &q[0], &q[1]);
 	}
 	return (ft_gc_strtrim(ft_gc_substr(temp,
 				saved, ft_strlenc(&temp[saved], ' ')), " "));
