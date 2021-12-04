@@ -15,7 +15,6 @@ int	ft_append_or_out(t_command *command)
 			ft_strlen(reversed));
 	out = ft_strnstr_now_quotes_pos(reversed, ">",
 			ft_strlen(reversed));
-	printf("FOUND NOW APPEND: %d AND OUT %d\n", append, out);
 	if (out == append && (!!append && !!out))
 		command->out_flag = APPEND;
 	return (command->out_flag);
