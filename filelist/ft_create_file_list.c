@@ -16,6 +16,7 @@ t_files	*ft_new_file(char *filename, char *path, int in, int out)
 	new->path = path;
 	new->in = in;
 	new->out = out;
+	new->is_multiple = 0;
 	new->next = NULL;
 	new->is_last = 0;
 	return (new);

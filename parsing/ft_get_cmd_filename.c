@@ -5,18 +5,17 @@
 	Skips whitespaces at the beginning if there are and
 	then goes until it finds the end of the string
 	or a new whitespace or seperator sign.
-
-	TODO FIX: Check if it would currently skip >> too
 */
-char	*ft_get_cmd_filename(char *cmd)
+char	*ft_get_cmd_filename(t_command *command, char *cmd)
 {
-	int 	i;
 	char	*filename;
+	char	**tmp;
 	
-	i = 0;
-	while (ft_strlen_set(&cmd[i], "<>") == -1)
-		i++;
-	filename = ft_gc_strtrim(ft_substr(cmd, i,
-				ft_strlen_set(&cmd[i], "|<> ")), " ");
+	filename = NULL;
+	tmp = ft_gc_split(ft_gc_strtrim(ft_gc_substr(cmd, 1, ft_strlen(cmd) - 1), " "), ' ');
+	if (tmp[0])
+		filename = ft_gc_strtrim(tmp[0], "<");
+	if (tmp[1])
+		command->args = &tmp[1];
 	return (filename);
 }

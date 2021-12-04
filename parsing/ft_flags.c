@@ -7,9 +7,11 @@ static void ft_set_infile(t_command *command)
 {
 	char *file_name;
 	
-	file_name = ft_gc_strtrim(ft_get_cmd_filename(command->original_string), "<");
+	file_name = ft_gc_strtrim(ft_get_cmd_filename(command, command->original_string), "<");
 	command->in_flag = IN;
+	command->out_flag = IN;
 	command->files = ft_new_file(file_name, file_name, 0, 0);
+	printf("SETTING INFILE!\n");
 }
 
 /*
@@ -32,7 +34,10 @@ void	ft_set_flags(t_command *command)
 	else if (ft_strnstr_nowhere_quotes(command->original_string, "<", ft_strlen(command->original_string)))
 		ft_set_infile(command);
 	else if (ft_strnstr_nowhere_quotes(command->original_string, ">", ft_strlen(command->original_string)))
+	{
 		command->out_flag = OUT;
+		printf("SETTING OUTFILE!\n");
+	}
 	else if (ft_strnstr_nowhere_quotes(command->original_string, ">>", ft_strlen(command->original_string)))
 		command->out_flag = APPEND;
 }
