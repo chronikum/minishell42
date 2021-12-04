@@ -84,20 +84,15 @@ t_command	*ft_parse_in_commands(char *cmds)
 		if (quotes_closed && ft_single_inset(
 				cmds[i], "|") != -1 && single_closed && quotes_closed)
 		{
-			ft_commandaddback(
-				&list,
-				ft_create_new_command(ft_gc_substr(cmds, start, i - start))
-				);
-			start++;
+			ft_commandaddback(&list,
+				ft_create_new_command(ft_gc_substr(cmds, start, i - start)));
 			start = i;
 		}
-		ft_single_double_quote_handler(
-			cmds, &i, &quotes_closed, &single_closed);
+		ft_single_double_quote_handler(cmds,
+			&i, &quotes_closed, &single_closed);
 	}
-	ft_commandaddback(
-		&list,
-		ft_create_new_command(ft_gc_substr(cmds, start, i - start))
-		);
+	ft_commandaddback(&list,
+		ft_create_new_command(ft_gc_substr(cmds, start, i - start)));
 	if (ft_get_last_command(list)->out_flag == 0)
 		ft_get_last_command(list)->out_flag = -1;
 	ft_command_debug(list);

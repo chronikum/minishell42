@@ -6,16 +6,6 @@ static void	ft_reset_static_vars(unsigned int *i, unsigned int *saved)
 	(*i) = 0;
 }
 
-// /*
-// 	Skips a set of chars in the string
-// 	and increments i pointer
-// */
-// static void	ft_skip_char_set(char *str, int *i, char *set)
-// {
-// 	while (ft_single_inset(str[(*i)], set) != -1)
-// 		(*i)++;
-// }
-
 static char	*ft_get_next_word(char *cmd, int r, char *set)
 {
 	static unsigned int	saved = 0;

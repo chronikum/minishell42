@@ -2,8 +2,8 @@
 
 int	ft_increase_until_change(int *q1, int *q2, int *q3, char *temp)
 {
-	unsigned int i;
-	
+	unsigned int	i;
+
 	i = 0;
 	while (!(*q1) || !(*q2))
 	{
