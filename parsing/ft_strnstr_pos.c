@@ -38,7 +38,6 @@ int	ft_strnstr_now_quotes_pos(
 	return (-1);
 }
 
-
 /*
 	Returns the index of a strnstr pos
 */
