@@ -6,7 +6,7 @@
 /*   By: olgerret <olgerret@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/04 17:30:15 by olgerret          #+#    #+#             */
-/*   Updated: 2021/12/04 17:30:16 by olgerret         ###   ########.fr       */
+/*   Updated: 2021/12/04 17:45:27 by olgerret         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -249,6 +249,7 @@ int			ft_append_or_out(t_command *command);
 
 char		*ft_gc_strrev(char *string);
 
-void		ft_increase_until_change(int *q1, int *q2, int *q3, char *temp, unsigned int *i);
+void		ft_increase_until_change(int *q1, int *q2,
+				int *q3, char *temp, unsigned int *i);
 
 #endif
