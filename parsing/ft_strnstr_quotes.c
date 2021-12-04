@@ -20,12 +20,11 @@ char	*ft_strnstr_quotes(const char *haystack, const char *needle, size_t len)
 		while (haystack[i + j] == needle[j]
 			&& needle[j] != '\0' && (i + j) < len && quote_closed)
 		{
-			ft_increase_ui_quote_handler(
-				(char *) &haystack[i], &j, &quote_closed);
+			ft_inc_uqh((char *) &haystack[i], &j, &quote_closed);
 			if (j == needle_len)
 				return (&phaystack[i]);
 		}
-		ft_increase_ui_quote_handler((char *) haystack, &i, &quote_closed);
+		ft_inc_uqh((char *) haystack, &i, &quote_closed);
 		j = 0;
 	}
 	return (NULL);
@@ -55,13 +54,11 @@ char	*ft_strnstr_single_quotes(
 		while (haystack[i + j] == needle[j]
 			&& needle[j] != '\0' && (i + j) < len && quote_closed)
 		{
-			ft_increase_ui_singlequote_handler(
-					(char *) &haystack[i], &j, &quote_closed);
+			ft_incs_uihand((char *) &haystack[i], &j, &quote_closed);
 			if (j == needle_len)
 				return (&phaystack[i]);
 		}
-		ft_increase_ui_singlequote_handler(
-			(char *) haystack, &i, &quote_closed);
+		ft_incs_uihand((char *) haystack, &i, &quote_closed);
 		j = 0;
 	}
 	return (NULL);

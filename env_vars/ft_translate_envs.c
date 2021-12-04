@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_translate_envs.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: olgerret <olgerret@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jfritz <jfritz@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/04 17:27:51 by olgerret          #+#    #+#             */
-/*   Updated: 2021/12/04 17:27:52 by olgerret         ###   ########.fr       */
+/*   Updated: 2021/12/04 18:56:23 by jfritz           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,7 @@ char	*ft_translate_envs(char *command)
 		{
 			ft_strncat(result, &command[i], 1);
 			total++;
-			ft_increase_ui_singlequote_handler(command, &i, &quote_closed);
+			ft_incs_uihand(command, &i, &quote_closed);
 		}
 		else
 		{

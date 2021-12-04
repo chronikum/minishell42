@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_insert_exit_code.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: olgerret <olgerret@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jfritz <jfritz@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/04 17:28:18 by olgerret          #+#    #+#             */
-/*   Updated: 2021/12/04 17:28:19 by olgerret         ###   ########.fr       */
+/*   Updated: 2021/12/04 18:56:23 by jfritz           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,7 @@ char	*ft_insert_exit_code(char *command)
 		{
 			ft_strncat(result, &command[i], 1);
 			total++;
-			ft_increase_ui_singlequote_handler(command, &i, &quote_closed);
+			ft_incs_uihand(command, &i, &quote_closed);
 		}
 		else
 		{

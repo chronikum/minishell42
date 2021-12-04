@@ -6,7 +6,7 @@
 /*   By: jfritz <jfritz@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/04 17:30:15 by olgerret          #+#    #+#             */
-/*   Updated: 2021/12/04 18:50:57 by jfritz           ###   ########.fr       */
+/*   Updated: 2021/12/04 18:56:38 by jfritz           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -198,7 +198,7 @@ t_command	*ft_commandaddback(t_command **lst, t_command *new);
 t_command	*ft_newcommand(char *command);
 t_command	*ft_get_last_command(t_command *lst);
 void		ft_increase_i_quote_handler(char *cmd, int *i, int *quote);
-void		ft_increase_ui_quote_handler(
+void		ft_inc_uqh(
 				char *cmd, unsigned int *i, int *quote);
 void		ft_toggle_quote(int *quote_toggle);
 int			ft_strlen_not_quoted(char *str, char const *set);
@@ -221,8 +221,7 @@ char		*ft_insert_exit_code(char *command);
 
 void		ft_increase_i_singlequote_handler(
 				char *cmd, int *i, int *quote);
-void		ft_increase_ui_singlequote_handler(
-				char *cmd, unsigned int *i, int *quote);
+void		ft_incs_uihand(char *cmd, unsigned int *i, int *quote);
 char		*ft_strnstr_nowhere_quotes(
 				const char *haystack, const char *needle, size_t len);
 void		ft_singlequote_handler(char *cmd, int *quote);

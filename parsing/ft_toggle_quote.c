@@ -24,8 +24,7 @@ void	ft_toggle_quote(int *quote_toggle)
 /*
 	Increases counter by one and toggles quote counter if it encounters one
 */
-void	ft_increase_ui_quote_handler(char *cmd,
-	unsigned int *i, int *quote)
+void	ft_inc_uqh(char *cmd, unsigned int *i, int *quote)
 {
 	if (cmd[(*i)] == '"')
 		ft_toggle_quote(quote);

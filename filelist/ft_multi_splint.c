@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_multi_splint.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: olgerret <olgerret@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jfritz <jfritz@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/04 17:28:44 by olgerret          #+#    #+#             */
-/*   Updated: 2021/12/04 17:28:45 by olgerret         ###   ########.fr       */
+/*   Updated: 2021/12/04 18:52:44 by jfritz           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,11 +36,11 @@ static char	*ft_get_next_word(char *cmd, int r, char *set)
 		quote_counter = 0;
 		if (temp[i] == '"')
 		{
-			ft_increase_ui_quote_handler(temp, &i, &quote_closed);
+			ft_inc_uqh(temp, &i, &quote_closed);
 			while (!quote_closed)
 			{
 				quote_counter++;
-				ft_increase_ui_quote_handler(temp, &i, &quote_closed);
+				ft_inc_uqh(temp, &i, &quote_closed);
 			}
 			return (ft_gc_strtrim(ft_gc_substr(temp,
 						saved, (quote_counter + 1)), " "));
@@ -48,13 +48,13 @@ static char	*ft_get_next_word(char *cmd, int r, char *set)
 		if ((ft_single_inset(temp[i], set) != -1) && quote_closed)
 		{
 			while ((ft_single_inset(temp[i], set) != -1) && temp[i])
-				ft_increase_ui_quote_handler(temp, &i, &quote_closed);
+				ft_inc_uqh(temp, &i, &quote_closed);
 			return (ft_gc_strtrim(ft_gc_substr(temp,
 						saved, ft_strlen_set(&temp[saved], set)), " "));
 		}
 		while ((ft_single_inset(temp[i], set) != -1) && temp[i])
-			ft_increase_ui_quote_handler(temp, &i, &quote_closed);
-		ft_increase_ui_quote_handler(temp, &i, &quote_closed);
+			ft_inc_uqh(temp, &i, &quote_closed);
+		ft_inc_uqh(temp, &i, &quote_closed);
 	}
 	return (ft_gc_strtrim(ft_gc_substr(temp,
 				saved, ft_strlen_set(&temp[saved], set)), " "));
