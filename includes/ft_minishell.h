@@ -6,7 +6,7 @@
 /*   By: jfritz <jfritz@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/04 17:30:15 by olgerret          #+#    #+#             */
-/*   Updated: 2021/12/05 11:57:04 by jfritz           ###   ########.fr       */
+/*   Updated: 2021/12/05 12:24:01 by jfritz           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -252,4 +252,5 @@ int			ft_increase_until_change(int *q1, int *q2, int *q3, char *temp);
 void	ft_strncincrtotaluihand(char *command, t_envit *h);
 char	*ft_increase_and_return_quote(t_gnw_splint *gnw, unsigned int *i, unsigned int *saved);
 void	ft_command_debug(t_command *start);
+void	ft_strinc_exitcode_aux(char *command, t_exit_code_aux *h);
 #endif

@@ -50,7 +50,7 @@ ENV_VARS = ./env_vars/ft_translate_envs.c
 
 EXIT_CODE = ./exit_code/ft_insert_exit_code.c ./exit_code/ft_exit_magic.c
 
-AUX = ./env_vars/ft_env_aux.c
+AUX = ./env_vars/ft_env_aux.c ./exit_code/ft_exit_code_aux.c
 
 # from home
 ifeq ($(USER), jonathanfritz)

@@ -6,7 +6,7 @@
 /*   By: jfritz <jfritz@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/04 17:28:18 by olgerret          #+#    #+#             */
-/*   Updated: 2021/12/05 12:20:51 by jfritz           ###   ########.fr       */
+/*   Updated: 2021/12/05 12:25:14 by jfritz           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,11 +96,7 @@ char	*ft_insert_exit_code(char *command)
 		else
 		{
 			while (!aux->quote_closed)
-			{
-				ft_strncat(aux->result, &command[aux->i], 1);
-				aux->total++;
-				ft_single_increase_i_quote_handler(command, &aux->i, &aux->quote_closed);
-			}
+				ft_strinc_exitcode_aux(command, aux);
 		}
 	}
 	aux->result[aux->total] = '\0';
