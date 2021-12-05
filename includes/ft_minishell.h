@@ -6,7 +6,7 @@
 /*   By: jfritz <jfritz@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/04 17:30:15 by olgerret          #+#    #+#             */
-/*   Updated: 2021/12/05 15:40:26 by jfritz           ###   ########.fr       */
+/*   Updated: 2021/12/05 19:17:35 by jfritz           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -243,4 +243,5 @@ void		ft_fs_skip_until_notinset(t_fs_aux *fs_aux,
 				unsigned int *i, char *set);
 char		*ft_return_cq_filename(t_fs_aux *fx, unsigned int *i,
 				char *set, unsigned int saved);
+t_files		*ft_filelist_returnval(t_files *start, t_files *files);
 #endif

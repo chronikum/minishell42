@@ -27,3 +27,17 @@ void	ft_fs_skip_until_notinset(t_fs_aux *fs_aux,
 				set) != -1) && fs_aux->temp[(*i)])
 		ft_inc_uqh(fs_aux->temp, i, &fs_aux->quote_closed);
 }
+
+/*
+	Returns the return value. Also handles it if no files
+	are present at all (delimiter missing)
+*/
+t_files	*ft_filelist_returnval(t_files *start, t_files *files)
+{
+	if (!files)
+		return (NULL);
+	files->is_last = 1;
+	if (files->is_last)
+		return (start);
+	return (start->next);
+}

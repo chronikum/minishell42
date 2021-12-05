@@ -6,7 +6,7 @@
 /*   By: jfritz <jfritz@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/04 17:28:37 by olgerret          #+#    #+#             */
-/*   Updated: 2021/12/05 15:02:45 by jfritz           ###   ########.fr       */
+/*   Updated: 2021/12/05 19:19:13 by jfritz           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,8 +80,5 @@ t_files	*ft_create_file_list(char *com)
 			ft_create_head(&start, &files, com, result[i]);
 		i++;
 	}
-	files->is_last = 1;
-	if (files->is_last)
-		return (start);
-	return (start->next);
+	return (ft_filelist_returnval(start, files));
 }
