@@ -44,7 +44,7 @@ DEBUGGING = ./debug_help/ft_translate_flags.c ./debug_help/ft_print_files.c
 STRHELPER = ./helper/strhelper/ft_strtouppercase.c ./helper/strhelper/ft_strtolowercase.c ./helper/ft_spongebob_strncmp.c \
 			./helper/ft_strrev.c
 
-FILELIST = ./filelist/ft_create_file_list.c ./filelist/ft_multi_splint.c ./parsing/ft_file_splitter.c
+FILELIST = ./filelist/ft_create_file_list.c ./parsing/ft_file_splitter.c
 
 ENV_VARS = ./env_vars/ft_translate_envs.c
 
