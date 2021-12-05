@@ -4,7 +4,7 @@ t_gnw_splint	*ft_new_gnw(char *cmd)
 {
 	t_gnw_splint	*gnw;
 
-	gnw = malloc(sizeof(t_gnw_splint));
+	gnw = ft_malloc(sizeof(t_gnw_splint));
 	gnw->q[0] = 1;
 	gnw->q[1] = 1;
 	gnw->q[2] = 0;

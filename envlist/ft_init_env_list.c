@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_init_env_list.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: olgerret <olgerret@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jfritz <jfritz@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/04 17:28:10 by olgerret          #+#    #+#             */
-/*   Updated: 2021/12/04 17:28:11 by olgerret         ###   ########.fr       */
+/*   Updated: 2021/12/05 12:07:34 by jfritz           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,16 @@ t_envlist	*ft_new_list(char *f, char *n, char *c, char **envp)
 }
 
 /*
+	Appends to the list or creates it
+*/
+void	ft_append_to_list(char *command,
+		char **c_spl, char **envp, t_envlist **env_list)
+{
+	(*env_list)->next = ft_new_list(command, c_spl[0], c_spl[1], envp);
+	(*env_list) = (*env_list)->next;
+}
+
+/*
 	Creates the environment linked list
 */
 t_envlist	*ft_create_env_list(char **envp)
@@ -51,7 +61,7 @@ t_envlist	*ft_create_env_list(char **envp)
 	t_envlist	*start;
 	size_t		i;
 	char		*command;
-	char		**command_split;
+	char		**c_spl;
 
 	env_list = NULL;
 	start = NULL;
@@ -59,19 +69,14 @@ t_envlist	*ft_create_env_list(char **envp)
 	while (ft_get_env_count(envp) > i)
 	{
 		command = envp[i];
-		command_split = ft_gc_split(envp[i], '=');
+		c_spl = ft_gc_split(envp[i], '=');
 		if (!env_list)
 		{
-			env_list = ft_new_list(command,
-					command_split[0], command_split[1], envp);
+			env_list = ft_new_list(command, c_spl[0], c_spl[1], envp);
 			start = env_list;
 		}
 		else
-		{
-			env_list->next = ft_new_list(command,
-					command_split[0], command_split[1], envp);
-			env_list = env_list->next;
-		}
+			ft_append_to_list(command, c_spl, envp, &env_list);
 		i++;
 	}
 	return (start);
