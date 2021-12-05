@@ -3,7 +3,7 @@
 t_gnw_splint	*ft_new_gnw(char *cmd)
 {
 	t_gnw_splint	*gnw;
-	
+
 	gnw = malloc(sizeof(t_gnw_splint));
 	gnw->q[0] = 1;
 	gnw->q[1] = 1;
@@ -51,8 +51,8 @@ char	*ft_get_next_word(char *cmd, int r)
 {
 	static unsigned int	saved = 0;
 	static unsigned int	i = 0;
-	t_gnw_splint	*gnw;
-	
+	t_gnw_splint		*gnw;
+
 	gnw = ft_new_gnw(cmd);
 	saved = i;
 	if (r)
@@ -66,8 +66,8 @@ char	*ft_get_next_word(char *cmd, int r)
 		{
 			while (gnw->temp[i] == ' ' && gnw->temp[i])
 				ft_usdq_handler(gnw->temp, &i, &gnw->q[0], &gnw->q[1]);
-			return (ft_gc_strtrim(ft_gc_substr(
-						gnw->temp, saved, ft_strlenc(&gnw->temp[saved], ' ')), " "));
+			return (ft_gc_strtrim(ft_gc_substr(gnw->temp,
+						saved, ft_strlenc(&gnw->temp[saved], ' ')), " "));
 		}
 		ft_usdq_handler(gnw->temp, &i, &gnw->q[0], &gnw->q[1]);
 	}
@@ -80,14 +80,12 @@ char	**ft_splint(char *s)
 	char	**result;
 	char	*current;
 	int		i;
-	int		wc;
 	char	*to_use;
 
 	i = 0;
 	to_use = ft_gc_substr(s, 0, ft_strlen_not_any_quoted(s, "<>"));
 	current = NULL;
-	wc = ft_new_word_counter(to_use);
-	result = ft_malloc(sizeof(char *) * (wc + 1));
+	result = ft_malloc(sizeof(char *) * (ft_new_word_counter(to_use) + 1));
 	while (current || i == 0)
 	{
 		if (!current)
