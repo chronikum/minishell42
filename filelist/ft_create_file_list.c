@@ -6,7 +6,7 @@
 /*   By: jfritz <jfritz@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/04 17:28:37 by olgerret          #+#    #+#             */
-/*   Updated: 2021/12/05 14:45:18 by jfritz           ###   ########.fr       */
+/*   Updated: 2021/12/05 14:49:37 by jfritz           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,12 @@ t_files	*ft_new_file(char *filename, char *path, int in, int out)
 	return (new);
 }
 
+static	void	ft_cr_ret_next(t_files **files, char *fn, int i, int o)
+{
+	(*files)->next = ft_new_file(fn, fn, i, o);
+	(*files) = (*files)->next;
+}
+
 /*
 	Creates a file list depening on the command char array input
 */
@@ -66,10 +72,7 @@ t_files	*ft_create_file_list(char *com)
 	while (result[i])
 	{
 		if (files)
-		{
-			files->next = ft_new_file(result[i], result[i], 0, 0);
-			files = files->next;
-		}
+			ft_cr_ret_next(&files, result[i], 0, 0);
 		else
 		{
 			files = ft_new_file(result[i], result[i], 0, 0);
