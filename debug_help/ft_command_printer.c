@@ -27,13 +27,12 @@ void	ft_command_debug(t_command *start)
 			printf("	Command: 			%s\n", command_struct->command);
 			printf("	original_string: 		%s\n",
 				ft_gc_strtrim(command_struct->original_string, "<>| "));
-			printf("	delimiter: 				%s\n",
-				command_struct->delimiter);
+			printf("	delimiter: 			%s\n", command_struct->delimiter);
 			ft_arg_printer(command_struct->args);
 			if (command_struct->file)
 			{
 				printf("	file: 				%s|\n", command_struct->file);
-				printf("	FILE PATH LENGTH : 		%lu\n",
+				printf("	FILE PATH LENGTH : 	%lu\n",
 					ft_strlen(command_struct->file));
 			}
 			printf("	files: 			\n");
