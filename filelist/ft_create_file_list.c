@@ -6,7 +6,7 @@
 /*   By: jfritz <jfritz@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/04 17:28:37 by olgerret          #+#    #+#             */
-/*   Updated: 2021/12/05 14:34:05 by jfritz           ###   ########.fr       */
+/*   Updated: 2021/12/05 14:36:06 by jfritz           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,11 +58,9 @@ t_files	*ft_create_file_list(char *command)
 	i = 1;
 	start = NULL;
 	files = NULL;
-	ft_file_str = ft_substr(
-			command,
-			ft_strlen_not_any_quoted(command, "<>"),
-			ft_strlen(command) - ft_strlen_not_any_quoted(command, "<>")
-			);
+	ft_file_str = ft_substr(command,
+			ft_strlen_not_any_quoted(command, "<>"), ft_strlen(command)
+			- ft_strlen_not_any_quoted(command, "<>"));
 	result = ft_file_splitter(ft_file_str, "<>");
 	if (!result)
 		return (NULL);
@@ -78,8 +76,8 @@ t_files	*ft_create_file_list(char *command)
 		else
 		{
 			files = ft_new_file(result[i], result[i], 0, 0);
-			files->is_last = 0;
 			files->is_multiple = !!(ft_detect_mredirections(command) - 1);
+			files->is_last = 0;
 			start = files;
 		}
 		i++;
