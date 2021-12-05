@@ -6,7 +6,7 @@
 /*   By: jfritz <jfritz@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/04 17:28:18 by olgerret          #+#    #+#             */
-/*   Updated: 2021/12/04 18:56:23 by jfritz           ###   ########.fr       */
+/*   Updated: 2021/12/05 12:17:20 by jfritz           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,43 +60,49 @@ static	int	ft_total_count(char *command)
 	return (total);
 }
 
+t_exit_code_aux	*ft_create_exit_struct(char *command)
+{
+	t_exit_code_aux	*aux;
+	
+	aux = ft_malloc(sizeof(t_exit_code_aux));
+	aux->i = 0;
+	aux->quote_closed = 1;
+	aux->var_name = NULL;
+	aux->result = malloc(sizeof(char) * ft_total_count(command) + 1);
+	aux->total = 0;
+	return (aux);
+}
+
 char	*ft_insert_exit_code(char *command)
 {
-	unsigned int	i;
-	int				quote_closed;
-	char			*var_name;
-	char			*result;
-	int				total;
-
-	result = malloc(sizeof(char) * ft_total_count(command) + 1);
-	i = 0;
-	total = 0;
-	quote_closed = 1;
-	while (command[i])
+	t_exit_code_aux	*aux;
+	
+	aux = ft_create_exit_struct(command);
+	while (command[aux->i])
 	{
-		if (command[i] == '$' && command[i + 1] == '?' && quote_closed)
+		if (command[aux->i] == '$' && command[aux->i + 1] == '?' && aux->quote_closed)
 		{
-			var_name = ft_itoa(ft_set_most_recent_exit_code(0, 0));
-			ft_strncat(result, var_name, ft_strlen(var_name));
-			total += ft_strlen(var_name);
-			i += ft_strlen_set(&command[i], " |><\"+-");
+			aux->var_name = ft_itoa(ft_set_most_recent_exit_code(0, 0));
+			ft_strncat(aux->result, aux->var_name, ft_strlen(aux->var_name));
+			aux->total += ft_strlen(aux->var_name);
+			aux->i += ft_strlen_set(&command[aux->i], " |><\"+-");
 		}
-		else if (quote_closed)
+		else if (aux->quote_closed)
 		{
-			ft_strncat(result, &command[i], 1);
-			total++;
-			ft_incs_uihand(command, &i, &quote_closed);
+			ft_strncat(aux->result, &command[aux->i], 1);
+			aux->total++;
+			ft_incs_uihand(command, &aux->i, &aux->quote_closed);
 		}
 		else
 		{
-			while (!quote_closed)
+			while (!aux->quote_closed)
 			{
-				ft_strncat(result, &command[i], 1);
-				total++;
-				ft_single_increase_i_quote_handler(command, &i, &quote_closed);
+				ft_strncat(aux->result, &command[aux->i], 1);
+				aux->total++;
+				ft_single_increase_i_quote_handler(command, &aux->i, &aux->quote_closed);
 			}
 		}
 	}
-	result[total] = '\0';
-	return (result);
+	aux->result[aux->total] = '\0';
+	return (aux->result);
 }

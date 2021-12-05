@@ -23,6 +23,14 @@ typedef struct s_gnw_splint {
 	char	*temp;
 }	t_gnw_splint;
 
+typedef struct s_exit_code_aux {
+	unsigned int	i;
+	int				quote_closed;
+	char			*var_name;
+	char			*result;
+	int				total;
+}	t_exit_code_aux;
+
 t_strnstr	*ft_get_strnstr(char *needle, char *haystack);
 
 #endif
