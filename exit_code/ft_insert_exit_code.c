@@ -6,24 +6,11 @@
 /*   By: jfritz <jfritz@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/04 17:28:18 by olgerret          #+#    #+#             */
-/*   Updated: 2021/12/05 12:48:11 by jfritz           ###   ########.fr       */
+/*   Updated: 2021/12/05 13:27:14 by jfritz           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/ft_minishell.h"
-
-/*
-	Gets env value or an empty string
-*/
-static	char	*ft_get_value_from_env(char *key)
-{
-	t_envlist	*env;
-
-	env = ft_find_envlist(ft_gc_strtrim(key, "$\""));
-	if (env)
-		return (env->value);
-	return ("");
-}
 
 static	int	ft_total_count(char *command)
 {
@@ -40,8 +27,8 @@ static	int	ft_total_count(char *command)
 		if (command[i] == '$' && command[i + 1] == '?' && quote_closed)
 		{
 			var_name = ft_itoa(ft_set_most_recent_exit_code(0, 0));
-			i += ft_strlen_set(&command[i], " |><+-");
-			total += (int)ft_strlen(ft_get_value_from_env(var_name));
+			i += ft_strlen_set(&command[i], " |><+-\"");
+			total += (int)ft_strlen(var_name);
 		}
 		ft_incs_uihand(command, &i, &quote_closed);
 		total++;
