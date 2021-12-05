@@ -6,21 +6,11 @@
 /*   By: jfritz <jfritz@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/04 17:28:37 by olgerret          #+#    #+#             */
-/*   Updated: 2021/12/05 14:49:37 by jfritz           ###   ########.fr       */
+/*   Updated: 2021/12/05 15:02:45 by jfritz           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/ft_minishell.h"
-
-int	ft_file_count(char **argv)
-{
-	int	i;
-
-	i = 0;
-	while (argv[i] != NULL)
-		i++;
-	return (i);
-}
 
 /*
 	Creates a new file list with given values
@@ -50,6 +40,20 @@ static	void	ft_cr_ret_next(t_files **files, char *fn, int i, int o)
 	(*files) = (*files)->next;
 }
 
+static	void	ft_create_head(t_files **s, t_files **l, char *com, char *fn)
+{
+	(*l) = ft_new_file(fn, fn, 0, 0);
+	(*l)->is_multiple = !!(ft_detect_mredirections(com) - 1);
+	(*l)->is_last = 0;
+	(*s) = (*l);
+}
+
+static	void	ft_init_file_lists(t_files **start, t_files **files)
+{
+	(*start) = NULL;
+	(*files) = NULL;
+}
+
 /*
 	Creates a file list depening on the command char array input
 */
@@ -62,8 +66,7 @@ t_files	*ft_create_file_list(char *com)
 	char		*ft_file_str;
 
 	i = 1;
-	start = NULL;
-	files = NULL;
+	ft_init_file_lists(&start, &files);
 	ft_file_str = ft_substr(com, ft_strlen_not_any_quoted(com, "<>"),
 			ft_strlen(com) - ft_strlen_not_any_quoted(com, "<>"));
 	result = ft_file_splitter(ft_file_str, "<>");
@@ -74,12 +77,7 @@ t_files	*ft_create_file_list(char *com)
 		if (files)
 			ft_cr_ret_next(&files, result[i], 0, 0);
 		else
-		{
-			files = ft_new_file(result[i], result[i], 0, 0);
-			files->is_multiple = !!(ft_detect_mredirections(com) - 1);
-			files->is_last = 0;
-			start = files;
-		}
+			ft_create_head(&start, &files, com, result[i]);
 		i++;
 	}
 	files->is_last = 1;

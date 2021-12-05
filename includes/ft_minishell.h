@@ -6,7 +6,7 @@
 /*   By: jfritz <jfritz@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/04 17:30:15 by olgerret          #+#    #+#             */
-/*   Updated: 2021/12/05 14:29:04 by jfritz           ###   ########.fr       */
+/*   Updated: 2021/12/05 15:00:45 by jfritz           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -253,4 +253,5 @@ void	ft_strncincrtotaluihand(char *command, t_envit *h);
 char	*ft_increase_and_return_quote(t_gnw_splint *gnw, unsigned int *i, unsigned int *saved);
 void	ft_command_debug(t_command *start);
 void	ft_strinc_exitcode_aux(char *command, t_exit_code_aux *h);
+int		ft_file_count(char **argv);
 #endif
