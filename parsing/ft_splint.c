@@ -1,5 +1,17 @@
 #include "../includes/ft_minishell.h"
 
+t_gnw_splint	*ft_new_gnw(char *cmd)
+{
+	t_gnw_splint	*gnw;
+	
+	gnw = malloc(sizeof(t_gnw_splint));
+	gnw->q[0] = 1;
+	gnw->q[1] = 1;
+	gnw->q[2] = 0;
+	gnw->temp = ft_gc_strtrim(cmd, "| ");
+	return (gnw);
+}
+
 /*
 	Counts words. Can handle quotes with ease.
 */
@@ -39,36 +51,32 @@ char	*ft_get_next_word(char *cmd, int r)
 {
 	static unsigned int	saved = 0;
 	static unsigned int	i = 0;
-	int					q[3];
-	char				*temp;
-
-	q[0] = 1;
-	q[1] = 1;
-	q[2] = 0;
-	temp = ft_gc_strtrim(cmd, "| ");
+	t_gnw_splint	*gnw;
+	
+	gnw = ft_new_gnw(cmd);
 	saved = i;
 	if (r)
 		ft_reset_static_vars(&i, &saved);
-	while (temp[i])
+	while (gnw->temp[i])
 	{
-		q[2] = 0;
-		if (temp[i] == '"' || temp[i] == '\'')
+		gnw->q[2] = 0;
+		if (gnw->temp[i] == '"' || gnw->temp[i] == '\'')
 		{
-			ft_usdq_handler(temp, &i, &q[0], &q[1]);
-			i += ft_increase_until_change(&q[0], &q[1], &q[2], &temp[i]);
-			return (ft_gc_strtrim(ft_gc_substr(temp, saved, (q[2] + 1)), " "));
+			ft_usdq_handler(gnw->temp, &i, &gnw->q[0], &gnw->q[1]);
+			i += ft_increase_until_change(&gnw->q[0], &gnw->q[1], &gnw->q[2], &gnw->temp[i]);
+			return (ft_gc_strtrim(ft_gc_substr(gnw->temp, saved, (gnw->q[2] + 1)), " "));
 		}
-		if (temp[i] == ' ' && q[0] && q[1])
+		if (gnw->temp[i] == ' ' && gnw->q[0] && gnw->q[1])
 		{
-			while (temp[i] == ' ' && temp[i])
-				ft_usdq_handler(temp, &i, &q[0], &q[1]);
+			while (gnw->temp[i] == ' ' && gnw->temp[i])
+				ft_usdq_handler(gnw->temp, &i, &gnw->q[0], &gnw->q[1]);
 			return (ft_gc_strtrim(ft_gc_substr(
-						temp, saved, ft_strlenc(&temp[saved], ' ')), " "));
+						gnw->temp, saved, ft_strlenc(&gnw->temp[saved], ' ')), " "));
 		}
-		ft_usdq_handler(temp, &i, &q[0], &q[1]);
+		ft_usdq_handler(gnw->temp, &i, &gnw->q[0], &gnw->q[1]);
 	}
-	return (ft_gc_strtrim(ft_gc_substr(temp,
-				saved, ft_strlenc(&temp[saved], ' ')), " "));
+	return (ft_gc_strtrim(ft_gc_substr(gnw->temp,
+				saved, ft_strlenc(&gnw->temp[saved], ' ')), " "));
 }
 
 char	**ft_splint(char *s)
