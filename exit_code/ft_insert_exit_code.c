@@ -6,22 +6,11 @@
 /*   By: jfritz <jfritz@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/04 17:28:18 by olgerret          #+#    #+#             */
-/*   Updated: 2021/12/05 12:25:14 by jfritz           ###   ########.fr       */
+/*   Updated: 2021/12/05 12:28:02 by jfritz           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/ft_minishell.h"
-
-/*
-	Increases counter by one and toggles quote counter if it encounters one
-*/
-static void	ft_single_increase_i_quote_handler(char *cmd,
-	unsigned int *i, int *quote)
-{
-	if (cmd[(*i)] == '\'')
-		ft_toggle_quote(quote);
-	(*i)++;
-}
 
 /*
 	Gets env value or an empty string
@@ -54,7 +43,7 @@ static	int	ft_total_count(char *command)
 			i += ft_strlen_set(&command[i], " |><+-");
 			total += (int)ft_strlen(ft_get_value_from_env(var_name));
 		}
-		ft_single_increase_i_quote_handler(command, &i, &quote_closed);
+		ft_incs_uihand(command, &i, &quote_closed);
 		total++;
 	}
 	return (total);
@@ -68,7 +57,7 @@ t_exit_code_aux	*ft_create_exit_struct(char *command)
 	aux->i = 0;
 	aux->quote_closed = 1;
 	aux->var_name = NULL;
-	aux->result = malloc(sizeof(char) * ft_total_count(command) + 1);
+	aux->result = ft_malloc(sizeof(char) * ft_total_count(command) + 1);
 	aux->total = 0;
 	return (aux);
 }
