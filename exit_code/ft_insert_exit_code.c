@@ -6,7 +6,7 @@
 /*   By: jfritz <jfritz@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/04 17:28:18 by olgerret          #+#    #+#             */
-/*   Updated: 2021/12/05 15:53:29 by jfritz           ###   ########.fr       */
+/*   Updated: 2021/12/05 19:24:06 by jfritz           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ char	*ft_insert_exit_code(char *command)
 	h = ft_env_aux2(command);
 	while (command[h->i])
 	{
-		if (command[h->i] == '$' && command[h->i + 1] && h->qclosed)
+		if (command[h->i] == '$' && command[h->i + 1] == '?' && h->qclosed)
 		{
 			h->var_name = ft_itoa(ft_set_most_recent_exit_code(0, 0));
 			ft_strncat(h->result, h->var_name, ft_strlen(h->var_name));
