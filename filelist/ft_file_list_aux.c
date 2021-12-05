@@ -9,3 +9,21 @@ int	ft_file_count(char **argv)
 		i++;
 	return (i);
 }
+
+void	ft_fs_skip_to_quote_end(t_fs_aux *fs_aux, unsigned int *i)
+{
+	ft_inc_uqh(fs_aux->temp, i, &fs_aux->quote_closed);
+	while (!fs_aux->quote_closed)
+	{
+		fs_aux->quote_counter++;
+		ft_inc_uqh(fs_aux->temp, i, &fs_aux->quote_closed);
+	}
+}
+
+void	ft_fs_skip_until_notinset(t_fs_aux *fs_aux,
+		unsigned int *i, char *set)
+{
+	while ((ft_single_inset(fs_aux->temp[(*i)],
+				set) != -1) && fs_aux->temp[(*i)])
+		ft_inc_uqh(fs_aux->temp, i, &fs_aux->quote_closed);
+}

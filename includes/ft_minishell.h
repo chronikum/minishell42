@@ -6,7 +6,7 @@
 /*   By: jfritz <jfritz@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/04 17:30:15 by olgerret          #+#    #+#             */
-/*   Updated: 2021/12/05 15:18:36 by jfritz           ###   ########.fr       */
+/*   Updated: 2021/12/05 15:28:53 by jfritz           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -238,4 +238,7 @@ void		ft_command_debug(t_command *start);
 void		ft_strinc_exitcode_aux(char *command, t_exit_code_aux *h);
 int			ft_file_count(char **argv);
 t_fs_aux	*ft_new_split_aux(char *cmd);
+void		ft_fs_skip_to_quote_end(t_fs_aux *fs_aux, unsigned int *i);
+void	ft_fs_skip_until_notinset(t_fs_aux *fs_aux,
+		unsigned int *i, char *set);
 #endif

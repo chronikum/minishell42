@@ -13,8 +13,6 @@ static char	*ft_get_next_word(char *cmd, int r, char *set)
 	t_fs_aux	*fs_aux;
 	
 	fs_aux = ft_new_split_aux(cmd);
-	fs_aux->quote_closed = 1;
-	fs_aux->temp = ft_strtrim(cmd, " ");
 	saved = i;
 	if (r)
 		ft_reset_static_vars(&i, &saved);
@@ -23,28 +21,20 @@ static char	*ft_get_next_word(char *cmd, int r, char *set)
 		fs_aux->quote_counter = 0;
 		if (fs_aux->temp[i] == '"')
 		{
-			ft_inc_uqh(fs_aux->temp, &i, &fs_aux->quote_closed);
-			while (!fs_aux->quote_closed)
-			{
-				fs_aux->quote_counter++;
-				ft_inc_uqh(fs_aux->temp, &i, &fs_aux->quote_closed);
-			}
+			ft_fs_skip_to_quote_end(fs_aux, &i);
 			return (ft_gc_strtrim(ft_gc_substr(fs_aux->temp,
 						saved, (fs_aux->quote_counter + 1)), " "));
 		}
 		if ((ft_single_inset(fs_aux->temp[i], set) != -1) && fs_aux->quote_closed)
 		{
-			while ((ft_single_inset(fs_aux->temp[i], set) != -1) && fs_aux->temp[i])
-				ft_inc_uqh(fs_aux->temp, &i, &fs_aux->quote_closed);
+			ft_fs_skip_until_notinset(fs_aux, &i, set);
 			return (ft_gc_strtrim(ft_gc_substr(fs_aux->temp,
 						saved, ft_strlen_set(&fs_aux->temp[saved], set)), " "));
 		}
-		while ((ft_single_inset(fs_aux->temp[i], set) != -1) && fs_aux->temp[i])
-			ft_inc_uqh(fs_aux->temp, &i, &fs_aux->quote_closed);
+		ft_fs_skip_until_notinset(fs_aux, &i, set);
 		ft_inc_uqh(fs_aux->temp, &i, &fs_aux->quote_closed);
 	}
-	while ((ft_single_inset(fs_aux->temp[i], set) != -1) && fs_aux->temp[i])
-		ft_inc_uqh(fs_aux->temp, &i, &fs_aux->quote_closed);
+	ft_fs_skip_until_notinset(fs_aux, &i, set);
 	return (ft_gc_strtrim(ft_gc_substr(fs_aux->temp,
 				saved, ft_strlen_set(&fs_aux->temp[saved], set)), " "));
 }
