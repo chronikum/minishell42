@@ -10,33 +10,29 @@ static char	*ft_get_next_word(char *cmd, int r, char *set)
 {
 	static unsigned int	saved = 0;
 	static unsigned int	i = 0;
-	t_fs_aux	*fs_aux;
-	
-	fs_aux = ft_new_split_aux(cmd);
+	t_fs_aux			*fx;
+
+	fx = ft_new_split_aux(cmd);
 	saved = i;
 	if (r)
 		ft_reset_static_vars(&i, &saved);
-	while (fs_aux->temp[i])
+	while (fx->temp[i])
 	{
-		fs_aux->quote_counter = 0;
-		if (fs_aux->temp[i] == '"')
+		fx->quote_counter = 0;
+		if (fx->temp[i] == '"')
 		{
-			ft_fs_skip_to_quote_end(fs_aux, &i);
-			return (ft_gc_strtrim(ft_gc_substr(fs_aux->temp,
-						saved, (fs_aux->quote_counter + 1)), " "));
+			ft_fs_skip_to_quote_end(fx, &i);
+			return (ft_gc_strtrim(ft_gc_substr(fx->temp,
+						saved, (fx->quote_counter + 1)), " "));
 		}
-		if ((ft_single_inset(fs_aux->temp[i], set) != -1) && fs_aux->quote_closed)
-		{
-			ft_fs_skip_until_notinset(fs_aux, &i, set);
-			return (ft_gc_strtrim(ft_gc_substr(fs_aux->temp,
-						saved, ft_strlen_set(&fs_aux->temp[saved], set)), " "));
-		}
-		ft_fs_skip_until_notinset(fs_aux, &i, set);
-		ft_inc_uqh(fs_aux->temp, &i, &fs_aux->quote_closed);
+		if ((ft_single_inset(fx->temp[i], set) != -1) && fx->quote_closed)
+			return (ft_return_cq_filename(fx, &i, set, saved));
+		ft_fs_skip_until_notinset(fx, &i, set);
+		ft_inc_uqh(fx->temp, &i, &fx->quote_closed);
 	}
-	ft_fs_skip_until_notinset(fs_aux, &i, set);
-	return (ft_gc_strtrim(ft_gc_substr(fs_aux->temp,
-				saved, ft_strlen_set(&fs_aux->temp[saved], set)), " "));
+	ft_fs_skip_until_notinset(fx, &i, set);
+	return (ft_gc_strtrim(ft_gc_substr(fx->temp,
+				saved, ft_strlen_set(&fx->temp[saved], set)), " "));
 }
 
 char	**ft_file_splitter(char *s, char *splitter)
