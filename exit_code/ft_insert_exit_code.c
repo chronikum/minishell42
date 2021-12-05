@@ -6,7 +6,7 @@
 /*   By: jfritz <jfritz@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/04 17:28:18 by olgerret          #+#    #+#             */
-/*   Updated: 2021/12/05 14:02:00 by jfritz           ###   ########.fr       */
+/*   Updated: 2021/12/05 14:17:05 by jfritz           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,20 @@ static	int	ft_total_count(char *command)
 	}
 	return (total);
 }
+
+t_exit_code_aux	*ft_create_exit_struct(char *command)
+{
+	t_exit_code_aux	*aux;
+	
+	aux = ft_malloc(sizeof(t_exit_code_aux));
+	aux->i = 0;
+	aux->quote_closed = 1;
+	aux->var_name = NULL;
+	aux->result = ft_malloc(sizeof(char) * ft_total_count(command) + 1);
+	aux->total = 0;
+	return (aux);
+}
+
 
 char	*ft_insert_exit_code(char *command)
 {
