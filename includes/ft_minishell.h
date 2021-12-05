@@ -6,7 +6,7 @@
 /*   By: jfritz <jfritz@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/04 17:30:15 by olgerret          #+#    #+#             */
-/*   Updated: 2021/12/05 12:24:01 by jfritz           ###   ########.fr       */
+/*   Updated: 2021/12/05 14:29:04 by jfritz           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -168,7 +168,7 @@ int			ft_check_file(char *filename);
 char		*ft_find_executable_path(char *exec);
 void		ft_arg_printer(char **args);
 int			ft_detect_mredirections(char *command);
-char		**ft_file_splitter(char *s, char *splitter, int *size);
+char		**ft_file_splitter(char *s, char *splitter);
 void		ft_set_builtin_flag(t_command *command);
 void		ft_set_flags(t_command *command);
 void		ft_add_files(t_command *command);
