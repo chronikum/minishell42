@@ -6,11 +6,21 @@
 /*   By: jfritz <jfritz@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/04 17:28:37 by olgerret          #+#    #+#             */
-/*   Updated: 2021/12/05 14:29:11 by jfritz           ###   ########.fr       */
+/*   Updated: 2021/12/05 14:34:05 by jfritz           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/ft_minishell.h"
+
+int	ft_file_count(char **argv)
+{
+	int	i;
+
+	i = 0;
+	while (argv[i] != NULL)
+		i++;
+	return (i);
+}
 
 /*
 	Creates a new file list with given values
@@ -44,7 +54,7 @@ t_files	*ft_create_file_list(char *command)
 	t_files		*files;
 	t_files		*start;
 	char		*ft_file_str;
-	
+
 	i = 1;
 	start = NULL;
 	files = NULL;
@@ -60,7 +70,7 @@ t_files	*ft_create_file_list(char *command)
 	{
 		if (files)
 		{
-			files->is_multiple = !!(ft_array_len(result) - 1);
+			files->is_multiple = !!(ft_detect_mredirections(command) - 1);
 			files->next = ft_new_file(result[i], result[i], 0, 0);
 			files->is_last = 0;
 			files = files->next;
@@ -69,7 +79,7 @@ t_files	*ft_create_file_list(char *command)
 		{
 			files = ft_new_file(result[i], result[i], 0, 0);
 			files->is_last = 0;
-			files->is_multiple = !!(ft_array_len(result) - 1);
+			files->is_multiple = !!(ft_detect_mredirections(command) - 1);
 			start = files;
 		}
 		i++;
