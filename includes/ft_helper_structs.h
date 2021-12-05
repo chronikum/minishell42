@@ -31,6 +31,12 @@ typedef struct s_exit_code_aux {
 	int				total;
 }	t_exit_code_aux;
 
+typedef struct s_fs_aux {
+	int					quote_closed;
+	int					quote_counter;
+	char				*temp;
+}	t_fs_aux;
+
 t_strnstr	*ft_get_strnstr(char *needle, char *haystack);
 
 #endif
