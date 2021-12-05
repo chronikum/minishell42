@@ -61,11 +61,7 @@ char	*ft_get_next_word(char *cmd, int r)
 	{
 		gnw->q[2] = 0;
 		if (gnw->temp[i] == '"' || gnw->temp[i] == '\'')
-		{
-			ft_usdq_handler(gnw->temp, &i, &gnw->q[0], &gnw->q[1]);
-			i += ft_increase_until_change(&gnw->q[0], &gnw->q[1], &gnw->q[2], &gnw->temp[i]);
-			return (ft_gc_strtrim(ft_gc_substr(gnw->temp, saved, (gnw->q[2] + 1)), " "));
-		}
+			return (ft_increase_and_return_quote(gnw, &i, &saved));
 		if (gnw->temp[i] == ' ' && gnw->q[0] && gnw->q[1])
 		{
 			while (gnw->temp[i] == ' ' && gnw->temp[i])
