@@ -6,7 +6,7 @@
 /*   By: jfritz <jfritz@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/04 17:30:15 by olgerret          #+#    #+#             */
-/*   Updated: 2021/12/05 15:00:45 by jfritz           ###   ########.fr       */
+/*   Updated: 2021/12/05 15:07:13 by jfritz           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,18 +34,12 @@
 # include "../includes/ft_global.h"
 # include "ft_helper_structs.h"
 
-
-// IN
-# define IN 2 // <
-# define HERE_DOC 3 // << here doc
-
-// OUT
-# define STDOUT -1 // last command in chain
-# define PIPE 0 // |
-# define OUT 1 // >
-# define APPEND 4 // >> append
-
-// built_sys
+# define IN 2
+# define HERE_DOC 3
+# define STDOUT -1
+# define PIPE 0
+# define OUT 1
+# define APPEND 4
 # define BUILT_IN 5
 # define SYS 6
 # define SKIP 8
@@ -72,7 +66,6 @@ typedef struct s_files
 	int					is_last;
 	struct s_files		*next;
 }			t_files;
-// todo: add length of linked list
 
 typedef struct s_command
 {
@@ -89,7 +82,6 @@ typedef struct s_command
 	struct s_command	*next;
 }			t_command;
 
-//pipex
 typedef struct s_pipes
 {
 	int					in;
@@ -124,16 +116,13 @@ int			ft_strlen_set(char *cmd, char *set);
 char		*ft_get_cmd_filename(t_command *command, char *cmd);
 int			ft_spongebob_strncmp(char *s1, char *s2, int n);
 
-//envlist
 t_envlist	*ft_env_list(t_envlist *env_list);
 t_envlist	*ft_create_env_list(char **envp);
 
-//path_helpers
 int			ft_check_command(char *exec);
 char		*ft_join_path(char *path, char *executable);
 int			ft_check_file_exists(char *file);
 
-//pipex
 void		ft_pipex(t_pipes *p, t_command *commands, t_envlist *envp);
 void		ft_io(t_pipes *p, t_command *commands);
 void		ft_out_or_append(t_pipes *p, t_command *commands);
@@ -164,7 +153,6 @@ void		ft_command_not_found(char *command);
 int			ft_array_len(char **argv);
 int			ft_check_file(char *filename);
 
-//????
 char		*ft_find_executable_path(char *exec);
 void		ft_arg_printer(char **args);
 int			ft_detect_mredirections(char *command);
@@ -176,7 +164,6 @@ void		ft_set_heredoc(t_command *command, char *string);
 char		*ft_strnstr_quotes(const char *haystack,
 				const char *needle, size_t len);
 
-//buildins
 int			ft_pwd(void);
 int			ft_env(void);
 int			ft_echo(t_command *command);
@@ -184,17 +171,14 @@ int			builtin_export(char *cmd);
 int			ft_cd(t_command *command);
 int			ft_unset(t_command *command);
 
-//free_functions
 void		ft_custom_free(char **str1, char **str2, char SD);
 void		ft_single_free(char **string);
 void		ft_double_free(char	**string);
 void		ft_triple_free(char	***string);
 
-// libft functions which use ft_malloc instead
 char		**ft_gc_split(char const *s, char c);
 char		*ft_gc_strjoin(char const *s1, char const *s2);
 
-// Command list handling
 t_command	*ft_commandaddback(t_command **lst, t_command *new);
 t_command	*ft_newcommand(char *command);
 t_command	*ft_get_last_command(t_command *lst);
@@ -204,14 +188,12 @@ void		ft_inc_uqh(
 void		ft_toggle_quote(int *quote_toggle);
 int			ft_strlen_not_quoted(char *str, char const *set);
 
-// env lsit
 t_envlist	*ft_setenv(char *key, char *value);
 t_envlist	*ft_find_envlist(char *key);
 t_envlist	*ft_new_list(char *f, char *n, char *c, char **envp);
 void		ft_env_addback(t_envlist **lst, t_envlist *new);
 int			ft_del_envlist(char *key_to_delete);
 
-// prompt
 char		*ft_get_nice_prompt(void);
 void		set_shell_envvariable(void);
 
@@ -249,9 +231,10 @@ char		*ft_gc_strrev(char *string);
 
 int			ft_increase_until_change(int *q1, int *q2, int *q3, char *temp);
 
-void	ft_strncincrtotaluihand(char *command, t_envit *h);
-char	*ft_increase_and_return_quote(t_gnw_splint *gnw, unsigned int *i, unsigned int *saved);
-void	ft_command_debug(t_command *start);
-void	ft_strinc_exitcode_aux(char *command, t_exit_code_aux *h);
-int		ft_file_count(char **argv);
+void		ft_strncincrtotaluihand(char *command, t_envit *h);
+char		*ft_increase_and_return_quote(t_gnw_splint *gnw,
+				unsigned int *i, unsigned int *saved);
+void		ft_command_debug(t_command *start);
+void		ft_strinc_exitcode_aux(char *command, t_exit_code_aux *h);
+int			ft_file_count(char **argv);
 #endif

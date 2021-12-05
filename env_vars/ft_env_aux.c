@@ -5,7 +5,7 @@
 	char and increasing both total char count and
 	iterator through the existing string
 */
-void	ft_strncincrtotaluihand(char *command, t_envit *h)
+void ft_strncincrtotaluihand(char *command, t_envit *h)
 {
 	ft_strncat(h->result, &command[h->i], 1);
 	h->total++;
