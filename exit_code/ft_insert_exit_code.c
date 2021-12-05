@@ -6,7 +6,7 @@
 /*   By: jfritz <jfritz@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/04 17:28:18 by olgerret          #+#    #+#             */
-/*   Updated: 2021/12/05 12:17:20 by jfritz           ###   ########.fr       */
+/*   Updated: 2021/12/05 12:20:51 by jfritz           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ char	*ft_insert_exit_code(char *command)
 	{
 		if (command[aux->i] == '$' && command[aux->i + 1] == '?' && aux->quote_closed)
 		{
-			aux->var_name = ft_itoa(ft_set_most_recent_exit_code(0, 0));
+			aux->var_name = ft_gc_itoa(ft_set_most_recent_exit_code(0, 0));
 			ft_strncat(aux->result, aux->var_name, ft_strlen(aux->var_name));
 			aux->total += ft_strlen(aux->var_name);
 			aux->i += ft_strlen_set(&command[aux->i], " |><\"+-");

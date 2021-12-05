@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_gc_functions.h                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: olgerret <olgerret@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jfritz <jfritz@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/04 17:29:42 by olgerret          #+#    #+#             */
-/*   Updated: 2021/12/04 17:29:43 by olgerret         ###   ########.fr       */
+/*   Updated: 2021/12/05 12:20:21 by jfritz           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,5 +23,6 @@ char	*ft_gc_substr(char const *s, unsigned int start, int len);
 char	*ft_gc_strtrim(char const *s1, char const *set);
 int		ft_sb_strcmp(char *s1, char *s2);
 int		ft_strcmp_len(char *s1, char *s2);
+char	*ft_gc_itoa(int n);
 
 #endif
