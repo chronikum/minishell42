@@ -43,7 +43,7 @@ void	ft_command_debug(t_command *start)
 	Creates a command from a string which is guaranteed to be a single command
 	only. It contains out and infiles, quotes and spaces.
 */
-t_command	*ft_create_new_command(char *command_section)
+t_command	*ft_cr_com(char *command_section)
 {
 	t_command	*command;
 	char		**splitted_commands;
@@ -70,29 +70,25 @@ t_command	*ft_parse_in_commands(char *cmds)
 {
 	t_command	*list;
 	int			i;
-	int			quotes_closed;
-	int			single_closed;
-	int			start;
+	int			qs[3];
 
 	i = 0;
 	list = NULL;
-	quotes_closed = 1;
-	single_closed = 1;
-	start = 0;
+	qs[0] = 1;
+	qs[1] = 1;
+	qs[2] = 0;
 	while (cmds[i])
 	{
-		if (quotes_closed && ft_single_inset(
-				cmds[i], "|") != -1 && single_closed && quotes_closed)
+		if (qs[0] && ft_single_inset(
+				cmds[i], "|") != -1 && qs[1] && qs[0])
 		{
-			ft_commandaddback(&list,
-				ft_create_new_command(ft_gc_substr(cmds, start, i - start)));
-			start = i;
+			ft_commandaddback(&list, ft_cr_com(
+				ft_gc_substr(cmds, qs[2], i - qs[2])));
+			qs[2] = i;
 		}
-		ft_single_double_quote_handler(cmds,
-			&i, &quotes_closed, &single_closed);
+		ft_single_double_quote_handler(cmds, &i, &qs[0], &qs[1]);
 	}
-	ft_commandaddback(&list,
-		ft_create_new_command(ft_gc_substr(cmds, start, i - start)));
+	ft_commandaddback(&list, ft_cr_com(ft_gc_substr(cmds, qs[2], i - qs[2])));
 	if (ft_get_last_command(list)->out_flag == 0)
 		ft_get_last_command(list)->out_flag = -1;
 	ft_command_debug(list);
