@@ -10,7 +10,6 @@ t_command	*ft_cr_com(char *command_section)
 	char		**splitted_commands;
 
 	command = ft_newcommand(command_section);
-	printf("CREATING COMMAND SECTION: %s\n", command_section);
 	if (ft_check_infile(command, command_section))
 		return (command);
 	splitted_commands = ft_splint(command_section);
