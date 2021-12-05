@@ -6,7 +6,7 @@
 /*   By: jfritz <jfritz@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/04 17:28:18 by olgerret          #+#    #+#             */
-/*   Updated: 2021/12/05 12:28:02 by jfritz           ###   ########.fr       */
+/*   Updated: 2021/12/05 12:28:48 by jfritz           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,10 +83,8 @@ char	*ft_insert_exit_code(char *command)
 			ft_incs_uihand(command, &aux->i, &aux->quote_closed);
 		}
 		else
-		{
 			while (!aux->quote_closed)
 				ft_strinc_exitcode_aux(command, aux);
-		}
 	}
 	aux->result[aux->total] = '\0';
 	return (aux->result);
