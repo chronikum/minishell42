@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_file_splitter.c                                 :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: olgerret <olgerret@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/12/06 13:07:39 by olgerret          #+#    #+#             */
+/*   Updated: 2021/12/06 13:07:40 by olgerret         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../includes/ft_minishell.h"
 
 static void	ft_reset_static_vars(unsigned int *i, unsigned int *saved)
