@@ -56,6 +56,23 @@ Following flags are available:
 
 Those represent possible in_flags, out_flags and the builtin_sys_flag which basically tells the shell if it should look the command up in the $PATH or if is a builtin.
 
+## Compilation and debugging mode
+
+Compile the project and the libft dependencies with the command ``make``.
+
+Also, our shell has a debugging mode integrated. Please be aware that it can cause problems sometimes.
+\
+You can activate it with the command ``make debug``.
+
+
+## additional
+
+We have a garbage collector which basically makes sure that no orphans are being created. It keeps track of everything being allocated, at the end it frees all the allocated pointers. \
+Still, readline may leak. \
+The project was being modified after evaluation to fix things which came up during evaluation.
+
+Do not use the shell in real world environment. This is a project only built for educational purposes and it is neither secure, audited or performant in any way.
+
 ### requirements
 You need `readline` installed with `brew install readline` to use and make this shell.
 Also, mac-only. not tested on linux distributions.
