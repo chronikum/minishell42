@@ -6,11 +6,23 @@
 /*   By: jfritz <jfritz@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/22 14:02:05 by olgerret          #+#    #+#             */
-/*   Updated: 2021/12/08 09:22:24 by jfritz           ###   ########.fr       */
+/*   Updated: 2021/12/08 10:16:36 by jfritz           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_garbage_collector.h"
+
+/*
+	If malloc fails, we need to handle that accordingly. So let us
+	just exit with 1 after cleaning up memory!
+*/
+static void	*ft_no_memory(void)
+{
+	ft_freeall();
+	printf("Error: Out of memory. We protected our mallocs!");
+	exit(1);
+	return (NULL);
+}
 
 /*
 	Appends a new pointer
@@ -40,7 +52,7 @@ void	*ft_malloc(size_t size)
 		return (NULL);
 	new_p = malloc(sizeof(t_pointer) + size);
 	if (!new_p)
-		return (NULL);
+		return (ft_no_memory());
 	ft_append_to_pointer_mem(new_p);
 	return (new_p + sizeof(t_pointer));
 }
