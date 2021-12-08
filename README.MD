@@ -11,8 +11,9 @@ Here is an excerpt from wikipedia. You should look into it:
 \
 >In sociology, irrational escalation of commitment or commitment bias describe similar behaviors. The phenomenon and the sentiment underlying them are reflected in such proverbial images as "Throwing good money after bad", or "In for a penny, in for a pound", or "It's never the wrong time to make the right decision", or "If you find yourself in a hole, stop digging."
 
-We learned a lot from this project and it is not perfect. \
-We passed with 93% on the eval sheet.
+We learned a lot from this project and it is far from perfect. \
+We passed with 93% on the eval sheet. \
+We did not do any bonusses.
 
 ## Small Walkthrough
 
@@ -21,7 +22,7 @@ So we are skipping on that. This is a simple, very uncomplete documentation on h
 The input string is being splitted with awareness on quotes on pipes ``|``
 
 Each command section is being parsed to a linked list with the following information content:
-```
+```C
 typedef struct s_command
 {
 	char				*command;
@@ -41,7 +42,7 @@ After that, we run each command. As the command contains all information needed 
 
 Following flags are available:
 
-```
+```C
 # define IN 2
 # define HERE_DOC 3
 # define STDOUT -1
