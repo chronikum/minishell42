@@ -6,7 +6,7 @@
 /*   By: jfritz <jfritz@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/04 17:30:15 by olgerret          #+#    #+#             */
-/*   Updated: 2021/12/08 10:19:14 by jfritz           ###   ########.fr       */
+/*   Updated: 2021/12/08 10:28:22 by jfritz           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@
 # define SYS 6
 # define SKIP 8
 
-# define malloc(__size) NULL
+//# define malloc(__size) NULL
 
 /*
 	Environment list
