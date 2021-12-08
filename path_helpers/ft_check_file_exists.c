@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_check_file_exists.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: olgerret <olgerret@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jfritz <jfritz@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/22 14:04:02 by olgerret          #+#    #+#             */
-/*   Updated: 2021/11/22 14:04:03 by olgerret         ###   ########.fr       */
+/*   Updated: 2021/12/08 09:19:53 by jfritz           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int	ft_check_file_exists(char *file)
 	local_path = "";
 	if (!ft_strncmp("./", file, 2))
 	{
-		local_path = malloc(sizeof(char) * 4096);
+		local_path = ft_malloc(sizeof(char) * 4096);
 		local_path = getcwd(local_path, 4096);
 	}
 	temp_path = ft_join_path(local_path, file);

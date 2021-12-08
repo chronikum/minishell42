@@ -6,7 +6,7 @@
 /*   By: jfritz <jfritz@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/04 17:31:06 by olgerret          #+#    #+#             */
-/*   Updated: 2021/12/08 09:08:42 by jfritz           ###   ########.fr       */
+/*   Updated: 2021/12/08 09:20:53 by jfritz           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ void	ft_execute_terminal_command(char *command)
 	t_pipes		*p;
 	t_envlist	*envp;
 
-	p = malloc(sizeof(t_pipes));
+	p = ft_malloc(sizeof(t_pipes));
 	command = ft_insert_exit_code(command);
 	command = ft_translate_envs(command);
 	command = ft_gc_strtrim(command, " |>");

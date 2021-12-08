@@ -3,17 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   ft_malloc.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: olgerret <olgerret@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jfritz <jfritz@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/22 14:02:05 by olgerret          #+#    #+#             */
-/*   Updated: 2021/12/02 14:52:42 by olgerret         ###   ########.fr       */
+/*   Updated: 2021/12/08 09:22:24 by jfritz           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_garbage_collector.h"
 
 /*
-	Appends a new pointer 
+	Appends a new pointer
 */
 static void	ft_append_to_pointer_mem(t_pointer new_p)
 {

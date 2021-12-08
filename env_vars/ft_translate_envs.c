@@ -6,7 +6,7 @@
 /*   By: jfritz <jfritz@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/04 17:27:51 by olgerret          #+#    #+#             */
-/*   Updated: 2021/12/04 19:35:52 by jfritz           ###   ########.fr       */
+/*   Updated: 2021/12/08 09:20:37 by jfritz           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ t_envit	*ft_env_aux(char *command)
 	helper->i = 0;
 	helper->qclosed = 1;
 	helper->var_name = NULL;
-	helper->result = malloc(sizeof(char) * ft_total_count(command) + 1);
+	helper->result = ft_malloc(sizeof(char) * ft_total_count(command) + 1);
 	helper->total = 0;
 	return (helper);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_minishell_pipex_4.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: olgerret <olgerret@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jfritz <jfritz@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/04 17:30:40 by olgerret          #+#    #+#             */
-/*   Updated: 2021/12/04 17:30:41 by olgerret         ###   ########.fr       */
+/*   Updated: 2021/12/08 09:19:29 by jfritz           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ void	ft_execute(t_command *commands, t_envlist *envp)
 {
 	t_child	*c;
 
-	c = malloc(sizeof(t_child));
+	c = ft_malloc(sizeof(t_child));
 	if (commands->args[0][0] == '/')
 		c->full_path = commands->original_string;
 	else
