@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_set_heredoc.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: olgerret <olgerret@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jfritz <jfritz@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/06 13:07:30 by olgerret          #+#    #+#             */
-/*   Updated: 2021/12/06 13:07:31 by olgerret         ###   ########.fr       */
+/*   Updated: 2021/12/08 09:19:40 by jfritz           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ static char	*ft_get_delimiter(t_command *commmand, char *string, int d_pos)
 	{
 		if (heredoc_suffix[1])
 		{
-			commmand->args = malloc(sizeof(char *) * 2);
+			commmand->args = ft_malloc(sizeof(char *) * 2);
 			commmand->args[0] = heredoc_suffix[1];
 			commmand->args[1] = NULL;
 		}

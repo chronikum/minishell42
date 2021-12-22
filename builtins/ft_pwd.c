@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_pwd.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: olgerret <olgerret@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jfritz <jfritz@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/22 13:42:02 by olgerret          #+#    #+#             */
-/*   Updated: 2021/11/22 13:42:03 by olgerret         ###   ########.fr       */
+/*   Updated: 2021/12/08 09:21:20 by jfritz           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,11 +16,10 @@ int	ft_pwd(void)
 {
 	char	*str;
 
-	str = malloc(sizeof(char) * 4096);
+	str = ft_malloc(sizeof(char) * 4096);
 	str = getcwd(str, 4096);
 	if (!str)
 		return (1);
 	printf("%s\n", str);
-	free(str);
 	return (0);
 }

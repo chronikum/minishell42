@@ -1,23 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_calloc.c                                        :+:      :+:    :+:   */
+/*   ft_gc_calloc.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jfritz <jfritz@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/06/16 16:47:51 by olgerret          #+#    #+#             */
-/*   Updated: 2021/12/08 09:57:56 by jfritz           ###   ########.fr       */
+/*   Created: 2021/12/08 09:59:24 by jfritz            #+#    #+#             */
+/*   Updated: 2021/12/08 09:59:40 by jfritz           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "../includes/ft_minishell.h"
 
-void	*ft_calloc(size_t count, size_t size)
+void	*ft_gc_calloc(size_t count, size_t size)
 {
 	size_t	i;
 	char	*result;
 
-	result = malloc(count * size);
+	result = ft_malloc(count * size);
 	if (result == 0)
 		return (0);
 	i = 0;

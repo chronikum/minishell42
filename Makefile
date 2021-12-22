@@ -1,4 +1,4 @@
-CC = clang
+CC = gcc
 
 NAME = libft_minishell.a
 
@@ -23,7 +23,7 @@ PARSING = ./parsing/ft_parsing.c ./parsing/ft_splint.c ./parsing/ft_command_size
 			./parsing/ft_get_cmd_filename.c ./parsing/ft_get_last_command.c ./parsing/ft_detect_mredirections.c \
 			./parsing/ft_set_builtin.c ./parsing/ft_flags.c ./parsing/ft_add_files.c ./parsing/ft_check_infile.c \
 			./parsing/ft_set_heredoc.c ./parsing/ft_append_or_out.c ./parsing/ft_splint_aux.c
-		  
+
 QUOTE_TERROR =	./parsing/ft_toggle_double_quote.c ./parsing/ft_strnstr_quotes.c ./parsing/ft_toggle_single_quote.c \
 				./parsing/ft_strlen_not_quoted.c  ./parsing/ft_toggle_quote.c ./parsing/ft_strlen_not_any_quote.c \
 				./parsing/ft_strnstr_pos.c
@@ -33,7 +33,8 @@ FLAGS = -Wall -Wextra -Werror -g
 GARBAGE_COLLECTOR = ./gc/ft_free.c ./gc/ft_freeall.c ./gc/ft_gclststart.c ./gc/ft_malloc.c ./gc/ft_gc_memdup.c
 
 GC_LIBFT_VARIATIONS =	./helper/ft_gc_split.c ./helper/ft_gc_strjoin.c ./helper/ft_gc_strdup.c \
-						./helper/ft_gc_substr.c ./helper/ft_gc_strtrim.c ./helper/ft_gc_itoa.c
+						./helper/ft_gc_substr.c ./helper/ft_gc_strtrim.c ./helper/ft_gc_itoa.c \
+						./helper/ft_gc_calloc.c
 
 COMMANDLIST = ./parsing/ft_newcommand.c ./parsing/ft_commandaddback.c
 
@@ -95,7 +96,7 @@ debug: *.c
 	$(CC) $(CFLAGS) $(FLAGS) -L. -lft_minishell -o minishell
 	mkdir -p $(OUTFILES)
 	mv *.o $(OUTFILES)
-	
+
 debug_no_flags: *.c
 	make -C libft/
 	cp ./libft/libft.a ${NAME}

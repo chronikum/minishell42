@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strnstr_quotes.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: olgerret <olgerret@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jfritz <jfritz@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/06 13:07:21 by olgerret          #+#    #+#             */
-/*   Updated: 2021/12/06 13:07:22 by olgerret         ###   ########.fr       */
+/*   Updated: 2021/12/08 09:19:35 by jfritz           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ t_strnstr	*ft_get_strnstr(char *needle, char *haystack)
 {
 	t_strnstr	*strnstrn;
 
-	strnstrn = malloc(sizeof(t_strnstr));
+	strnstrn = ft_malloc(sizeof(t_strnstr));
 	strnstrn->i = 0;
 	strnstrn->j = 0;
 	strnstrn->needle_len = ft_strlen(needle);
