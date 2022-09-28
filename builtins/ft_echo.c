@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_echo.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: olgerret <olgerret@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jfritz <jfritz@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/22 13:41:55 by olgerret          #+#    #+#             */
-/*   Updated: 2021/11/22 13:42:29 by olgerret         ###   ########.fr       */
+/*   Updated: 2022/09/28 21:55:15 by jfritz           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,11 +103,9 @@ int	ft_has_n_flag(char *param)
  */
 int	ft_echo(t_command *command)
 {
-	char	*cmd;
 	int		n;
 	char	*string_to_echo;
-
-	cmd = command->args[0];
+	
 	n = ft_has_n_flag(command->args[1]);
 	if (n)
 	{

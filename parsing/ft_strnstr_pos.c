@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strnstr_pos.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: olgerret <olgerret@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jfritz <jfritz@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/06 13:07:22 by olgerret          #+#    #+#             */
-/*   Updated: 2021/12/06 13:07:23 by olgerret         ###   ########.fr       */
+/*   Updated: 2022/09/28 21:55:59 by jfritz           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,12 +50,10 @@ int	ft_strnstr_pos(const char *haystack, const char *needle, size_t len)
 	size_t	i;
 	size_t	j;
 	size_t	needle_len;
-	char	*phaystack;
 
 	i = 0;
 	j = 0;
 	needle_len = ft_strlen(needle);
-	phaystack = (char *)haystack;
 	if (needle[0] == '\0')
 		return (-1);
 	while (haystack[i] != '\0' && i < len)

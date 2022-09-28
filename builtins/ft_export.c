@@ -6,7 +6,7 @@
 /*   By: jfritz <jfritz@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/22 13:42:01 by olgerret          #+#    #+#             */
-/*   Updated: 2021/11/25 12:53:52 by jfritz           ###   ########.fr       */
+/*   Updated: 2022/09/28 21:55:42 by jfritz           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ int	builtin_export(char *cmd)
 	char	**splitted_keypair;
 
 	value = "";
+	(void) value;
 	splitted_parts = ft_gc_split(ft_gc_strtrim(cmd, " "), ' ');
 	if (splitted_parts[1])
 	{
