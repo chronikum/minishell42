@@ -3,14 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   ft_toggle_single_quote.c                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: olgerret <olgerret@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jfritz <jfritz@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/06 13:07:17 by olgerret          #+#    #+#             */
-/*   Updated: 2021/12/06 13:07:18 by olgerret         ###   ########.fr       */
+/*   Updated: 2022/07/20 19:07:39 by jfritz           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/ft_minishell.h"
+
 /*
 	Increases counter by one and toggles quote counter if it encounters one
 */

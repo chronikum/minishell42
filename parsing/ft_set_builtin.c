@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_set_builtin.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: olgerret <olgerret@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jfritz <jfritz@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/06 13:07:31 by olgerret          #+#    #+#             */
-/*   Updated: 2021/12/06 13:07:32 by olgerret         ###   ########.fr       */
+/*   Updated: 2022/11/02 07:46:23 by jfritz           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,7 @@ void	ft_set_builtin_flag(t_command *command)
 		command->builtin_sys_flag = 6;
 		return ;
 	}
+	if (!command->args) return ;
 	if (ft_check_builtin(ft_gc_strtrim(command->args[0], " ")))
 		command->builtin_sys_flag = BUILT_IN;
 	else if (ft_find_executable_path(command->args[0]))
